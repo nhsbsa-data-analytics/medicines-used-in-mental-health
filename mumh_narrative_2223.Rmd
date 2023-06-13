@@ -1,0 +1,46 @@
+---
+title: "`r config$publication_name`"
+pagetitle: MUMH England
+always_allow_html: true
+output:
+  word_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    anchor_sections: no
+    css: www/style.css
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: no
+---
+
+<script>
+  
+  $(document).ready(function() {
+    $('#header').prepend('<img src=`r knitr::image_uri("www/bsa_logo.svg")` alt=\"NHSBSA logo\" style=\"position:absolute; top: 0; right: 0; padding: 10px; width: 25%;\">');
+  });
+</script>
+
+<html lang="en">
+
+```{r setup, include=FALSE}
+
+# set code chunk options to disable echo by default
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+
+```
+<main>
+
+# `r config$publication_sub_name` {.toc-ignore}
+
+`r paste("Published", config$publication_date)`
+
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
+`r infoBox_border(header = "Feedback", text = paste0("We are interested in any feedback about the publication, which you can send by using our ", htmltools::HTML(paste("<a href='",config$stats_survey_link,"'>Official Statistics feedback survey</a>")),"."), width = "100%")` 
+::: 
+::::

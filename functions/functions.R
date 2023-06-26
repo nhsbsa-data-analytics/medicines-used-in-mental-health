@@ -2,15 +2,15 @@
 
 capture_rate_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))   
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
       dplyr::group_by(FINANCIAL_YEAR,
-                      `BNF section name` = SECTION_NAME,
-                      `BNF section code` = SECTION_CODE,
+                      `BNF section name` = SECTION_DESCR,
+                      `BNF section code` = BNF_SECTION,
                       PATIENT_IDENTIFIED) %>% 
       dplyr::summarise(ITEM_COUNT = sum(ITEM_COUNT, na.rm = T)) %>%
       dplyr::arrange(FINANCIAL_YEAR) %>%
@@ -30,8 +30,8 @@ capture_rate_extract_period <- function(con, period_type = c("year", "quarter"))
     #filter for quarter in function call
     fact <- fact_quarter %>%
       dplyr::group_by(FINANCIAL_QUARTER,
-                      `BNF section name` = SECTION_NAME,
-                      `BNF section code` = SECTION_CODE,
+                      `BNF section name` = SECTION_DESCR,
+                      `BNF section code` = BNF_SECTION,
                       PATIENT_IDENTIFIED) %>% 
       dplyr::summarise(ITEM_COUNT = sum(ITEM_COUNT, na.rm = T)) %>%
       dplyr::arrange(FINANCIAL_QUARTER) %>%
@@ -56,11 +56,11 @@ capture_rate_extract_period <- function(con, period_type = c("year", "quarter"))
 national_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   
   if (period_type == "year") {
     
@@ -77,8 +77,8 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -89,8 +89,8 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
     fact_national <- fact %>%
       dplyr::group_by(
         FINANCIAL_YEAR,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -100,7 +100,7 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
       ) %>%
       dplyr::arrange(
         FINANCIAL_YEAR,
-        SECTION_CODE,
+        BNF_SECTION,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -124,8 +124,8 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -136,8 +136,8 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
     fact_national <- fact %>%
       dplyr::group_by(
         FINANCIAL_QUARTER,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -147,7 +147,7 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
       ) %>%
       dplyr::arrange(
         FINANCIAL_QUARTER,
-        SECTION_CODE,
+        BNF_SECTION,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -169,8 +169,8 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
         YEAR_MONTH,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -181,8 +181,8 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
     fact_national <- fact %>%
       dplyr::group_by(
         YEAR_MONTH,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -192,7 +192,7 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
       ) %>%
       dplyr::arrange(
         YEAR_MONTH,
-        SECTION_CODE,
+        BNF_SECTION,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -208,11 +208,11 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
 paragraph_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   
   if (period_type == "year") {
     
@@ -229,10 +229,10 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -243,10 +243,10 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
     fact_paragraph <- fact %>%
       dplyr::group_by(
         FINANCIAL_YEAR,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -256,8 +256,8 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
       ) %>%
       dplyr::arrange(
         FINANCIAL_YEAR,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -278,10 +278,10 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -292,10 +292,10 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
     fact_paragraph <- fact %>%
       dplyr::group_by(
         FINANCIAL_QUARTER,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -305,8 +305,8 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
       ) %>%
       dplyr::arrange(
         FINANCIAL_QUARTER,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -328,10 +328,10 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
         YEAR_MONTH,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -342,10 +342,10 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
     fact_paragraph <- fact %>%
       dplyr::group_by(
         YEAR_MONTH,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -355,8 +355,8 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
       ) %>%
       dplyr::arrange(
         YEAR_MONTH,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -373,11 +373,11 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
 chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   
   if (period_type == "year") {
     
@@ -394,12 +394,12 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -410,12 +410,12 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
     fact_chem_sub <- fact %>%
       dplyr::group_by(
         FINANCIAL_YEAR,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -425,9 +425,9 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
       ) %>%
       dplyr::arrange(
         FINANCIAL_YEAR,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
-        CHEM_SUB_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
+        BNF_CHEMICAL_SUBSTANCE,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -449,12 +449,12 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -465,12 +465,12 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
     fact_chem_sub <- fact %>%
       dplyr::group_by(
         FINANCIAL_QUARTER,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -480,9 +480,9 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
       ) %>%
       dplyr::arrange(
         FINANCIAL_QUARTER,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
-        CHEM_SUB_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
+        BNF_CHEMICAL_SUBSTANCE,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -504,12 +504,12 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
         YEAR_MONTH,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -520,12 +520,12 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
     fact_chem_sub <- fact %>%
       dplyr::group_by(
         YEAR_MONTH,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -535,9 +535,9 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
       ) %>%
       dplyr::arrange(
         YEAR_MONTH,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
-        CHEM_SUB_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
+        BNF_CHEMICAL_SUBSTANCE,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       collect
@@ -554,11 +554,11 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
 icb_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   
   if (period_type == "year") {
     
@@ -578,12 +578,12 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME,
         ICB_CODE,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -598,12 +598,12 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME,
         ICB_CODE,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -629,9 +629,9 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME_ORDER,
         ICB_NAME,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
-        CHEM_SUB_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
+        BNF_CHEMICAL_SUBSTANCE,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       select(
@@ -657,12 +657,12 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME,
         ICB_CODE,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -677,12 +677,12 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME,
         ICB_CODE,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -708,9 +708,9 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME_ORDER,
         ICB_NAME,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
-        CHEM_SUB_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
+        BNF_CHEMICAL_SUBSTANCE,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       select(
@@ -736,12 +736,12 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME,
         ICB_CODE,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_COUNT
       ) %>%
       dplyr::summarise(
@@ -756,12 +756,12 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME,
         ICB_CODE,
-        SECTION_NAME,
-        SECTION_CODE,
-        PARAGRAPH_NAME,
-        PARAGRAPH_CODE,
-        CHEM_SUB_NAME,
-        CHEM_SUB_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
+        PARAGRAPH_DESCR,
+        BNF_PARAGRAPH,
+        CHEMICAL_SUBSTANCE_BNF_DESCR,
+        BNF_CHEMICAL_SUBSTANCE,
         PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
@@ -787,9 +787,9 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         REGION_CODE,
         ICB_NAME_ORDER,
         ICB_NAME,
-        SECTION_CODE,
-        PARAGRAPH_CODE,
-        CHEM_SUB_CODE,
+        BNF_SECTION,
+        BNF_PARAGRAPH,
+        BNF_CHEMICAL_SUBSTANCE,
         desc(PATIENT_IDENTIFIED)
       ) %>%
       select(
@@ -805,9 +805,9 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
 
 ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))   
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -821,8 +821,8 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         CALC_AGE,
         PATIENT_COUNT
       ) %>%
@@ -847,8 +847,8 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::group_by(
         FINANCIAL_YEAR,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         AGE_BAND,
         PATIENT_IDENTIFIED
       ) %>%
@@ -859,7 +859,7 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_YEAR,
-        SECTION_CODE,
+        BNF_SECTION,
         AGE_BAND,
         desc(PATIENT_IDENTIFIED)
       ) %>%
@@ -878,8 +878,8 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         CALC_AGE,
         PATIENT_COUNT
       ) %>%
@@ -904,8 +904,8 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::group_by(
         FINANCIAL_QUARTER,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         AGE_BAND,
         PATIENT_IDENTIFIED
       ) %>%
@@ -916,7 +916,7 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_QUARTER,
-        SECTION_CODE,
+        BNF_SECTION,
         AGE_BAND,
         desc(PATIENT_IDENTIFIED)
       ) %>%
@@ -931,9 +931,9 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
 gender_extract_period <- function(con, period_type = c("year", "quarter")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))   
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
   
   if (period_type == "year") {
     #filter for year in function call
@@ -948,8 +948,8 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         GENDER_DESCR,
         PATIENT_COUNT
       ) %>%
@@ -961,8 +961,8 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
     fact_gender <- fact %>%
       dplyr::group_by(
         FINANCIAL_YEAR,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         GENDER_DESCR,
         PATIENT_IDENTIFIED
       ) %>%
@@ -973,7 +973,7 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_YEAR,
-        SECTION_CODE,
+        BNF_SECTION,
         GENDER_DESCR,
         desc(PATIENT_IDENTIFIED)
       ) %>%
@@ -992,8 +992,8 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         GENDER_DESCR,
         PATIENT_COUNT
       ) %>%
@@ -1005,8 +1005,8 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
     fact_gender <- fact %>%
       dplyr::group_by(
         FINANCIAL_QUARTER,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         GENDER_DESCR,
         PATIENT_IDENTIFIED
       ) %>%
@@ -1017,7 +1017,7 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_QUARTER,
-        SECTION_CODE,
+        BNF_SECTION,
         GENDER_DESCR,
         desc(PATIENT_IDENTIFIED)
       ) %>%
@@ -1032,9 +1032,9 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
 
 age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))   
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1048,8 +1048,8 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         CALC_AGE,
         GENDER_DESCR,
         PATIENT_COUNT
@@ -1077,8 +1077,8 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::group_by(
         FINANCIAL_YEAR,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         AGE_BAND,
         GENDER_DESCR,
         PATIENT_IDENTIFIED
@@ -1090,7 +1090,7 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_YEAR,
-        SECTION_CODE,
+        BNF_SECTION,
         AGE_BAND,
         desc(PATIENT_IDENTIFIED)
       ) %>%
@@ -1110,8 +1110,8 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         CALC_AGE,
         GENDER_DESCR,
         PATIENT_COUNT
@@ -1139,8 +1139,8 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::group_by(
         FINANCIAL_QUARTER,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         AGE_BAND,
         GENDER_DESCR,
         PATIENT_IDENTIFIED
@@ -1152,7 +1152,7 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_QUARTER,
-        SECTION_CODE,
+        BNF_SECTION,
         AGE_BAND,
         desc(PATIENT_IDENTIFIED)
       ) %>%
@@ -1167,9 +1167,9 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
 
 imd_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "mumh_fact_202307"))   
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1191,8 +1191,8 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         IMD_QUINTILE,
         PATIENT_COUNT
       ) %>%
@@ -1204,8 +1204,8 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
     fact_imd <- fact %>%
       dplyr::group_by(
         FINANCIAL_YEAR,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         IMD_QUINTILE
       ) %>%
       dplyr::summarise(
@@ -1215,7 +1215,7 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_YEAR,
-        SECTION_CODE,
+        BNF_SECTION,
         IMD_QUINTILE
       ) %>%
       collect}
@@ -1241,8 +1241,8 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         IMD_QUINTILE,
         PATIENT_COUNT
       ) %>%
@@ -1254,8 +1254,8 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
     fact_imd <- fact %>%
       dplyr::group_by(
         FINANCIAL_QUARTER,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         IMD_QUINTILE
       ) %>%
       dplyr::summarise(
@@ -1265,7 +1265,7 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       dplyr::arrange(
         FINANCIAL_QUARTER,
-        SECTION_CODE,
+        BNF_SECTION,
         IMD_QUINTILE
       ) %>%
       collect}

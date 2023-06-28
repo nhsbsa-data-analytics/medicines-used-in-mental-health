@@ -1394,8 +1394,8 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
       FINANCIAL_YEAR,
       IDENTIFIED_PATIENT_ID,
       PATIENT_IDENTIFIED,
-      SECTION_NAME,
-      SECTION_CODE,
+      SECTION_DESCR,
+      BNF_SECTION,
       CALC_AGE,
       PATIENT_COUNT
     ) %>%
@@ -1414,8 +1414,8 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
     ) %>%
     dplyr::group_by(
       `Financial Year` = FINANCIAL_YEAR,
-      `BNF Section Name` = SECTION_NAME,
-      `BNF Section Code` = SECTION_CODE,
+      `BNF Section Name` = SECTION_DESCR,
+      `BNF Section Code` = BNF_SECTION,
       `Age Band` = AGE_BAND
     ) %>%
     dplyr::summarise(
@@ -1447,8 +1447,8 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         CALC_AGE,
         PATIENT_COUNT
       ) %>%
@@ -1468,8 +1468,8 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
       dplyr::group_by(
         `Financial Year` = FINANCIAL_YEAR,
         `Financial Quarter` = FINANCIAL_QUARTER,
-        `BNF Section Name` = SECTION_NAME,
-        `BNF Section Code` = SECTION_CODE,
+        `BNF Section Name` = SECTION_DESCR,
+        `BNF Section Code` = BNF_SECTION,
         `Age Band` = AGE_BAND
       ) %>%
       dplyr::summarise(

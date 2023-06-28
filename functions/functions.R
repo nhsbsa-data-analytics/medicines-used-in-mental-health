@@ -1376,6 +1376,122 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
   
 }
 
+child_adult_extract <- function(con, period_type = c("year", "quarter")) {
+  fact_year <- dplyr::tbl(con,
+                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+  fact_quarter <- dplyr::tbl(con,
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+  if (period_type == "year") { 
+    #filter for year in function call
+    fact <- fact_year %>%
+    dplyr::mutate(
+      PATIENT_COUNT = case_when(
+        PATIENT_IDENTIFIED == "Y" ~ 1,
+        TRUE ~ 0
+      )
+    ) %>%
+    dplyr::group_by(
+      FINANCIAL_YEAR,
+      IDENTIFIED_PATIENT_ID,
+      PATIENT_IDENTIFIED,
+      SECTION_NAME,
+      SECTION_CODE,
+      CALC_AGE,
+      PATIENT_COUNT
+    ) %>%
+    dplyr::summarise(
+      ITEM_COUNT = sum(ITEM_COUNT, na.rm = T),
+      ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC, na.rm = T)
+    ) 
+  
+  child_adult_split <- fact %>%
+    mutate(
+      AGE_BAND = case_when(
+        CALC_AGE < 0 ~ "Unknown",
+        CALC_AGE <= 17 ~ "17 and under",
+        TRUE ~ "18 and over"
+      )
+    ) %>%
+    dplyr::group_by(
+      `Financial Year` = FINANCIAL_YEAR,
+      `BNF Section Name` = SECTION_NAME,
+      `BNF Section Code` = SECTION_CODE,
+      `Age Band` = AGE_BAND
+    ) %>%
+    dplyr::summarise(
+      `Total Items` = sum(ITEM_COUNT, na.rm = T),
+      `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
+      `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(
+      `Financial Year`,
+      `BNF Section Code`,
+      `Age Band`
+    ) %>%
+    collect()
+  }
+  
+  else  if (period_type == "quarter") {
+    
+    #filter for quarter in function call
+    fact <- fact_quarter %>%
+      dplyr::mutate(
+        PATIENT_COUNT = case_when(
+          PATIENT_IDENTIFIED == "Y" ~ 1,
+          TRUE ~ 0
+        )
+      ) %>%
+      dplyr::group_by(
+        FINANCIAL_YEAR,
+        FINANCIAL_QUARTER,
+        IDENTIFIED_PATIENT_ID,
+        PATIENT_IDENTIFIED,
+        SECTION_NAME,
+        SECTION_CODE,
+        CALC_AGE,
+        PATIENT_COUNT
+      ) %>%
+      dplyr::summarise(
+        ITEM_COUNT = sum(ITEM_COUNT, na.rm = T),
+        ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC, na.rm = T)
+      ) 
+    
+    child_adult_split <- fact %>%
+      mutate(
+        AGE_BAND = case_when(
+          CALC_AGE < 0 ~ "Unknown",
+          CALC_AGE <= 17 ~ "17 and under",
+          TRUE ~ "18 and over"
+        )
+      ) %>%
+      dplyr::group_by(
+        `Financial Year` = FINANCIAL_YEAR,
+        `Financial Quarter` = FINANCIAL_QUARTER,
+        `BNF Section Name` = SECTION_NAME,
+        `BNF Section Code` = SECTION_CODE,
+        `Age Band` = AGE_BAND
+      ) %>%
+      dplyr::summarise(
+        `Total Items` = sum(ITEM_COUNT, na.rm = T),
+        `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
+        .groups = "drop"
+      ) %>%
+      dplyr::arrange(
+        `Financial Year`,
+        `Financial Quarter`,
+        `BNF Section Code`,
+        `Age Band`
+      ) %>%
+      collect()
+  }
+  
+  return(child_adult_split)
+  
+}
+
+
 ### Statistical Disclosure Control
 
 apply_sdc <- function(data, level = 5, rounding = TRUE, round_val = 5, mask = -1) {

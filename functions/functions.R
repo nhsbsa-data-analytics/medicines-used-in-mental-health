@@ -214,6 +214,38 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
   
 }
 
+population_extract <- function(){
+  national_pop <- ons_national_pop(year = c(2015:2021),
+                                   area = "ENPOP") %>% 
+    mutate(YEAR = as.character(YEAR))
+  
+  
+  patient_population <- national_extract_period(con, period_type = "year") %>%
+    dplyr::select(`Financial Year`,
+                  `Identified Patient Flag`,
+                  `Total Identified Patients`) %>% 
+    dplyr::mutate(`Mid-year Population Year` = as.numeric(substr(c(`Financial Year`), 1, 4))) %>%
+    dplyr::filter(`Identified Patient Flag` == "Y") %>%
+    dplyr::left_join(select(en_ons_national_pop, YEAR, ENPOP), by = c("Mid-year Population Year" = "YEAR")) %>%
+    dplyr::mutate(`Patients per 1000 Population` = ((`Total Identified Patients`/ENPOP) * 1000)) %>%
+    
+    dplyr::select(`Financial Year`,
+                  `Mid-year Population Year`,
+                  `Total Identified Patients`,
+                  `Mid-year Population Estimate` = ENPOP,
+                  `Patients per 1000 Population`) %>%
+    dplyr::arrange(`Financial Year`,
+                   `Mid-year Population Year`,
+                   `BNF Section Name`,
+                   `BNF Section Code`, 
+                   `Total Identified Patients`,
+                   `Mid-year Population Estimate`,
+                   `Patients per 1000 Population`)
+  
+  
+  return(patient_population)
+}
+
 paragraph_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
@@ -1429,3 +1461,4 @@ infoBox_no_border <- function(
 </div>"
   )
 }
+

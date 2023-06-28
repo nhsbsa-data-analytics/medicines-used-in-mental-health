@@ -207,6 +207,8 @@ age_gender_extract_year <- age_gender_extract_period(con = con,
                                                         period_type = "year")
 imd_extract_year <- imd_extract_period(con = con,
                                           period_type = "year")
+#child_adult_extract_year <- child_adult_extract(con = con,
+#                                                period_type = "year")
 
 log_print("Annual extracts pulled", hide_notes = TRUE)
 
@@ -230,6 +232,8 @@ age_gender_extract_quarter <- age_gender_extract_period(con = con,
                                                         period_type = "quarter")
 imd_extract_quarter <- imd_extract_period(con = con,
                                           period_type = "quarter")
+#child_adult_extract_quarter <- child_adult_extract(con = con,
+#                                                period_type = "quarter")
 
 log_print("Quarterly extracts pulled", hide_notes = TRUE)
 
@@ -244,6 +248,91 @@ log_print("Monthly extracts pulled", hide_notes = TRUE)
 
 
 #aggregations and analysis
+
+# 0401 Hypnotics and anxiolytics workbook - annual
+
+annual_0401 <- list()
+
+annual_0401$patient_id <- capture_rate_extract_year %>%
+  dplyr::filter(`BNF Section Code` == "0401") 
+
+annual_0401$national_total <- national_extract_year %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
+annual_0401$national_population <- population_extract_year %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
+annual_0401$national_paragraph <- paragraph_extract_year %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
+annual_0401$icb <-  icb_extract_year %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select( `Financial Year`,
+                 `ICB Name`,
+                 `ICB Code`,
+                 `BNF Section Name`,
+                 `BNF Section Code`,
+                 `BNF Paragraph Name`,
+                 `BNF Paragraph Code`,
+                 `BNF Chemical Substance Name`,
+                 `BNF Chemical Substance Code`,
+                 `Identified Patient Flag`,
+                 `Total Identified Patients` = `sdc_Total Identified Patients`,
+                 `Total Items` = `sdc_Total Items`,
+                 `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
+annual_0401$gender <- gender_extract_year %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select(`Financial Year`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Patient Gender`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`,
+                `Total Items` = `sdc_Total Items`,
+                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0401") 
+
+annual_0401$ageband <- ageband_data_year %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select(`Financial Year`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Age Band`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`,
+                `Total Items` = `sdc_Total Items`,
+                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
+annual_0401$age_gender <- age_gender_extract_year %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select(`Financial Year`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Age Band`,
+                `Patient Gender`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`,
+                `Total Items` = `sdc_Total Items`,
+                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
+annual_0401$imd <- imd_extract_year %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select(
+    `Financial Year`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `IMD Quintile`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
+
+
 
 #4. chart data
 

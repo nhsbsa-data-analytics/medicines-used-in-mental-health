@@ -90,6 +90,18 @@ These statistics do not include any information that is personally identifiable.
 #### Table 1: The proportion of items for which an NHS number was recorded for listed BNF sections
 
 ```{r pat_ident_rates, out.width="100%"}
+
+capture_rate_extract_year %>%
+  mutate(across(where(is.numeric), round, 2))%>%
+  DT::datatable(
+    rownames = FALSE,
+    options = list(dom = "t",
+                   columnDefs = list(list(orderable = FALSE,
+                                          targets = "_all"),
+                                     list(className = "dt-left", targets = 0:1),
+                                     list(className = "dt-right", targets = 2:5)))
+    )
+
 ```
 Source: Statistical summary tables - patient identification rates
 
@@ -113,6 +125,38 @@ More information about these medicines can be found in section 4 of this summary
 #### Figure 1: Number of prescribed items by financial year - BNF 4.3: Antidepressant drugs
 
 ```{r annual_items_0403, out.width="100%"}
+
+annual_0403$national_paragraph %>%
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Paragraph Name`,
+                  `BNF Paragraph Code`) %>%
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
+  bind_rows(
+    annual_0403$national_total %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") %>% 
+      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
@@ -134,6 +178,32 @@ Commentary on annual antidepressant items and patients goes here.
 #### Figure 2: Number of identified patients by financial year - BNF 4.3: Antidepressant drugs
 
 ```{r annual_patients_0403, out.width="100%"}
+
+annual_0403$national_paragraph %>%
+  dplyr::filter(`Identified Patient Flag` != "N") %>%
+  bind_rows(
+    annual_0403$national_total %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") %>% 
+      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
@@ -141,6 +211,35 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 #### Figure 3: Number of prescribed items and identified patients by financial quarter - BNF 4.3: Antidepressant drugs 
 
 ```{r quarterly_0403, out.width="100%"}
+
+quarterly_0403$national_total %>%
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
+  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
+  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
+            `Identified patients` = sum(`Total Identified Patients`),
+            .groups = "drop") %>% 
+  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
+               names_to = "measure",
+               values_to = "value") %>% 
+  dplyr::mutate(value = signif(value, 3)) %>% 
+  dplyr::arrange(desc(measure)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) %>% 
+  hc_legend(enabled = TRUE)
+
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
@@ -162,6 +261,12 @@ Commentary on quarterly antidepressant items and patients goes here, along with 
 #### Figure 4: Number of identified patients by age band and gender 2022/23 - BNF 4.3: Antidepressant drugs 
 
 ```{r annual_ageband_0403}
+
+annual_0403$age_gender %>% 
+   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
+  age_gender_chart()
+
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
@@ -173,9 +278,21 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 
 Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
 
-#### Figure 5: Number of identified patients by IMD decile 2022/23 - BNF 4.3: Antidepressant drugs  
+#### Figure 5: Number of identified patients by IMD quintile 2022/23 - BNF 4.3: Antidepressant drugs  
 
 ```{r annual_imd_0403}
+
+annual_0403$imd %>% 
+  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = "" 
+  )
+
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
@@ -191,6 +308,9 @@ IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for cor
 #### Figure 6: Items and patients by ICB by financial year - BNF 4.3: Antidepressant drugs  
 
 ```{R annual_icb_0403}
+
+
+
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
@@ -210,6 +330,9 @@ There is a keen interest in the prescribing of antidepressant drugs in children.
 **Table 2: Number of child and adult patients - BNF 4.3: Antidepressant drugs (millions of patients)**
 
 ```{r annual_children_0403}
+
+
+
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
@@ -234,6 +357,37 @@ More information about these medicines can be found in section 4 of this summary
 #### Figure 7: Number of prescribed items by financial year - BNF 4.1: Hypnotics and anxiolytics
 
 ```{r annual_items_0401, out.width="100%"}
+
+annual_0401$national_paragraph %>%
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Paragraph Name`,
+                  `BNF Paragraph Code`) %>%
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
+  bind_rows(
+    annual_0401$national_total %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") %>% 
+      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
@@ -255,6 +409,32 @@ Commentary on annual hypnotics and anxiolytics items and patients goes here.
 #### Figure 8: Number of identified patients by financial year - BNF 4.1: Hypnotics and anxiolytics
 
 ```{r annual_patients_0401, out.width="100%"}
+
+annual_0401$national_paragraph %>%
+  dplyr::filter(`Identified Patient Flag` != "N") %>%
+  bind_rows(
+    annual_0401$national_total %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") %>% 
+      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
@@ -262,6 +442,36 @@ Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
 #### Figure 9: Number of prescribed items and identified patients by financial quarter - BNF 4.1: Hypnotics and anxiolytics 
 
 ```{r quarterly_0401, out.width="100%"}
+
+quarterly_0401$national_total %>%
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
+  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
+  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
+            `Identified patients` = sum(`Total Identified Patients`),
+            .groups = "drop") %>% 
+  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
+               names_to = "measure",
+               values_to = "value") %>% 
+  dplyr::mutate(value = signif(value, 3)) %>% 
+  dplyr::arrange(desc(measure)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) %>% 
+  hc_legend(enabled = TRUE)
+
+
 ```
 
 Source: [Quarterly statistical summary tables - Hypnotics and anxiolytics]()
@@ -283,6 +493,12 @@ Commentary on quarterly antidepressant items and patients goes here, along with 
 #### Figure 10: Number of identified patients by age band and gender 2022/23 - BNF 4.1: Hypnotics and anxiolytics 
 
 ```{r annual_ageband_0401}
+
+annual_0401$age_gender %>% 
+   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
+  age_gender_chart()
+
 ```
 
 Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
@@ -294,7 +510,7 @@ Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
 
 Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
 
-#### Figure 11: Number of identified patients by IMD decile 2022/23 - BNF 4.1: Hypnotics and anxiolytics  
+#### Figure 11: Number of identified patients by IMD quintile 2022/23 - BNF 4.1: Hypnotics and anxiolytics  
 
 ```{r annual_imd_0401}
 ```
@@ -312,6 +528,18 @@ IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for cor
 #### Figure 12: Items and patients by ICB by financial year - BNF 4.1: Hypnotics and anxiolytics  
 
 ```{R annual_icb_0401}
+
+annual_0401$imd %>% 
+  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = "" 
+  )
+
 ```
 
 Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
@@ -337,6 +565,37 @@ More information about these medicines can be found in section 4 of this summary
 #### Figure 13: Number of prescribed items by financial year - BNF 4.2: Drugs used in psychoses and related disorders
 
 ```{r annual_items_0402, out.width="100%"}
+
+annual_0402$national_paragraph %>%
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Paragraph Name`,
+                  `BNF Paragraph Code`) %>%
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
+  bind_rows(
+    annual_0402$national_total %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") %>% 
+      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
@@ -358,6 +617,32 @@ Commentary on annual antipsychotics items and patients goes here.
 #### Figure 14: Number of identified patients by financial year - BNF 4.2: Drugs used in psychoses and related disorders
 
 ```{r annual_patients_0402, out.width="100%"}
+
+annual_0402$national_paragraph %>%
+  dplyr::filter(`Identified Patient Flag` != "N") %>%
+  bind_rows(
+    annual_0402$national_total %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") %>% 
+      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
@@ -365,6 +650,36 @@ Source: [Annual statistical summary tables - Drugs used in psychoses and related
 #### Figure 15: Number of prescribed items and identified patients by financial quarter - BNF 4.2: Drugs used in psychoses and related disorders 
 
 ```{r quarterly_0402, out.width="100%"}
+
+quarterly_0402$national_total %>%
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
+  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
+  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
+            `Identified patients` = sum(`Total Identified Patients`),
+            .groups = "drop") %>% 
+  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
+               names_to = "measure",
+               values_to = "value") %>% 
+  dplyr::mutate(value = signif(value, 3)) %>% 
+  dplyr::arrange(desc(measure)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) %>% 
+  hc_legend(enabled = TRUE)
+
+
 ```
 
 Source: [Quarterly statistical summary tables - Drugs used in psychoses and related disorders]()
@@ -386,6 +701,12 @@ Commentary on quarterly antipsychotic items and patients goes here, along with a
 #### Figure 16: Number of identified patients by age band and gender 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders 
 
 ```{r annual_ageband_0402}
+
+annual_0402$age_gender %>% 
+   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
+  age_gender_chart()
+
 ```
 
 Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
@@ -397,9 +718,21 @@ Source: [Annual statistical summary tables - Drugs used in psychoses and related
 
 Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
 
-#### Figure 17: Number of identified patients by IMD decile 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders  
+#### Figure 17: Number of identified patients by IMD quintile 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders  
 
 ```{r annual_imd_0402}
+
+annual_0402$imd %>% 
+  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = "" 
+  )
+
 ```
 
 Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
@@ -447,6 +780,27 @@ More information about these medicines can be found in section 4 of this summary
 #### Figure 19: Number of prescribed items by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD 
 
 ```{r annual_items_0404, out.width="100%"}
+
+annual_0404$national_total %>%
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) %>%
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
+  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Section Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
@@ -468,6 +822,28 @@ Commentary on annual Central nervous system (CNS) stimulants and drugs used for 
 #### Figure 20: Number of identified patients by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD 
 
 ```{r annual_patients_0404, out.width="100%"}
+
+annual_0404$national_total %>%
+  dplyr::filter(`Identified Patient Flag` != "N") %>%
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) %>%
+      dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop") %>% 
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Section Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
@@ -475,6 +851,36 @@ Source: [Annual statistical summary tables - Central nervous system (CNS) stimul
 #### Figure 21: Number of prescribed items and identified patients by financial quarter - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
 
 ```{r quarterly_0404, out.width="100%"}
+
+quarterly_0404$national_total %>%
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
+  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
+  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
+            `Identified patients` = sum(`Total Identified Patients`),
+            .groups = "drop") %>% 
+  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
+               names_to = "measure",
+               values_to = "value") %>% 
+  dplyr::mutate(value = signif(value, 3)) %>% 
+  dplyr::arrange(desc(measure)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) %>% 
+  hc_legend(enabled = TRUE)
+
+
 ```
 
 Source: [Quarterly statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
@@ -496,6 +902,12 @@ Commentary on quarterly Central nervous system (CNS) stimulants and drugs used f
 #### Figure 22: Number of identified patients by age band and gender 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
 
 ```{r annual_ageband_0404}
+
+annual_0404$age_gender %>% 
+   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
+  age_gender_chart()
+
 ```
 
 Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
@@ -507,9 +919,21 @@ Source: [Annual statistical summary tables - Central nervous system (CNS) stimul
 
 Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
 
-#### Figure 23: Number of identified patients by IMD decile 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD   
+#### Figure 23: Number of identified patients by IMD quintile 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD   
 
 ```{r annual_imd_0404}
+
+annual_0404$imd %>% 
+  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = "" 
+  )
+
 ```
 
 Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
@@ -570,6 +994,37 @@ More information about these medicines can be found in section 4 of this summary
 #### Figure 25: Number of prescribed items by financial year - BNF 4.11: Drugs for dementia
 
 ```{r annual_items_0411, out.width="100%"}
+
+annual_0411$national_chem_substance %>%
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Chemical Substance Name`,
+                  `BNF Chemical Substance Code`) %>%
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
+  bind_rows(
+    annual_0411$national_chem_substance %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Chemical Substance Name` = "Total") %>% 
+      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Chemical Substance Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Drugs for dementia]()
@@ -591,6 +1046,32 @@ Commentary on annual Drugs for dementia items and patients goes here.
 #### Figure 26: Number of identified patients by financial year - BNF 4.11: Drugs for dementia
 
 ```{r annual_patients_0411, out.width="100%"}
+
+annual_0411$national_chem_substance %>%
+  dplyr::filter(`Identified Patient Flag` != "N") %>%
+  bind_rows(
+    annual_0411$national_total %>%
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Chemical Substance Name` = "Total") %>% 
+      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
+  ) %>% 
+  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Chemical Substance Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
 ```
 
 Source: [Annual statistical summary tables - Drugs for dementia]()
@@ -598,6 +1079,36 @@ Source: [Annual statistical summary tables - Drugs for dementia]()
 #### Figure 27: Number of prescribed items and identified patients by financial quarter - BNF 4.11: Drugs for dementia
 
 ```{r quarterly_0411, out.width="100%"}
+
+quarterly_0411$national_total %>%
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
+  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
+  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
+            `Identified patients` = sum(`Total Identified Patients`),
+            .groups = "drop") %>% 
+  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
+               names_to = "measure",
+               values_to = "value") %>% 
+  dplyr::mutate(value = signif(value, 3)) %>% 
+  dplyr::arrange(desc(measure)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) %>% 
+  hc_legend(enabled = TRUE)
+
+
 ```
 
 Source: [Quarterly statistical summary tables - Drugs for dementia]()
@@ -619,6 +1130,31 @@ Commentary on quarterly Drugs for dementia items and patients goes here, along w
 #### Figure 28: Number of identified patients by age band and gender 2022/23 - BNF 4.11: Drugs for dementia
 
 ```{r annual_ageband_0411}
+
+annual_0411$age_gender %>% 
+   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
+  dplyr::mutate(`Age Band` = case_when(
+            `Age Band` %in% c("90+") ~ "90+",
+            `Age Band` %in% c("85-89") ~ "85-89",
+            `Age Band` %in% c("80-84") ~ "80-84",
+            `Age Band` %in% c("75-79") ~ "75-79",
+            `Age Band` %in% c("70-74") ~ "70-74",
+            `Age Band` %in% c("65-69") ~ "65-69",
+            `Age Band` %in% c("60-64") ~ "60-64",
+            `Age Band` %in% c("55-59") ~ "55-59",
+            `Age Band` %in% c("50-54") ~ "50-54",
+            `Age Band` %in% c("00-04", "10-14", "15-19", "20-24",
+                             "25-29", "30-34", "35-39", "40-44", 
+                             "45-49") ~ "Under 50",
+            TRUE ~ "Unknown")) %>%
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `Age Band`,
+                  `Patient Gender`) %>%
+  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`)) %>%
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
+  age_gender_chart()
+
 ```
 
 Source: [Annual statistical summary tables - Drugs for dementia]()
@@ -630,9 +1166,21 @@ Source: [Annual statistical summary tables - Drugs for dementia]()
 
 Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
 
-#### Figure 29: Number of identified patients by IMD decile 2022/23 - BNF 4.11: Drugs for dementia  
+#### Figure 29: Number of identified patients by IMD quintile 2022/23 - BNF 4.11: Drugs for dementia  
 
 ```{r annual_imd_0411}
+
+annual_0411$imd %>% 
+  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = "" 
+  )
+
 ```
 
 Source: [Annual statistical summary tables - Drugs for dementia]()

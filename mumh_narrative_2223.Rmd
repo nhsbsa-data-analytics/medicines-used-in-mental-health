@@ -44,3 +44,871 @@ knitr::opts_chunk$set(echo = FALSE,
 `r infoBox_border(header = "Feedback", text = paste0("We are interested in any feedback about the publication, which you can send by using our ", htmltools::HTML(paste("<a href='",config$stats_survey_link,"'>Official Statistics feedback survey</a>")),"."), width = "100%")` 
 ::: 
 ::::
+
+
+---
+
+## 1. Things you should know
+### 1.1 Scope {.toc-ignore}
+
+`r infoBox_border("Background ", text = "The [NHS Long Term Plan](https://www.longtermplan.nhs.uk/) published in 2019 focuses on improving mental health care in the UK. It aims to provide more funding for mental health services, particularly for children and people with dementia. The [Core20PLUS5](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/) approach  to reduce health inequalities also seeks to improve community care for those with severe mental illnesses.", width = "100%")`
+
+This publication provides information on medicines used to treat mental health conditions in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. It also explores how the COVID-19 pandemic has affected the use of these medicines.
+
+The five sections of the BNF included in this publication cover medicines which are primarily used to treat anxiety, depression, psychosis, attention deficit hyperactivity disorder (ADHD), and dementia.
+
+This summary narrative does not discuss the costs associated with the provision of these medicines, but this information is available in the supporting summary tables which accompany this release. Medicines are not the only way to treat mental health conditions, and this publication does not capture information on the use of other mental health services, such as psychological therapies. Therefore, this publication may not give a complete picture of the number of people receiving treatment for mental health conditions. Information on where to find related statistics can be found in Section 4.
+
+### 1.2. Definitions {.toc-ignore}
+
+`r infoBox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
+
+`r infoBox_border("Patient", text = "A unique NHS number verified from a prescription form. Verification of an NHS number for patient identification is done by the NHS Personal Demographics Service (PDS).", width = "100%")`
+
+`r infoBox_border("NIC", text = "The Net Ingredient Cost (NIC) is the basic price of the medication and the quantity prescribed. It does not include other fees incurred by dispensing contractors, such as controlled drug fees or the single activity fee. The basic price is determined by the [Drug Tariff](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/drug-tariff) or by the manufacturer, wholesaler, or supplier of the product.", width = "100%")`
+
+`r infoBox_border("Classification", text = "This publication uses the British National Formulary (BNF), which lists medicines used in the UK and classifies them according to their primary therapeutic use. Medication may also be prescribed for other purposes beyond their intended use. For example, certain antidepressants may be recommended to individuals experiencing chronic pain. The NHSBSA does not capture the clinical indication of a prescription during processing.", width = "100%")`
+
+### 1.3. Time periods {.toc-ignore}
+
+The data in this publication covers the period from April 2017 to March 2023. Q1, Q2, Q3, and Q4 refer to different periods within a financial year. You can find more information on the [Medicines Used in Mental Health - England webpage](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england).
+
+These statistics cover the period of the coronavirus (COVID-19) pandemic. A detailed [timeline](https://commonslibrary.parliament.uk/research-briefings/cbp-9068/) of events and restrictions in the UK during this time can be found on the UK parliament website. The impact of COVID-19 should be considered when comparing across time periods 
+
+### 1.4. Patient identification {.toc-ignore}
+
+When the NHSBSA processes prescriptions it is not always possible to capture the NHS number of the patient. Table 1 shows the proportion of items for which a patient could be identified. This means that the data relating to patient counts represents most, but not all, patients.
+
+Due to an increase in digital prescription processing through the Electronic Prescription Service (EPS) during the COVID-19 pandemic, more patients were identified in 2020/21 and 2021/22 compared to previous years. As patient identification rates increased, any increases in the number of identified patients between periods are likely to be an overestimate of the actual increase in patient numbers. This is because the proportion of patients who could be identified has increased. Conversely, any decrease over the same period is likely to be an underestimate of the actual decrease.
+
+Where patients are identified, to assign them to a single age band their age is calculated on the 30 September of the given financial year. For patients where date of birth has not been captured, they have been included in an unknown category. 
+
+Gender information was not available from PDS for a small number of patients in each year, typically fewer than 100. This may be because it was not disclosed by the patient or not recorded by the organisation that collected the data. These patients have been omitted from the respective figures but can be found in the Statistical Summary Tables for the respective BNF Chapter.
+
+These statistics do not include any information that is personally identifiable. You can find more information about how the NHSBSA protect personal information in the [confidentiality and access statement](https://www.nhsbsa.nhs.uk/policies-and-procedures). 
+
+#### Table 1: The proportion of items for which an NHS number was recorded for listed BNF sections
+
+```{r pat_ident_rates, out.width="100%"}
+```
+Source: Statistical summary tables - patient identification rates
+
+---
+
+## 2. Results and commentary
+
+### 2.1. Antidepressants
+
+`r infoBox_border(" ", text = "Antidepressant drugs are effective for treating moderate to severe depression, but are not usually recommended for the routine treatment of mild depression. In those cases, psychological therapy should be considered initially. However, a trial of antidepressant therapy may be considered in cases resistant to psychological treatments or associated with other problems. The National Institute for Health and Care Excellence (NICE) has [released updated guidance](https://www.nice.org.uk/news/nice-draft-quality-standard-depression-adults-update-2023) to recommend adult patients stopping antidepressants should have their dose reduced in stages across time.
+
+Antidepressant drugs are described in the BNF 68 section 4.3:
+
+* BNF paragraph 4.3.1 - Tricyclic and related antidepressant drugs
+* BNF paragraph 4.3.2 - Monoamine-oxidase inhibitors (MAOIs)
+* BNF paragraph 4.3.3 - Selective serotonin re-uptake inhibitors (SSRIs)
+* BNF paragraph 4.3.4 - Other antidepressant drugs
+
+More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+
+#### Figure 1: Number of prescribed items by financial year - BNF 4.3: Antidepressant drugs
+
+```{r annual_items_0403, out.width="100%"}
+```
+
+Source: [Statistical summary tables - Antidepressant drugs]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million antidepressant items prescribed in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million identified patients received an antidepressant in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any interesting trend goes here, or ommitted if not noteworthy. </b>", width = "100%")`
+:::
+::::
+
+Commentary on annual antidepressant items and patients goes here.
+
+#### Figure 2: Number of identified patients by financial year - BNF 4.3: Antidepressant drugs
+
+```{r annual_patients_0403, out.width="100%"}
+```
+
+Source: [Statistical summary tables - Antidepressant drugs]()
+
+#### Figure 3: Number of prescribed items and identified patients by financial quarter - BNF 4.3: Antidepressant drugs 
+
+```{r quarterly_0403, out.width="100%"}
+```
+
+Source: [Statistical summary tables - Antidepressant drugs]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million antidepressant items prescribed in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>million identified patients received an antidepressant in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any trends go here if interesting</b>", width = "100%")`
+:::
+::::
+
+Commentary on quarterly antidepressant items and patients goes here, along with any interesting monthly findings. Monthly information will otherwise be left in the summary tables and not the narrative.
+
+#### Figure 4: Number of identified patients by age band and gender 2022/23 - BNF 4.3: Antidepressant drugs 
+
+```{r annual_ageband_0403}
+```
+
+Source: [Statistical summary tables - Antidepressant drugs]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> Ageband/gender infobox goes here.</b>", width = "100%")`
+:::
+
+Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
+
+#### Figure 5: Number of identified patients by IMD decile 2022/23 - BNF 4.3: Antidepressant drugs  
+
+```{r annual_imd_0403}
+```
+
+Source: [Statistical summary tables - Antidepressant drugs]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> IMD infobox goes here.</b>", width = "100%")`
+:::
+
+
+IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for core20/non-core20 split instead of focusing on differences between individual quintiles.
+
+#### Figure 6: Items and patients by ICB by financial year - BNF 4.3: Antidepressant drugs  
+
+```{R annual_icb_0403}
+```
+
+Source: [Statistical summary tables - Antidepressant drugs]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> ICB infobox goes here.</b>", width = "100%")`
+:::
+
+
+Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables. 
+
+#### 2.1.1. Prescribing in adults and children {.toc-ignore}
+
+There is a keen interest in the prescribing of antidepressant drugs in children. Children are classed as patients aged 17 and under at 30 September for the given financial year.
+
+**Table 2: Number of child and adult patients - BNF 4.3: Antidepressant drugs (millions of patients)**
+
+```{r annual_children_0403}
+```
+
+Source: [Statistical summary tables - Antidepressant drugs]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> Adult and child patients infobox goes here, if needed.</b>", width = "100%")`
+:::
+
+(To do: investigate best way to visualise this as child numbers often much smaller than adult numbers, so bar chart might not be appropriate. Has previously been a table.)
+
+### 2.2. Hypnotics and anxiolytics
+
+`r infoBox_border(" ", text = "Hypnotics are used to treat insomnia - a difficulty getting to sleep or staying asleep long enough to feel refreshed. Most hypnotics will sedate if given during the day. Anxiolytics are used in the treatment of anxiety states and if given at night will help to induce sleep. The drugs classified as hypnotics and anxiolytics are described in the BNF 68 section 4.1:
+
+* BNF paragraph 4.1.1 - Hypnotics
+* BNF paragraph 4.1.2 - Anxiolytics
+* BNF paragraph 4.1.3 - Barbiturates
+
+More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+
+#### Figure 7: Number of prescribed items by financial year - BNF 4.1: Hypnotics and anxiolytics
+
+```{r annual_items_0401, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million Hypnotics and anxiolytics items prescribed in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million identified patients received a hypnotics and anxiolytics drug in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any interesting trend goes here, or ommitted if not noteworthy. </b>", width = "100%")`
+:::
+::::
+
+Commentary on annual hypnotics and anxiolytics items and patients goes here.
+
+#### Figure 8: Number of identified patients by financial year - BNF 4.1: Hypnotics and anxiolytics
+
+```{r annual_patients_0401, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+
+#### Figure 9: Number of prescribed items and identified patients by financial quarter - BNF 4.1: Hypnotics and anxiolytics 
+
+```{r quarterly_0401, out.width="100%"}
+```
+
+Source: [Quarterly statistical summary tables - Hypnotics and anxiolytics]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million Hypnotics and anxiolytics items prescribed in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>million identified patients received a Hypnotics and anxiolytics drug in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any trends go here if interesting</b>", width = "100%")`
+:::
+::::
+
+Commentary on quarterly antidepressant items and patients goes here, along with any interesting monthly findings. Monthly information will otherwise be left in the summary tables and not the narrative.
+
+#### Figure 10: Number of identified patients by age band and gender 2022/23 - BNF 4.1: Hypnotics and anxiolytics 
+
+```{r annual_ageband_0401}
+```
+
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> Ageband/gender infobox goes here.</b>", width = "100%")`
+:::
+
+Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
+
+#### Figure 11: Number of identified patients by IMD decile 2022/23 - BNF 4.1: Hypnotics and anxiolytics  
+
+```{r annual_imd_0401}
+```
+
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> IMD infobox goes here.</b>", width = "100%")`
+:::
+
+
+IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for core20/non-core20 split instead of focusing on differences between individual quintiles.
+
+#### Figure 12: Items and patients by ICB by financial year - BNF 4.1: Hypnotics and anxiolytics  
+
+```{R annual_icb_0401}
+```
+
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> ICB infobox goes here.</b>", width = "100%")`
+:::
+
+
+Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables. 
+
+### 2.3. Antipsychotics
+
+`r infoBox_border(" ", text = "These drugs are used to treat psychoses and related disorders, and are referred to under the umbrella term antipsychotics. These drugs are classified and described under the BNF 68 section 4.2:
+
+* BNF paragraph 4.2.1 - Antipsychotic drugs
+* BNF paragraph 4.2.2 - Antipsychotic depot injections
+* BNF paragraph 4.2.3 - Drugs for mania and hypomania
+
+More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+
+#### Figure 13: Number of prescribed items by financial year - BNF 4.2: Drugs used in psychoses and related disorders
+
+```{r annual_items_0402, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million antipsychotic items prescribed in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> (thousands) identified patients received an antipsychotics item in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any interesting trend goes here, or ommitted if not noteworthy. </b>", width = "100%")`
+:::
+::::
+
+Commentary on annual antipsychotics items and patients goes here.
+
+#### Figure 14: Number of identified patients by financial year - BNF 4.2: Drugs used in psychoses and related disorders
+
+```{r annual_patients_0402, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+
+#### Figure 15: Number of prescribed items and identified patients by financial quarter - BNF 4.2: Drugs used in psychoses and related disorders 
+
+```{r quarterly_0402, out.width="100%"}
+```
+
+Source: [Quarterly statistical summary tables - Drugs used in psychoses and related disorders]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million antipsychotic items prescribed in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> (thousands) identified patients received an antipsychotic in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any trends go here if interesting</b>", width = "100%")`
+:::
+::::
+
+Commentary on quarterly antipsychotic items and patients goes here, along with any interesting monthly findings. Monthly information will otherwise be left in the summary tables and not the narrative.
+
+#### Figure 16: Number of identified patients by age band and gender 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders 
+
+```{r annual_ageband_0402}
+```
+
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> Ageband/gender infobox goes here.</b>", width = "100%")`
+:::
+
+Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
+
+#### Figure 17: Number of identified patients by IMD decile 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders  
+
+```{r annual_imd_0402}
+```
+
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> IMD infobox goes here.</b>", width = "100%")`
+:::
+
+
+IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for core20/non-core20 split instead of focusing on differences between individual quintiles.
+
+#### Figure 18: Items and patients by ICB by financial year - BNF 4.2: Drugs used in psychoses and related disorders  
+
+```{R annual_icb_0402}
+```
+
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> ICB infobox goes here.</b>", width = "100%")`
+:::
+
+
+Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables.
+
+### 2.4. Central nervous system (CNS) stimulants and drugs used for ADHD 
+
+`r infoBox_border(" ", text = "CNS stimulants and drugs used for ADHD are described in the BNF 68 section 4.4: 
+
+* BNF chemical substance 0404000D0 - Caffeine
+* BNF chemical substance 0404000E0 - Caffeine citrate
+* BNF chemical substance 0404000L0 - Dexamfetamine sulfate
+* BNF chemical substance 0404000M0 - Methylphenidate hydrochloride
+* BNF chemical substance 0404000R0 - Modafinil
+* BNF chemical substance 0404000S0 - Atomoxetine hydrochloride
+* BNF chemical substance 0404000T0 - Dexmethylphenidate hydrochloride
+* BNF chemical substance 0404000U0 - Lisdexamfetamine dimesylate
+* BNF chemical substance 0404000V0 - Guanfacine
+* BNF chemical substance 0404000W0 - Pitolisant hydrochloride
+
+More information about these medicines can be found in section 4 of this summary. ", width = "100%")`
+
+#### Figure 19: Number of prescribed items by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD 
+
+```{r annual_items_0404, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million Central nervous system (CNS) stimulants and drugs used for ADHD  items prescribed in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> (thousands) identified patients received prescribing in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any interesting trend goes here, or ommitted if not noteworthy. </b>", width = "100%")`
+:::
+::::
+
+Commentary on annual Central nervous system (CNS) stimulants and drugs used for ADHD  items and patients goes here.
+
+#### Figure 20: Number of identified patients by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD 
+
+```{r annual_patients_0404, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+
+#### Figure 21: Number of prescribed items and identified patients by financial quarter - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
+
+```{r quarterly_0404, out.width="100%"}
+```
+
+Source: [Quarterly statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> (thousands) Central nervous system (CNS) stimulants and drugs used for ADHD  items prescribed in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> (thousands) identified patients received prescribing in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any trends go here if interesting</b>", width = "100%")`
+:::
+::::
+
+Commentary on quarterly Central nervous system (CNS) stimulants and drugs used for ADHD items and patients goes here, along with any interesting monthly findings. Monthly information will otherwise be left in the summary tables and not the narrative.
+
+#### Figure 22: Number of identified patients by age band and gender 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
+
+```{r annual_ageband_0404}
+```
+
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> Ageband/gender infobox goes here.</b>", width = "100%")`
+:::
+
+Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
+
+#### Figure 23: Number of identified patients by IMD decile 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD   
+
+```{r annual_imd_0404}
+```
+
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> IMD infobox goes here.</b>", width = "100%")`
+:::
+
+
+IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for core20/non-core20 split instead of focusing on differences between individual quintiles.
+
+#### Figure 24: Items and patients by ICB by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
+
+```{R annual_icb_0404}
+```
+
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> ICB infobox goes here.</b>", width = "100%")`
+:::
+
+Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables. 
+
+#### 2.4.1. Prescribing in adults and children {.toc-ignore}
+
+There is some interest in the prescribing of Central nervous system (CNS) stimulants and drugs used for ADHD in children. Children are classed as patients aged 17 and under at 30 September for the given financial year.
+
+**Table 3: Number of child and adult patients - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD (thousands of patients)**
+
+```{r annual_children_0404}
+```
+
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> Adult and child patients infobox goes here, if needed.</b>", width = "100%")`
+:::
+
+(To do: investigate best way to visualise this. Bar chart may be possible instead as child vs adult numbers are more balanced than for antidepressants, but could also show as a table to match antidepressants.). Some evidence in the excel tables of changing proportions of child vs adult items/patients over time (i.e more of an even split instead of many more children).
+
+### 2.5. Drugs for dementia
+
+`r infoBox_border(" ", text = "Dementia is a progressive clinical syndrome characterised by a range of cognitive and behavioural symptoms that can include memory loss, problems with reasoning and communication, a change in personality, and a reduced ability to carry out daily activities such as washing or dressing. Alzheimer’s disease is the most common type of dementia. Other common types of dementia include vascular dementia (where dementia is due to cerebrovascular disease), dementia with Lewy bodies (where dementia is due to protein deposits in the brain), mixed dementia, and frontotemporal dementia (where dementia is due to progressive nerve loss in either the frontal or temporal lobes of the brain).
+
+Drugs for dementia are described in the BNF 68 section 4.11:
+
+* BNF chemical substance 0411000D0 - Donepezil hydrochloride
+* BNF chemical substance 0411000E0 - Rivastigmine
+* BNF chemical substance 0411000F0 - Galantamine
+* BNF chemical substance 0411000G0 - Memantine hydrochloride
+
+More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+
+#### Figure 25: Number of prescribed items by financial year - BNF 4.11: Drugs for dementia
+
+```{r annual_items_0411, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Drugs for dementia]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million Drugs for dementia items prescribed in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> (thousands) identified patients received a Drugs for dementia item in 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any interesting trend goes here, or ommitted if not noteworthy. </b>", width = "100%")`
+:::
+::::
+
+Commentary on annual Drugs for dementia items and patients goes here.
+
+#### Figure 26: Number of identified patients by financial year - BNF 4.11: Drugs for dementia
+
+```{r annual_patients_0411, out.width="100%"}
+```
+
+Source: [Annual statistical summary tables - Drugs for dementia]()
+
+#### Figure 27: Number of prescribed items and identified patients by financial quarter - BNF 4.11: Drugs for dementia
+
+```{r quarterly_0411, out.width="100%"}
+```
+
+Source: [Quarterly statistical summary tables - Drugs for dementia]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> million Drugs for dementia items prescribed in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> (thousands) identified patients received a Drugs for dementia item in Q4 2022/23.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Any trends go here if interesting</b>", width = "100%")`
+:::
+::::
+
+Commentary on quarterly Drugs for dementia items and patients goes here, along with any interesting monthly findings. Monthly information will otherwise be left in the summary tables and not the narrative.
+
+#### Figure 28: Number of identified patients by age band and gender 2022/23 - BNF 4.11: Drugs for dementia
+
+```{r annual_ageband_0411}
+```
+
+Source: [Annual statistical summary tables - Drugs for dementia]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> Ageband/gender infobox goes here.</b>", width = "100%")`
+:::
+
+Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
+
+#### Figure 29: Number of identified patients by IMD decile 2022/23 - BNF 4.11: Drugs for dementia  
+
+```{r annual_imd_0411}
+```
+
+Source: [Annual statistical summary tables - Drugs for dementia]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> IMD infobox goes here.</b>", width = "100%")`
+:::
+
+
+IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for core20/non-core20 split instead of focusing on differences between individual quintiles.
+
+#### Figure 30: Items and patients by ICB by financial year - BNF 4.11: Drugs for dementia  
+
+```{R annual_icb_0411}
+```
+
+Source: [Annual statistical summary tables - Drugs for dementia]()
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> ICB infobox goes here.</b>", width = "100%")`
+:::
+
+
+Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables.
+
+## 3. Prescribing during the COVID-19 pandemic 
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r mumhquarterly::infoBox_no_border("", text = "<b> Placeholder for whether sections remained along expected trends or not.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r mumhquarterly::infoBox_no_border("", text = "<b>Placeholder for CNS ADHD findings if notable </b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r mumhquarterly::infoBox_no_border("", text = "<b>Placeholder for any other findings.</b>", width = "100%")`
+:::
+::::
+
+The number of expected prescription items for the below sections during this period have been calculated by extrapolating figures for March 2020 to `r max_filter_12_months` according to:
+
+* the trend in prescription items for each section between April 2015 and February 2020
+* the number of dispensing days that occur in each month
+* the typical differences between each month of the year observed between April 2015 and February 2020
+* the typical differences between each combination of 20 year age band group and gender
+
+A linear regression model has been used to estimate the number of items prescribed, to stay relatively simple and consistent with the model used in previous releases. The model estimates the expected number of items prescribed based on pre-pandemic trends, for each combination of age band and gender. These estimates have then been added together to get an estimate of the total items expected per month, with a 95% and 99% prediction interval calculated.
+
+`r mumhquarterly::infoBox_border("Prediction interval (PI)", text = "A range calculated based on the uncertainty around the fit of the model. A 95% PI means that if a new observation is taken from the population the model is based on, it is likely to fall within the interval of predicted values 95% of the time. A 99% PI means the new observation is likely to fall within the interval of predicted values 99% of the time.", width = "100%")`
+
+The data used in this model has been split into groups by patients' 20 year age band and gender. As age band and gender were included in the model, the model was only fitted to data where age band and gender were both known. This means the charts of predictions made using the model are not based on the same full data used in the rest of this publication. These charts cannot be directly compared to each other or to the quarterly and monthly charts of items prescribed. More information on the methodology behind the model can be found in the [background and methodology document](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/MUMH_Background_Info_Methodology_v007.html).
+
+
+### 3.1. Antidepressant Prescribing {.toc-ignore}
+
+#### Figure 31: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.3: Antidepressant drugs
+
+```{r covid_0403_items, out.width="100%"}
+
+
+```
+
+Source: [Quarterly Summary Tables - Monthly table]()
+
+Between March 2020 and March 2023, there were  million antidepressant items prescribed.
+
+
+### 3.2. Hypnotics and anxiolytics prescribing {.toc-ignore}
+
+#### Figure 32: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.1: Hypnotics and anxiolytics
+
+```{r covid_0401_items, out.width="100%"}
+
+
+```
+
+Source: [Quarterly Summary Tables - Monthly table]()
+
+There were  million hypnotics and anxiolytics items prescribed between March 2020 and March 2023.
+
+
+### 3.3. Drugs used in psychoses and related disorders prescribing {.toc-ignore}
+
+#### Figure 33: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.2: Drugs used in psychoses and related disorders
+
+```{r covid_0402_items, out.width="100%"}
+
+```
+Source: [Quarterly Summary Tables - Monthly table]()
+
+From March 2020 to December 2023,  million antipsychotic items were prescribed.
+
+
+### 3.4. CNS stimulants and drugs used for ADHD prescribing {.toc-ignore}
+
+#### Figure 34: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.4: CNS stimulants and drugs used for ADHD
+
+```{r covid_0404_items, out.width="100%"}
+
+
+```
+
+Source: [Quarterly Summary Tables - Monthly table]()
+
+From March 2020 to March 2023,  million CNS stimulants and drugs used for ADHD items were prescribed.
+
+
+### 3.5. Drugs for dementia prescribing {.toc-ignore}
+
+#### Figure 35: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.11: Drugs for dementia
+
+```{r covid_0411_items, out.width="100%"}
+
+
+```
+
+Source: [Quarterly Summary Tables - Monthly table]()
+
+---
+
+## 4. Background
+
+This publication provides information on medicines used to treat mental health conditions in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands by a pharmacy, appliance contractor, dispensing doctor, or have been personally administered by a GP practice . The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors.
+
+### 4.1. Antidepressant drugs {.toc-ignore}
+
+Antidepressant drugs are licensed to treat major depression. Health professionals use the words depression, depressive illness or clinical depression to refer to depression. It is a serious illness and very different from the common experience of feeling unhappy or fed up for a short period of time. Depressed people may have feelings of extreme sadness that can last for a long time. These feelings are severe enough to interfere with daily life, and can last for weeks, months or years, rather than days.
+
+It should be noted that antidepressant drugs are used for indications other than depression, for example migraine, chronic pain, myalgic encephalomyelitis (ME), or a range of other conditions. Clinical indication isn't captured by the NHSBSA. Therefore, the statistics on these drugs do not relate solely to prescribing for depression.
+
+You can find more information about [depression](https://www.nhs.uk/conditions/clinical-depression/) on the NHS website.
+
+### 4.2. Hypnotics and anxiolytics {.toc-ignore}
+
+Hypnotics and anxiolytics are used to treat insomnia and anxiety respectively.
+
+Insomnia is difficulty getting to sleep or staying asleep for long enough to feel refreshed in the morning, despite there being enough opportunity to sleep. The most common problem with insomnia is difficult falling asleep (sleep-onset insomnia). An insomniac may also experience:
+
+* waking in the night
+* not feeling refreshed after sleep and not being able to function normally during the day
+* feeling irritable and tired and finding it difficult to concentrate
+* waking when they have been disturbed from sleep by pain or noise
+* waking early in the morning
+
+Anxiety is a feeling of unease, such as worry or fear, which can be mild or severe. Everyone experiences feelings of anxiety at some point in their life and feeling anxious is sometimes perfectly normal. However, people with generalised anxiety disorder (GAD) find it hard to control their worries. Their feelings of anxiety are more constant and often affect their daily life. There are several conditions for which anxiety is the main symptom. Panic disorder, phobias and post-traumatic stress disorder can all cause severe anxiety.
+
+You can find more information about [insomnia](https://www.nhs.uk/conditions/insomnia/) and [anxiety](https://www.nhs.uk/conditions/generalised-anxiety-disorder/) from the NHS website.
+
+### 4.3. Drugs used in psychoses and related disorders {.toc-ignore}
+
+People experiencing psychoses may report hallucinations (seeing or hearing things that other people cannot see or hear) or delusional beliefs (believing things that are not actually true), and may exhibit personality changes and thought disorder. As well as this, they may experience difficulties with social interaction and impairment in carrying out daily life activities.
+
+You can find more information about [psychoses and related disorders](https://www.nhs.uk/conditions/psychosis/) on the NHS website.
+
+### 4.4. Central nervous system (CNS) stimulants and drugs used for ADHD  {.toc-ignore}
+
+Attention deficit hyperactivity disorder (ADHD) and attention deficit disorder (ADD) refer to a range of problem behaviours associated with poor attention span. These may include impulsiveness and hyperactivity, as well as inattentiveness; behaviours that often prevent children and adults from learning and socialising. ADHD is sometimes referred to as hyperkinetic disorder (HD).
+
+You can find more information about [ADHD](https://www.nhs.uk/conditions/attention-deficit-hyperactivity-disorder-adhd/) on the NHS website.
+
+### 4.5. Drugs for dementia {.toc-ignore}
+
+Dementia is a disease that leads to progressive loss of brain function typified by memory loss, confusion, speech difficulties and problems in understanding. There are over 100 different types of dementia. The most common forms are:
+
+* Alzheimer's disease
+* Vascular dementia
+* Dementia with Lewy bodies
+* Pick's disease
+* Huntington's disease
+* Alcohol-related dementia
+* HIV/AIDS related dementia
+
+Dementia mainly affects older people but can also occur in people as young as thirty due to either alcohol abuse or HIV/AIDS. No cure for dementia currently exists. However, drugs may slow the rate of decline or in some patients make a small improvement in symptoms. Despite this, disease progression is inevitable.
+
+You can find more information about the [various types of dementia](https://www.nhs.uk/conditions/dementia/) on the NHS website.
+
+### 4.6. Related statistics and resources {.toc-ignore}
+
+Prescribing of medications in primary care is only part of the big picture for mental health care in England. The [NHS Digital mental health data hub](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/mental-health-data-hub) has links to statistics on a range of related topics which may provide further context. These include a mental health bulletin, reports on children and young people's mental health surveys, dementia assessment and referral statistics, and more.
+
+---
+
+## 5. About these statistics
+
+This publication is part of a series by the NHSBSA, which can be found on our [Medicines Used in Mental Health webpage](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england). This release is intended to continue the annual summary statistics released in each year and combine it with quarterly summary for quarter 4 of the 2022/23 financial year. To learn more about how this series compares to our other publications, you can view the Official Statistics guidance table on our [statistical collections page](https://www.nhsbsa.nhs.uk/statistical-collections). 
+
+### 5.1. Changes to this publication {.toc-ignore}
+
+For this release we have changed some of the underlying methodology used to assign items and patients to an IMD quintile. The data now uses the postcode of the patient, rather than the postcode of the practice associated with the prescription. 
+
+Patient gender is now counted as the last gender recorded in the data for that patient.
+
+Due to combining the annual and quarterly releases, we have now published some demographic level information by financial quarter. Previously this data was only published by financial year. 
+
+More information on changes to the methodology can be found in our background and methodology note under the resources section of [the webpage for this publication](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england/medicines-used-mental-health-england-201516-202223).
+
+### 5.2. Patient counts {.toc-ignore}
+
+The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients. A patient will be included, or counted, in each category or time period in which they received relevant prescriptions. For example, if a patient received a prescription item for an antidepressant drug in Q1 2020/21 and another in Q2 2020/21, then adding together those totals would count that patient twice. For the same reason, data on patient counts for different BNF sections should not be added together.
+
+### 5.3 Statistical Disclosure Controld (SDC) {.toc-ignore}
+
+Statistical disclosure control has been applied to these statistics. Patient count, items, and net ingredient cost (NIC) have been redacted in the supporting summary tables if they relate to fewer than 5 patients. Further information about our statistical disclosure control protocol [can be found on our website](https://www.nhsbsa.nhs.uk/policies-and-procedures).
+
+### 5.3. Rounding {.toc-ignore}
+
+The high-level figures in this statistical summary have been rounded where appropriate for clarity. In most cases rounding has been to three significant figures in the main text and two significant figures in the key findings and information boxes. This is to make this narrative as accessible as possible to all readers. The summary tables released with this publication allow users to investigate this data at lower levels of granularity. Figures in the supplementary tables have not been rounded.
+
+### 5.4. Trends during COVID-19 {.toc-ignore}
+
+The number of items for each BNF section in the 34-month period March 2020 to `r max_filter_12_months` were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to `r max_filter_12_months`. These figures were extrapolated according to:
+
+* the trends between April 2015 and February 2020
+* the number of dispensing days that occur in each month
+* the typical differences between each month of the year observed between April 2015 and February 2020
+* the typical differences between each combination of 20 year age band group and gender
+
+This model states expected figures if trends had continued as before but doesn't confirm causation of any differences. Factors other than COVID-19 may have influenced prescribing, such as:
+
+*	changes in patient behaviour, demographics, or morbidity
+*	external environmental factors that could drive prescribing
+*	any (and all) policy initiatives and guidance
+*	other local priorities and resources
+
+### 5.5. Averages {.toc-ignore}
+
+Where this document refers to 'average', this is the mean unless otherwise stated. This is calculated by adding the number of items/patients/months together and dividing this by the number of items/patients/months.
+
+### 5.6. Planned changes to this publication {.toc-ignore}
+
+This is an experimental official statistic release. Experimental statistics are newly developed or innovative statistics. These are published so that users and stakeholders can be involved in the assessment of their suitability and quality at an early stage. We will regularly be reviewing the methodology used within the statistics.
+
+---
+
+## 6. Accessibility
+
+If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille, you can contact us by:
+
+**Email**: nhsbsa.accessibility@nhs.net
+
+**Phone**: 0191 203 5318
+
+[Find out about call charges](https://www.nhsbsa.nhs.uk/contact-us/call-charges-and-phone-numbers)
+
+We’ll consider your request and get back to you in 5 working days.
+
+These contact details are only for accessibility queries. This inbox is not for technical queries or IT problems. If you have a query that is not about accessibility, go to the ‘Contact us’ section of this page.
+
+View our [Accessibility statement for Official Statistics Narratives](https://www.nhsbsa.nhs.uk/accessibility-statement-official-statistics-narratives).
+
+---
+
+## 7. Feedback and contact us
+
+Feedback is important to us; we welcome any questions and comments relating to these statistics. 
+
+You can complete a [short survey about this publication](https://online1.snapsurveys.com/interview/caf0d685-0500-48d2-8b96-1c434a956819) to help us improve the Official Statistics that we produce. All responses will remain anonymous and individuals will not be identifiable in any report that we produce.
+
+You can view our [privacy policy](https://www.nhsbsa.nhs.uk/our-policies/privacy) on our website to see how your data is used and stored.
+
+You can contact us by:
+
+**Email:** nhsbsa.statistics@nhs.net
+
+**You can also write to us at:**
+
+NHSBSA - Statistics  
+NHS Business Services Authority  
+Stella House  
+Goldcrest Way  
+Newburn Riverside  
+Newcastle upon Tyne  
+NE15 8NY
+
+**Responsible statistician:** Grace Libby
+
+</main>

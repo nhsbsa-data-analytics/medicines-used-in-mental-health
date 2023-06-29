@@ -375,7 +375,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 #create cover sheet
-makeCoverSheet(
+accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0401 Hypnotics and anxiolytics",
   "England 2015/16 - 2022/23",
   "Publication Date: 6 July 2023",
@@ -777,7 +777,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 #create cover sheet
-makeCoverSheet(
+accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0402 Drugs used in psychoses and related disorders",
   "England 2015/16 - 2022/23",
   "Publication Date: 6 July 2023",
@@ -1213,7 +1213,7 @@ format_data(wb,
             "#,##0.00")
 
 #create cover sheet
-makeCoverSheet(
+accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0403 Antidepressant drugs",
   "England 2015/16 - 2022/23",
   "Publication Date: 6 July 2023",
@@ -1649,7 +1649,7 @@ format_data(wb,
             "#,##0.00")
 
 #create cover sheet
-makeCoverSheet(
+accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0404 CNS stimulants and drugs used for ADHD",
   "England 2015/16 - 2022/23",
   "Publication Date: 6 July 2023",
@@ -2051,7 +2051,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 #create cover sheet
-makeCoverSheet(
+accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0411 Drugs for dementia",
   "England 2015/16 - 2022/23",
   "Publication Date: 6 July 2023",

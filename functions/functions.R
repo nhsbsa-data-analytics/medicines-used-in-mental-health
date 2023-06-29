@@ -94,9 +94,9 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -144,9 +144,9 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -195,9 +195,9 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -224,10 +224,10 @@ population_extract <- function(){
   
   patient_population <- national_extract_period(con, period_type = "year") %>%
     dplyr::select(`Financial Year`,
-                `Identified Patient Flag`,
-                `Total Identified Patients`,
-                `BNF Section Name`,
-                `BNF Section Code`) %>% 
+                  `Identified Patient Flag`,
+                  `Total Identified Patients`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) %>% 
     dplyr::mutate(`Mid-year Population Year` = as.numeric(substr(c(`Financial Year`), 1, 4))) %>%
     dplyr::filter(`Identified Patient Flag` == "Y") %>%
     dplyr::left_join(select(en_ons_national_pop, YEAR, ENPOP), by = c("Mid-year Population Year" = "YEAR")) %>%
@@ -290,9 +290,9 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -342,9 +342,9 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -398,9 +398,9 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -470,9 +470,9 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -528,9 +528,9 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -589,9 +589,9 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -636,8 +636,6 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         FINANCIAL_YEAR,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        REGION_NAME,
-        REGION_CODE,
         ICB_NAME,
         ICB_CODE,
         SECTION_DESCR,
@@ -656,8 +654,6 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
     fact_icb <- fact %>%
       dplyr::group_by(
         `Financial Year` = FINANCIAL_YEAR,
-        `Region Name` = REGION_NAME,
-        `Region Code` = REGION_CODE,
         `ICB Name` = ICB_NAME,
         `ICB Code` = ICB_CODE,
         `BNF Section Name` = SECTION_DESCR,
@@ -669,17 +665,13 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T)
       ) %>%
       ungroup() %>%
       collect %>%
       mutate(
-        REGION_CODE_ORDER = case_when(
-          `Region Code` == "-" ~ 2,
-          TRUE ~ 1
-        ),
         ICB_NAME_ORDER = case_when(
           `ICB Name` == "UNKNOWN ICB" ~ 2,
           TRUE ~ 1
@@ -687,17 +679,14 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
       ) %>%
       dplyr::arrange(
         `Financial Year`,
-        REGION_CODE_ORDER,
-        `Region Code`,
         ICB_NAME_ORDER,
         `ICB Name`,
         `BNF Section Code`,
         `BNF Paragraph Code`,
         `BNF Chemical Substance Code`,
-        desc(`Total Identified Patients`)
+        desc(`Identified Patient Flag`)
       ) %>%
       select(
-        -REGION_CODE_ORDER,
         -ICB_NAME_ORDER
       )
   }
@@ -716,8 +705,6 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        REGION_NAME,
-        REGION_CODE,
         ICB_NAME,
         ICB_CODE,
         SECTION_DESCR,
@@ -737,8 +724,6 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
       dplyr::group_by(
         `Financial Year` = FINANCIAL_YEAR,
         `Financial Quarter` = FINANCIAL_QUARTER,
-        `Region Name` = REGION_NAME,
-        `Region Code` = REGION_CODE,
         `ICB Name` = ICB_NAME,
         `ICB Code` = ICB_CODE,
         `BNF Section Name` = SECTION_DESCR,
@@ -750,17 +735,13 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T)
       ) %>%
       ungroup() %>%
       collect %>%
       mutate(
-        REGION_CODE_ORDER = case_when(
-          `Region Code` == "-" ~ 2,
-          TRUE ~ 1
-        ),
         ICB_NAME_ORDER = case_when(
           `ICB Name` == "UNKNOWN ICB" ~ 2,
           TRUE ~ 1
@@ -769,20 +750,17 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
       dplyr::arrange(
         `Financial Year`,
         `Financial Quarter`,
-        REGION_CODE_ORDER,
-        `Region Code`,
         ICB_NAME_ORDER,
         `ICB Name`,
         `BNF Section Code`,
         `BNF Paragraph Code`,
         `BNF Chemical Substance Code`,
-        desc(`Total Identified Patients`)
-      ) %>%
-      select(
-        -REGION_CODE_ORDER,
+        desc(`Identified Patient Flag`)) %>%
+      dplyr::select(
         -ICB_NAME_ORDER
       )
   }
+  
   else  if (period_type == "month") {
     
     #filter for year in function call
@@ -799,8 +777,6 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         YEAR_MONTH,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        REGION_NAME,
-        REGION_CODE,
         ICB_NAME,
         ICB_CODE,
         SECTION_DESCR,
@@ -821,8 +797,6 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         `Financial Year` = FINANCIAL_YEAR,
         `Finacial Quarter` = FINANCIAL_QUARTER,
         `Year Month` = YEAR_MONTH,
-        `Region Name` = REGION_NAME,
-        `Region Code` = REGION_CODE,
         `ICB Name` = ICB_NAME,
         `ICB Code` = ICB_CODE,
         `BNF Section Name` = SECTION_DESCR,
@@ -834,17 +808,13 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
-        `Total Items` =  sum(ITEM_COUNT, na.rm = T),
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
+        `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T)
       ) %>%
       ungroup() %>%
       collect %>%
       mutate(
-        REGION_CODE_ORDER = case_when(
-          `Region Code` == "-" ~ 2,
-          TRUE ~ 1
-        ),
         ICB_NAME_ORDER = case_when(
           `ICB Name` == "UNKNOWN ICB" ~ 2,
           TRUE ~ 1
@@ -854,8 +824,6 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         `Financial Year`,
         `Finacial Quarter`,
         `Year Month`,
-        REGION_CODE_ORDER,
-        `Region Code`,
         ICB_NAME_ORDER,
         `ICB Name`,
         `BNF Section Code`,
@@ -864,10 +832,9 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
         desc(`Identified Patient Flag`)
       ) %>%
       select(
-        -REGION_CODE_ORDER,
         -ICB_NAME_ORDER
       )
-  }  
+  }
   
   #return data for use in pipeline
   return(fact_icb)
@@ -924,9 +891,9 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` =  sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -936,7 +903,7 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
         desc(`Identified Patient Flag`)
       ) %>%
       collect()
-    }
+  }
   
   
   else  if (period_type == "quarter") {
@@ -987,9 +954,9 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` =  sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -1000,7 +967,7 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
         desc(`Identified Patient Flag`)
       ) %>%
       collect()
-    }
+  }
   
   #return data for use in pipeline  
   
@@ -1047,9 +1014,9 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` =  sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -1096,9 +1063,9 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` =  sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -1171,9 +1138,9 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` =  sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T)
       ) %>%
       dplyr::arrange(
         `Financial Year`,
@@ -1183,7 +1150,7 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       ungroup() %>%
       collect()
-    }
+  }
   
   else  if (period_type == "quarter") {
     
@@ -1237,9 +1204,9 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
         `Identified Patient Flag` = PATIENT_IDENTIFIED
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` =  sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T)
       ) %>%
       dplyr::arrange(
         `Financial Year`,
@@ -1250,10 +1217,10 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       ) %>%
       ungroup() %>%
       collect()
-    }
+  }
   
   #return data for use in pipeline  
-
+  
   return(fact_age_gender)
   
 }
@@ -1276,7 +1243,8 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
             IMD_DECILE %in% c("3", "4") ~ "2",
             IMD_DECILE %in% c("5", "6") ~ "3",
             IMD_DECILE %in% c("7", "8") ~ "4",
-            IMD_DECILE %in% c("9", "10") ~ "5 - Least Deprived"
+            IMD_DECILE %in% c("9", "10") ~ "5 - Least Deprived",
+            TRUE ~ "Unknown"
           )
         
       ) %>%
@@ -1302,9 +1270,9 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
         `IMD Quintile` = IMD_QUINTILE
       ) %>%
       dplyr::summarise(
-        `Total Items` = sum(ITEM_COUNT, na.rm = T),
-        `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
         `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
+        `Total Items` =  sum(ITEM_COUNT, na.rm = T),
+        `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -1313,7 +1281,7 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
         `IMD Quintile`
       ) %>%
       collect()
-    }
+  }
   
   else  if (period_type == "quarter") {
     
@@ -1329,11 +1297,13 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
             IMD_DECILE %in% c("3", "4") ~ "2",
             IMD_DECILE %in% c("5", "6") ~ "3",
             IMD_DECILE %in% c("7", "8") ~ "4",
-            IMD_DECILE %in% c("9", "10") ~ "5 - Least Deprived"
+            IMD_DECILE %in% c("9", "10") ~ "5 - Least Deprived",
+            TRUE ~ "Unknown"
           )
         
       ) %>%
       dplyr::group_by(
+        FINANCIAL_YEAR,
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
@@ -1357,18 +1327,19 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
         `IMD Quintile` = IMD_QUINTILE
       ) %>%
       dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         `Total Items` = sum(ITEM_COUNT, na.rm = T),
         `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
         .groups = "drop"
       ) %>%
       dplyr::arrange(
+        `Financial Year`,
         `Financial Quarter`,
         `BNF Section Code`,
         `IMD Quintile`
       ) %>%
       collect()
-    }
+  }
   
   #return data for use in pipeline  
   
@@ -1384,52 +1355,52 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
   if (period_type == "year") { 
     #filter for year in function call
     fact <- fact_year %>%
-    dplyr::mutate(
-      PATIENT_COUNT = case_when(
-        PATIENT_IDENTIFIED == "Y" ~ 1,
-        TRUE ~ 0
-      )
-    ) %>%
-    dplyr::group_by(
-      FINANCIAL_YEAR,
-      IDENTIFIED_PATIENT_ID,
-      PATIENT_IDENTIFIED,
-      SECTION_NAME,
-      SECTION_CODE,
-      CALC_AGE,
-      PATIENT_COUNT
-    ) %>%
-    dplyr::summarise(
-      ITEM_COUNT = sum(ITEM_COUNT, na.rm = T),
-      ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC, na.rm = T)
-    ) 
-  
-  child_adult_split <- fact %>%
-    mutate(
-      AGE_BAND = case_when(
-        CALC_AGE < 0 ~ "Unknown",
-        CALC_AGE <= 17 ~ "17 and under",
-        TRUE ~ "18 and over"
-      )
-    ) %>%
-    dplyr::group_by(
-      `Financial Year` = FINANCIAL_YEAR,
-      `BNF Section Name` = SECTION_NAME,
-      `BNF Section Code` = SECTION_CODE,
-      `Age Band` = AGE_BAND
-    ) %>%
-    dplyr::summarise(
-      `Total Items` = sum(ITEM_COUNT, na.rm = T),
-      `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
-      `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
-      .groups = "drop"
-    ) %>%
-    dplyr::arrange(
-      `Financial Year`,
-      `BNF Section Code`,
-      `Age Band`
-    ) %>%
-    collect()
+      dplyr::mutate(
+        PATIENT_COUNT = case_when(
+          PATIENT_IDENTIFIED == "Y" ~ 1,
+          TRUE ~ 0
+        )
+      ) %>%
+      dplyr::group_by(
+        FINANCIAL_YEAR,
+        IDENTIFIED_PATIENT_ID,
+        PATIENT_IDENTIFIED,
+        SECTION_DESCR,
+        BNF_SECTION,
+        CALC_AGE,
+        PATIENT_COUNT
+      ) %>%
+      dplyr::summarise(
+        ITEM_COUNT = sum(ITEM_COUNT, na.rm = T),
+        ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC, na.rm = T)
+      ) 
+    
+    child_adult_split <- fact %>%
+      mutate(
+        AGE_BAND = case_when(
+          CALC_AGE < 0 ~ "Unknown",
+          CALC_AGE <= 17 ~ "17 and under",
+          TRUE ~ "18 and over"
+        )
+      ) %>%
+      dplyr::group_by(
+        `Financial Year` = FINANCIAL_YEAR,
+        `BNF Section Name` = SECTION_DESCR,
+        `BNF Section Code` = BNF_SECTION,
+        `Age Band` = AGE_BAND
+      ) %>%
+      dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
+        `Total Items` =  sum(ITEM_COUNT, na.rm = T),
+        `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
+        .groups = "drop"
+      ) %>%
+      dplyr::arrange(
+        `Financial Year`,
+        `BNF Section Code`,
+        `Age Band`
+      ) %>%
+      collect()
   }
   
   else  if (period_type == "quarter") {
@@ -1447,8 +1418,8 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
         FINANCIAL_QUARTER,
         IDENTIFIED_PATIENT_ID,
         PATIENT_IDENTIFIED,
-        SECTION_NAME,
-        SECTION_CODE,
+        SECTION_DESCR,
+        BNF_SECTION,
         CALC_AGE,
         PATIENT_COUNT
       ) %>%
@@ -1468,14 +1439,14 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
       dplyr::group_by(
         `Financial Year` = FINANCIAL_YEAR,
         `Financial Quarter` = FINANCIAL_QUARTER,
-        `BNF Section Name` = SECTION_NAME,
-        `BNF Section Code` = SECTION_CODE,
+        `BNF Section Name` = SECTION_DESCR,
+        `BNF Section Code` = BNF_SECTION,
         `Age Band` = AGE_BAND
       ) %>%
       dplyr::summarise(
-        `Total Items` = sum(ITEM_COUNT, na.rm = T),
-        `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
         `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
+        `Total Items` =  sum(ITEM_COUNT, na.rm = T),
+        `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
         .groups = "drop"
       ) %>%
       dplyr::arrange(
@@ -1599,4 +1570,3 @@ infoBox_no_border <- function(
 </div>"
   )
 }
-

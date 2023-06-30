@@ -1152,8 +1152,18 @@ annual_0411$age_gender %>%
                   `Age Band`,
                   `Patient Gender`) %>%
   dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`)) %>%
+  dplyr::arrange(`Age Band` == "90+",
+            `Age Band` == "85-89",
+            `Age Band` == "80-84",
+            `Age Band` == "75-79",
+            `Age Band` == "70-74",
+            `Age Band` == "65-69",
+            `Age Band` == "60-64",
+            `Age Band` == "55-59",
+            `Age Band` == "50-54",
+            `Age Band` == "Under 50") %>%
   dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
-  age_gender_chart()
+  age_gender_chart_no_fill()
 
 ```
 

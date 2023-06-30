@@ -163,17 +163,17 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> million antidepressant items prescribed in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 86.3 million antidepressant items prescribed in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> million identified patients received an antidepressant in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 8.56 million identified patients received an antidepressant in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Any interesting trend goes here, or ommitted if not noteworthy. </b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>SSRIs remained the drug group with the highest number of items and patients, while MAOIs continued to decrease. </b>", width = "100%")`
 :::
 ::::
 
-Commentary on annual antidepressant items and patients goes here.
+In 2022/23 there were 86.3 million antidepressant items prescribed, 3.39% more than in 2021/22. Antidepressant items have increased steadily each year since 2015/16 across three out of four BNF paragraphs. In contrast, Monoamine-oxidase inhibitors (MAOIs) have decreased by 60.1% over the same time period, down to 19,100 items in 2022/23.
 
 #### Figure 2: Number of identified patients by financial year - BNF 4.3: Antidepressant drugs
 
@@ -207,6 +207,10 @@ annual_0403$national_paragraph %>%
 ```
 
 Source: [Statistical summary tables - Antidepressant drugs]()
+
+An estimated 8.56 million identified patients were prescribed at least one antidepressant item in 2022/23. This was 2.43% more than 2021/22. Identified patients have risen over time since 2015/16 to 2022/23, with a similar upward trend to items. Selective seratonin re-uptake inhibitors (SSRIs) have continued to rise for the second year in a row after stalling in 2020/21, with 5.39 million patients in 2022/23.
+
+Any patient who was prescribed items from more than one BNF paragraph is counted in the subtotal for each relevant paragraph. However, these patients have only been counted once in the BNF section totals for each relevant section. The total number of identified patients is therefore lower than if the totals for each paragraph are added together.
 
 #### Figure 3: Number of prescribed items and identified patients by financial quarter - BNF 4.3: Antidepressant drugs 
 
@@ -246,17 +250,15 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> million antidepressant items prescribed in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 21.9 million antidepressant items prescribed in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>million identified patients received an antidepressant in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 6.72 million identified patients received an antidepressant in Q4 2022/23.</b>", width = "100%")`
 :::
-:::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Any trends go here if interesting</b>", width = "100%")`
-:::
-::::
 
-Commentary on quarterly antidepressant items and patients goes here, along with any interesting monthly findings. Monthly information will otherwise be left in the summary tables and not the narrative.
+Antidepressant items and identified patients have both increased across all four quarters of 2022/23. Between January to March 2023 antidepressant prescribing increased to 21.9 million items. This was only 0.58% more than the previous quarter, and 4.08% more than the same quarter in 2021/22. Identified patients increased to 6.72 million in January to March 2023, a small increase of 1.66% from the previous quarter.
+
+Both antidepressant items and patients showed a small decrease between January to February 2023, before increasing again in March. This seasonal variation matches the same pattern seen in January to March in every year since 2015/16.
 
 #### Figure 4: Number of identified patients by age band and gender 2022/23 - BNF 4.3: Antidepressant drugs 
 
@@ -273,10 +275,12 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> Ageband/gender infobox goes here.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> Female patients aged 50-54 were the most common prescribing group in 2022/23.</b>", width = "100%")`
 :::
 
-Commentary on ageband/gender for 2022/23 goes here. Include any trends/changes from previous years or within recent quarters if any major changes.
+As in previous years, 2022/23 had noticeable differences in prescribing across gender, with 5.59 million female patients and 2.93 million male patients. 
+
+Female patients aged 50-54 were the largest group across all age and gender groups at 6.11% of all identified patients, followed by female patients aged 55-59 and female patients aged 60-64. Although the number of male patients was lower, similar age groups were the most common within male patients. The largest group of male patients was 55-59 year olds, followed by 50-54 year olds and 60-64 year olds.
 
 #### Figure 5: Number of identified patients by IMD quintile 2022/23 - BNF 4.3: Antidepressant drugs  
 
@@ -299,11 +303,12 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> IMD infobox goes here.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 2.14 million patients in the most deprived areas in England.</b>", width = "100%")`
 :::
 
+In 2022/23, there were 2.14 million identified patients receiving prescribing for antidepressants in the most deprived areas in England. This was 24.9% of all identified patients, and 39.8% higher than the least deprived areas.
 
-IMD quintile/CORE20 commentary. Compare quintile one against the other 4 for core20/non-core20 split instead of focusing on differences between individual quintiles.
+The English Indices of Deprivation have been used to provide a measure of patient deprivation. The patient's postcode has been used to assigned them to an IMD quintile. You can find more information about this in section 5 of this summary.
 
 #### Figure 6: Items and patients by ICB by financial year - BNF 4.3: Antidepressant drugs  
 
@@ -331,7 +336,23 @@ There is a keen interest in the prescribing of antidepressant drugs in children.
 
 ```{r annual_children_0403}
 
-
+annual_0403$prescribing_in_children %>%
+  dplyr::filter(`Age Band` != "Unknown") %>%
+  dplyr::mutate(`Total Identified Patients` = (`Total Identified Patients` / 1000000)) %>%
+  dplyr::select(`Financial Year`,
+                `Age Band`,
+                `Total Identified Patients`) %>%
+  tidyr::pivot_wider(names_from = `Financial Year`,
+                     values_from = `Total Identified Patients`) %>%
+  dplyr::mutate(across(where(is.numeric), round, 2)) %>%
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:8)
+                               )))
 
 ```
 
@@ -1393,15 +1414,27 @@ More information on changes to the methodology can be found in our background an
 
 The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients. A patient will be included, or counted, in each category or time period in which they received relevant prescriptions. For example, if a patient received a prescription item for an antidepressant drug in Q1 2020/21 and another in Q2 2020/21, then adding together those totals would count that patient twice. For the same reason, data on patient counts for different BNF sections should not be added together.
 
-### 5.3 Statistical Disclosure Controld (SDC) {.toc-ignore}
+### 5.3 Index of deprivation (IMD) {.toc-ignore}
+
+The English Indices of Deprivation 2019 have been used to provide a measure of patient deprivation. The English Indices of Deprivation are an official national measure of deprivation that follows an established methodological framework to capture a wide range of individuals living conditions.
+
+The reported IMD quintile, where 1 represents the 20% most deprived areas and 5 the 20% least deprived areas, is derived from the postcode of the patient an item has been prescribed to. There are a small number of items each year that we have reported as having an unknown IMD decile. These are items that have been attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the practice postcode to a postcode in the National Statistics Postcode Lookup (NSPL) - May 2023.
+
+IMD deciles are calculated by ranking census lower-layer super output areas (LSOA) from most deprived to least deprived and dividing them into 10 equal groups. These range from the most deprived 10% (decile 1) of small areas nationally to the least deprived 10% (decile 10) of small areas nationally. We have aggregated these deciles into quintiles in this publication.
+
+### 5.4. Geographies included in this publication {.toc-ignore}
+
+The patient deprivation measures given in these statistics are based upon the LSOA of the postcode of the prescribing organisation as matched to the May 2023 NSPL file. However, higher geographies included in the statistical summary tables of this publication, such as ICB, use NHSBSA administrative records, not geographical boundaries, and more closely reflect the operational organisation of practices than other geographical data sources.
+
+### 5.5 Statistical Disclosure Controld (SDC) {.toc-ignore}
 
 Statistical disclosure control has been applied to these statistics. Patient count, items, and net ingredient cost (NIC) have been redacted in the supporting summary tables if they relate to fewer than 5 patients. Further information about our statistical disclosure control protocol [can be found on our website](https://www.nhsbsa.nhs.uk/policies-and-procedures).
 
-### 5.3. Rounding {.toc-ignore}
+### 5.6. Rounding {.toc-ignore}
 
 The high-level figures in this statistical summary have been rounded where appropriate for clarity. In most cases rounding has been to three significant figures in the main text and two significant figures in the key findings and information boxes. This is to make this narrative as accessible as possible to all readers. The summary tables released with this publication allow users to investigate this data at lower levels of granularity. Figures in the supplementary tables have not been rounded.
 
-### 5.4. Trends during COVID-19 {.toc-ignore}
+### 5.7. Trends during COVID-19 {.toc-ignore}
 
 The number of items for each BNF section in the 34-month period March 2020 to `r max_filter_12_months` were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to `r max_filter_12_months`. These figures were extrapolated according to:
 
@@ -1417,11 +1450,11 @@ This model states expected figures if trends had continued as before but doesn't
 *	any (and all) policy initiatives and guidance
 *	other local priorities and resources
 
-### 5.5. Averages {.toc-ignore}
+### 5.8. Averages {.toc-ignore}
 
 Where this document refers to 'average', this is the mean unless otherwise stated. This is calculated by adding the number of items/patients/months together and dividing this by the number of items/patients/months.
 
-### 5.6. Planned changes to this publication {.toc-ignore}
+### 5.9. Planned changes to this publication {.toc-ignore}
 
 This is an experimental official statistic release. Experimental statistics are newly developed or innovative statistics. These are published so that users and stakeholders can be involved in the assessment of their suitability and quality at an early stage. We will regularly be reviewing the methodology used within the statistics.
 

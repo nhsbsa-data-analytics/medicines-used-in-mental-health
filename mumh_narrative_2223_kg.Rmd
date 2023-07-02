@@ -367,7 +367,11 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 ::::
 
 
-Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables. 
+The figures in Figure 6 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
+
+In 2022/23 NHS North East and Cumbria was the ICB with the highest estimated number of identified patients who received at least one antidepressant item per 1,000 residents with an estimated 240 patients per 1,000 population.
+
+NHS North East London was the ICB with the lowest  estimated number of identified patients who received at least one antidepressant item per 1,000 residents in 2021/22 with an estimated 108 patients per 1,000 population.
 
 #### 2.1.1. Prescribing in adults and children {.toc-ignore}
 
@@ -668,7 +672,11 @@ Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
 :::
 
 
-Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables. 
+The figures in Figure 12 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
+
+In 2022/23 NHS Devon ICB was the ICB with the highest estimated number of identified patients who received at least one hypnotics and anxiolytic item per 1,000 residents with an estimated 55 patients per 1,000 population.
+
+NHS South East London ICB was the ICB with the lowest  estimated number of identified patients who received at least one hypnotics and anxiolytic item per 1,000 residents in 2021/22 with an estimated 25 patients per 1,000 population.
 
 ### 2.3. Antipsychotics
 
@@ -921,7 +929,11 @@ Source: [Annual statistical summary tables - Drugs used in psychoses and related
 :::
 
 
-Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables.
+The figures in Figure 18 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
+
+In 2022/23 NHS Devon ICB was the ICB with the highest estimated number of identified patients who received at least one antipsychotic item per 1,000 residents with an estimated 27 patients per 1,000 population.
+
+NHS Bristol, North Somerset and South Gloucestershire  ICB was the ICB with the lowest  estimated number of identified patients who received at least one antipsychotic item per 1,000 residents in 2021/22 with an estimated 13 patients per 1,000 population.
 
 ### 2.4. Central nervous system (CNS) stimulants and drugs used for ADHD 
 
@@ -1169,23 +1181,45 @@ Source: [Annual statistical summary tables - Central nervous system (CNS) stimul
 `r infoBox_no_border("", text = "<b> ICB infobox goes here.</b>", width = "100%")`
 :::
 
-Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables. 
+The figures in Figure 24 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
+
+In 2022/23 NHS Cheshire and Merseyside ICB was the ICB with the highest estimated number of identified patients who received at least one CNS stimulants and drug used for ADHD item per 1,000 residents with an estimated 9 patients per 1,000 population.
+
+NHS Humber and North Yorkshire ICB was the ICB with the lowest  estimated number of identified patients who received at least one CNS stimulants and drug used for ADHD item per 1,000 residents in 2021/22 with an estimated 2 patients per 1,000 population.
 
 #### 2.4.1. Prescribing in adults and children {.toc-ignore}
 
 There is some interest in the prescribing of Central nervous system (CNS) stimulants and drugs used for ADHD in children. Children are classed as patients aged 17 and under at 30 September for the given financial year.
 
-**Table 3: Number of child and adult patients - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD (thousands of patients)**
+#### Figure 25: Number of child and adult patients by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD (thousands of patients)
 
 ```{r annual_children_0404}
+
+annual_0404$prescribing_in_children %>% 
+  dplyr::filter(`Age Band` != "Unknown") %>% 
+  dplyr::select(`Financial Year`,
+                `BNF Section Name`,
+                `Age Band`,
+                `Total Identified Patients`
+                ) %>% 
+  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `Age Band`,
+    type = "column",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) %>% 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
 ```
 
 Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
 
-::::{.row style="display: flex; padding-bottom: 15px;"}
-:::{.col-md-4}
-`r infoBox_no_border("", text = "<b> Adult and child patients infobox goes here, if needed.</b>", width = "100%")`
-:::
 
 For the first time in 2022/23 a greater number of CNS stimulants and drugs used for ADHD prescription items were prescribed to adults, with 119,000 patients vs 112,000 child patients, the proportion of adults being prescribed of CNS stimulants and drugs used for ADHD items has been increasing since 2015/16.
 
@@ -1472,8 +1506,11 @@ Source: [Annual statistical summary tables - Drugs for dementia]()
 `r infoBox_no_border("", text = "<b> ICB infobox goes here.</b>", width = "100%")`
 :::
 
+The figures in Figure 30 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
 
-Could include map of items/patients by ICB here, if notable differences. Will be an ICB breakdown in the summary tables.
+In 2022/23 NHS Gloucestershire ICB was the ICB with the highest estimated number of identified patients who received at least one CNS stimulants and drug used for ADHD item per 1,000 residents with an estimated 9 patients per 1,000 population.
+
+NHS Birmingham and Solihull ICB was the ICB with the lowest  estimated number of identified patients who received at least one CNS stimulants and drug used for ADHD item per 1,000 residents in 2021/22 with an estimated 3 patients per 1,000 population.
 
 ## 3. Prescribing during the COVID-19 pandemic 
 

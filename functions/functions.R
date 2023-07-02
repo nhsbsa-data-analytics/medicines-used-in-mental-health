@@ -1084,11 +1084,13 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
   
 }
 
-age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
+age_gender_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   fact_year <- dplyr::tbl(con,
                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
   fact_quarter <- dplyr::tbl(con,
                              from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+  fact_month <- dplyr::tbl(con,
+                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307")) 
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1211,6 +1213,76 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter")) {
       dplyr::arrange(
         `Financial Year`,
         `Financial Quarter`,
+        `BNF Section Code`,
+        `Age Band`,
+        desc(`Identified Patient Flag`)
+      ) %>%
+      ungroup() %>%
+      collect()
+  }
+  
+  else  if (period_type == "month") {
+    
+    #filter for month in function call
+    fact <- fact_month %>%
+      dplyr::mutate(
+        PATIENT_COUNT = case_when(
+          PATIENT_IDENTIFIED == "Y" ~ 1,
+          TRUE ~ 0
+        )
+      ) %>%
+      dplyr::group_by(
+        FINANCIAL_YEAR,
+        FINANCIAL_QUARTER,
+        YEAR_MONTH,
+        IDENTIFIED_PATIENT_ID,
+        PATIENT_IDENTIFIED,
+        SECTION_DESCR,
+        BNF_SECTION,
+        CALC_AGE,
+        GENDER_DESCR,
+        PATIENT_COUNT
+      ) %>%
+      dplyr::summarise(
+        ITEM_COUNT = sum(ITEM_COUNT, na.rm = T),
+        ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC, na.rm = T)
+      ) %>%
+      ungroup()
+    
+    fact_age_gender <- fact %>%
+      filter(GENDER_DESCR != "Unknown") %>%
+      dplyr::inner_join(
+        dplyr::tbl(con,
+                   from = dbplyr::in_schema("DIM", "AGE_DIM")),
+        by = c(
+          "CALC_AGE" = "AGE"
+        )
+      ) %>%
+      dplyr::mutate(
+        AGE_BAND = dplyr::case_when(
+          is.na(DALL_5YR_BAND) ~ "Unknown",
+          TRUE ~ DALL_5YR_BAND
+        )
+      ) %>%
+      dplyr::group_by(
+        `Financial Year` = FINANCIAL_YEAR,
+        `Financial Quarter` = FINANCIAL_QUARTER,
+        `Year Month` = YEAR_MONTH,
+        `BNF Section Name` = SECTION_DESCR,
+        `BNF Section Code` = BNF_SECTION,
+        `Age Band` = AGE_BAND,
+        `Patient Gender` = GENDER_DESCR,
+        `Identified Patient Flag` = PATIENT_IDENTIFIED
+      ) %>%
+      dplyr::summarise(
+        `Total Identified Patients` = sum(PATIENT_COUNT, na.rm = T),
+        `Total Items` =  sum(ITEM_COUNT, na.rm = T),
+        `Total Net Ingredient Cost (GBP)` = sum(ITEM_PAY_DR_NIC, na.rm = T)/100,
+      ) %>%
+      dplyr::arrange(
+        `Financial Year`,
+        `Financial Quarter`,
+        `Year Month`,
         `BNF Section Code`,
         `Age Band`,
         desc(`Identified Patient Flag`)

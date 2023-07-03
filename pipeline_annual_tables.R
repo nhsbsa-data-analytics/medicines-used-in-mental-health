@@ -59,7 +59,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -461,7 +461,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -865,7 +865,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1301,7 +1301,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1735,7 +1735,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1853,21 +1853,21 @@ accessibleTables::write_sheet(
 
 #left align columns A to F
 accessibleTables::format_data(wb,
-                              "National_Paragraph",
+                              "National_Chemical_Substance",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
 #right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
-                              "National_Paragraph",
+                              "National_Chemical_Substance",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
 #right align column I and round to 2dp with thousand separator
 accessibleTables::format_data(wb,
-                              "National_Paragraph",
+                              "National_Chemical_Substance",
                               c("I"),
                               "right",
                               "#,##0.00")

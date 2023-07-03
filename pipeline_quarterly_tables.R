@@ -58,7 +58,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -533,7 +533,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1010,7 +1010,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1473,7 +1473,7 @@ sheetNames <- c(
   "IMD",
   "Presc_in_Children",
   "Monthly_Section",
-  "Monthly_Paragraph"
+  "Monthly_Chemical_Substance"
 )
 
 wb <- accessibleTables::create_wb(sheetNames)
@@ -1519,7 +1519,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -2027,7 +2027,7 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the location of their practice, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indicies of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. Unknown values are where the items are attributed to an unidentified practice within a Primary Care Organisation (PCO), or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
   )
 
 accessibleTables::create_metadata(wb,
@@ -2136,7 +2136,7 @@ accessibleTables::format_data(wb,
 
 accessibleTables::write_sheet(
   wb,
-  "National_Paragraph",
+  "National_Chemical_Substance",
   "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by BNF chemical substance and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",

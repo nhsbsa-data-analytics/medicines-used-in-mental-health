@@ -1770,6 +1770,10 @@ fast_agg_pred <- function (w, lmObject, newdata, alpha = 0.95) {
 }
 
 month_pred_fun <- function(month, data, model, alpha = 0.95) {
+  
+  data <- data %>%
+    dplyr::filter(YEAR_MONTH == month)
+  
   pred <-
     fast_agg_pred(rep.int(1, nrow(data)),
                   data,

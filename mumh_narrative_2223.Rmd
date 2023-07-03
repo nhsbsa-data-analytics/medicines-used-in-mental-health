@@ -308,7 +308,7 @@ Source: [Statistical summary tables - Antidepressant drugs]()
 :::
 ::::
 
-In 2022/23, there were 2.14 million identified patients receiving prescribing for antidepressants in the most deprived areas in England, 39.8% more than the least deprived areas. In general, more people were prescribed antidepressant drugs in more deprived areas in 2022/23. This pattern has accross IMD quintiles has remained consistent since 2015/16.
+In 2022/23, there were 2.14 million identified patients receiving prescribing for antidepressants in the most deprived areas in England, 39.8% more than the least deprived areas. In general, more people were prescribed antidepressant drugs in more deprived areas in 2022/23. This pattern across IMD quintiles has remained consistent since 2015/16.
 
 The English Indices of Deprivation have been used to provide a measure of patient deprivation. The patient's postcode has been used to assigned them to an IMD quintile. You can find more information about this in section 5 of this summary.
 
@@ -1519,6 +1519,9 @@ The data used in this model has been split into groups by patients' 20 year age 
 
 ```{r covid_0403_items, out.width="100%"}
 
+predictions_0403 %>%
+  filter(YEAR_MONTH > 202002) %>%
+  covid_chart_hc(title = "")
 
 ```
 
@@ -1533,6 +1536,9 @@ Between March 2020 and March 2023, there were  million antidepressant items pres
 
 ```{r covid_0401_items, out.width="100%"}
 
+predictions_0401 %>%
+  filter(YEAR_MONTH > 202002) %>%
+  covid_chart_hc(title = "")
 
 ```
 
@@ -1547,6 +1553,10 @@ There were  million hypnotics and anxiolytics items prescribed between March 202
 
 ```{r covid_0402_items, out.width="100%"}
 
+predictions_0402 %>%
+  filter(YEAR_MONTH > 202002) %>%
+  covid_chart_hc(title = "")
+
 ```
 Source: [Quarterly Summary Tables - Monthly table]()
 
@@ -1559,6 +1569,9 @@ From March 2020 to December 2023,  million antipsychotic items were prescribed.
 
 ```{r covid_0404_items, out.width="100%"}
 
+predictions_0404 %>%
+  filter(YEAR_MONTH > 202002) %>%
+  covid_chart_hc(title = "")
 
 ```
 
@@ -1573,6 +1586,9 @@ From March 2020 to March 2023,  million CNS stimulants and drugs used for ADHD i
 
 ```{r covid_0411_items, out.width="100%"}
 
+predictions_0411 %>%
+  filter(YEAR_MONTH > 202002) %>%
+  covid_chart_hc(title = "")
 
 ```
 

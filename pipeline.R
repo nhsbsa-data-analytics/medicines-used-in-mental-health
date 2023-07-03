@@ -243,6 +243,8 @@ paragraph_extract_monthly <- paragraph_extract_period(con = con,
                                                       period_type = "month")
 chem_sub_extract_monthly <- chem_sub_extract_period(con = con,
                                                     period_type = "month")
+age_gender_extract_month <- age_gender_extract_period(con = con,
+                                                      period_type = "month")
 
 log_print("Monthly extracts pulled", hide_notes = TRUE)
 
@@ -1360,10 +1362,6 @@ quarterly_0411$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Total Net Ingredient Cost (GBP)`) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
-
-#create data for use in individual worksheets
-annual_0402 <- list()
-
 #4. chart data
 
 
@@ -1372,6 +1370,51 @@ annual_0402 <- list()
 
 #6. covid model
 
+#data manipulation to get 20 year agebands and month columns needed for use in model
+
+df20 <- ageband_manip_20yr(age_gender_extract_month)
+
+#create linear model for each section and apply to 20 year ageband data to get output
+#if error thrown by group_mc_cv() function try rerunning covid_lm() function again
+
+model_0401 <- covid_lm(df20,
+                       section_code = "0401")
+model_0402 <- covid_lm(df20,
+                       section_code = "0402")
+model_0403 <- covid_lm(df20,
+                       section_code = "0403")
+model_0404 <- covid_lm(df20,
+                       section_code = "0404")
+model_0411 <- covid_lm(df20,
+                       section_code = "0411")
+
+#get predictions for number of items by BNF section per month
+
+predictions_0401 <- prediction_list(df20,
+                                    "0401",
+                                    model_0401,
+                                    pred_month_list)
+predictions_0402 <- prediction_list(df20,
+                                    "0402",
+                                    model_0402,
+                                    pred_month_list)
+predictions_0403 <- prediction_list(df20,
+                                    "0403",
+                                    model_0403,
+                                    pred_month_list)
+predictions_0404 <- prediction_list(df20,
+                                    "0404",
+                                    model_0404,
+                                    pred_month_list)
+predictions_0411 <- prediction_list(df20,
+                                    "0411",
+                                    model_0411,
+                                    pred_month_list)
+
 #7. tables
 
 #8. render markdown
+
+rmarkdown::render("mumh_narrative_2223.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_narrative_2223_draft.html")

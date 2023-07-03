@@ -2265,7 +2265,7 @@ covid_chart_hc <- function(data,
       name = "99% prediction interval",
       type = "arearange",
       lineWidth = 0,
-      color = "#425563",
+      color = "#768692",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       # enableMouseTracking = FALSE,
@@ -2276,21 +2276,21 @@ covid_chart_hc <- function(data,
         tooltip = RANGE_99
       )
     ) %>%
-    highcharter::hc_add_series(
-      data = chart_data,
-      name = "95% prediction interval",
-      type = "arearange",
-      lineWidth = 0,
-      color = "#b3bbc1",
-      marker = list(enabled = FALSE),
-      dataLabels = list(enabled = FALSE),
-      hcaes(
-        x = MONTH_START,
-        high = signif(PIupr, 3),
-        low = signif(PIlwr, 3),
-        tooltip = RANGE_95
-      )
-    ) %>%
+    #highcharter::hc_add_series(
+      #data = chart_data,
+      #name = "95% prediction interval",
+      #type = "arearange",
+      #lineWidth = 0,
+      #color = "#b3bbc1",
+      #marker = list(enabled = FALSE),
+      #dataLabels = list(enabled = FALSE),
+      #hcaes(
+        #x = MONTH_START,
+        #high = signif(PIupr, 3),
+        #low = signif(PIlwr, 3),
+        #tooltip = RANGE_95
+      #)
+    #) %>%
     highcharter::hc_add_series(
       data = chart_data,
       name = "Expected items",
@@ -2310,7 +2310,7 @@ covid_chart_hc <- function(data,
       name = "Prescribed items",
       type = "line",
       lineWidth = 3,
-      color = "#005EB8",
+      color = "#003087",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(

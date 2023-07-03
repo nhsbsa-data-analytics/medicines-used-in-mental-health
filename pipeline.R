@@ -1410,6 +1410,16 @@ predictions_0411 <- prediction_list(df20,
                                     "0411",
                                     model_0411,
                                     pred_month_list)
+#save covid estimated items to excel wb for QR
+covid_model_predictions <- rbind(predictions_0401,
+                                 predictions_0402,
+                                 predictions_0403,
+                                 predictions_0404,
+                                 predictions_0411)
+
+# update month in file name for new publications
+fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Mar23.csv")
+
 
 #7. tables
 
@@ -1417,4 +1427,7 @@ predictions_0411 <- prediction_list(df20,
 
 rmarkdown::render("mumh_narrative_2223.Rmd",
                   output_format = "html_document",
-                  output_file = "outputs/mumh_narrative_2223_draft.html")
+                  output_file = "outputs/mumh_narrative_QR.html")
+rmarkdown::render("mumh_narrative_2223.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_narrative_QR.docx")

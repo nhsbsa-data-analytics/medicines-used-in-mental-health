@@ -1542,7 +1542,7 @@ apply_sdc <-
            level = 5,
            rounding = TRUE,
            round_val = 5,
-           mask = -1) {
+           mask = "") {
     `%>%` <- magrittr::`%>%`
     
     rnd <- round_val
@@ -2005,7 +2005,7 @@ infoBox_no_border <- function(
   margin-bottom: 0px;'>", text, "</p>
 </div>"
   )
-  }
+}
 
 ### Chart functions
 age_gender_chart <- function(data,

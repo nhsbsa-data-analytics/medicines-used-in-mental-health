@@ -99,7 +99,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals split by identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by identified patients",
   c("1. Field definitions can be found on the 'Metadata' tab."),
   annual_0401$national_total,
   14
@@ -131,7 +131,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Population",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals split by financial year",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals by financial year",
   c(
     "1. Some cells in this table are empty because ONS population estimates for 2022/2023 were not available prior to publication.",
     "2. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates."
@@ -166,10 +166,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals split by BNF paragraph and identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals by BNF paragraph and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0401$national_paragraph,
   14
@@ -201,10 +201,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0401$icb,
   14
@@ -236,10 +236,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
   ),
   annual_0401$gender,
@@ -272,10 +272,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0401$ageband,
   14
@@ -307,10 +307,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band and gender",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known."
   ),
   annual_0401$age_gender,
@@ -343,10 +343,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by IMD",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
   ),
   annual_0401$imd,
@@ -501,7 +501,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals split by identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by identified patients",
   c("1. Field definitions can be found on the 'Metadata' tab."),
   annual_0402$national_total,
   14
@@ -533,7 +533,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Population",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals split by financial year",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals by financial year",
   c(
     "1. Some cells in this table are empty because ONS population estimates for 2022/2023 were not available prior to publication.",
     "2. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates."
@@ -568,10 +568,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals split by BNF paragraph and identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals by BNF paragraph and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0402$national_paragraph,
   14
@@ -603,10 +603,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0402$icb,
   14
@@ -638,10 +638,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
   ),
   annual_0402$gender,
@@ -674,10 +674,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0402$ageband,
   14
@@ -709,10 +709,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band and gender",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known."
   ),
   annual_0402$age_gender,
@@ -745,10 +745,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by IMD",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
   ),
   annual_0402$imd,
@@ -905,7 +905,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals split by identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by identified patients",
   c("1. Field definitions can be found on the 'Metadata' tab."),
   annual_0403$national_total,
   14
@@ -937,7 +937,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Population",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals split by financial year",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals by financial year",
   c(
     "1. Some cells in this table are empty because ONS population estimates for 2022/2023 were not available prior to publication.",
     "2. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates."
@@ -972,10 +972,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals split by BNF paragraph and identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals by BNF paragraph and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0403$national_paragraph,
   14
@@ -1007,10 +1007,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0403$icb,
   14
@@ -1042,10 +1042,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
   ),
   annual_0403$gender,
@@ -1078,10 +1078,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0403$ageband,
   14
@@ -1113,10 +1113,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band and gender",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known."
   ),
   annual_0403$age_gender,
@@ -1149,10 +1149,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by IMD",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
   ),
   annual_0403$imd,
@@ -1224,7 +1224,7 @@ accessibleTables::makeCoverSheet(
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
     "Table 3: National Population",
-    "Tbale 4: National Paragraph",
+    "Table 4: National Paragraph",
     "Table 5: ICB",
     "Table 6: Gender",
     "Table 7: Age Band",
@@ -1254,7 +1254,7 @@ sheetNames <- c(
   "Age_Band_and_Gender",
   "IMD",
   "Presc_in_Children"
-)
+  )
 
 wb <- accessibleTables::create_wb(sheetNames)
 
@@ -1341,7 +1341,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals split by identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by identified patients",
   c("1. Field definitions can be found on the 'Metadata' tab."),
   annual_0404$national_total,
   14
@@ -1373,7 +1373,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Population",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals split by financial year",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals by financial year",
   c(
     "1. Some cells in this table are empty because ONS population estimates for 2022/2023 were not available prior to publication.",
     "2. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates."
@@ -1408,10 +1408,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Chemical_Substance",
-  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals split by BNF chemical substance and identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals by BNF chemical substance and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0404$national_chem_substance,
   14
@@ -1443,10 +1443,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0404$icb,
   14
@@ -1478,10 +1478,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
   ),
   annual_0404$gender,
@@ -1514,10 +1514,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0404$ageband,
   14
@@ -1549,10 +1549,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band and gender",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known."
   ),
   annual_0404$age_gender,
@@ -1585,10 +1585,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by IMD",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
   ),
   annual_0404$imd,
@@ -1618,7 +1618,7 @@ accessibleTables::format_data(wb,
 
 ## Prescribing in children
 
-write_sheet(
+accessibleTables::write_sheet(
   wb,
   "Presc_in_Children",
   "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Prescribing in adults and children, age bands 17 and under to 18 and over",
@@ -1628,21 +1628,21 @@ write_sheet(
 )
 
 #left align columns A to D
-format_data(wb,
+accessibleTables::format_data(wb,
             "Presc_in_Children",
             c("A", "B", "C", "D"),
             "left",
             "")
 
 #right align columns E and F and round to whole numbers with thousand separator
-format_data(wb,
+accessibleTables::format_data(wb,
             "Presc_in_Children",
             c("E", "F"),
             "right",
             "#,##0")
 
 #right align column G and round to 2dp with thousand separator
-format_data(wb,
+accessibleTables::format_data(wb,
             "Presc_in_Children",
             c("G"),
             "right",
@@ -1775,7 +1775,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals split by identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by identified patients",
   c("1. Field definitions can be found on the 'Metadata' tab."),
   annual_0411$national_total,
   14
@@ -1807,7 +1807,7 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Population",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals split by financial year",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Population totals by financial year",
   c(
     "1. Some cells in this table are empty because ONS population estimates for 2022/2023 were not available prior to publication.",
     "2. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates."
@@ -1842,10 +1842,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Chemical_Substance",
-  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals split by BNF chemical substance and identified patients",
+  "Medicines Used in Mental Health - England - 2015/16 to 2021/22 - Yearly totals by BNF chemical substance and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0411$national_chem_substance,
   14
@@ -1877,10 +1877,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0411$icb,
   14
@@ -1912,10 +1912,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by ICB",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
   ),
   annual_0411$gender,
@@ -1948,10 +1948,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
   ),
   annual_0411$ageband,
   14
@@ -1983,10 +1983,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by age band and gender",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known."
   ),
   annual_0411$age_gender,
@@ -2019,10 +2019,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Totals by IMD",
+  "Medicines Used in Mental Health - England - 2015/16 to 2022/23 - Yearly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear as -1.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
   ),
   annual_0411$imd,

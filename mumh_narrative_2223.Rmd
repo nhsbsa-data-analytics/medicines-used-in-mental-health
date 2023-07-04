@@ -41,7 +41,11 @@ knitr::opts_chunk$set(echo = FALSE,
 
 ::::{.row style="display: flex; padding-bottom: 10px;"} 
 :::{.col-md-12} 
-`r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we have combined our annual and quarterly publications. The supporting summary tables have been expanded to provide quarterly and monthly data at a more granular level than previously released. Our methodology for assigning items and patients to Integrated Care Board (ICB) and Index of Multiple Deprivation (IMD) quintile is now based on patient postcode rather than practice postcode. We are interested in any feedback about the publication, which you can send by using our ", htmltools::HTML(paste("<a href='",config$stats_survey_link,"'>Official Statistics feedback survey</a>")),"."), width = "100%")` 
+`r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we have combined our annual and quarterly publications. The supporting summary tables have been expanded to provide quarterly and monthly data at a more granular level than previously released. 
+
+Our methodology for assigning items and patients to Integrated Care Board (ICB) and Index of Multiple Deprivation (IMD) quintile is now based on patient postcode rather than practice postcode. 
+
+We are interested in any feedback about the publication, which you can send by using our ", htmltools::HTML(paste("<a href='",config$stats_survey_link,"'>Official Statistics feedback survey</a>")),"."), width = "100%")` 
 ::: 
 ::::
 
@@ -51,17 +55,23 @@ In 2022/23:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Antidepressant items and identified patients continued to increase, with 86.3 million antidepressant items prescribed.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antidepressant items and identified patients continued to increase, with 86 million antidepressant items prescribed in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b> There were more adults than children prescribed an item from BNF section 0404 - CNS stimulants and drugs used for ADHD.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Key finding here</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Most sections had higher prescribing in the most deprived areas.</b>", width = "100%")`
 :::
 ::::
 
-Of the five British National Formulary (BNF) sections covered in these statistics, 
+Of the five British National Formulary (BNF) sections covered in these statistics, four had increases in items and identified patients across 2022/23. 
+
+The only BNF section to decrease over 2022/23 was hypnotics and anxiolytics, which had 2% fewer identified patients and 1.8% fewer items than in 2021/22. However volumes of prescribing remained high in hypnotics and anxiolytics overall, at nearly 14 million items and 1.9 million identified patients in the year.
+
+Antidepressants remained the BNF section with the largest number of identified patients and items prescribed. In 2022/23, 86 million antidepressants were prescribed to an estimated 8.6 million identified patients. This was only a small increase of around 2% more identified patients than 2021/22.
+
+Prescribing of CNS stimulants and drugs for ADHD increased by 32% in adults over 18 and 12% in children 17 and under. 2022/23 was the first year since 2015/16 that more adult patients have been prescribed drugs from this section than child patients.
 
 Four out of five BNF sections had more identified patients in the most deprived areas compared to the least deprived areas. Drugs for dementia was the only BNF section in this publication to have more identified patients in the least deprived areas.
 
@@ -70,7 +80,11 @@ Four out of five BNF sections had more identified patients in the most deprived 
 ## 1. Things you should know
 ### 1.1 Scope {.toc-ignore}
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
 `r infoBox_border("Background ", text = "The [NHS Long Term Plan](https://www.longtermplan.nhs.uk/) published in 2019 focuses on improving mental health care in the UK. It aims to provide more funding for mental health services, particularly for children and people with dementia. The [Core20PLUS5](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/) approach  to reduce health inequalities also seeks to improve community care for those with severe mental illnesses.", width = "100%")`
+::: 
+::::
 
 This publication provides information on medicines used to treat mental health conditions in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. It also explores how the COVID-19 pandemic has affected the use of these medicines.
 
@@ -82,13 +96,29 @@ This summary narrative does not discuss the costs associated with the provision 
 
 ### 1.2. Definitions {.toc-ignore}
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
 `r infoBox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
+::: 
+::::
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
 `r infoBox_border("Patient", text = "A unique NHS number verified from a prescription form. The NHS Personal Demographics Service (PDS) is used to verify NHS numbers for patient identification.", width = "100%")`
+::: 
+::::
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
 `r infoBox_border("NIC", text = "The Net Ingredient Cost (NIC) is the basic price of the medication and the quantity prescribed. It does not include other fees incurred by dispensing contractors, such as controlled drug fees or the single activity fee. The basic price is determined by the [Drug Tariff](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/drug-tariff) or by the manufacturer, wholesaler, or supplier of the product.", width = "100%")`
+::: 
+::::
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
 `r infoBox_border("Classification", text = "This publication uses the British National Formulary (BNF), which lists medicines used in the UK and classifies them according to their primary therapeutic use. Medication may also be prescribed for other purposes beyond their intended use. For example, certain antidepressants may be recommended to individuals experiencing chronic pain. The NHSBSA does not capture the clinical indication of a prescription during processing.", width = "100%")`
+::: 
+::::
 
 ### 1.3. Time periods {.toc-ignore}
 
@@ -104,11 +134,11 @@ Due to an increase in digital prescription processing through the Electronic Pre
 
 Where patients are identified, to assign them to a single age band their age is calculated on the 30 September of the given financial year. For patients where date of birth has not been captured, they have been included in an unknown category. 
 
-Gender information was not available from PDS for a small number of patients in each year, typically fewer than 100. This may be because it was not disclosed by the patient or not recorded by the organisation that collected the data. These patients have been omitted from the respective figures but can be found in the Statistical Summary Tables for the respective BNF Chapter.
+Gender information was not available from PDS for a small number of patients in each year, typically fewer than 100. This may be because it was not disclosed by the patient or not recorded by the organisation that collected the data.
 
 These statistics do not include any information that is personally identifiable. You can find more information about how the NHSBSA protect personal information in the [confidentiality and access statement](https://www.nhsbsa.nhs.uk/policies-and-procedures). 
 
-#### Table 1: The proportion of items for which an NHS number was recorded for listed BNF sections
+#### Table 1: The proportion of items for which an NHS number was recorded for listed BNF sections 2018/19 to 2022/23
 
 ```{r pat_ident_rates, out.width="100%"}
 
@@ -125,6 +155,8 @@ Source: Statistical summary tables - patient identification rates
 
 ### 2.1. Antidepressants
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
 `r infoBox_border(" ", text = "Antidepressant drugs are effective for treating more severe depression, but [National Institute for Health and Care Excellence (NICE) guidance](https://www.nice.org.uk/guidance/ng222/chapter/recommendations#Treatment-for-a-new-episode-of-less-severe-depression) suggests antidepressant medication should not be initially offered for less severe depression, unless requested by the patient. If a patient with less severe depression has not requested medication, psychological therapy should be considered as a first line of treatment. However, a trial of antidepressant therapy may be considered in cases resistant to psychological treatments or associated with other problems. NICE has [released updated guidance](https://www.nice.org.uk/news/nice-draft-quality-standard-depression-adults-update-2023) to recommend that adult patients who are stopping antidepressants should have their dose reduced in stages across time.
 
 Antidepressant drugs are described in the BNF 68 section 4.3:
@@ -135,6 +167,8 @@ Antidepressant drugs are described in the BNF 68 section 4.3:
 * BNF paragraph 4.3.4 - Other antidepressant drugs
 
 More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+::: 
+::::
 
 #### Figure 1: Number of prescribed items by financial year - BNF 4.3: Antidepressant drugs
 
@@ -145,14 +179,14 @@ figure_1
 ```
 `r get_download_button(title = "Download chart data", data = figure_1_data, filename = "figure_1")`
 
-Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
+Source: [Annual statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 86.3 million antidepressant items prescribed in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 86 million antidepressant items prescribed in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 8.56 million identified patients were prescribed an antidepressant in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 8.6 million identified patients were prescribed an antidepressant in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>SSRIs remained the drug group with the highest number of items and patients, while MAOIs continued to decrease. </b>", width = "100%")`
@@ -170,7 +204,7 @@ figure_2
 ```
 `r get_download_button(title = "Download chart data", data = figure_2_data, filename = "figure_2")`
 
-Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
+Source: [Annual statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_2022_23.xlsx)
 
 An estimated 8.56 million identified patients were prescribed at least one antidepressant item in 2022/23. This was 2.43% more than 2021/22. Identified patients have risen over time since 2015/16 to 2022/23, with a similar upward trend to items. The number of identified patients prescribed SSRIs has continued to rise for the second year in a row after stalling in 2020/21, with 5.39 million identified patients in 2022/23.
 
@@ -185,14 +219,14 @@ figure_3
 ```
 `r get_download_button(title = "Download chart data", data = figure_3_data, filename = "figure_3")`
 
-Source: [Quarterly statistical summary tables - Antidepressant drugs](`r config$quart_0403_link`)
+Source: [Quarterly statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_Mar_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b> 21.9 million antidepressant items prescribed in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 22 million antidepressant items prescribed in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b> 6.72 million identified patients were prescribed an antidepressant in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 6.7 million identified patients were prescribed an antidepressant in Q4 2022/23.</b>", width = "100%")`
 :::
 ::::
 
@@ -202,14 +236,14 @@ Both antidepressant items and patients showed a small decrease between January t
 
 #### Figure 4: Number of identified patients by age band and gender 2022/23 - BNF 4.3: Antidepressant drugs 
 
-```{r annual_ageband_0403}
+```{r annual_ageband_0403, out.width="100%"}
 
 figure_4
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_4_data, filename = "figure_4")`
 
-Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
+Source: [Annual statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -224,23 +258,25 @@ As in previous years, 2022/23 had noticeable differences in prescribing across g
 
 Female patients aged 50-54 were the largest group across all age and gender groups at 6.40% of all identified patients, followed by female patients aged 55-59 and female patients aged 60-64. Although the number of male patients was lower, similar age groups were the most common within male patients. The largest group of male patients was those aged 55-59, followed by those aged 50-54 and those aged 60-64.
 
+This chart may be impacted by the underlying demographics of the population.
+
 #### Figure 5: Number of identified patients by IMD quintile 2022/23 - BNF 4.3: Antidepressant drugs  
 
-```{r annual_imd_0403}
+```{r annual_imd_0403, out.width="100%"}
 
 figure_5
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_5_data, filename = "figure_5")`
 
-Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
+Source: [Annual statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>2.14 million patients in the most deprived areas in England in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>2.1 million patients in the most deprived areas in England in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Almost 40% more patients in the most deprived areas compared to the least deprived areas.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>40% more patients in the most deprived areas compared to the least deprived areas.</b>", width = "100%")`
 :::
 ::::
 
@@ -250,14 +286,14 @@ The English Indices of Deprivation have been used in this publication to provide
 
 #### Figure 6: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.3: Antidepressant drugs  
 
-```{R annual_icb_0403}
+```{R annual_icb_0403, out.width="100%"}
 
 figure_6
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_6_data, filename = "figure_6")`
 
-Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
+Source: [Annual statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -280,19 +316,21 @@ There is a keen interest in the prescribing of antidepressant drugs in children.
 
 **Table 2: Number of child and adult patients - BNF 4.3: Antidepressant drugs (millions of patients)**
 
-```{r annual_children_0403}
+```{r annual_children_0403, out.width="100%"}
 
 table_2
 
 ```
 `r get_download_button(title = "Download chart data", data = table_2_data, filename = "table_2")`
 
-Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
+Source: [Annual statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_2022_23.xlsx)
 
 There were 71,300 identified patients aged 17 or under who received antidepressant prescribing in 2022/23. This was almost unchanged from the previous year. The number of patients aged 18 or over has continued to increase across the same time period.
 
 ### 2.2. Hypnotics and anxiolytics
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12} 
 `r infoBox_border(" ", text = "Hypnotics are used to treat insomnia - a difficulty getting to sleep or staying asleep long enough to feel refreshed. Most hypnotics will sedate if given during the day. Anxiolytics are used in the treatment of anxiety states and if given at night will help to induce sleep. The drugs classified as hypnotics and anxiolytics are described in the BNF 68 section 4.1:
 
 * BNF paragraph 4.1.1 - Hypnotics
@@ -300,6 +338,8 @@ There were 71,300 identified patients aged 17 or under who received antidepressa
 * BNF paragraph 4.1.3 - Barbiturates
 
 More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+:::
+::::
 
 #### Figure 7: Number of prescribed items by financial year - BNF 4.1: Hypnotics and anxiolytics
 
@@ -310,14 +350,14 @@ figure_7
 ```
 `r get_download_button(title = "Download chart data", data = figure_7_data, filename = "figure_7")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 13.8 million Hypnotics and anxiolytics items prescribed in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 14 million Hypnotics and anxiolytics items prescribed in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 1.9 million identified patients were prescribed a hypnotics and anxiolytics drug in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 2 million identified patients were prescribed a hypnotics and anxiolytics drug in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>Barbiturates have the smallest volume of prescribing within this section and have seen the biggest decrease. </b>", width = "100%")`
@@ -335,7 +375,7 @@ figure_8
 ```
 `r get_download_button(title = "Download chart data", data = figure_8_data, filename = "figure_8")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_2022_23.xlsx)
 
 There were an estimated 1.9 million identified patients prescribed at least one hypnotic and anxiolytic item in 2022/23. This was 1.78% less than 2021/22. Identified patients show a similar downward trend to items, and have decreased over time since 2015/16 to 2022/23.
 
@@ -350,17 +390,17 @@ figure_9
 ```
 `r get_download_button(title = "Download chart data", data = figure_9_data, filename = "figure_9")`
 
-Source: [Quarterly statistical summary tables - Hypnotics and anxiolytics](`r config$quart_0401_link`)
+Source: [Quarterly statistical summary tables - Hypnotics and anxiolytics](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_Mar_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 3.44 million Hypnotics and anxiolytics items prescribed in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 3.4 million Hypnotics and anxiolytics items prescribed in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>1.06 million identified patients received a Hypnotics and anxiolytics drug in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>1.1 million identified patients received a Hypnotics and anxiolytics drug in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Both items and patients continue to trend downwards over time</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Both items and patients continue to trend downwards over time.</b>", width = "100%")`
 :::
 ::::
 
@@ -368,20 +408,20 @@ Hypnotics and anxiolytics items and identified patients were fairly level across
 
 #### Figure 10: Number of identified patients by age band and gender 2022/23 - BNF 4.1: Hypnotics and anxiolytics 
 
-```{r annual_ageband_0401}
+```{r annual_ageband_0401, out.width="100%"}
 
 figure_10
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_10_data, filename = "figure_10")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
-:::{.col-md-4}
-`r infoBox_no_border("", text = "<b> There were more female patients prescribed a hypnotics and anxiolytics item than male patients</b>", width = "100%")`
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b> There were more female patients prescribed a hypnotics and anxiolytics item than male patients.</b>", width = "100%")`
 :::
-:::{.col-md-4}
+:::{.col-md-6}
 `r infoBox_no_border("", text = "<b> Female patients aged 55-59 were the most common prescribing group in 2022/23.</b>", width = "100%")`
 :::
 ::::
@@ -390,29 +430,31 @@ The number of hypnotics and anxiolytics patients differed in prescribing across 
 
 Female patients aged 55-59 were the largest group across all age and gender groups at 5.27% of all identified patients, followed by female patients aged 50-54 and female patients aged 60-64. Similar age groups were the most common within male patients, but there were also noticeable numbers of male patients in younger age groups, compared to female patients. The largest group of male patients was those aged 55-59, followed by those aged 50-54 and those aged 60-64. 
 
+This chart may be impacted by the underlying demographics of the population.
+
 #### Figure 11: Number of identified patients by IMD quintile 2022/23 - BNF 4.1: Hypnotics and anxiolytics  
 
-```{r annual_imd_0401}
+```{r annual_imd_0401, out.width="100%"}
 
 figure_11
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_11_data, filename = "figure_11")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_2022_23.xlsx)
 
 There were an estimated 428,000 identified patients receiving prescribing for hypnotics and anxiolytics in the most deprived areas in England in 2022/23. This was 15% more than the 372,000 identified patients from in the least deprived areas. In general, more people were prescribed hypnotics and anxiolytics medicines in more deprived areas in 2022/23. This pattern has remained consistent since 2015/16.
 
 #### Figure 12: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.1: Hypnotics and anxiolytics  
 
-```{R annual_icb_0401}
+```{R annual_icb_0401, out.width="100%"}
 
 figure_12
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_12_data, filename = "figure_12")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -431,6 +473,8 @@ NHS South East London ICB was the ICB with the lowest  estimated number of ident
 
 ### 2.3. Antipsychotics
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12}
 `r infoBox_border(" ", text = "These drugs are used to treat psychoses and related disorders, and are referred to under the umbrella term antipsychotics. These drugs are classified and described under the BNF 68 section 4.2:
 
 * BNF paragraph 4.2.1 - Antipsychotic drugs
@@ -438,6 +482,8 @@ NHS South East London ICB was the ICB with the lowest  estimated number of ident
 * BNF paragraph 4.2.3 - Drugs for mania and hypomania
 
 More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+:::
+::::
 
 #### Figure 13: Number of prescribed items by financial year - BNF 4.2: Drugs used in psychoses and related disorders
 
@@ -448,14 +494,14 @@ figure_13
 ```
 `r get_download_button(title = "Download chart data", data = figure_13_data, filename = "figure_13")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b> 13.4 million antipsychotic items prescribed in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 13 million antipsychotic items prescribed in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b> 850,000 identified patients were prescribed an antipsychotics item in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 850 thousand identified patients were prescribed an antipsychotics item in 2022/23.</b>", width = "100%")`
 :::
 ::::
 
@@ -470,7 +516,7 @@ figure_14
 ```
 `r get_download_button(title = "Download chart data", data = figure_14_data, filename = "figure_14")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_2022_23.xlsx)
 
 An estimated 850,000 identified patients were prescribed at least one antipsychotic item in 2022/23. This was 0.99% more than 2021/22. Identified patients have increased over time since 2015/16 to 2022/23, and show a similar upward trend to items.
 
@@ -485,14 +531,14 @@ figure_15
 ```
 `r get_download_button(title = "Download chart data", data = figure_15_data, filename = "figure_15")`
 
-Source: [Quarterly statistical summary tables - Drugs used in psychoses and related disorders](`r config$quart_0402_link`)
+Source: [Quarterly statistical summary tables - Drugs used in psychoses and related disorders](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_Mar_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>3.35 million antipsychotic items prescribed in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>3.4 million antipsychotic items prescribed in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>651,000 identified patients received an antipsychotic in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>650 thousand identified patients received an antipsychotic in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>Identified patients increased across the past four quarters, but items had a small decrease in Q4 2022/23</b>", width = "100%")`
@@ -503,29 +549,31 @@ Antipsychotics identified patients have increased across all four quarters of 20
 
 #### Figure 16: Number of identified patients by age band and gender 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders 
 
-```{r annual_ageband_0402}
+```{r annual_ageband_0402, out.width="100%"}
 
 figure_16
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_16_data, filename = "figure_16")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_2022_23.xlsx)
 
 There were 457,000 female patients and 391,000 male patients who received at least one antipsychotics item in 2022/23. However the differences by gender were smaller than some of the other BNF sections in this publication.
 
 Female patients aged 90+ were the largest group across all age and gender groups at 4.41% of all identified patients. This was a change from 2021/22 where female patients aged 50-54 were the largest group. In 2022/23 female patients aged 50-54 became the second largest group, representing 4.40% of identified patients. The largest group of male patients was those aged 55-59, with 4.33% of identified patients.
 
+This chart may be impacted by the underlying demographics of the population.
+
 #### Figure 17: Number of identified patients by IMD quintile 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders  
 
-```{r annual_imd_0402}
+```{r annual_imd_0402, out.width="100%"}
 
 figure_17
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_17_data, filename = "figure_17")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -540,14 +588,14 @@ There were an estimated 251,000 identified patients prescribed antipsychotic ite
 
 #### Figure 18: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders  
 
-```{R annual_icb_0402}
+```{R annual_icb_0402, out.width="100%"}
 
 figure_18
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_18_data, filename = "figure_18")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_2022_23.xlsx)
 
 The figures in Figure 18 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
 
@@ -557,6 +605,8 @@ NHS Bristol, North Somerset and South Gloucestershire ICB had the lowest, where 
 
 ### 2.4. Central nervous system (CNS) stimulants and drugs used for ADHD 
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12}
 `r infoBox_border(" ", text = "CNS stimulants and drugs used for ADHD are described in the BNF 68 section 4.4: 
 
 * BNF chemical substance 0404000D0 - Caffeine
@@ -571,6 +621,8 @@ NHS Bristol, North Somerset and South Gloucestershire ICB had the lowest, where 
 * BNF chemical substance 0404000W0 - Pitolisant hydrochloride
 
 More information about these medicines can be found in section 4 of this summary. ", width = "100%")`
+:::
+::::
 
 #### Figure 19: Number of prescribed items by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD 
 
@@ -581,14 +633,14 @@ figure_19
 ```
 `r get_download_button(title = "Download chart data", data = figure_19_data, filename = "figure_19")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](`r config$fy_0404_link`)
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 2.54 million Central nervous system (CNS) stimulants and drugs used for ADHD  items prescribed in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 2.5 million Central nervous system (CNS) stimulants and drugs used for ADHD  items prescribed in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 233,000 identified patients received prescribing in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 230 thousand identified patients received prescribing in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>The upwards trend in both items and patients continues to grow. </b>", width = "100%")`
@@ -608,7 +660,7 @@ figure_20
 ```
 `r get_download_button(title = "Download chart data", data = figure_20_data, filename = "figure_20")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$fy_0404_link`)
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_2022_23.xlsx)
 
 In 2022/23, 233,000 identified patients received at least one prescription item for CNS stimulants and drugs used for ADHD. This was 22.9% more than 2021/22. Identified patients have increased over time since 2015/16 to 2022/23, with a very similar upward trend to items. 
 
@@ -623,14 +675,14 @@ figure_21
 ```
 `r get_download_button(title = "Download chart data", data = figure_21_data, filename = "figure_21")`
 
-Source: [Quarterly statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$quart_0404_link`)
+Source: [Quarterly statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_Mar_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 687,000 Central nervous system (CNS) stimulants and drugs used for ADHD  items prescribed in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 690 thousand Central nervous system (CNS) stimulants and drugs used for ADHD  items prescribed in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 192,000 identified patients received prescribing in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 190 thousand identified patients received prescribing in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>Both items and identified patients increased across all four quarters of 2022/23.</b>", width = "100%")`
@@ -641,14 +693,14 @@ CNS stimulants and drugs used for ADHD items and identified patients have both i
 
 #### Figure 22: Number of identified patients by age band and gender 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
 
-```{r annual_ageband_0404}
+```{r annual_ageband_0404, out.width="100%"}
 
 figure_22
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_22_data, filename = "figure_22")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](`r config$fy_0404_link`)
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -663,29 +715,31 @@ The long term figures for this section show a noticeable difference in prescribi
 
 Male patients aged 10-14 were the largest group across all age and gender groups at 20.3% of all identified patients, followed by male patients aged 15-19 with 13.6% of identified patients. Although the number of female patients was lower, similar age groups were the most common. The largest group of female patients was those aged 10-14, followed by those aged 15-19.
 
+This chart may be impacted by the underlying demographics of the population.
+
 #### Figure 23: Number of identified patients by IMD quintile 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD   
 
-```{r annual_imd_0404}
+```{r annual_imd_0404, out.width="100%"}
 
 figure_23
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_23_data, filename = "figure_23")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](`r config$fy_0404_link`)
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_2022_23.xlsx)
 
 In 2022/23, 56,000 patients were prescribed CNS stimulants and drugs used for ADHD items in the most deprived areas in England. This was 25% more than those in the least deprived areas. In general, more people were prescribed CNS stimulants and drugs used for ADHD items in more deprived areas in 2022/23. This pattern has remained consistent since 2015/16.
 
 #### Figure 24: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
 
-```{R annual_icb_0404}
+```{R annual_icb_0404, out.width="100%"}
 
 figure_24
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_24_data, filename = "figure_24")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$fy_0404_link`)
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_2022_23.xlsx)
 
 The figures in Figure 24 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
 
@@ -701,21 +755,21 @@ There is some interest in the prescribing of Central nervous system (CNS) stimul
 
 #### Figure 25: Number of child and adult patients by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
 
-```{r annual_children_0404}
+```{r annual_children_0404, out.width="100%"}
 
 figure_25
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_25_data, filename = "figure_25")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$fy_0404_link`)
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
 `r infoBox_no_border("", text = "<b> In 2022/23 more adults than children were prescribed drugs in this section.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b> Since last year prescribing has risen by 31.8% in adults and 12.5% in children.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> Since last year prescribing has risen by 32% in adults and 12% in children.</b>", width = "100%")`
 :::
 ::::
 
@@ -723,6 +777,8 @@ For the first time in 2022/23 a greater number of adults were prescribed at leas
 
 ### 2.5. Drugs for dementia
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12}
 `r infoBox_border(" ", text = "Dementia is a progressive clinical syndrome characterised by a range of cognitive and behavioural symptoms that can include memory loss, problems with reasoning and communication, a change in personality, and a reduced ability to carry out daily activities such as washing or dressing. Alzheimer’s disease is the most common type of dementia. Other common types of dementia include vascular dementia (where dementia is due to cerebrovascular disease), dementia with Lewy bodies (where dementia is due to protein deposits in the brain), mixed dementia, and frontotemporal dementia (where dementia is due to progressive nerve loss in either the frontal or temporal lobes of the brain).
 
 Drugs for dementia are described in the BNF 68 section 4.11:
@@ -733,6 +789,8 @@ Drugs for dementia are described in the BNF 68 section 4.11:
 * BNF chemical substance 0411000G0 - Memantine hydrochloride
 
 More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+:::
+::::
 
 #### Figure 26: Number of prescribed items by financial year - BNF 4.11: Drugs for dementia
 
@@ -743,14 +801,14 @@ figure_26
 ```
 `r get_download_button(title = "Download chart data", data = figure_26_data, filename = "figure_26")`
 
-Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
+Source: [Annual statistical summary tables - Drugs for dementia](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 4.24 million drugs for dementia items prescribed in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 4.2 million drugs for dementia items prescribed in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 293,000 identified patients received a drugs for dementia item in 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 290 thousand identified patients received a drugs for dementia item in 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>Drugs for dementia have continued to return to an upwards trend, after an earlier dip in 2019/20. </b>", width = "100%")`
@@ -768,7 +826,7 @@ figure_27
 ```
 `r get_download_button(title = "Download chart data", data = figure_27_data, filename = "figure_27")`
 
-Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
+Source: [Annual statistical summary tables - Drugs for dementia](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_2022_23.xlsx)
 
 An estimated 293,000 identified patients were prescribed at least one drugs for dementia item in 2022/23. This was 6.08% more than 2021/22. Identified patients have risen over time since 2015/16 to 2022/23 for three out of four chemical substances, with the overall trend being similar to items. 
 
@@ -783,14 +841,14 @@ figure_28
 ```
 `r get_download_button(title = "Download chart data", data = figure_28_data, filename = "figure_28")`
 
-Source: [Quarterly statistical summary tables - Drugs for dementia](`r config$quart_0411_link`)
+Source: [Quarterly statistical summary tables - Drugs for dementia](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_Mar_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 1.07 million drugs for dementia items prescribed in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 1.1 million drugs for dementia items prescribed in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 243,000 identified patients were prescribed a drugs for dementia item in Q4 2022/23.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> 240 thousand identified patients were prescribed a drugs for dementia item in Q4 2022/23.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>Items consistently trended upwards, but items decreased in the most recent quarter.</b>", width = "100%")`
@@ -801,35 +859,37 @@ Drugs for dementia item identified patients have increased across all four quart
 
 #### Figure 29: Number of identified patients by age band and gender 2022/23 - BNF 4.11: Drugs for dementia
 
-```{r annual_ageband_0411}
+```{r annual_ageband_0411, out.width="100%"}
 
 figure_29
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_29_data, filename = "figure_29")`
 
-Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
+Source: [Annual statistical summary tables - Drugs for dementia](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_2022_23.xlsx)
 
 As in previous years, 2022/23 had noticeable differences in prescribing across gender, with 179,000 female patients and 114,000 male patients.
 
 Female patients aged 85-89 were the largest group across all age and gender groups, at 15.6% of all identified patients. This was followed by female patients aged 80-84 with 14.7% of identified patients. Although the number of male patients was lower, similar age groups were the most common within male patients. The largest group of male patients was those aged 80-84, followed by those aged 85-89.
 
+This chart may be impacted by the underlying demographics of the population.
+
 #### Figure 30: Number of identified patients by IMD quintile 2022/23 - BNF 4.11: Drugs for dementia  
 
-```{r annual_imd_0411}
+```{r annual_imd_0411, out.width="100%"}
 
 figure_30
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_30_data, filename = "figure_30")`
 
-Source: [Annual statistical summary tables - Drugs for dementia]()
+Source: [Annual statistical summary tables - Drugs for dementia](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_2022_23.xlsx)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
-:::{.col-md-4}
-`r infoBox_no_border("", text = "<b> 53,700 patients in the most deprived areas in England in 2022/23.</b>", width = "100%")`
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b> 54 thousand patients in the most deprived areas in England in 2022/23.</b>", width = "100%")`
 :::
-:::{.col-md-4}
+:::{.col-md-6}
 `r infoBox_no_border("", text = "<b> More patients were prescribed a drugs for dementia item in the least deprived areas.</b>", width = "100%")`
 :::
 ::::
@@ -840,14 +900,14 @@ Drugs for dementia is the only BNF section in this publication where prescribing
 
 #### Figure 31: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.11: Drugs for dementia  
 
-```{R annual_icb_0411}
+```{R annual_icb_0411, out.width="100%"}
 
 figure_31
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_31_data, filename = "figure_31")`
 
-Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
+Source: [Annual statistical summary tables - Drugs for dementia](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_2022_23.xlsx)
 
 The figures in Figure 31 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
 
@@ -858,18 +918,17 @@ NHS Birmingham and Solihull ICB was the ICB with the lowest estimated number of 
 ## 3. Prescribing during the COVID-19 pandemic 
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
-:::{.col-md-4}
-`r infoBox_no_border("", text = "<b> Antidepressants, hypnotics and anxiolytics, and antipsychotics have mostly remained within the range of values expected based on pre-pandemic trends.</b>", width = "100%")`
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b> Prescribing of items in all five BNF sections has generally remained within the range of expected values, based on pre-pandemic trends.</b>", width = "100%")`
 :::
-:::{.col-md-4}
-`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD have continued to increase beyond the range of expected items to be prescribed, a long term trend.</b>", width = "100%")`
-:::
-:::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Drugs for dementia have remained below the number of expected items to be prescribed since June 2022.</b>", width = "100%")`
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>CNS stimulants and drugs used for ADHD items have become closer to the upper boundary of the range of expected values.</b>", width = "100%")`
 :::
 ::::
 
-The number of expected prescription items for each BNF section during this period have been calculated by extrapolating figures for March 2020 to March 2023 according to:
+We have created a model to help users interpret the impact of the COVID-19 pandemic on prescribing trends.
+
+The number of expected prescription items for each BNF section during this period has been calculated by extrapolating figures for March 2020 to March 2023 according to:
 
 * the trend in prescription items for each section between April 2015 and February 2020
 * the number of dispensing days that occur in each month
@@ -878,7 +937,11 @@ The number of expected prescription items for each BNF section during this perio
 
 A linear regression model has been used to estimate the number of items prescribed, to stay relatively simple and consistent with the model used in previous releases. The model estimates the expected number of items prescribed based on pre-pandemic trends, for each combination of age band and gender. These estimates have then been added together to get an estimate of the total items expected per month, with a 99% prediction interval (PI) calculated.
 
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12}
 `r infoBox_border("Prediction interval (PI)", text = "A range calculated based on the uncertainty around the fit of the model. A 99% PI means the new observation is likely to fall within the interval of predicted values 99% of the time.", width = "100%")`
+:::
+::::
 
 The data used in this model has been split into groups by patients' 20 year age band and gender. As age band and gender were included in the model, the model was only fitted to data where age band and gender were both known. This means the charts of predictions made using the model are not based on the same full data used in the rest of this publication. These charts cannot be directly compared to each other or to the quarterly and monthly charts of items prescribed. More information on the methodology behind the model can be found in the [background and methodology document](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/MUMH_Background_Info_Methodology_v007.html).
 
@@ -894,9 +957,9 @@ figure_32
 ```
 `r get_download_button(title = "Download chart data", data = figure_32_data, filename = "figure_32")`
 
-Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0403_link`)
+Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_Mar_23.xlsx)
 
-Between March 2020 and March 2023 there were 253 million antidepressant items prescribed to identified patients with a known age and gender. This was only 0.57% more than the 252 million items expected based on historical trends, so antidepressant items remained well within the expected values for this period.
+Between March 2020 and March 2023 there were 253 million antidepressant items prescribed to identified patients with a known age and gender. This was only 0.16% more than the 253 million items expected based on historical trends, so antidepressant items remained well within the expected values for this period.
 
 ### 3.2. Hypnotics and anxiolytics prescribing {.toc-ignore}
 
@@ -909,9 +972,9 @@ figure_33
 ```
 `r get_download_button(title = "Download chart data", data = figure_33_data, filename = "figure_33")`
 
-Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0401_link`)
+Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_Mar_23.xlsx)
 
-There were 42.0 million hypnotics and anxiolytics items prescribed between March 2020 and March 2023 to identified patients with a known age and gender. This closely followed the expected number of items for this time period, as there were 0.42% more items prescribed than the 41.8 million items expected based on historical trends. Hypnotics and anxiolytics therefore stayed within the range of values expected for items in this period.
+There were 42.0 million hypnotics and anxiolytics items prescribed between March 2020 and March 2023 to identified patients with a known age and gender. This closely followed the expected number of items for this time period, as there were only 0.09% more items prescribed than the 41.9 million items expected based on historical trends. Hypnotics and anxiolytics therefore stayed within the range of values expected for items in this period.
 
 ### 3.3. Drugs used in psychoses and related disorders prescribing {.toc-ignore}
 
@@ -924,9 +987,9 @@ figure_34
 ```
 `r get_download_button(title = "Download chart data", data = figure_34_data, filename = "figure_34")`
 
-Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0402_link`)
+Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_Mar_23.xlsx)
 
-There were 39.4 million antipsychotics items prescribed from March 2020 to March 2023 to identified patients with known age and gender. This was 1.69% less than the 40.0 million items that were expected to be prescribed. Over this period antipsychotics items stayed mostly within the range of expected values. However, a small number of months have shown prescribing slightly lower than this range, most recently in January and February 2023. Antipsychotics items have returned to being within expected values for March 2023.
+There were 39.4 million antipsychotics items prescribed from March 2020 to March 2023 to identified patients with known age and gender, only 0.05% less than the 39.4 million items that were expected to be prescribed. Over this period antipsychotics items stayed mostly within the range of expected values, apart from April 2020.
 
 ### 3.4. CNS stimulants and drugs used for ADHD prescribing {.toc-ignore}
 
@@ -939,9 +1002,9 @@ figure_35
 ```
 `r get_download_button(title = "Download chart data", data = figure_35_data, filename = "figure_35")`
 
-Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0404_link`)
+Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_Mar_23.xlsx)
 
-From March 2020 to March 2023, 5.86 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was outside the expected range of values for this period, at 13.2% more than the 5.17 million items expected based on historical trends. Since February 2022, CNS stimulants and drugs used for ADHD items have remained consistently higher than expected based on historical trends. Since 2015/16 there has always been an increase between February and March, with a noticeably steeper increase between February and March 2023 than previous years.
+From March 2020 to March 2023, 5.86 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was 0.71% more than the 5.82 million items expected based on historical trends. Since February 2022, CNS stimulants and drugs used for ADHD items have remained consistently higher than the number of items expected based on historical trends. Items have remained within the range of expected values but show signs of reaching the upper boundary of the 99% PI. Since 2015/16 there has always been an increase between February and March, with a noticeably steeper increase between February and March 2023 than previous years.
 
 The model is based on data containing identified patients with known age and gender only. As CNS stimulants and drugs used for ADHD have a relatively low patient identification rate, a lower proportion of prescribing is included in the model data. For example, patient identification for this BNF section was 79.3% in Q1 of 2015/16, rising to 87.7% in Q4 of 2022/23. This may have an impact on how well the model can extrapolate expected values from the data.
 
@@ -951,16 +1014,14 @@ The model is based on data containing identified patients with known age and gen
 
 ```{r covid_0411_items, out.width="100%"}
 
-predictions_0411 %>%
-  filter(YEAR_MONTH > 202002) %>%
-  covid_chart_hc(title = "")
+figure_36
 
 ```
 `r get_download_button(title = "Download chart data", data = figure_36_data, filename = "figure_36")`
 
-Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0411_link`)
+Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_Mar_23.xlsx)
 
-There were 12.3 million drugs for dementia items prescribed from March 2020 to March 2023 to identified patients with known age and gender. This was significantly lower than the 13.9 million items expected to be prescribed, at 11.6% less. In the past year, all months except for June 2022 have fallen outside the range of expected values. Although prescribing follows the seasonal patterns expected, drugs for dementia items remain consistently lower than expected based on historical trends.
+There were 12.3 million drugs for dementia items prescribed from March 2020 to March 2023 to identified patients with known age and gender. This was 1.72% less than the 12.5 million items expected to be prescribed. Drugs for dementia items have stayed within the range of values expected for items across most of the past year, with the exception of June 2022. Although drugs for dementia items have remained within the 99% PI, the number of items prescribed has consistently been slightly lower than expected. 
 
 ---
 

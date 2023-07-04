@@ -93,47 +93,48 @@ con <- con_nhsbsa(
   password = rstudioapi::askForPassword()
 )
 
-#get max fy from mumh fact table
-#ADD SCHEMA AND TABLE NAME ONCE KNOWN
-#max_dw_fy <- dplyr::tbl(con,
-#                        from = dbplyr::in_schema()) |>
-#  dplyr::filter(MONTH_TYPE %in% c("FY")) |>
-# dplyr::select(YEAR_DESC) |>
-#  dplyr::filter(YEAR_DESC == max(YEAR_DESC, na.rm = TRUE)) |>
-#  distinct() |>
-#  collect() |>
-#  pull()
+#get max fy from MUMH fact table
+max_dw_fy <- dplyr::tbl(con,
+                        from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307")) |>
+  dplyr::select(FINANCIAL_YEAR) |>
+  dplyr::filter(FINANCIAL_YEAR == max(FINANCIAL_YEAR, na.rm = TRUE)) |>
+  distinct() |>
+  collect() |>
+  pull()
 
 log_print("Max DWH FY pulled", hide_notes = TRUE)
 log_print(max_dw_fy, hide_notes = TRUE)
 
 #add max calender year code to get max year for use in ons_national_pop() function
 #in externaldata package
-#max_dw_cy <- dplyr::tbl(con,
-#                        from = dbplyr::in_schema()) |>
-#  dplyr::filter(MONTH_TYPE %in% c("FY")) |>
-#  dplyr::select(YEAR_DESC) |>
-#  dplyr::filter(YEAR_DESC == max(YEAR_DESC, na.rm = TRUE)) |>
-#  distinct() |>
-#  collect() |>
-#  pull()
+max_dw_cy <- substr(max_dw_fy, 6, 9)
 
-max_dw_cy <- 2023
+log_print("Max DWH CY pulled", hide_notes = TRUE)
+log_print(max_dw_cy, hide_notes = TRUE)
 
 #get max financial quarter from mumh fact table
-#ADD SCHEMA AND TABLE NAME ONCE KNOWN
-# AND QUARTER COLUMN NAME TO REPLACE CY EXAMPLE IN CODE
-#max_dw_quart <- dplyr::tbl(con,
-#                        from = dbplyr::in_schema()) |>
-#  dplyr::filter(MONTH_TYPE %in% c("CY")) |>
-#  dplyr::select(YEAR_DESC) |>
-#  dplyr::filter(YEAR_DESC == max(YEAR_DESC, na.rm = TRUE)) |>
-#  distinct() |>
-#  collect() |>
-#  pull()
+max_dw_qu <- dplyr::tbl(con,
+                        from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307")) |>
+  dplyr::select(FINANCIAL_QUARTER) |>
+  dplyr::filter(FINANCIAL_QUARTER == max(FINANCIAL_QUARTER, na.rm = TRUE)) |>
+  distinct() |>
+  collect() |>
+  pull()
 
-#log_print("Max DWH quarter pulled", hide_notes = TRUE)
-#log_print(max_dw_quart, hide_notes = TRUE)
+log_print("Max DWH quarter pulled", hide_notes = TRUE)
+log_print(max_dw_qu, hide_notes = TRUE)
+
+#get max year month from mumh fact table
+max_dw_ym <- dplyr::tbl(con,
+                        from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307")) |>
+dplyr::select(YEAR_MONTH) |>
+dplyr::filter(YEAR_MONTH == max(YEAR_MONTH, na.rm = TRUE)) |>
+distinct() |>
+collect() |>
+pull()
+
+log_print("Max DWH year month pulled", hide_notes = TRUE)
+log_print(max_dw_ym, hide_notes = TRUE)
 
 # only get new data if max month in dwh is greater than that in most recent data
   
@@ -822,6 +823,24 @@ quarterly_0401$monthly_paragraph <- paragraph_extract_monthly %>%
     `Total Net Ingredient Cost (GBP)`) %>%
   dplyr::filter(`BNF Section Code` == "0401")
 
+quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0401")
+
 # 0402 Drugs used in psychoses and related disorders workbook - quarterly
 
 quarterly_0402 <- list()
@@ -929,6 +948,24 @@ quarterly_0402$monthly_paragraph <- paragraph_extract_monthly %>%
     `BNF Section Code`,
     `BNF Paragraph Name`,
     `BNF Paragraph Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0402")
+
+quarterly_0402$monthly_chem_substance <- chem_sub_extract_monthly %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
@@ -1063,23 +1100,23 @@ quarterly_0403$monthly_paragraph <- paragraph_extract_monthly %>%
 
 ###add chemical substance level in monthly tables if needed
 
-#quarterly_0403$monthly_chem_substance <- chem_sub_extract_monthly %>%
-#  apply_sdc(rounding = F) %>%
-#  dplyr::select(
-#    `Financial Year`,
-#    `Financial Quarter`,
-#    `Year Month`,
-#    `BNF Section Name`,
-#    `BNF Section Code`,
-#    `BNF Paragraph Name`,
-#    `BNF Paragraph Code`,
-#    `BNF Chemical Substance Name`,
-#    `BNF Chemical Substance Code`,
-#    `Identified Patient Flag`,
-#    `Total Identified Patients` = `sdc_Total Identified Patients`,
-#    `Total Items` = `sdc_Total Items`,
-#    `Total Net Ingredient Cost (GBP)`) %>%
-#  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$monthly_chem_substance <- chem_sub_extract_monthly %>%
+  apply_sdc(rounding = F) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::filter(`BNF Section Code` == "0403")
 
 # 0404 CNS stimulants and drugs used for ADHD - quarterly
 
@@ -1215,27 +1252,6 @@ quarterly_0404$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Total Items` = `sdc_Total Items`,
     `Total Net Ingredient Cost (GBP)`) %>%
   dplyr::filter(`BNF Section Code` == "0404")
-
-###add chemical substance level in monthly tables if needed
-
-#quarterly_0404$monthly_chem_substance <- chem_sub_extract_monthly %>%
-#  apply_sdc(rounding = F) %>%
-#  dplyr::select(
-#    `Financial Year`,
-#    `Financial Quarter`,
-#    `Year Month`,
-#    `BNF Section Name`,
-#    `BNF Section Code`,
-#    `BNF Paragraph Name`,
-#    `BNF Paragraph Code`,
-#    `BNF Chemical Substance Name`,
-#    `BNF Chemical Substance Code`,
-#    `Identified Patient Flag`,
-#    `Total Identified Patients` = `sdc_Total Identified Patients`,
-#    `Total Items` = `sdc_Total Items`,
-#    `Total Net Ingredient Cost (GBP)`) %>%
-#  dplyr::filter(`BNF Section Code` == "0404")
-
 
 # 0411 Drugs for dementia workbook - quarterly
 

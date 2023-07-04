@@ -45,6 +45,26 @@ knitr::opts_chunk$set(echo = FALSE,
 ::: 
 ::::
 
+## Key findings
+
+In 2022/23:
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Antidepressant items and identified patients continued to increase, with 86.3 million antidepressant items prescribed.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b> There were more adults than children prescribed an item from BNF section 0404 - CNS stimulants and drugs used for ADHD.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Key finding here</b>", width = "100%")`
+:::
+::::
+
+Of the five British National Formulary (BNF) sections covered in these statistics, 
+
+Four out of five BNF sections had more identified patients in the most deprived areas compared to the least deprived areas. Drugs for dementia was the only BNF section in this publication to have more identified patients in the least deprived areas.
+
 ---
 
 ## 1. Things you should know
@@ -92,18 +112,11 @@ These statistics do not include any information that is personally identifiable.
 
 ```{r pat_ident_rates, out.width="100%"}
 
-capture_rate_extract_year %>%
-  mutate(across(where(is.numeric), round, 2))%>%
-  DT::datatable(
-    rownames = FALSE,
-    options = list(dom = "t",
-                   columnDefs = list(list(orderable = FALSE,
-                                          targets = "_all"),
-                                     list(className = "dt-left", targets = 0:1),
-                                     list(className = "dt-right", targets = 2:5)))
-    )
+table_1
 
 ```
+`r get_download_button(title = "Download chart data", data = table_1_data, filename = "table_1")`
+
 Source: Statistical summary tables - patient identification rates
 
 ---
@@ -127,40 +140,12 @@ More information about these medicines can be found in section 4 of this summary
 
 ```{r annual_items_0403, out.width="100%"}
 
-annual_0403$national_paragraph %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `BNF Section Code`,
-                  `BNF Paragraph Name`,
-                  `BNF Paragraph Code`) %>%
-  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
-  bind_rows(
-    annual_0403$national_total %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Paragraph Name` = "Total") %>% 
-      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Items`,
-    group = `BNF Paragraph Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of prescribed items",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
-
+figure_1
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_1_data, filename = "figure_1")`
 
-Source: [Statistical summary tables - Antidepressant drugs]()
+Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -180,34 +165,12 @@ In 2022/23 there were 86.3 million antidepressant items prescribed, 3.39% more t
 
 ```{r annual_patients_0403, out.width="100%"}
 
-annual_0403$national_paragraph %>%
-  dplyr::filter(`Identified Patient Flag` != "N") %>%
-  bind_rows(
-    annual_0403$national_total %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Paragraph Name` = "Total") %>% 
-      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Identified Patients`,
-    group = `BNF Paragraph Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of identified patients",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_2
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_2_data, filename = "figure_2")`
 
-Source: [Statistical summary tables - Antidepressant drugs]()
+Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
 
 An estimated 8.56 million identified patients were prescribed at least one antidepressant item in 2022/23. This was 2.43% more than 2021/22. Identified patients have risen over time since 2015/16 to 2022/23, with a similar upward trend to items. The number of identified patients prescribed SSRIs has continued to rise for the second year in a row after stalling in 2020/21, with 5.39 million identified patients in 2022/23.
 
@@ -217,37 +180,12 @@ Any patient who was prescribed items from more than one BNF paragraph is counted
 
 ```{r quarterly_0403, out.width="100%"}
 
-quarterly_0403$national_total %>%
-  #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
-  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
-  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
-            `Identified patients` = sum(`Total Identified Patients`),
-            .groups = "drop") %>% 
-  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
-               names_to = "measure",
-               values_to = "value") %>% 
-  dplyr::mutate(value = signif(value, 3)) %>% 
-  dplyr::arrange(desc(measure)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
-    type = "line",
-    marker = FALSE,
-    dlOn = FALSE,
-    xLab = "Financial quarter",
-    yLab = "Volume",
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = TRUE,
-             shared = TRUE,
-             sort = TRUE) %>% 
-  hc_legend(enabled = TRUE)
+figure_3
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_3_data, filename = "figure_3")`
 
-Source: [Statistical summary tables - Antidepressant drugs]()
+Source: [Quarterly statistical summary tables - Antidepressant drugs](`r config$quart_0403_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -266,14 +204,12 @@ Both antidepressant items and patients showed a small decrease between January t
 
 ```{r annual_ageband_0403}
 
-annual_0403$age_gender %>% 
-   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
-  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
-  age_gender_chart()
+figure_4
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_4_data, filename = "figure_4")`
 
-Source: [Statistical summary tables - Antidepressant drugs]()
+Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -292,20 +228,12 @@ Female patients aged 50-54 were the largest group across all age and gender grou
 
 ```{r annual_imd_0403}
 
-annual_0403$imd %>% 
-  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `IMD Quintile`,
-    y = `Total Identified Patients`,
-    type = "column",
-    xLab = "IMD Quintile",
-    yLab = "Number of identified patients",
-    title = "" 
-  )
+figure_5
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_5_data, filename = "figure_5")`
 
-Source: [Statistical summary tables - Antidepressant drugs]()
+Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -320,53 +248,16 @@ In 2022/23, there were 2.14 million identified patients receiving prescribing fo
 
 The English Indices of Deprivation have been used in this publication to provide a measure of patient deprivation. The patient’s postcode has been used to assigned them to an IMD quintile. You can find more information about this in section 5 of this summary.
 
-#### Figure 6: Items and patients by ICB by financial year - BNF 4.3: Antidepressant drugs  
+#### Figure 6: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.3: Antidepressant drugs  
 
 ```{R annual_icb_0403}
 
-annual_0403$icb %>%
-  dplyr::filter(`Financial Year` == max(`Financial Year`)) %>%
-  dplyr::group_by(`Financial Year`,
-                  `ICB Name`,
-                  `ICB Code`,
-                  `BNF Section Name`,
-                  `BNF Section Code`) %>%
-  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`),
-                   .groups = "drop") %>%
-  left_join(
-    icb_pop,
-    by = c("ICB Code" = "ICB_CODE")
-  ) %>%
-  mutate(
-    PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)
-  ) %>%
-  arrange(desc(PER_1000)) %>%
-  filter(
-    `ICB Name` != "UNKNOWN ICB"
-  ) %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `ICB Code`,
-    y = PER_1000,
-    type = "column",
-    xLab = "ICB code",
-    yLab = "Patients per 1,000 population",
-    dlOn = F,
-    title = "") %>% 
-  hc_tooltip(enabled = T,
-             useHTML = TRUE,
-             formatter = JS("function(){
-                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
-                            return result
-             }")) %>%
-  hc_yAxis(
-    labels = list(
-      enabled = T
-    )
-  )
+figure_6
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_6_data, filename = "figure_6")`
 
-Source: [Statistical summary tables - Antidepressant drugs]()
+Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -391,33 +282,12 @@ There is a keen interest in the prescribing of antidepressant drugs in children.
 
 ```{r annual_children_0403}
 
-annual_0403$prescribing_in_children %>%
-  dplyr::filter(`Age Band` != "Unknown") %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `BNF Section Code`,
-                  `Age Band`) %>%
-  dplyr::summarise(`Total Identified Patients` = formatC(signif(sum(`Total Identified Patients`)/1000000,
-                                           digits = 3),
-                                    digits = 3, format = "fg", flag = "#")) %>% 
-  dplyr::ungroup() %>%
-  dplyr::select(`Financial Year`,
-                `Age Band`,
-                `Total Identified Patients`) %>%
-  tidyr::pivot_wider(names_from = `Financial Year`,
-                     values_from = `Total Identified Patients`) %>%
-  DT::datatable(rownames = FALSE,
-                options = list(dom = "t",
-                               columnDefs = list(
-                                 list(orderable = FALSE,
-                                      targets = "_all"),
-                                 list(className = "dt-left", targets = 0),
-                                 list(className = "dt-right", targets = 1:8)
-                               )))
+table_2
 
 ```
+`r get_download_button(title = "Download chart data", data = table_2_data, filename = "table_2")`
 
-Source: [Statistical summary tables - Antidepressant drugs]()
+Source: [Annual statistical summary tables - Antidepressant drugs](`r config$fy_0403_link`)
 
 There were 71,300 identified patients aged 17 or under who received antidepressant prescribing in 2022/23. This was almost unchanged from the previous year. The number of patients aged 18 or over has continued to increase across the same time period.
 
@@ -435,39 +305,12 @@ More information about these medicines can be found in section 4 of this summary
 
 ```{r annual_items_0401, out.width="100%"}
 
-annual_0401$national_paragraph %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `BNF Section Code`,
-                  `BNF Paragraph Name`,
-                  `BNF Paragraph Code`) %>%
-  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
-  bind_rows(
-    annual_0401$national_total %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Paragraph Name` = "Total") %>% 
-      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Items`,
-    group = `BNF Paragraph Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of prescribed items",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_7
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_7_data, filename = "figure_7")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -487,34 +330,12 @@ In 2022/23 there were 13.8 million  hypnotic and anxiolytic items prescribed, 1.
 
 ```{r annual_patients_0401, out.width="100%"}
 
-annual_0401$national_paragraph %>%
-  dplyr::filter(`Identified Patient Flag` != "N") %>%
-  bind_rows(
-    annual_0401$national_total %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Paragraph Name` = "Total") %>% 
-      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Identified Patients`,
-    group = `BNF Paragraph Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of identified patients",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_8
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_8_data, filename = "figure_8")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
 
 There were an estimated 1.9 million identified patients prescribed at least one hypnotic and anxiolytic item in 2022/23. This was 1.78% less than 2021/22. Identified patients show a similar downward trend to items, and have decreased over time since 2015/16 to 2022/23.
 
@@ -524,38 +345,12 @@ Any patient who was prescribed items from more than one BNF paragraph is counted
 
 ```{r quarterly_0401, out.width="100%"}
 
-quarterly_0401$national_total %>%
-  #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
-  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
-  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
-            `Identified patients` = sum(`Total Identified Patients`),
-            .groups = "drop") %>% 
-  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
-               names_to = "measure",
-               values_to = "value") %>% 
-  dplyr::mutate(value = signif(value, 3)) %>% 
-  dplyr::arrange(desc(measure)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
-    type = "line",
-    marker = FALSE,
-    dlOn = FALSE,
-    xLab = "Financial quarter",
-    yLab = "Volume",
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = TRUE,
-             shared = TRUE,
-             sort = TRUE) %>% 
-  hc_legend(enabled = TRUE)
-
+figure_9
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_9_data, filename = "figure_9")`
 
-Source: [Quarterly statistical summary tables - Hypnotics and anxiolytics]()
+Source: [Quarterly statistical summary tables - Hypnotics and anxiolytics](`r config$quart_0401_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -569,20 +364,18 @@ Source: [Quarterly statistical summary tables - Hypnotics and anxiolytics]()
 :::
 ::::
 
-Hypnotics and anxiolytics items and identified patients were fairly level across all four quarters of 2022/23. Despite the overall decrease over the year there was a slight increase in identified patients from Q3 2022/23 to Q4 2022/23 from 1.04 million to 1.06 million. This was not reflected in the number of items, which stayed similar across Q4 2022/23. Overall, both patients and items are less than they were during the same quarter in 2021/22. 
+Hypnotics and anxiolytics items and identified patients were fairly level across all four quarters of 2022/23, however there was a slight increase in identified patients from Q3 2022/23 to Q4 2022/23 from 1.04 million to 1.06 million. This was not reflected in the number of items, which stayed similar across Q4 2022/23. Overall, both identified patients and items were lower than they were during the same quarter in 2021/22. 
 
 #### Figure 10: Number of identified patients by age band and gender 2022/23 - BNF 4.1: Hypnotics and anxiolytics 
 
 ```{r annual_ageband_0401}
 
-annual_0401$age_gender %>% 
-   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
-  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
-  age_gender_chart()
+figure_10
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_10_data, filename = "figure_10")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -601,70 +394,25 @@ Female patients aged 55-59 were the largest group across all age and gender grou
 
 ```{r annual_imd_0401}
 
-annual_0401$imd %>% 
-  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `IMD Quintile`,
-    y = `Total Identified Patients`,
-    type = "column",
-    xLab = "IMD Quintile",
-    yLab = "Number of identified patients",
-    title = "" 
-  )
+figure_11
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_11_data, filename = "figure_11")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
 
 There were an estimated 428,000 identified patients receiving prescribing for hypnotics and anxiolytics in the most deprived areas in England in 2022/23. This was 15% more than the 372,000 identified patients from in the least deprived areas. In general, more people were prescribed hypnotics and anxiolytics medicines in more deprived areas in 2022/23. This pattern has remained consistent since 2015/16.
 
-#### Figure 12: Items and patients by ICB by financial year - BNF 4.1: Hypnotics and anxiolytics  
+#### Figure 12: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.1: Hypnotics and anxiolytics  
 
 ```{R annual_icb_0401}
 
-annual_0401$icb %>%
-  dplyr::filter(`Financial Year` == max(`Financial Year`)) %>%
-  dplyr::group_by(`Financial Year`,
-                  `ICB Name`,
-                  `ICB Code`,
-                  `BNF Section Name`,
-                  `BNF Section Code`) %>%
-  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`),
-                   .groups = "drop") %>%
-  left_join(
-    icb_pop,
-    by = c("ICB Code" = "ICB_CODE")
-  ) %>%
-  mutate(
-    PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)
-  ) %>%
-  arrange(desc(PER_1000)) %>%
-  filter(
-    `ICB Name` != "UNKNOWN ICB"
-  ) %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `ICB Code`,
-    y = PER_1000,
-    type = "column",
-    xLab = "ICB code",
-    yLab = "Patients per 1,000 population",
-    dlOn = F,
-    title = "") %>% 
-  hc_tooltip(enabled = T,
-             useHTML = TRUE,
-             formatter = JS("function(){
-                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
-                            return result
-             }")) %>%
-  hc_yAxis(
-    labels = list(
-      enabled = T
-    )
-  )
+figure_12
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_12_data, filename = "figure_12")`
 
-Source: [Annual statistical summary tables - Hypnotics and anxiolytics]()
+Source: [Annual statistical summary tables - Hypnotics and anxiolytics](`r config$fy_0401_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -695,39 +443,12 @@ More information about these medicines can be found in section 4 of this summary
 
 ```{r annual_items_0402, out.width="100%"}
 
-annual_0402$national_paragraph %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `BNF Section Code`,
-                  `BNF Paragraph Name`,
-                  `BNF Paragraph Code`) %>%
-  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
-  bind_rows(
-    annual_0402$national_total %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Paragraph Name` = "Total") %>% 
-      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Items`,
-    group = `BNF Paragraph Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of prescribed items",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_13
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_13_data, filename = "figure_13")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -744,34 +465,12 @@ In 2022/23 there were 13.4 million antipsychotic items prescribed, a 1.30% incre
 
 ```{r annual_patients_0402, out.width="100%"}
 
-annual_0402$national_paragraph %>%
-  dplyr::filter(`Identified Patient Flag` != "N") %>%
-  bind_rows(
-    annual_0402$national_total %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Paragraph Name` = "Total") %>% 
-      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Identified Patients`,
-    group = `BNF Paragraph Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of identified patients",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_14
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_14_data, filename = "figure_14")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
 
 An estimated 850,000 identified patients were prescribed at least one antipsychotic item in 2022/23. This was 0.99% more than 2021/22. Identified patients have increased over time since 2015/16 to 2022/23, and show a similar upward trend to items.
 
@@ -781,38 +480,12 @@ Any patient who was prescribed items from more than one BNF paragraph is counted
 
 ```{r quarterly_0402, out.width="100%"}
 
-quarterly_0402$national_total %>%
-  #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
-  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
-  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
-            `Identified patients` = sum(`Total Identified Patients`),
-            .groups = "drop") %>% 
-  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
-               names_to = "measure",
-               values_to = "value") %>% 
-  dplyr::mutate(value = signif(value, 3)) %>% 
-  dplyr::arrange(desc(measure)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
-    type = "line",
-    marker = FALSE,
-    dlOn = FALSE,
-    xLab = "Financial quarter",
-    yLab = "Volume",
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = TRUE,
-             shared = TRUE,
-             sort = TRUE) %>% 
-  hc_legend(enabled = TRUE)
-
+figure_15
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_15_data, filename = "figure_15")`
 
-Source: [Quarterly statistical summary tables - Drugs used in psychoses and related disorders]()
+Source: [Quarterly statistical summary tables - Drugs used in psychoses and related disorders](`r config$quart_0402_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -832,37 +505,27 @@ Antipsychotics identified patients have increased across all four quarters of 20
 
 ```{r annual_ageband_0402}
 
-annual_0402$age_gender %>% 
-   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
-  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
-  age_gender_chart()
+figure_16
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_16_data, filename = "figure_16")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
 
-As seen in previous years, 2022/23 had noticeable skew in prescribing across gender, with 457,000 female patients and 391,000 male patients who received at least one antipsychotics item. However the differences by gender were smaller than some of the other BNF sections in this publication.
+There were 457,000 female patients and 391,000 male patients who received at least one antipsychotics item in 2022/23. However the differences by gender were smaller than some of the other BNF sections in this publication.
 
-Female patients aged 90+ were the largest group across all age and gender groups at 4.41% of all identified patients. This was a change from 2021/22 where female patients aged 50-54 were the largest group. In 2022/23 female patients aged 50-54 became the second largest group, representing 4.40% of identified patients. The largest group of male patients was those aged 55-59, with 4.33% of identified patients who were male.
+Female patients aged 90+ were the largest group across all age and gender groups at 4.41% of all identified patients. This was a change from 2021/22 where female patients aged 50-54 were the largest group. In 2022/23 female patients aged 50-54 became the second largest group, representing 4.40% of identified patients. The largest group of male patients was those aged 55-59, with 4.33% of identified patients.
 
 #### Figure 17: Number of identified patients by IMD quintile 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders  
 
 ```{r annual_imd_0402}
 
-annual_0402$imd %>% 
-  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `IMD Quintile`,
-    y = `Total Identified Patients`,
-    type = "column",
-    xLab = "IMD Quintile",
-    yLab = "Number of identified patients",
-    title = "" 
-  )
+figure_17
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_17_data, filename = "figure_17")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -875,59 +538,22 @@ Source: [Annual statistical summary tables - Drugs used in psychoses and related
 
 There were an estimated 251,000 identified patients prescribed antipsychotic items in 2022/23 in the most deprived areas in England. This was more than twice as many as the 124,200 patients that were prescribed antipsychotic items in the least deprived areas. In general, more people were prescribed antipsychotics in more deprived areas in 2022/23. This pattern has remained consistent since 2015/16.
 
-#### Figure 18: Items and patients by ICB by financial year - BNF 4.2: Drugs used in psychoses and related disorders  
+#### Figure 18: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.2: Drugs used in psychoses and related disorders  
 
 ```{R annual_icb_0402}
 
-annual_0402$icb %>%
-  dplyr::filter(`Financial Year` == max(`Financial Year`)) %>%
-  dplyr::group_by(`Financial Year`,
-                  `ICB Name`,
-                  `ICB Code`,
-                  `BNF Section Name`,
-                  `BNF Section Code`) %>%
-  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`),
-                   .groups = "drop") %>%
-  left_join(
-    icb_pop,
-    by = c("ICB Code" = "ICB_CODE")
-  ) %>%
-  mutate(
-    PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)
-  ) %>%
-  arrange(desc(PER_1000)) %>%
-  filter(
-    `ICB Name` != "UNKNOWN ICB"
-  ) %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `ICB Code`,
-    y = PER_1000,
-    type = "column",
-    xLab = "ICB code",
-    yLab = "Patients per 1,000 population",
-    dlOn = F,
-    title = "") %>% 
-  hc_tooltip(enabled = T,
-             useHTML = TRUE,
-             formatter = JS("function(){
-                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
-                            return result
-             }")) %>%
-  hc_yAxis(
-    labels = list(
-      enabled = T
-    )
-  )
+figure_18
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_18_data, filename = "figure_18")`
 
-Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders]()
+Source: [Annual statistical summary tables - Drugs used in psychoses and related disorders](`r config$fy_0402_link`)
 
 The figures in Figure 18 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
 
-In 2022/23 NHS Devon ICB was the ICB with the highest estimated number of identified patients who received at least one antipsychotics item per 1,000 residents, an estimated 27 patients per 1,000 population.
+In 2022/23 NHS Devon ICB had the highest rate of antipsychotic prescribing per 1,000 population. An estimated 27 patients per 1,000 population were prescribed at least one antipsychotics item.
 
-NHS Bristol, North Somerset and South Gloucestershire ICB had the lowest, where out of every 1,000 people in the population, an estimated 13 patients were prescribed at least one antipsychotics item in 2022/23.
+NHS Bristol, North Somerset and South Gloucestershire ICB had the lowest, where out of every 1,000 population, an estimated 13 patients were prescribed at least one antipsychotics item in 2022/23.
 
 ### 2.4. Central nervous system (CNS) stimulants and drugs used for ADHD 
 
@@ -950,29 +576,12 @@ More information about these medicines can be found in section 4 of this summary
 
 ```{r annual_items_0404, out.width="100%"}
 
-annual_0404$national_total %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `BNF Section Code`) %>%
-  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
-  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Items`,
-    group = `BNF Section Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of prescribed items",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_19
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_19_data, filename = "figure_19")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](`r config$fy_0404_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -994,30 +603,12 @@ This BNF section only contains one BNF paragraph and many chemical substances, t
 
 ```{r annual_patients_0404, out.width="100%"}
 
-annual_0404$national_total %>%
-  dplyr::filter(`Identified Patient Flag` != "N") %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `BNF Section Code`) %>%
-      dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop") %>% 
-  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Identified Patients`,
-    group = `BNF Section Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of identified patients",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_20
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_20_data, filename = "figure_20")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$fy_0404_link`)
 
 In 2022/23, 233,000 identified patients received at least one prescription item for CNS stimulants and drugs used for ADHD. This was 22.9% more than 2021/22. Identified patients have increased over time since 2015/16 to 2022/23, with a very similar upward trend to items. 
 
@@ -1027,38 +618,12 @@ This BNF section only contains one BNF paragraph and many chemical substances, t
 
 ```{r quarterly_0404, out.width="100%"}
 
-quarterly_0404$national_total %>%
-  #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
-  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
-  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
-            `Identified patients` = sum(`Total Identified Patients`),
-            .groups = "drop") %>% 
-  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
-               names_to = "measure",
-               values_to = "value") %>% 
-  dplyr::mutate(value = signif(value, 3)) %>% 
-  dplyr::arrange(desc(measure)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
-    type = "line",
-    marker = FALSE,
-    dlOn = FALSE,
-    xLab = "Financial quarter",
-    yLab = "Volume",
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = TRUE,
-             shared = TRUE,
-             sort = TRUE) %>% 
-  hc_legend(enabled = TRUE)
-
+figure_21
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_21_data, filename = "figure_21")`
 
-Source: [Quarterly statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+Source: [Quarterly statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$quart_0404_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -1078,14 +643,12 @@ CNS stimulants and drugs used for ADHD items and identified patients have both i
 
 ```{r annual_ageband_0404}
 
-annual_0404$age_gender %>% 
-   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
-  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
-  age_gender_chart()
+figure_22
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_22_data, filename = "figure_22")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](`r config$fy_0404_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -1104,70 +667,25 @@ Male patients aged 10-14 were the largest group across all age and gender groups
 
 ```{r annual_imd_0404}
 
-annual_0404$imd %>% 
-  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `IMD Quintile`,
-    y = `Total Identified Patients`,
-    type = "column",
-    xLab = "IMD Quintile",
-    yLab = "Number of identified patients",
-    title = "" 
-  )
+figure_23
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_23_data, filename = "figure_23")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ]()
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD ](`r config$fy_0404_link`)
 
 In 2022/23, 56,000 patients were prescribed CNS stimulants and drugs used for ADHD items in the most deprived areas in England. This was 25% more than those in the least deprived areas. In general, more people were prescribed CNS stimulants and drugs used for ADHD items in more deprived areas in 2022/23. This pattern has remained consistent since 2015/16.
 
-#### Figure 24: Items and patients by ICB by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
+#### Figure 24: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD  
 
 ```{R annual_icb_0404}
 
-annual_0404$icb %>%
-  dplyr::filter(`Financial Year` == max(`Financial Year`)) %>%
-  dplyr::group_by(`Financial Year`,
-                  `ICB Name`,
-                  `ICB Code`,
-                  `BNF Section Name`,
-                  `BNF Section Code`) %>%
-  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`),
-                   .groups = "drop") %>%
-  left_join(
-    icb_pop,
-    by = c("ICB Code" = "ICB_CODE")
-  ) %>%
-  mutate(
-    PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)
-  ) %>%
-  arrange(desc(PER_1000)) %>%
-  filter(
-    `ICB Name` != "UNKNOWN ICB"
-  ) %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `ICB Code`,
-    y = PER_1000,
-    type = "column",
-    xLab = "ICB code",
-    yLab = "Patients per 1,000 population",
-    dlOn = F,
-    title = "") %>% 
-  hc_tooltip(enabled = T,
-             useHTML = TRUE,
-             formatter = JS("function(){
-                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
-                            return result
-             }")) %>%
-  hc_yAxis(
-    labels = list(
-      enabled = T
-    )
-  )
+figure_24
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_24_data, filename = "figure_24")`
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$fy_0404_link`)
 
 The figures in Figure 24 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
 
@@ -1181,34 +699,16 @@ Although NHS Cheshire and Merseyside ICB had more than four times the number of 
 
 There is some interest in the prescribing of Central nervous system (CNS) stimulants and drugs used for ADHD in children. Children are classed as patients aged 17 and under at 30 September for the given financial year.
 
-#### Figure 25: Number of child and adult patients by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD (thousands of patients)
+#### Figure 25: Number of child and adult patients by financial year - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
 
 ```{r annual_children_0404}
 
-annual_0404$prescribing_in_children %>% 
-  dplyr::filter(`Age Band` != "Unknown") %>% 
-  dplyr::select(`Financial Year`,
-                `BNF Section Name`,
-                `Age Band`,
-                `Total Identified Patients`
-                ) %>% 
-  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Identified Patients`,
-    group = `Age Band`,
-    type = "column",
-    xLab = "Financial year",
-    yLab = "Number of identified patients",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
-```
+figure_25
 
-Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD]()
+```
+`r get_download_button(title = "Download chart data", data = figure_25_data, filename = "figure_25")`
+
+Source: [Annual statistical summary tables - Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$fy_0404_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
@@ -1219,7 +719,7 @@ Source: [Annual statistical summary tables - Central nervous system (CNS) stimul
 :::
 ::::
 
-For the first time in 2022/23 a greater number of CNS stimulants and drugs used for ADHD prescription items were prescribed to adults, with 119,000 patients vs 112,000 child patients. Prescribing in adults has increased more than in children since 2021/22, with 31.8% more adult identified patients compared to 12.5% more child identified patients. The proportion of adults being prescribed of CNS stimulants and drugs used for ADHD items has been increasing since 2015/16.
+For the first time in 2022/23 a greater number of adults were prescribed at least one CNS stimulants and drugs used for ADHD item, with 120,000 patients compared to 112,000 child patients. Prescribing in adults has increased more than in children since 2021/22, with 31.8% more adult identified patients compared to 12.5% more child identified patients. The proportion of adult identified patients versus child identified patients within this section has been increasing since 2015/16.
 
 ### 2.5. Drugs for dementia
 
@@ -1234,43 +734,16 @@ Drugs for dementia are described in the BNF 68 section 4.11:
 
 More information about these medicines can be found in section 4 of this summary.", width = "100%")`
 
-#### Figure 25: Number of prescribed items by financial year - BNF 4.11: Drugs for dementia
+#### Figure 26: Number of prescribed items by financial year - BNF 4.11: Drugs for dementia
 
 ```{r annual_items_0411, out.width="100%"}
 
-annual_0411$national_chem_substance %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `BNF Section Code`,
-                  `BNF Chemical Substance Name`,
-                  `BNF Chemical Substance Code`) %>%
-  dplyr::summarise(`Total Items` = sum(`Total Items`)) %>%
-  bind_rows(
-    annual_0411$national_chem_substance %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Chemical Substance Name` = "Total") %>% 
-      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Items` = signif(`Total Items`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Items`,
-    group = `BNF Chemical Substance Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of prescribed items",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_26
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_26_data, filename = "figure_26")`
 
-Source: [Annual statistical summary tables - Drugs for dementia]()
+Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -1286,79 +759,31 @@ Source: [Annual statistical summary tables - Drugs for dementia]()
 
 In 2022/23 there were 4.24 million drugs for dementia items prescribed, 4.19% more than in 2021/22. Drugs for dementia items have increased across three out of four BNF chemical substances in this section. In contrast, Galantamine items have decreased by 5.20% since 2021/23.
 
-#### Figure 26: Number of identified patients by financial year - BNF 4.11: Drugs for dementia
+#### Figure 27: Number of identified patients by financial year - BNF 4.11: Drugs for dementia
 
 ```{r annual_patients_0411, out.width="100%"}
 
-annual_0411$national_chem_substance %>%
-  dplyr::filter(`Identified Patient Flag` != "N") %>%
-  bind_rows(
-    annual_0411$national_total %>%
-      dplyr::group_by(`Financial Year`,
-                      `BNF Section Name`,
-                      `BNF Section Code`,
-                      `BNF Chemical Substance Name` = "Total") %>% 
-      summarise(`Total Identified Patients` = sum(`Total Identified Patients`), .groups = "drop")
-  ) %>% 
-  mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Year`,
-    y = `Total Identified Patients`,
-    group = `BNF Chemical Substance Name`,
-    type = "line",
-    xLab = "Financial year",
-    yLab = "Number of identified patients",
-    dlOn = F,
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = T,
-             shared = T,
-             sort = T)
+figure_27
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_27_data, filename = "figure_27")`
 
-Source: [Annual statistical summary tables - Drugs for dementia]()
+Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
 
 An estimated 293,000 identified patients were prescribed at least one drugs for dementia item in 2022/23. This was 6.08% more than 2021/22. Identified patients have risen over time since 2015/16 to 2022/23 for three out of four chemical substances, with the overall trend being similar to items. 
 
 Any patient who was prescribed items from more than one BNF chemical substance is counted in the subtotal for each relevant chemical substance. However, these patients have only been counted once in the BNF section totals for each relevant section. The total number of identified patients is therefore lower than if the totals for each chemical substance are added together.
 
-#### Figure 27: Number of prescribed items and identified patients by financial quarter - BNF 4.11: Drugs for dementia
+#### Figure 28: Number of prescribed items and identified patients by financial quarter - BNF 4.11: Drugs for dementia
 
 ```{r quarterly_0411, out.width="100%"}
 
-quarterly_0411$national_total %>%
-  #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) %>% 
-  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) %>% 
-  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
-            `Identified patients` = sum(`Total Identified Patients`),
-            .groups = "drop") %>% 
-  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
-               names_to = "measure",
-               values_to = "value") %>% 
-  dplyr::mutate(value = signif(value, 3)) %>% 
-  dplyr::arrange(desc(measure)) %>% 
-  nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
-    type = "line",
-    marker = FALSE,
-    dlOn = FALSE,
-    xLab = "Financial quarter",
-    yLab = "Volume",
-    title = ""
-  ) %>% 
-  hc_tooltip(enabled = TRUE,
-             shared = TRUE,
-             sort = TRUE) %>% 
-  hc_legend(enabled = TRUE)
-
+figure_28
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_28_data, filename = "figure_28")`
 
-Source: [Quarterly statistical summary tables - Drugs for dementia]()
+Source: [Quarterly statistical summary tables - Drugs for dementia](`r config$quart_0411_link`)
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
@@ -1374,68 +799,29 @@ Source: [Quarterly statistical summary tables - Drugs for dementia]()
 
 Drugs for dementia item identified patients have increased across all four quarters of 2022/23. Items increased during the first three quarters until Q4 2022/23, where they dipped by 0.69%. Overall both patients and items are higher than the same quarter in 2021/22. 
 
-#### Figure 28: Number of identified patients by age band and gender 2022/23 - BNF 4.11: Drugs for dementia
+#### Figure 29: Number of identified patients by age band and gender 2022/23 - BNF 4.11: Drugs for dementia
 
 ```{r annual_ageband_0411}
 
-annual_0411$age_gender %>% 
-   dplyr::filter(`Financial Year` == max(`Financial Year`)) %>% 
-  dplyr::mutate(`Age Band` = case_when(
-            `Age Band` %in% c("90+") ~ "90+",
-            `Age Band` %in% c("85-89") ~ "85-89",
-            `Age Band` %in% c("80-84") ~ "80-84",
-            `Age Band` %in% c("75-79") ~ "75-79",
-            `Age Band` %in% c("70-74") ~ "70-74",
-            `Age Band` %in% c("65-69") ~ "65-69",
-            `Age Band` %in% c("60-64") ~ "60-64",
-            `Age Band` %in% c("55-59") ~ "55-59",
-            `Age Band` %in% c("50-54") ~ "50-54",
-            `Age Band` %in% c("00-04", "10-14", "15-19", "20-24",
-                             "25-29", "30-34", "35-39", "40-44", 
-                             "45-49") ~ "Under 50",
-            TRUE ~ "Unknown")) %>%
-  dplyr::group_by(`Financial Year`,
-                  `BNF Section Name`,
-                  `Age Band`,
-                  `Patient Gender`) %>%
-  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`)) %>%
-  dplyr::arrange(`Age Band` == "90+",
-            `Age Band` == "85-89",
-            `Age Band` == "80-84",
-            `Age Band` == "75-79",
-            `Age Band` == "70-74",
-            `Age Band` == "65-69",
-            `Age Band` == "60-64",
-            `Age Band` == "55-59",
-            `Age Band` == "50-54",
-            `Age Band` == "Under 50") %>%
-  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) %>%
-  age_gender_chart_no_fill()
+figure_29
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_29_data, filename = "figure_29")`
 
-Source: [Annual statistical summary tables - Drugs for dementia]()
+Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
 
 As in previous years, 2022/23 had noticeable differences in prescribing across gender, with 179,000 female patients and 114,000 male patients.
 
 Female patients aged 85-89 were the largest group across all age and gender groups, at 15.6% of all identified patients. This was followed by female patients aged 80-84 with 14.7% of identified patients. Although the number of male patients was lower, similar age groups were the most common within male patients. The largest group of male patients was those aged 80-84, followed by those aged 85-89.
 
-#### Figure 29: Number of identified patients by IMD quintile 2022/23 - BNF 4.11: Drugs for dementia  
+#### Figure 30: Number of identified patients by IMD quintile 2022/23 - BNF 4.11: Drugs for dementia  
 
 ```{r annual_imd_0411}
 
-annual_0411$imd %>% 
-  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `IMD Quintile`,
-    y = `Total Identified Patients`,
-    type = "column",
-    xLab = "IMD Quintile",
-    yLab = "Number of identified patients",
-    title = "" 
-  )
+figure_30
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_30_data, filename = "figure_30")`
 
 Source: [Annual statistical summary tables - Drugs for dementia]()
 
@@ -1448,61 +834,24 @@ Source: [Annual statistical summary tables - Drugs for dementia]()
 :::
 ::::
 
-In 2022/23, an estimated 53,700 identified patients were prescribed drugs for dementia items in the most deprived areas in England. This was 26% less identified patients that received prescribing for drugs for dementia items in the least deprived areas. In general, more people were prescribed drugs for dementia items from practices in the least deprived areas in 2022/23. This pattern has remained consistent since 2015/16. 
+In 2022/23, an estimated 53,700 identified patients were prescribed drugs for dementia items in the most deprived areas in England. This was 26% less identified patients than in the least deprived areas. In general, more people were prescribed drugs for dementia items in the least deprived areas in 2022/23. This pattern has remained consistent since 2015/16. 
 
 Drugs for dementia is the only BNF section in this publication where prescribing was higher in the least deprived areas in 2022/23, compared to the most deprived areas.
 
-#### Figure 30: Items and patients by ICB by financial year - BNF 4.11: Drugs for dementia  
+#### Figure 31: Number of identified patients per 1,000 population by ICB 2022/23 - BNF 4.11: Drugs for dementia  
 
 ```{R annual_icb_0411}
 
-annual_0411$icb %>%
-  dplyr::filter(`Financial Year` == max(`Financial Year`)) %>%
-  dplyr::group_by(`Financial Year`,
-                  `ICB Name`,
-                  `ICB Code`,
-                  `BNF Section Name`,
-                  `BNF Section Code`) %>%
-  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`),
-                   .groups = "drop") %>%
-  left_join(
-    icb_pop,
-    by = c("ICB Code" = "ICB_CODE")
-  ) %>%
-  mutate(
-    PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)
-  ) %>%
-  arrange(desc(PER_1000)) %>%
-  filter(
-    `ICB Name` != "UNKNOWN ICB"
-  ) %>%
-  nhsbsaVis::basic_chart_hc(
-    x = `ICB Code`,
-    y = PER_1000,
-    type = "column",
-    xLab = "ICB code",
-    yLab = "Patients per 1,000 population",
-    dlOn = F,
-    title = "") %>% 
-  hc_tooltip(enabled = T,
-             useHTML = TRUE,
-             formatter = JS("function(){
-                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
-                            return result
-             }")) %>%
-  hc_yAxis(
-    labels = list(
-      enabled = T
-    )
-  )
+figure_31
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_31_data, filename = "figure_31")`
 
-Source: [Annual statistical summary tables - Drugs for dementia]()
+Source: [Annual statistical summary tables - Drugs for dementia](`r config$fy_0411_link`)
 
-The figures in Figure 30 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
+The figures in Figure 31 have been calculated by joining the [Office for National Statistics (ONS) Mid-2020 Population Estimates for Lower Layer Super Output Areas in England](https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates/mid2020sape23dt2/sape23dt2mid2020lsoasyoaestimatesunformatted.xlsx) to our data to obtain the estimated population of each ICB.
 
-In 2022/23 NHS Gloucestershire ICB was the ICB with the highest estimated number of identified patients prescribed a drugs for dementia item per 1,000 residents, with an estimated 9 patients per 1,000 population.
+In 2022/23 NHS Gloucestershire ICB had the highest rate of prescribing of drugs for dementia items. An estimated 9 identified patients per 1,000 population received at least one drugs for dementia item.
 
 NHS Birmingham and Solihull ICB was the ICB with the lowest estimated number of identified patients prescribed a drugs for dementia item per 1,000 residents in 2022/23, with an estimated 3 patients per 1,000 population.
 
@@ -1520,7 +869,7 @@ NHS Birmingham and Solihull ICB was the ICB with the lowest estimated number of 
 :::
 ::::
 
-The number of expected prescription items for the below sections during this period have been calculated by extrapolating figures for March 2020 to March 2023 according to:
+The number of expected prescription items for each BNF section during this period have been calculated by extrapolating figures for March 2020 to March 2023 according to:
 
 * the trend in prescription items for each section between April 2015 and February 2020
 * the number of dispensing days that occur in each month
@@ -1529,87 +878,76 @@ The number of expected prescription items for the below sections during this per
 
 A linear regression model has been used to estimate the number of items prescribed, to stay relatively simple and consistent with the model used in previous releases. The model estimates the expected number of items prescribed based on pre-pandemic trends, for each combination of age band and gender. These estimates have then been added together to get an estimate of the total items expected per month, with a 99% prediction interval (PI) calculated.
 
-`r infoBox_border("Prediction interval (PI)", text = "A range calculated based on the uncertainty around the fit of the model. A 95% PI means that if a new observation is taken from the population the model is based on, it is likely to fall within the interval of predicted values 95% of the time. A 99% PI means the new observation is likely to fall within the interval of predicted values 99% of the time.", width = "100%")`
+`r infoBox_border("Prediction interval (PI)", text = "A range calculated based on the uncertainty around the fit of the model. A 99% PI means the new observation is likely to fall within the interval of predicted values 99% of the time.", width = "100%")`
 
 The data used in this model has been split into groups by patients' 20 year age band and gender. As age band and gender were included in the model, the model was only fitted to data where age band and gender were both known. This means the charts of predictions made using the model are not based on the same full data used in the rest of this publication. These charts cannot be directly compared to each other or to the quarterly and monthly charts of items prescribed. More information on the methodology behind the model can be found in the [background and methodology document](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/MUMH_Background_Info_Methodology_v007.html).
 
 
 ### 3.1. Antidepressant Prescribing {.toc-ignore}
 
-#### Figure 31: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.3: Antidepressant drugs
+#### Figure 32: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.3: Antidepressant drugs
 
 ```{r covid_0403_items, out.width="100%"}
 
-predictions_0403 %>%
-  filter(YEAR_MONTH > 202002) %>%
-  covid_chart_hc(title = "")
+figure_32
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_32_data, filename = "figure_32")`
 
-Source: [Quarterly Summary Tables - Monthly table]()
+Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0403_link`)
 
-Between March 2020 and March 2023, there were 256 million antidepressant items prescribed.
-
-Of these antidepressant items, 253 million were prescribed to identified patients with a known age and gender over the same period. This was only 0.57% more than the 252 million items expected based on historical trends, so antidepressant items remained well within the expected values for this period.
+Between March 2020 and March 2023 there were 253 million antidepressant items prescribed to identified patients with a known age and gender. This was only 0.57% more than the 252 million items expected based on historical trends, so antidepressant items remained well within the expected values for this period.
 
 ### 3.2. Hypnotics and anxiolytics prescribing {.toc-ignore}
 
-#### Figure 32: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.1: Hypnotics and anxiolytics
+#### Figure 33: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.1: Hypnotics and anxiolytics
 
 ```{r covid_0401_items, out.width="100%"}
 
-predictions_0401 %>%
-  filter(YEAR_MONTH > 202002) %>%
-  covid_chart_hc(title = "")
+figure_33
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_33_data, filename = "figure_33")`
 
-Source: [Quarterly Summary Tables - Monthly table]()
+Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0401_link`)
 
-There were 43.4 million hypnotics and anxiolytics items prescribed between March 2020 and March 2023.
-
-Across the same period, 42.0 million hypnotics and anxiolytics items were prescribed to identified patients with a known age and gender. This closely followed the expected number of items for this time period, as there were 0.42% more items prescribed than the 41.8 million items expected based on historical trends. Hypnotics and anxiolytics therefore stayed within the range of values expected for items in this period.
+There were 42.0 million hypnotics and anxiolytics items prescribed between March 2020 and March 2023 to identified patients with a known age and gender. This closely followed the expected number of items for this time period, as there were 0.42% more items prescribed than the 41.8 million items expected based on historical trends. Hypnotics and anxiolytics therefore stayed within the range of values expected for items in this period.
 
 ### 3.3. Drugs used in psychoses and related disorders prescribing {.toc-ignore}
 
-#### Figure 33: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.2: Drugs used in psychoses and related disorders
+#### Figure 34: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.2: Drugs used in psychoses and related disorders
 
 ```{r covid_0402_items, out.width="100%"}
 
-predictions_0402 %>%
-  filter(YEAR_MONTH > 202002) %>%
-  covid_chart_hc(title = "")
+figure_34
 
 ```
-Source: [Quarterly Summary Tables - Monthly table]()
+`r get_download_button(title = "Download chart data", data = figure_34_data, filename = "figure_34")`
 
-From March 2020 to March 2023, 40.7 million antipsychotics items were prescribed.
+Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0402_link`)
 
-There were 39.4 million antipsychotics items prescribed within the same time period to identified patients with known age and gender. This was 1.69% less than the 40.0 million items that were expected to be prescribed. Over this period antipsychotics items stayed mostly within the range of expected values. However, a small number of months have shown prescribing slightly outside this range, most recently in January and February 2023. Antipsychotics items have returned to being within expected values for March 2023.
+There were 39.4 million antipsychotics items prescribed from March 2020 to March 2023 to identified patients with known age and gender. This was 1.69% less than the 40.0 million items that were expected to be prescribed. Over this period antipsychotics items stayed mostly within the range of expected values. However, a small number of months have shown prescribing slightly lower than this range, most recently in January and February 2023. Antipsychotics items have returned to being within expected values for March 2023.
 
 ### 3.4. CNS stimulants and drugs used for ADHD prescribing {.toc-ignore}
 
-#### Figure 34: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.4: CNS stimulants and drugs used for ADHD
+#### Figure 35: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.4: CNS stimulants and drugs used for ADHD
 
 ```{r covid_0404_items, out.width="100%"}
 
-predictions_0404 %>%
-  filter(YEAR_MONTH > 202002) %>%
-  covid_chart_hc(title = "")
+figure_35
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_35_data, filename = "figure_35")`
 
-Source: [Quarterly Summary Tables - Monthly table]()
+Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0404_link`)
 
-From March 2020 to March 2023, 6.68 million CNS stimulants and drugs used for ADHD items were prescribed.
-
-During this same time, 5.86 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was outside the expected range of values for this period, at 13.2% more than the 5.17 million items expected based on historical trends. Since February 2022, CNS stimulants and drugs used for ADHD items have remained consistently higher than expected based on historical trends. Since 2015/16 there has always been an increase between February and March, with a noticeably steeper increase between February and March 2023 than previous years.
+From March 2020 to March 2023, 5.86 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was outside the expected range of values for this period, at 13.2% more than the 5.17 million items expected based on historical trends. Since February 2022, CNS stimulants and drugs used for ADHD items have remained consistently higher than expected based on historical trends. Since 2015/16 there has always been an increase between February and March, with a noticeably steeper increase between February and March 2023 than previous years.
 
 The model is based on data containing identified patients with known age and gender only. As CNS stimulants and drugs used for ADHD have a relatively low patient identification rate, a lower proportion of prescribing is included in the model data. For example, patient identification for this BNF section was 79.3% in Q1 of 2015/16, rising to 87.7% in Q4 of 2022/23. This may have an impact on how well the model can extrapolate expected values from the data.
 
 ### 3.5. Drugs for dementia prescribing {.toc-ignore}
 
-#### Figure 35: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.11: Drugs for dementia
+#### Figure 36: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.11: Drugs for dementia
 
 ```{r covid_0411_items, out.width="100%"}
 
@@ -1618,12 +956,11 @@ predictions_0411 %>%
   covid_chart_hc(title = "")
 
 ```
+`r get_download_button(title = "Download chart data", data = figure_36_data, filename = "figure_36")`
 
-Source: [Quarterly Summary Tables - Monthly table]()
+Source: [Quarterly Summary Tables - Monthly table](`r config$quart_0411_link`)
 
-There were 12.7 million drugs for dementia items prescribed between March 2020 and March 2023.
-
-Of these items, 12.3 million drugs for dementia items were prescribed to identified patients with known age and gender across the same time period. This significantly lower than the 13.9 million items expected to be prescribed, at 11.6% less. In the past year, all months except for June 2022 have fallen outside the range of expected values. Although prescribing follows the seasonal patterns expected, drugs for dementia items remain consistently lower than expected based on historical trends.
+There were 12.3 million drugs for dementia items prescribed from March 2020 to March 2023 to identified patients with known age and gender. This was significantly lower than the 13.9 million items expected to be prescribed, at 11.6% less. In the past year, all months except for June 2022 have fallen outside the range of expected values. Although prescribing follows the seasonal patterns expected, drugs for dementia items remain consistently lower than expected based on historical trends.
 
 ---
 

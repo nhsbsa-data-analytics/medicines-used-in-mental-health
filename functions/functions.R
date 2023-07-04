@@ -2005,7 +2005,7 @@ infoBox_no_border <- function(
   margin-bottom: 0px;'>", text, "</p>
 </div>"
   )
-}
+  }
 
 ### Chart functions
 age_gender_chart <- function(data,
@@ -2366,4 +2366,57 @@ covid_chart_hc <- function(data,
   # explicit return
   return(chart)
   
+}
+
+### CSV Download button
+get_download_button <- function(data = data, title = "Download chart data", filename = "data") { 
+  dt <- datatable(data, rownames = FALSE,
+                  extensions = 'Buttons',
+                  options = list(
+                    searching = FALSE,
+                    paging = TRUE,
+                    bInfo = FALSE,
+                    pageLength = 1,
+                    dom = '<"datatable-wrapper"B>',
+                    buttons = list(
+                      list(extend = 'csv',
+                           text = title,
+                           filename = filename,
+                           className = "nhs-button-style")
+                    ),
+                    initComplete = JS(
+                      "function(settings, json) {",
+                      "$(this.api().table().node()).css('visibility', 'collapse');",
+                      "}"
+                    )
+                  )
+  )
+  
+  return(dt)
+}
+#---------------
+
+### add_anl_4ii function
+pca_exemption_categories <- function(con) {
+  raw_data <- dplyr::tbl(con,
+                         from = dbplyr::in_schema("AML", "PCA_MY_FY_CY_FACT")) |>
+    dplyr::filter(MONTH_TYPE %in% c("FY"),YEAR_DESC != "2013/2014") |>
+    dplyr::select(
+      "YEAR_DESC",
+      "PFEA_EXEMPT_CAT",
+      "EXEMPT_CAT",
+      "ITEM_COUNT",
+      "ITEM_PAY_DR_NIC"
+    ) |>
+    dplyr::group_by(YEAR_DESC, PFEA_EXEMPT_CAT, EXEMPT_CAT) |>
+    dplyr::summarise(ITEM_COUNT = sum(ITEM_COUNT),
+                     ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC) / 100
+    ) |>
+    dplyr::ungroup()  |>
+    dplyr::arrange(YEAR_DESC)
+  #pull data from warehouse
+  data <- raw_data |>
+    collect()
+  
+  return(data)
 }

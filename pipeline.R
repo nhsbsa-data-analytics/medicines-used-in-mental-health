@@ -5,8 +5,7 @@
 #clear environment
 rm(list = ls())
 
-#source functions - commented out while I check if required/ add functions to folder
-#this is only a temporary step until all functions are built into packages
+#source functions
 source("./functions/functions.R")
 
 #1. Setup and package installation
@@ -1364,7 +1363,952 @@ quarterly_0411$monthly_chem_substance <- chem_sub_extract_monthly %>%
 
 #4. chart data
 
+#chart data for use in markdown
 
+#table 1 patient ID rates
+table_1_data <- capture_rate_extract_year |>
+  dplyr::mutate(across(where(is.numeric), round, 2))
+  
+table_1 <- table_1_data |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+
+#figure 1 annual antidepressant items
+figure_1_data <- annual_0403$national_paragraph |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Paragraph Name`,
+                  `BNF Paragraph Code`)|>
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) |>
+  bind_rows(
+    annual_0403$national_total |>
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") |> 
+      dplyr::summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) |> 
+  mutate(`Total Items` = signif(`Total Items`,3))
+
+figure_1 <- figure_1_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) |> 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)  
+
+#figure_2 annual antidepressant patients
+figure_2_data <- annual_0403$national_paragraph |>
+  dplyr::filter(`Identified Patient Flag` != "N") |>
+  bind_rows(
+    annual_0403$national_total %>%
+      dplyr::group_by(
+        `Financial Year`,
+        `BNF Section Name`,
+        `BNF Section Code`,
+        `BNF Paragraph Name` = "Total"
+      ) |>
+      summarise(
+        `Total Identified Patients` = sum(`Total Identified Patients`),
+        .groups = "drop"
+      )
+  ) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) 
+  
+figure_2 <- figure_2_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 3 quarterly antidepressant items and patients
+figure_3_data <- quarterly_0403$national_total |>
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))
+
+figure_3 <- figure_3_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE)  
+
+#figure 4 annual antidepressant age and gender
+figure_4_data <- annual_0403$age_gender |>
+    dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+    dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+  
+figure_4 <- figure_4_data |>
+    age_gender_chart()
+  
+#figure 5 annual antidepressant IMD
+figure_5_data <- annual_0403$imd |>
+  filter(`Financial Year` == max(`Financial Year`),
+         `IMD Quintile` != "Unknown")
+  
+figure_5 <- figure_5_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = ""
+    )
+  
+#figure 6 annual antidepressant ICB
+figure_6_data <- annual_0403$icb |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::group_by(`Financial Year`,
+                  `ICB Name`,
+                  `ICB Code`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Total Identified Patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  left_join(icb_pop,
+            by = c("ICB Code" = "ICB_CODE")) |>
+  mutate(PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)) |>
+  arrange(desc(PER_1000)) |>
+  filter(`ICB Name` != "UNKNOWN ICB")
+
+figure_6 <- figure_6_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `ICB Code`,
+    y = PER_1000,
+    type = "column",
+    xLab = "ICB code",
+    yLab = "Patients per 1,000 population",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(
+    enabled = T,
+    useHTML = TRUE,
+    formatter = JS(
+      "function(){
+                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
+                            return result
+             }"
+    )
+  ) |>
+  hc_yAxis(labels = list(enabled = T))
+
+#table_2 annual antidepressant adult child
+table_2_data <- annual_0403$prescribing_in_children |>
+  dplyr::filter(`Age Band` != "Unknown") |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `Age Band`) |>
+  dplyr::summarise(`Total Identified Patients` = formatC(signif(sum(`Total Identified Patients`)/1000000,
+                                                                digits = 3),
+                                                         digits = 3, format = "fg", flag = "#")) |> 
+  dplyr::ungroup() |>
+  dplyr::select(`Financial Year`,
+                `Age Band`,
+                `Total Identified Patients`) |>
+  tidyr::pivot_wider(names_from = `Financial Year`,
+                     values_from = `Total Identified Patients`)
+
+  
+table_2 <-  table_2_data |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0),
+                                 list(className = "dt-right", targets = 1:8)
+                               )))
+
+#figure 7 annual hypnotics anxiolytics items 
+figure_7_data <- annual_0401$national_paragraph |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Paragraph Name`,
+                  `BNF Paragraph Code`) |>
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) |>
+  bind_rows(
+    annual_0401$national_total |>
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") |>
+      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) |> 
+  mutate(`Total Items` = signif(`Total Items`,3)) 
+
+figure_7 <- figure_7_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 8 annual hypnotics anxiolytics patients
+figure_8_data <- annual_0401$national_paragraph |>
+  dplyr::filter(`Identified Patient Flag` != "N") |>
+  bind_rows(
+    annual_0401$national_total |>
+      dplyr::group_by(
+        `Financial Year`,
+        `BNF Section Name`,
+        `BNF Section Code`,
+        `BNF Paragraph Name` = "Total"
+      ) |>
+      summarise(
+        `Total Identified Patients` = sum(`Total Identified Patients`),
+        .groups = "drop"
+      )
+  ) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+
+figure_8 <- figure_8_data |>
+  nhsbsaVis::group_chart_hc(
+  x = `Financial Year`,
+  y = `Total Identified Patients`,
+  group = `BNF Paragraph Name`,
+  type = "line",
+  xLab = "Financial year",
+  yLab = "Number of identified patients",
+  dlOn = F,
+  title = ""
+) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 9 quarterly hypnotics anxiolytics items and patients
+figure_9_data <- quarterly_0401$national_total |>
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))
+  
+figure_9 <- figure_9_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE)
+
+#figure 10 annual hypnotics anxiolytics age gender
+figure_10_data <- annual_0401$age_gender |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+
+figure_10 <- figure_10_data |>
+  age_gender_chart()
+
+#figure 11 annual hypnotics anxiolytics IMD
+figure_11_data <- annual_0401$imd |>
+  filter(`Financial Year` == max(`Financial Year`),
+         `IMD Quintile` != "Unknown")
+
+figure_11 <- figure_11_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = ""
+  )
+
+#figure 12 annual hypnotics anxiolytics ICB
+figure_12_data <- annual_0401$icb |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::group_by(`Financial Year`,
+                  `ICB Name`,
+                  `ICB Code`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Total Identified Patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  left_join(icb_pop,
+            by = c("ICB Code" = "ICB_CODE")) |>
+  mutate(PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)) |>
+  arrange(desc(PER_1000)) |>
+  filter(`ICB Name` != "UNKNOWN ICB")
+
+figure_12 <- figure_12_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `ICB Code`,
+    y = PER_1000,
+    type = "column",
+    xLab = "ICB code",
+    yLab = "Patients per 1,000 population",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(
+    enabled = T,
+    useHTML = TRUE,
+    formatter = JS(
+      "function(){
+                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
+                            return result
+             }"
+    )
+  ) |>
+  hc_yAxis(labels = list(enabled = T))
+  
+#figure 13 annual antipsychotics items
+figure_13_data <- annual_0402$national_paragraph |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Paragraph Name`,
+                  `BNF Paragraph Code`) |>
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) |>
+  bind_rows(
+    annual_0402$national_total |>
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Paragraph Name` = "Total") |>
+      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) |> 
+  mutate(`Total Items` = signif(`Total Items`,3)) 
+
+figure_13 <- figure_13_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Paragraph Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 14 annual antipsychotics patients
+figure_14_data <- annual_0402$national_paragraph |>
+  dplyr::filter(`Identified Patient Flag` != "N") |>
+  bind_rows(
+    annual_0402$national_total |>
+      dplyr::group_by(
+        `Financial Year`,
+        `BNF Section Name`,
+        `BNF Section Code`,
+        `BNF Paragraph Name` = "Total"
+      ) |>
+      summarise(
+        `Total Identified Patients` = sum(`Total Identified Patients`),
+        .groups = "drop"
+      )
+  ) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+
+figure_14 <- figure_14_data |>
+  nhsbsaVis::group_chart_hc(
+  x = `Financial Year`,
+  y = `Total Identified Patients`,
+  group = `BNF Paragraph Name`,
+  type = "line",
+  xLab = "Financial year",
+  yLab = "Number of identified patients",
+  dlOn = F,
+  title = ""
+) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 15 quarterly antipsychotics items and patients
+figure_15_data <- quarterly_0402$national_total |>
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))
+
+figure_15 <- figure_15_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE)
+
+#figure 16 annual antipsychotics age gender
+figure_16_data <- annual_0402$age_gender |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+
+figure_16 <- figure_16_data |>
+  age_gender_chart()
+
+#figure 17 annual antipsychotics IMD
+figure_17_data <- annual_0402$imd |>
+  filter(`Financial Year` == max(`Financial Year`),
+         `IMD Quintile` != "Unknown")
+
+figure_17 <- figure_17_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = ""
+  )
+
+#figure 18 annual antipsychotics ICB
+figure_18_data <- annual_0402$icb |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::group_by(`Financial Year`,
+                  `ICB Name`,
+                  `ICB Code`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Total Identified Patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  left_join(icb_pop,
+            by = c("ICB Code" = "ICB_CODE")) |>
+  mutate(PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)) |>
+  arrange(desc(PER_1000)) |>
+  filter(`ICB Name` != "UNKNOWN ICB")
+
+figure_18 <- figure_18_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `ICB Code`,
+    y = PER_1000,
+    type = "column",
+    xLab = "ICB code",
+    yLab = "Patients per 1,000 population",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(
+    enabled = T,
+    useHTML = TRUE,
+    formatter = JS(
+      "function(){
+                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
+                            return result
+             }"
+    )
+  ) |>
+  hc_yAxis(labels = list(enabled = T))
+
+#figure 19 annual CNS ADHD items
+figure_19_data <- annual_0404$national_total |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) |>
+  mutate(`Total Items` = signif(`Total Items`,3))
+  
+figure_19 <- figure_19_data |>
+  nhsbsaVis::group_chart_hc(
+  x = `Financial Year`,
+  y = `Total Items`,
+  group = `BNF Section Name`,
+  type = "line",
+  xLab = "Financial year",
+  yLab = "Number of prescribed items",
+  dlOn = F,
+  title = ""
+  ) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 20 annual CNS ADHD patients
+figure_20_data <- annual_0404$national_total |>
+  dplyr::filter(`Identified Patient Flag` != "N") |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Total Identified Patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+
+figure_20 <- figure_20_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Section Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 21 quarterly CNS ADHD items and patients
+figure_21_data <- quarterly_0404$national_total |>
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))
+
+figure_21 <- figure_21_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE)
+
+#figure 22 annual CNS ADHD age gender
+figure_22_data <- annual_0404$age_gender |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+
+figure_22 <- figure_22_data |>
+  age_gender_chart()
+
+#figure 23 annual CNS ADHD IMD
+figure_23_data <- annual_0404$imd |>
+  filter(`Financial Year` == max(`Financial Year`),
+         `IMD Quintile` != "Unknown")
+
+figure_23 <- figure_23_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = ""
+  )
+
+#figure 24 annual CNS ADHD ICB
+figure_24_data <- annual_0404$icb |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::group_by(`Financial Year`,
+                  `ICB Name`,
+                  `ICB Code`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Total Identified Patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  left_join(icb_pop,
+            by = c("ICB Code" = "ICB_CODE")) |>
+  mutate(PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)) |>
+  arrange(desc(PER_1000)) |>
+  filter(`ICB Name` != "UNKNOWN ICB")
+
+figure_24 <- figure_24_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `ICB Code`,
+    y = PER_1000,
+    type = "column",
+    xLab = "ICB code",
+    yLab = "Patients per 1,000 population",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(
+    enabled = T,
+    useHTML = TRUE,
+    formatter = JS(
+      "function(){
+                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
+                            return result
+             }"
+    )
+  ) |>
+  hc_yAxis(labels = list(enabled = T))
+
+#figure 25 annual CNS ADHD adult child
+figure_25_data <- annual_0404$prescribing_in_children |> 
+  dplyr::filter(`Age Band` != "Unknown") |>
+  dplyr::select(`Financial Year`,
+                `BNF Section Name`,
+                `Age Band`,
+                `Total Identified Patients`) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`,3)) 
+
+figure_25 <- figure_25_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `Age Band`,
+    type = "column",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 26 annual dementia items
+figure_26_data <- annual_0411$national_chem_substance |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `BNF Section Code`,
+                  `BNF Chemical Substance Name`,
+                  `BNF Chemical Substance Code`) |>
+  dplyr::summarise(`Total Items` = sum(`Total Items`)) |>
+  bind_rows(
+    annual_0411$national_chem_substance |>
+      dplyr::group_by(`Financial Year`,
+                      `BNF Section Name`,
+                      `BNF Section Code`,
+                      `BNF Chemical Substance Name` = "Total") |> 
+      summarise(`Total Items` = sum(`Total Items`), .groups = "drop")
+  ) |> 
+  dplyr::mutate(`Total Items` = signif(`Total Items`,3))
+
+figure_26 <- figure_26_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Items`,
+    group = `BNF Chemical Substance Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of prescribed items",
+    dlOn = F,
+    title = ""
+  ) |> 
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+
+#figure 27 annual dementia patients
+figure_27_data <- annual_0411$national_chem_substance |>
+  dplyr::filter(`Identified Patient Flag` != "N") |>
+  bind_rows(
+    annual_0411$national_total |>
+      dplyr::group_by(
+        `Financial Year`,
+        `BNF Section Name`,
+        `BNF Section Code`,
+        `BNF Chemical Substance Name` = "Total"
+      ) |>
+      summarise(
+        `Total Identified Patients` = sum(`Total Identified Patients`),
+        .groups = "drop"
+      )
+  ) |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3))
+
+figure_27 <- figure_27_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Year`,
+    y = `Total Identified Patients`,
+    group = `BNF Chemical Substance Name`,
+    type = "line",
+    xLab = "Financial year",
+    yLab = "Number of identified patients",
+    dlOn = F,
+    title = ""
+  ) |>
+  hc_tooltip(enabled = T,
+             shared = T,
+             sort = T)
+
+#figure 28 quarterly dementia items and patients
+figure_28_data <- quarterly_0411$national_total |>
+  #added financial year filter now only using rolling years
+  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+  dplyr::group_by(`Financial Year`, `Financial Quarter`, `BNF Section Name`, `BNF Section Code`) |> 
+  dplyr::summarise(`Prescribed items` = sum(`Total Items`),
+                   `Identified patients` = sum(`Total Identified Patients`),
+                   .groups = "drop") |>
+  tidyr::pivot_longer(cols = c(`Identified patients`,`Prescribed items`),
+                      names_to = "measure",
+                      values_to = "value") |>
+  dplyr::mutate(value = signif(value, 3)) |> 
+  dplyr::arrange(desc(measure))  
+
+figure_28 <- figure_28_data |>
+  nhsbsaVis::group_chart_hc(
+    x = `Financial Quarter`,
+    y = value,
+    group = measure,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |> 
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |> 
+  hc_legend(enabled = TRUE)
+
+#figure 29 annual dementia age band
+figure_29_data <- annual_0411$age_gender |> 
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::mutate(`Age Band` = case_when(
+    `Age Band` %in% c("90+") ~ "90+",
+    `Age Band` %in% c("85-89") ~ "85-89",
+    `Age Band` %in% c("80-84") ~ "80-84",
+    `Age Band` %in% c("75-79") ~ "75-79",
+    `Age Band` %in% c("70-74") ~ "70-74",
+    `Age Band` %in% c("65-69") ~ "65-69",
+    `Age Band` %in% c("60-64") ~ "60-64",
+    `Age Band` %in% c("55-59") ~ "55-59",
+    `Age Band` %in% c("50-54") ~ "50-54",
+    `Age Band` %in% c("00-04", "10-14", "15-19", "20-24",
+                      "25-29", "30-34", "35-39", "40-44", 
+                      "45-49") ~ "Under 50",
+    TRUE ~ "Unknown")) |>
+  dplyr::group_by(`Financial Year`,
+                  `BNF Section Name`,
+                  `Age Band`,
+                  `Patient Gender`) |>
+  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`)) |>
+  dplyr::arrange(`Age Band` == "90+",
+                 `Age Band` == "85-89",
+                 `Age Band` == "80-84",
+                 `Age Band` == "75-79",
+                 `Age Band` == "70-74",
+                 `Age Band` == "65-69",
+                 `Age Band` == "60-64",
+                 `Age Band` == "55-59",
+                 `Age Band` == "50-54",
+                 `Age Band` == "Under 50") |>
+  dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) 
+
+figure_29 <- figure_29_data |>
+  age_gender_chart_no_fill()
+
+#figure 30 annual dementia IMD
+figure_30_data <- annual_0411$imd |>
+  filter(`Financial Year` == max(`Financial Year`),`IMD Quintile` != "Unknown") 
+
+figure_30 <- figure_30_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `IMD Quintile`,
+    y = `Total Identified Patients`,
+    type = "column",
+    xLab = "IMD Quintile",
+    yLab = "Number of identified patients",
+    title = "" 
+  )
+
+#figure 31 annual dementia ICB
+figure_31_data <- annual_0411$icb |>
+  dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
+  dplyr::group_by(`Financial Year`,
+                  `ICB Name`,
+                  `ICB Code`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(`Total Identified Patients` = sum(`Total Identified Patients`),
+                   .groups = "drop") |>
+  left_join(
+    icb_pop,
+    by = c("ICB Code" = "ICB_CODE")
+  ) |>
+  dplyr::mutate(
+    PER_1000 = round(`Total Identified Patients` / POP * 1000, 1)
+  ) |>
+  arrange(desc(PER_1000)) |>
+  dplyr::filter(
+    `ICB Name` != "UNKNOWN ICB"
+  )
+
+figure_31 <- figure_31_data |>
+  nhsbsaVis::basic_chart_hc(
+    x = `ICB Code`,
+    y = PER_1000,
+    type = "column",
+    xLab = "ICB code",
+    yLab = "Patients per 1,000 population",
+    dlOn = F,
+    title = "") %>% 
+  hc_tooltip(enabled = T,
+             useHTML = TRUE,
+             formatter = JS("function(){
+                            var result = this.point.ICB_NAME + '<br><b>Patients per 1,000 population:</b> ' + this.point.PER_1000.toFixed(0)
+                            return result
+             }")) %>%
+  hc_yAxis(
+    labels = list(
+      enabled = T
+    )
+  )
+
+#figure 32 antidepressants model data
+figure_32_data <- predictions_0403 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_32 <- figure_32_data |>
+  covid_chart_hc(title = "")
+
+#figure 33 hypnotics anxiolytics model data
+figure_33_data <- predictions_0401 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_33 <- figure_33_data |>
+  covid_chart_hc(title = "")
+
+#figure 34 antipsychotics model data
+figure_34_data <- predictions_0402 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_34 <- figure_34_data |>
+  covid_chart_hc(title = "")
+
+#figure 35 CNS ADHD model data
+figure_35_data <- predictions_0404 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_35 <- figure_35_data |>
+  covid_chart_hc(title = "")
+
+#figure 36 dementia model data
+figure_36_data <- predictions_0411 |>
+  filter(YEAR_MONTH > 202002)
+
+figure_36 <- figure_36_data |>
+  covid_chart_hc(title = "")
 
 #5. analysis
 

@@ -115,7 +115,7 @@ There are some inconsistencies within the PDS data that is held within the NHSBS
 
 #### 2.1.2 Patient gender/sex
 
-The NHSBSA does not capture information relating to a patient’s sex or gender from a prescription during processing activities. Gender is instead obtained from the PDS. Therefore, gender information is only available for patients that we have been able obtain a matched NHS number for.
+The NHSBSA does not capture information relating to a patient’s sex or gender from a prescription during processing activities. Gender is instead obtained from the PDS. Therefore, gender information is only available for patients that we have been able to obtain a matched NHS number for.
 
 
 A patient is classified in one of four ways for gender by PDS:
@@ -171,7 +171,11 @@ This model states expected figures if trends had continued as before but doesn't
 
 ## 3. Changes to this publication
 
-### 3.1. Additional quarterly breakdowns {.toc-ignore}
+### 3.1 Patient counts {.toc-ignore}
+
+From 2022/23 we have changed how we count patients, which brings the publication in line with other NHSBSA data products. Some historical figures may have changed from previous releases. Patient counts are of identified patients, where a unique NHS number has been captured from a prescription form or electronic prescription service (EPS) message.
+
+### 3.2. Additional quarterly breakdowns {.toc-ignore}
 
 From 2022/23 we have amended the annual publication to combine it with the quarterly release for January to March 2023. Demographic information such as breakdowns by gender, age band, and IMD have been added into the quarterly summary tables to align it with the information reported in previous annual publications. These breakdowns have not been applied to the monthly tables.
 
@@ -415,7 +419,7 @@ You can view our [privacy policy](https://www.nhsbsa.nhs.uk/our-policies/privacy
 
 You can contact us by:
   
-**Email:** nhsbsa.statistics@nhs.net
+**Email:** statistics@nhsbsa.nhs.uk
 
 **You can also write to us at:**
   

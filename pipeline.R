@@ -258,20 +258,20 @@ DBI::dbDisconnect(con)
 
 annual_0401 <- list()
 
-annual_0401$patient_id <- capture_rate_extract_year %>%
+annual_0401$patient_id <- capture_rate_extract_year |>
   dplyr::filter(`BNF Section Code` == "0401") 
 
-annual_0401$national_total <- national_extract_year %>%
+annual_0401$national_total <- national_extract_year |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-annual_0401$national_population <- population_extract_year %>%
+annual_0401$national_population <- population_extract_year |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-annual_0401$national_paragraph <- paragraph_extract_year %>%
+annual_0401$national_paragraph <- paragraph_extract_year |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-annual_0401$icb <-  icb_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0401$icb <-  icb_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `ICB Name`,
                  `ICB Code`,
@@ -284,11 +284,11 @@ annual_0401$icb <-  icb_extract_year %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-annual_0401$gender <- gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0401$gender <- gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -296,11 +296,11 @@ annual_0401$gender <- gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401") 
 
-annual_0401$ageband <- ageband_data_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0401$ageband <- ageband_data_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -308,11 +308,11 @@ annual_0401$ageband <- ageband_data_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-annual_0401$age_gender <- age_gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0401$age_gender <- age_gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -321,11 +321,11 @@ annual_0401$age_gender <- age_gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-annual_0401$imd <- imd_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0401$imd <- imd_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `BNF Section Name`,
@@ -333,7 +333,7 @@ annual_0401$imd <- imd_extract_year %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 
@@ -342,20 +342,20 @@ annual_0401$imd <- imd_extract_year %>%
 
 annual_0402 <- list()
 
-annual_0402$patient_id <- capture_rate_extract_year %>%
+annual_0402$patient_id <- capture_rate_extract_year |>
   dplyr::filter(`BNF Section Code` == "0402") 
 
-annual_0402$national_total <- national_extract_year %>%
+annual_0402$national_total <- national_extract_year |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-annual_0402$national_population <- population_extract_year %>%
+annual_0402$national_population <- population_extract_year |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-annual_0402$national_paragraph <- paragraph_extract_year %>%
+annual_0402$national_paragraph <- paragraph_extract_year |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-annual_0402$icb <-  icb_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0402$icb <-  icb_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `ICB Name`,
                  `ICB Code`,
@@ -368,11 +368,11 @@ annual_0402$icb <-  icb_extract_year %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-annual_0402$gender <- gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0402$gender <- gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -380,11 +380,11 @@ annual_0402$gender <- gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0402") 
 
-annual_0402$ageband <- ageband_data_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0402$ageband <- ageband_data_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -392,11 +392,11 @@ annual_0402$ageband <- ageband_data_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-annual_0402$age_gender <- age_gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0402$age_gender <- age_gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -405,11 +405,11 @@ annual_0402$age_gender <- age_gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-annual_0402$imd <- imd_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0402$imd <- imd_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `BNF Section Name`,
@@ -417,28 +417,27 @@ annual_0402$imd <- imd_extract_year %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0402")
 
 # 0403 Antidepressants - annual
 
 annual_0403 <- list()
 
-annual_0403$patient_id <- capture_rate_extract_year %>%
+annual_0403$patient_id <- capture_rate_extract_year |>
   dplyr::filter(`BNF Section Code` == "0403") 
 
-annual_0403$national_total <- national_extract_year %>%
+annual_0403$national_total <- national_extract_year |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-annual_0403$national_population <- population_extract_year %>%
+annual_0403$national_population <- population_extract_year |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-annual_0403$national_paragraph <- paragraph_extract_year %>%
+annual_0403$national_paragraph <- paragraph_extract_year |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-view(annual_0403$icb)
-annual_0403$icb <-  icb_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0403$icb <-  icb_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `ICB Name`,
                  `ICB Code`,
@@ -451,11 +450,11 @@ annual_0403$icb <-  icb_extract_year %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-annual_0403$gender <- gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0403$gender <- gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -463,11 +462,11 @@ annual_0403$gender <- gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0403") 
 
-annual_0403$ageband <- ageband_data_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0403$ageband <- ageband_data_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -475,11 +474,11 @@ annual_0403$ageband <- ageband_data_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-annual_0403$age_gender <- age_gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0403$age_gender <- age_gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -488,11 +487,11 @@ annual_0403$age_gender <- age_gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-annual_0403$imd <- imd_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0403$imd <- imd_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `BNF Section Name`,
@@ -500,18 +499,18 @@ annual_0403$imd <- imd_extract_year %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-annual_0403$prescribing_in_children <- child_adult_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0403$prescribing_in_children <- child_adult_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
                 `Age Band`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0403")
 
 
@@ -519,17 +518,17 @@ annual_0403$prescribing_in_children <- child_adult_extract_year %>%
 
 annual_0404 <- list()
 
-annual_0404$patient_id <- capture_rate_extract_year %>%
+annual_0404$patient_id <- capture_rate_extract_year |>
   dplyr::filter(`BNF Section Code` == "0404") 
 
-annual_0404$national_total <- national_extract_year %>%
+annual_0404$national_total <- national_extract_year |>
   dplyr::filter(`BNF Section Code` == "0404")
 
-annual_0404$national_population <- population_extract_year %>%
+annual_0404$national_population <- population_extract_year |>
   dplyr::filter(`BNF Section Code` == "0404")
 
-annual_0404$national_chem_substance <- chem_sub_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0404$national_chem_substance <- chem_sub_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `BNF Section Name`,
                  `BNF Section Code`,
@@ -538,11 +537,11 @@ annual_0404$national_chem_substance <- chem_sub_extract_year %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0404")
 
-annual_0404$icb <-  icb_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0404$icb <-  icb_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `ICB Name`,
                  `ICB Code`,
@@ -555,11 +554,11 @@ annual_0404$icb <-  icb_extract_year %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0404")
 
-annual_0404$gender <- gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0404$gender <- gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -567,11 +566,11 @@ annual_0404$gender <- gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0404") 
 
-annual_0404$ageband <- ageband_data_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0404$ageband <- ageband_data_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -579,11 +578,11 @@ annual_0404$ageband <- ageband_data_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0404")
 
-annual_0404$age_gender <- age_gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0404$age_gender <- age_gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -592,11 +591,11 @@ annual_0404$age_gender <- age_gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0404")
 
-annual_0404$imd <- imd_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0404$imd <- imd_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `BNF Section Name`,
@@ -604,35 +603,35 @@ annual_0404$imd <- imd_extract_year %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0404")
 
-annual_0404$prescribing_in_children <- child_adult_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0404$prescribing_in_children <- child_adult_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
                 `Age Band`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0404")  
 
 # 0411 Drugs for dementia workbook - annual
 
 annual_0411 <- list()
 
-annual_0411$patient_id <- capture_rate_extract_year %>%
+annual_0411$patient_id <- capture_rate_extract_year |>
   dplyr::filter(`BNF Section Code` == "0411") 
 
-annual_0411$national_total <- national_extract_year %>%
+annual_0411$national_total <- national_extract_year |>
   dplyr::filter(`BNF Section Code` == "0411")
 
-annual_0411$national_population <- population_extract_year %>%
+annual_0411$national_population <- population_extract_year |>
   dplyr::filter(`BNF Section Code` == "0411")
 
-annual_0411$national_chem_substance <- chem_sub_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0411$national_chem_substance <- chem_sub_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `BNF Section Name`,
                  `BNF Section Code`,
@@ -641,12 +640,12 @@ annual_0411$national_chem_substance <- chem_sub_extract_year %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0411")
 
 
-annual_0411$icb <-  icb_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0411$icb <-  icb_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `ICB Name`,
                  `ICB Code`,
@@ -659,11 +658,11 @@ annual_0411$icb <-  icb_extract_year %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0411")
 
-annual_0411$gender <- gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0411$gender <- gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -671,11 +670,11 @@ annual_0411$gender <- gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0411") 
 
-annual_0411$ageband <- ageband_data_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0411$ageband <- ageband_data_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -683,11 +682,11 @@ annual_0411$ageband <- ageband_data_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0411")
 
-annual_0411$age_gender <- age_gender_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0411$age_gender <- age_gender_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `BNF Section Name`,
                 `BNF Section Code`,
@@ -696,11 +695,11 @@ annual_0411$age_gender <- age_gender_extract_year %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0411")
 
-annual_0411$imd <- imd_extract_year %>%
-  apply_sdc(rounding = F) %>%
+annual_0411$imd <- imd_extract_year |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `BNF Section Name`,
@@ -708,24 +707,24 @@ annual_0411$imd <- imd_extract_year %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0411")
 
 # 0401 Hypnotics and anxiolytics workbook - quarterly
 
 quarterly_0401 <- list()
 
-quarterly_0401$patient_id <- capture_rate_extract_quarter %>%
+quarterly_0401$patient_id <- capture_rate_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0401") 
 
-quarterly_0401$national_total <- national_extract_quarter %>%
+quarterly_0401$national_total <- national_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$national_paragraph <- paragraph_extract_quarter %>%
+quarterly_0401$national_paragraph <- paragraph_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$icb <-  icb_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
+quarterly_0401$icb <-  icb_extract_quarter |>
+  apply_sdc(rounding = F) |>
   dplyr::select( `Financial Year`,
                  `Financial Quarter`,
                  `ICB Name`,
@@ -739,11 +738,11 @@ quarterly_0401$icb <-  icb_extract_quarter %>%
                  `Identified Patient Flag`,
                  `Total Identified Patients` = `sdc_Total Identified Patients`,
                  `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+                 `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$gender <- gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
+quarterly_0401$gender <- gender_extract_quarter |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `Financial Quarter`,
                 `BNF Section Name`,
@@ -752,11 +751,11 @@ quarterly_0401$gender <- gender_extract_quarter %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401") 
 
-quarterly_0401$ageband <- ageband_data_quarter %>%
-  apply_sdc(rounding = F) %>%
+quarterly_0401$ageband <- ageband_data_quarter |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `Financial Quarter`,
                 `BNF Section Name`,
@@ -765,11 +764,11 @@ quarterly_0401$ageband <- ageband_data_quarter %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$age_gender <- age_gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
+quarterly_0401$age_gender <- age_gender_extract_quarter |>
+  apply_sdc(rounding = F) |>
   dplyr::select(`Financial Year`,
                 `Financial Quarter`,
                 `BNF Section Name`,
@@ -779,11 +778,11 @@ quarterly_0401$age_gender <- age_gender_extract_quarter %>%
                 `Identified Patient Flag`,
                 `Total Identified Patients` = `sdc_Total Identified Patients`,
                 `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+                `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$imd <- imd_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
+quarterly_0401$imd <- imd_extract_quarter |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `Financial Quarter`,
@@ -792,10 +791,10 @@ quarterly_0401$imd <- imd_extract_quarter %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$monthly_section <- national_extract_monthly %>%
+quarterly_0401$monthly_section <- national_extract_monthly |>
   dplyr::select(
     `Financial Year`,
     `Financial Quarter`,
@@ -805,11 +804,11 @@ quarterly_0401$monthly_section <- national_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients`,
     `Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$monthly_paragraph <- paragraph_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
+quarterly_0401$monthly_paragraph <- paragraph_extract_monthly |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `Financial Quarter`,
@@ -821,11 +820,11 @@ quarterly_0401$monthly_paragraph <- paragraph_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
-quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
+quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly |>
+  apply_sdc(rounding = F) |>
   dplyr::select(
     `Financial Year`,
     `Financial Quarter`,
@@ -839,7 +838,7 @@ quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 # 0402 Drugs used in psychoses and related disorders workbook - quarterly
@@ -2627,9 +2626,15 @@ fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Mar23
 
 #8. render markdown
 
-rmarkdown::render("mumh_narrative_2223.Rmd",
+rmarkdown::render("mumh_narrative_2223_v001.Rmd",
                   output_format = "html_document",
-                  output_file = "outputs/mumh_narrative_QR.html")
+                  output_file = "outputs/mumh_annual_2223_v001.html")
 rmarkdown::render("mumh_narrative_2223.Rmd",
                   output_format = "word_document",
-                  output_file = "outputs/mumh_narrative_QR.docx")
+                  output_file = "outputs/mumh_annual_2223_v001.docx")
+rmarkdown::render("background.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/background.html")
+rmarkdown::render("background.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/background.docx")

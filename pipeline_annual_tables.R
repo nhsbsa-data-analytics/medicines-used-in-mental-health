@@ -398,7 +398,7 @@ accessibleTables::makeCoverSheet(
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0401_2022_23_test.xlsx",
+                       "outputs/mumh_bnf0401_2022_23_v001.xlsx",
                        overwrite = TRUE)
 
 
@@ -800,7 +800,7 @@ accessibleTables::makeCoverSheet(
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0402_2022_23_test.xlsx",
+                       "outputs/mumh_bnf0402_2022_23_v001.xlsx",
                        overwrite = TRUE)
 
 
@@ -1238,7 +1238,7 @@ accessibleTables::makeCoverSheet(
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0403_2022_23_test.xlsx",
+                       "outputs/mumh_bnf0403_2022_23_v001.xlsx",
                        overwrite = TRUE)
 
 ### 0404 CNS Stimulants and drugs used for ADHD - annual
@@ -1673,7 +1673,7 @@ accessibleTables::makeCoverSheet(
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0404_2022_23_test.xlsx",
+                       "outputs/mumh_bnf0404_2022_23_v001.xlsx",
                        overwrite = TRUE)
 
 # 0411 Drugs for dementia - annual
@@ -2074,5 +2074,5 @@ accessibleTables::makeCoverSheet(
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0411_2022_23_test.xlsx",
+                       "outputs/mumh_bnf0411_2022_23_v001.xlsx",
                        overwrite = TRUE)

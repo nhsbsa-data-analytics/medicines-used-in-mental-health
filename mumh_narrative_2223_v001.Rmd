@@ -88,7 +88,7 @@ Four out of five BNF sections had more identified patients in the most deprived 
 ::: 
 ::::
 
-This publication provides information on medicines used to treat mental health conditions in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. It also explores how the COVID-19 pandemic has affected the use of these medicines.
+This publication provides information on medicines used to treat mental health conditions in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man or the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. It also explores how the COVID-19 pandemic has affected the use of these medicines.
 
 The five sections of the British National Formulary (BNF) included in this publication cover medicines which are primarily used to treat anxiety, depression, psychosis, attention deficit hyperactivity disorder (ADHD), and dementia. We do not capture the clinical indication of a prescription, so there may be instances where these drugs are used for other conditions.
 
@@ -316,7 +316,7 @@ table_2
 
 Source: [Annual statistical summary tables - Antidepressant drugs](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_2022_23.xlsx)
 
-There were 71,300 identified patients aged 17 or under who received antidepressant prescribing in 2022/23. This was less than 1% of identified patients with a known age who were prescribed antidepressants. The number of identified patients under 17 prescribed antidepressants was almost unchanged from the previous year, while number of patients aged 18 or over has continued to increase across the same time period.
+There were 71,300 identified patients aged 17 or under who received antidepressant prescribing in 2022/23. This was less than 1% of identified patients with a known age who were prescribed antidepressants. The number of identified patients under 17 prescribed antidepressants was almost unchanged from the previous year, while the number of patients aged 18 or over has continued to increase across the same time period.
 
 ### 2.2. Hypnotics and anxiolytics
 ::::{.row style="display: flex; padding-bottom: 10px;"} 
@@ -913,7 +913,7 @@ A linear regression model has been used to estimate the number of items prescrib
 :::
 ::::
 
-The data used in this model has been split into groups by patients' 20 year age band and gender. As age band and gender were included in the model, the model was only fitted to data where age band and gender were both known. This means the charts of predictions made using the model are not based on the same full data used in the rest of this publication. These charts cannot be directly compared to each other or to the quarterly and monthly charts of items prescribed. More information on the methodology behind the model can be found in the [background and methodology document](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/MUMH_Background_Info_Methodology_v007.html).
+The data used in this model has been split into groups by patients' 20 year age band and gender. As age band and gender were included in the model, the model was only fitted to data where age band and gender were both known. This means the charts of predictions made using the model are not based on the same full data used in the rest of this publication. These charts cannot be directly compared to each other or to the quarterly and monthly charts of items prescribed. More information on the methodology behind the model can be found in the [background and methodology document](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/MUMH_Background_Info_Methodology_v008.html).
 
 
 ### 3.1. Antidepressant Prescribing {.toc-ignore}
@@ -1077,7 +1077,7 @@ The patient counts shown in these statistics should only be analysed at the leve
 
 The English Indices of Deprivation 2019 have been used to provide a measure of patient deprivation. The English Indices of Deprivation are an official national measure of deprivation that follows an established methodological framework to capture a wide range of individuals living conditions.
 
-The reported IMD quintile, is derived from the postcode of the patient an item has been prescribed to. Quintile 1 represents the 20% most deprived areas and quintile 5 is the 20% least deprived areas. There are a small number of items each year that we have reported as having an unknown IMD quintile. These are items where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL) - May 2023.
+The reported IMD quintile is derived from the postcode of the patient an item has been prescribed to. Quintile 1 represents the 20% most deprived areas and quintile 5 is the 20% least deprived areas. There are a small number of items each year that we have reported as having an unknown IMD quintile. These are items where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL) - May 2023.
 
 IMD deciles are calculated by ranking census lower-layer super output areas (LSOA) from most deprived to least deprived and dividing them into 10 equal groups. These range from the most deprived 10% (decile 1) of small areas nationally to the least deprived 10% (decile 10) of small areas nationally. We have aggregated these deciles into quintiles in this publication, for use alongside the [NHS Core20PLUS5 approach](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/).
 

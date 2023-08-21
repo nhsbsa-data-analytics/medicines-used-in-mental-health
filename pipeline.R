@@ -2629,7 +2629,7 @@ fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Mar23
 rmarkdown::render("mumh_narrative_2223_v001.Rmd",
                   output_format = "html_document",
                   output_file = "outputs/mumh_annual_2223_v001.html")
-rmarkdown::render("mumh_narrative_2223.Rmd",
+rmarkdown::render("mumh_narrative_2223_v001.Rmd",
                   output_format = "word_document",
                   output_file = "outputs/mumh_annual_2223_v001.docx")
 rmarkdown::render("background.Rmd",

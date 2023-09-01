@@ -2,9 +2,9 @@
 
 capture_rate_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -56,11 +56,11 @@ capture_rate_extract_period <- function(con, period_type = c("year", "quarter"))
 national_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -248,11 +248,11 @@ population_extract <- function(){
 paragraph_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -424,11 +424,11 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
 chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -616,11 +616,11 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
 icb_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -843,9 +843,9 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
 
 ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -978,9 +978,9 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
 gender_extract_period <- function(con, period_type = c("year", "quarter")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   
   if (period_type == "year") {
     #filter for year in function call
@@ -1086,11 +1086,11 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
 
 age_gender_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   fact_month <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307")) 
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308")) 
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1299,9 +1299,9 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter", "m
 
 imd_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1421,9 +1421,9 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
 
 child_adult_extract <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") { 
     #filter for year in function call
     fact <- fact_year %>%
@@ -1701,7 +1701,7 @@ covid_lm <- function(training_data,
     lm(
       ITEM_COUNT ~ MONTH_INDEX + DISPENSING_DAYS + m_02 + m_03
       + m_04 + m_05 + m_06 + m_07 + m_08 + m_09 + m_10 + m_11 + m_12
-      + PDS_GENDER * as.factor(BAND_20YR),
+      + as.factor(PDS_GENDER) * as.factor(BAND_20YR),
       data = filter(training_data, SECTION_CODE == section_code)
     )
   
@@ -1960,7 +1960,7 @@ infoBox_border <- function(
   margin-top: 0px;
   margin-bottom: 10px;
   display: ", display,";'>", 
-    header, "</h4>
+  header, "</h4>
   <p style = 'color: ", fontColour, ";
   font-size: 16px;
   margin-top: 0px;
@@ -1998,7 +1998,7 @@ infoBox_no_border <- function(
   margin-top: 0px;
   margin-bottom: 10px;
   display: ", display,";'>", 
-    header, "</h4>
+  header, "</h4>
   <p style = 'color: ", fontColour, ";
   font-size: 16px;
   margin-top: 0px;
@@ -2008,6 +2008,241 @@ infoBox_no_border <- function(
 }
 
 ### Chart functions
+age_gender_chart <- function(data,
+                             labels = FALSE) {
+  age_gender_chart_data <- data |>
+    dplyr::select(`Age Band`,
+                  `Patient Gender`,
+                  `Total Identified Patients`) |>
+    tidyr::complete(`Patient Gender`,
+                    `Age Band`,
+                    fill = list(`Total Identified Patients` = 0))
+  
+  categories = c(unique(age_gender_chart_data$`Age Band`))
+  
+  max <- max(age_gender_chart_data$`Total Identified Patients`)
+  min <- max(age_gender_chart_data$`Total Identified Patients`) * -1
+  
+  male <- age_gender_chart_data |>
+    dplyr::filter(`Patient Gender` == "Male")
+  
+  female <- age_gender_chart_data |>
+    dplyr::filter(`Patient Gender` == "Female") |>
+    dplyr::mutate(`Total Identified Patients` = 0 - `Total Identified Patients`)
+  
+  hc <- highcharter::highchart() |>
+    highcharter::hc_chart(type = 'bar') |>
+    hc_chart(style = list(fontFamily = "Arial")) |>
+    highcharter::hc_xAxis(
+      list(
+        title = list(text = "Age group"),
+        categories = categories,
+        reversed = FALSE,
+        labels = list(step = 1)
+      ),
+      list(
+        categories = categories,
+        opposite = TRUE,
+        reversed = FALSE,
+        linkedTo = 0,
+        labels = list(step = 1)
+      )
+    ) |>
+    highcharter::hc_tooltip(
+      shared = FALSE,
+      formatter = JS(
+        "function () {
+                   return this.point.category + '<br/>' +
+                   '<b>' + this.series.name + '</b> ' +
+                   Highcharts.numberFormat(Math.abs(this.point.y), 0);}"
+      )
+    ) |>
+    highcharter::hc_yAxis(
+      title = list(text = "Identified patients"),
+      max = max,
+      min = min,
+      labels = list(
+        formatter = JS(
+          'function () {
+               result = Math.abs(this.value);
+               if (result >= 1000000) {result = result / 1000000;
+                                                            return Math.round(result.toPrecision(3)) + "M"}
+                                  else if (result >= 1000) {result = result / 1000;
+                                                              return Math.round(result.toPrecision(3)) + "K"}
+               return result;
+             }'
+        )
+      )
+    ) |>
+    highcharter::hc_plotOptions(series = list(stacking = 'normal')) |>
+    highcharter::hc_series(
+      list(
+        dataLabels = list(
+          enabled = labels,
+          inside = FALSE,
+          color = '#8e5300',
+          fontFamily = "Ariel",
+          formatter = JS(
+            'function () {
+                                  result = this.y;
+                                  if (result >= 1000000) {result = result / 1000000;
+                                                            return Math.round(result.toPrecision(3)) + "M"}
+                                  else if (result >= 1000) {result = result / 1000;
+                                                              return Math.round(result.toPrecision(3)) + "K"}
+                                  return result;
+                                  }'
+          )
+        ),
+        color = "#8e5300",
+        fontFamily = "Ariel",
+        name = 'Male',
+        data = c(male$`Total Identified Patients`)
+      ),
+      list(
+        dataLabels = list(
+          enabled = labels,
+          inside = FALSE,
+          color = '#003087',
+          fontFamily = "Ariel",
+          formatter = JS(
+            'function () {
+                                  result = this.y * -1;
+                                  if (result >= 1000000) {result = result / 1000000;
+                                                            return result.toPrecision(3) + "M"}
+                                  else if (result >= 1000) {result = result / 1000;
+                                                              return result.toPrecision(3) + "K"}
+                                  return result;
+                                  }'
+          )
+        ),
+        color = "#003087",
+        name = 'Female',
+        fontFamily = "Ariel",
+        data = c(female$`Total Identified Patients`)
+      )
+    ) |>
+    highcharter::hc_legend(reversed = T) |>
+    highcharter::hc_credits(enabled = TRUE)
+  
+  return(hc)
+  
+}
+
+age_gender_chart_no_fill <- function(data,
+                                     labels = FALSE) {
+  age_gender_chart_data <- data %>%
+    dplyr::select(`Age Band`,
+                  `Patient Gender`,
+                  `Total Identified Patients`)
+  
+  categories = c(unique(age_gender_chart_data$`Age Band`))
+  
+  max <- max(age_gender_chart_data$`Total Identified Patients`)
+  min <- max(age_gender_chart_data$`Total Identified Patients`) * -1
+  
+  male <- age_gender_chart_data %>%
+    dplyr::filter(`Patient Gender` == "Male")
+  
+  female <- age_gender_chart_data %>%
+    dplyr::filter(`Patient Gender` == "Female") %>%
+    dplyr::mutate(`Total Identified Patients` = 0 - `Total Identified Patients`)
+  
+  hc <- highcharter::highchart() %>%
+    highcharter::hc_chart(type = 'bar') %>%
+    hc_chart(style = list(fontFamily = "Arial")) %>%
+    highcharter::hc_xAxis(
+      list(
+        title = list(text = "Age group"),
+        categories = categories,
+        reversed = FALSE,
+        labels = list(step = 1)
+      ),
+      list(
+        categories = categories,
+        opposite = TRUE,
+        reversed = FALSE,
+        linkedTo = 0,
+        labels = list(step = 1)
+      )
+    ) %>%
+    highcharter::hc_tooltip(
+      shared = FALSE,
+      formatter = JS(
+        "function () {
+                   return this.point.category + '<br/>' +
+                   '<b>' + this.series.name + '</b> ' +
+                   Highcharts.numberFormat(Math.abs(this.point.y), 0);}"
+      )
+    ) %>%
+    highcharter::hc_yAxis(
+      title = list(text = "Identified patients"),
+      max = max,
+      min = min,
+      labels = list(
+        formatter = JS(
+          'function () {
+               result = Math.abs(this.value);
+               if (result >= 1000000) {result = result / 1000000;
+                                                            return Math.round(result.toPrecision(3)) + "M"}
+                                  else if (result >= 1000) {result = result / 1000;
+                                                              return Math.round(result.toPrecision(3)) + "K"}
+               return result;
+             }'
+        )
+      )
+    ) %>%
+    highcharter::hc_plotOptions(series = list(stacking = 'normal')) %>%
+    highcharter::hc_series(
+      list(
+        dataLabels = list(
+          enabled = labels,
+          inside = FALSE,
+          color = '#8e5300',
+          fontFamily = "Ariel",
+          formatter = JS(
+            'function () {
+                                  result = this.y;
+                                  if (result >= 1000000) {result = result / 1000000;
+                                                            return Math.round(result.toPrecision(3)) + "M"}
+                                  else if (result >= 1000) {result = result / 1000;
+                                                              return Math.round(result.toPrecision(3)) + "K"}
+                                  return result;
+                                  }'
+          )
+        ),
+        color = "#8e5300",
+        fontFamily = "Ariel",
+        name = 'Male',
+        data = c(male$`Total Identified Patients`)
+      ),
+      list(
+        dataLabels = list(
+          enabled = labels,
+          inside = FALSE,
+          color = '#003087',
+          fontFamily = "Ariel",
+          formatter = JS(
+            'function () {
+                                  result = this.y * -1;
+                                  if (result >= 1000000) {result = result / 1000000;
+                                                            return result.toPrecision(3) + "M"}
+                                  else if (result >= 1000) {result = result / 1000;
+                                                              return result.toPrecision(3) + "K"}
+                                  return result;
+                                  }'
+          )
+        ),
+        color = "#003087",
+        name = 'Female',
+        fontFamily = "Ariel",
+        data = c(female$`Total Identified Patients`)
+      )
+    ) %>%
+    highcharter::hc_legend(reversed = T)
+  
+  return(hc)
+  
+}
 
 covid_chart_hc <- function(data,
                            title = NULL) {
@@ -2047,34 +2282,34 @@ covid_chart_hc <- function(data,
       )
     ) %>%
     #highcharter::hc_add_series(
-      #data = chart_data,
-      #name = "95% prediction interval",
-      #type = "arearange",
-      #lineWidth = 0,
-      #color = "#b3bbc1",
-      #marker = list(enabled = FALSE),
-      #dataLabels = list(enabled = FALSE),
-      #hcaes(
-        #x = MONTH_START,
-        #high = signif(PIupr, 3),
-        #low = signif(PIlwr, 3),
-        #tooltip = RANGE_95
-      #)
-    #) %>%
-    highcharter::hc_add_series(
-      data = chart_data,
-      name = "Expected items",
-      type = "line",
-      dashStyle = "Dash",
-      color = "#231f20",
-      marker = list(enabled = FALSE),
-      dataLabels = list(enabled = FALSE),
-      hcaes(
-        x = MONTH_START,
-        y = signif(mean_fit, 3),
-        tooltip = EXP
-      )
-    ) %>%
+    #data = chart_data,
+    #name = "95% prediction interval",
+    #type = "arearange",
+    #lineWidth = 0,
+    #color = "#b3bbc1",
+    #marker = list(enabled = FALSE),
+    #dataLabels = list(enabled = FALSE),
+    #hcaes(
+    #x = MONTH_START,
+    #high = signif(PIupr, 3),
+  #low = signif(PIlwr, 3),
+  #tooltip = RANGE_95
+  #)
+  #) %>%
+  highcharter::hc_add_series(
+    data = chart_data,
+    name = "Expected items",
+    type = "line",
+    dashStyle = "Dash",
+    color = "#231f20",
+    marker = list(enabled = FALSE),
+    dataLabels = list(enabled = FALSE),
+    hcaes(
+      x = MONTH_START,
+      y = signif(mean_fit, 3),
+      tooltip = EXP
+    )
+  ) %>%
     highcharter::hc_add_series(
       data = chart_data,
       name = "Prescribed items",
@@ -2303,4 +2538,10 @@ pca_exemption_categories <- function(con) {
     collect()
   
   return(data)
+}
+
+`%!in%` <- function(x, y) {
+  
+  !('%in%'(x,y))
+  
 }

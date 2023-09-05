@@ -494,16 +494,15 @@ accessibleTables::makeCoverSheet(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Paragraph",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Paragraph",
-    "Table 12: Monthly Chemical Substance"
+    "Table 3: National Paragraph",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Monthly Section",
+    "Table 10: Monthly Paragraph",
+    "Table 11: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )
@@ -1007,16 +1006,15 @@ accessibleTables::makeCoverSheet(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Paragraph",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Paragraph",
-    "Table 12: Monthly Chemical Substance"
+    "Table 3: National Paragraph",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Monthly Section",
+    "Table 10: Monthly Paragraph",
+    "Table 11: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )
@@ -1555,17 +1553,16 @@ accessibleTables::makeCoverSheet(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Paragraph",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Prescribing in Children",
-    "Table 11: Monthly Section",
-    "Table 12: Monthly Paragraph",
-    "Table 13: Monthly Chemical Substance"
+    "Table 3: National Paragraph",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Prescribing in Children",
+    "Table 10: Monthly Section",
+    "Table 11: Monthly Paragraph",
+    "Table 12: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )
@@ -2065,16 +2062,16 @@ accessibleTables::makeCoverSheet(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Chemical Substance",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Prescribing in Children",
-    "Table 11: Monthly Section",
-    "Table 12: Monthly Chemical Substance"
+    "Table 3: National Chemical Substance",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Prescribing in Children",
+    "Table 10: Monthly Section",
+    "Table 11: Monthly Chemical Substance"
+    
   ),
   c("Metadata", sheetNames)
 )
@@ -2542,15 +2539,14 @@ accessibleTables::makeCoverSheet(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Chemical Substance",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Chemical Substance"
+    "Table 3: National Chemical Substance",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Monthly Section",
+    "Table 10: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )

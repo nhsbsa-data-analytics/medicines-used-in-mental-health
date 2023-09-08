@@ -882,6 +882,26 @@ fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Jun23
 
 #chart data for use in markdown
 
+#table 1 patient ID rates
+table_1_data <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q2`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`) |>
+  dplyr::mutate(across(where(is.numeric), round, 1))
+
+table_1 <- table_1_data |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+
 #table 1 patient ID rates by section
 #antidepressants 0403
 table_1_data_0403 <- capture_rate_extract_quarter |>
@@ -985,9 +1005,9 @@ table_1_0411 <- table_1_data_0411 |>
                                )))
 
 #figure 1 quarterly antidepressant items and patients
-figure_1_data <- quarterly_0403$national_total |>
+figure_1_data_0403 <- quarterly_0403$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1005,7 +1025,7 @@ figure_1_data <- quarterly_0403$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_1 <- figure_1_data |>
+figure_1_0403 <- figure_1_data_0403 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1028,9 +1048,9 @@ figure_1 <- figure_1_data |>
     )
   )
 #figure 2 quarterly antidepressant cost
-figure_2_data <- quarterly_0403$national_total |>
+figure_2_data_0403 <- quarterly_0403$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1047,7 +1067,7 @@ figure_2_data <- quarterly_0403$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_2 <- figure_2_data |>
+figure_2_0403 <- figure_2_data_0403 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1071,9 +1091,9 @@ figure_2 <- figure_2_data |>
   )
 
 #figure 3 monthly antidepressant items and patients
-figure_3_data <- quarterly_0403$monthly_section |>
+figure_3_data_0403 <- quarterly_0403$monthly_section |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -1096,7 +1116,7 @@ figure_3_data <- quarterly_0403$monthly_section |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_3 <- figure_3_data |>
+figure_3_0403 <- figure_3_data_0403 |>
   nhsbsaVis::group_chart_hc(
     x = MONTH_START,
     y = value,
@@ -1116,10 +1136,10 @@ figure_3 <- figure_3_data |>
            dateTimeLabelFormats = list(month = "%b %y"),
            title = list(text = "Month")) 
 
-#figure 4 quarterly hypnotics and anxiolytics items and patients
-figure_4_data <- quarterly_0401$national_total |>
+#figure 1 quarterly hypnotics and anxiolytics items and patients
+figure_1_data_0401 <- quarterly_0401$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1137,7 +1157,7 @@ figure_4_data <- quarterly_0401$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_4 <- figure_4_data |>
+figure_1_0401 <- figure_1_data_0401 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1159,10 +1179,10 @@ figure_4 <- figure_4_data |>
       rotation = -45
     )
   )
-#figure 5 quarterly hypnotics and anxiolytics cost
-figure_5_data <- quarterly_0401$national_total |>
+#figure 2 quarterly hypnotics and anxiolytics cost
+figure_2_data_0401 <- quarterly_0401$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1179,7 +1199,7 @@ figure_5_data <- quarterly_0401$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_5 <- figure_5_data |>
+figure_2_0401 <- figure_2_data_0401 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1202,10 +1222,10 @@ figure_5 <- figure_5_data |>
     )
   )
 
-#figure 6 monthly hypnotics and anxiolytics items and patients
-figure_6_data <- quarterly_0401$monthly_section |>
+#figure 3 monthly hypnotics and anxiolytics items and patients
+figure_3_data_0401 <- quarterly_0401$monthly_section |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -1228,7 +1248,7 @@ figure_6_data <- quarterly_0401$monthly_section |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_6 <- figure_6_data |>
+figure_3_0401 <- figure_3_data_0401 |>
   nhsbsaVis::group_chart_hc(
     x = MONTH_START,
     y = value,
@@ -1248,10 +1268,10 @@ figure_6 <- figure_6_data |>
            dateTimeLabelFormats = list(month = "%b %y"),
            title = list(text = "Month")) 
 
-#figure 7 quarterly antipsychotic items and patients
-figure_7_data <- quarterly_0402$national_total |>
+#figure 1 quarterly antipsychotic items and patients
+figure_1_data_0402 <- quarterly_0402$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1269,7 +1289,7 @@ figure_7_data <- quarterly_0402$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_7 <- figure_7_data |>
+figure_1_0402 <- figure_1_data_0402 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1291,10 +1311,10 @@ figure_7 <- figure_7_data |>
       rotation = -45
     )
   )
-#figure 8 quarterly antipsychotic cost
-figure_8_data <- quarterly_0402$national_total |>
+#figure 2 quarterly antipsychotic cost
+figure_2_data_0402 <- quarterly_0402$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1311,7 +1331,7 @@ figure_8_data <- quarterly_0402$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_8 <- figure_8_data |>
+figure_2_0402 <- figure_2_data_0402 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1334,10 +1354,10 @@ figure_8 <- figure_8_data |>
     )
   )
 
-#figure 9 monthly antipsychotic items and patients
-figure_9_data <- quarterly_0402$monthly_section |>
+#figure 3 monthly antipsychotic items and patients
+figure_3_data_0402 <- quarterly_0402$monthly_section |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -1360,7 +1380,7 @@ figure_9_data <- quarterly_0402$monthly_section |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_9 <- figure_9_data |>
+figure_3_0402 <- figure_3_data_0402 |>
   nhsbsaVis::group_chart_hc(
     x = MONTH_START,
     y = value,
@@ -1381,9 +1401,9 @@ figure_9 <- figure_9_data |>
            title = list(text = "Month")) 
 
 #figure 10 quarterly CNS ADHD items and patients
-figure_10_data <- quarterly_0404$national_total |>
+figure_1_data_0404 <- quarterly_0404$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1401,7 +1421,7 @@ figure_10_data <- quarterly_0404$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_10 <- figure_10_data |>
+figure_1_0404 <- figure_1_data_0404 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1423,10 +1443,10 @@ figure_10 <- figure_10_data |>
       rotation = -45
     )
   )
-#figure 11 quarterly CNS ADHD cost
-figure_11_data <- quarterly_0404$national_total |>
+#figure 2 quarterly CNS ADHD cost
+figure_2_data_0404 <- quarterly_0404$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1443,7 +1463,7 @@ figure_11_data <- quarterly_0404$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_11 <- figure_11_data |>
+figure_2_0404 <- figure_2_data_0404 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1466,10 +1486,10 @@ figure_11 <- figure_11_data |>
     )
   )
 
-#figure 12 monthly CNS ADHD items and patients
-figure_12_data <- quarterly_0404$monthly_section |>
+#figure 3 monthly CNS ADHD items and patients
+figure_3_data_0404 <- quarterly_0404$monthly_section |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -1492,7 +1512,7 @@ figure_12_data <- quarterly_0404$monthly_section |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_12 <- figure_12_data |>
+figure_3_0404 <- figure_3_data_0404 |>
   nhsbsaVis::group_chart_hc(
     x = MONTH_START,
     y = value,
@@ -1512,10 +1532,10 @@ figure_12 <- figure_12_data |>
            dateTimeLabelFormats = list(month = "%b %y"),
            title = list(text = "Month")) 
 
-#figure 13 quarterly dementia items and patients
-figure_13_data <- quarterly_0411$national_total |>
+#figure 1 quarterly dementia items and patients
+figure_1_data_0411 <- quarterly_0411$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1533,7 +1553,7 @@ figure_13_data <- quarterly_0411$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_13 <- figure_13_data |>
+figure_1_0411 <- figure_1_data_0411 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1555,10 +1575,10 @@ figure_13 <- figure_13_data |>
       rotation = -45
     )
   )
-#figure 14 quarterly dementia cost
-figure_14_data <- quarterly_0411$national_total |>
+#figure 2 quarterly dementia cost
+figure_2_data_0411 <- quarterly_0411$national_total |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -1575,7 +1595,7 @@ figure_14_data <- quarterly_0411$national_total |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_2 <- figure_2_data |>
+figure_2_0411 <- figure_2_data_0411 |>
   nhsbsaVis::group_chart_hc(
     x = `Financial Quarter`,
     y = value,
@@ -1598,10 +1618,10 @@ figure_2 <- figure_2_data |>
     )
   )
 
-#figure 15 monthly dementia items and patients
-figure_15_data <- quarterly_0411$monthly_section |>
+#figure 3 monthly dementia items and patients
+figure_3_data_0411 <- quarterly_0411$monthly_section |>
   #added financial year filter now only using rolling years
-  #dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017")) |>
+dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -1624,7 +1644,7 @@ figure_15_data <- quarterly_0411$monthly_section |>
   dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure))
 
-figure_15 <- figure_15_data |>
+figure_3_0411 <- figure_3_data_0411 |>
   nhsbsaVis::group_chart_hc(
     x = MONTH_START,
     y = value,
@@ -1644,69 +1664,87 @@ figure_15 <- figure_15_data |>
            dateTimeLabelFormats = list(month = "%b %y"),
            title = list(text = "Month")) 
 
-#figure 32 antidepressants model data
-figure_32_data <- predictions_0403 |>
+#figure 1  antidepressants model data
+figure_1_data_covid <- predictions_0403 |>
   dplyr::filter(YEAR_MONTH > 202002)
 
-figure_32 <- figure_32_data |>
+figure_1_covid <- figure_1_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 33 hypnotics anxiolytics model data
-figure_33_data <- predictions_0401 |>
+#figure 2 hypnotics anxiolytics model data
+figure_2_data_covid <- predictions_0401 |>
   dplyr::filter(YEAR_MONTH > 202002)
 
-figure_33 <- figure_33_data |>
+figure_2_covid <- figure_2_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 34 antipsychotics model data
-figure_34_data <- predictions_0402 |>
+#figure 3 antipsychotics model data
+figure_3_data_covid<- predictions_0402 |>
   dplyr::filter(YEAR_MONTH > 202002)
 
-figure_34 <- figure_34_data |>
+figure_3_covid <- figure_3_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 35 CNS ADHD model data
-figure_35_data <- predictions_0404 |>
+#figure 4 CNS ADHD model data
+figure_4_data_covid <- predictions_0404 |>
   dplyr::filter(YEAR_MONTH > 202002)
 
-figure_35 <- figure_35_data |>
+figure_4_covid <- figure_4_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 36 dementia model data
-figure_36_data <- predictions_0411 |>
+#figure 5 dementia model data
+figure_5_data_covid <- predictions_0411 |>
   filter(YEAR_MONTH > 202002)
 
-figure_36 <- figure_36_data |>
+figure_5_covid <- figure_5_data_covid |>
   covid_chart_hc(title = "")
 
 
 #5. render markdown
 
 
-rmarkdown::render("mumh-quarterly-narrative-0403.Rmd",
+rmarkdown::render("mumh_quarterly_jun23_0403.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh-quarterly-narrative-0403.html")
-rmarkdown::render("mumh-quarterly-narrative-0403",
+                  output_file = "mumh_quarterly_jun23_0403.html")
+rmarkdown::render("mumh_quarterly_jun23_0403.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh-quarterly-narrative-0403.docx")
-rmarkdown::render("mumh-quarterly-narrative-0401.Rmd",
+                  output_file = "mumh_quarterly_jun23_0403.docx")
+rmarkdown::render("mumh_quarterly_jun23_0401.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh-quarterly-narrative-0401.html")
-rmarkdown::render("mumh-quarterly-narrative-0402",
+                  output_file = "mumh_quarterly_jun23_0401.html")
+rmarkdown::render("mumh_quarterly_jun23_0401.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh-quarterly-narrative-0402.docx")
-rmarkdown::render("mumh-quarterly-narrative-0404.Rmd",
+                  output_file = "mumh_quarterly_jun23_0401.docx")
+rmarkdown::render("mumh_quarterly_jun23_0402.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh-quarterly-narrative-0404.html")
-rmarkdown::render("mumh-quarterly-narrative-0411",
+                  output_file = "mumh_quarterly_jun23_0402.html")
+rmarkdown::render("mumh_quarterly_jun23_0402.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh-quarterly-narrative-0411.docx")
-rmarkdown::render("mumh-quarterly-narrative-0403covid.Rmd",
+                  output_file = "mumh_quarterly_jun23_0402.docx")
+rmarkdown::render("mumh_quarterly_jun23_0404.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh-quarterly-narrative-0403covid.html")
-rmarkdown::render("mumh-quarterly-narrative-0403covid.Rmd",
+                  output_file = "mumh_quarterly_jun23_0404.html")
+rmarkdown::render("mumh_quarterly_jun23_0404.Rmd",
+                  output_format = "word_document",
+                  output_file = "mumh_quarterly_jun23_0404.docx")
+rmarkdown::render("mumh_quarterly_jun23_0411.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh-quarterly-narrative-0403covid.html")
+                  output_file = "mumh_quarterly_jun23_0411.html")
+rmarkdown::render("mumh_quarterly_jun23_0411.Rmd",
+                  output_format = "word_document",
+                  output_file = "mumh_quarterly_jun23_0411.docx")
+rmarkdown::render("mumh_quarterly_jun23_covid.Rmd",
+                  output_format = "html_document",
+                  output_file = "mumh_quarterly_jun23_covid.html")
+rmarkdown::render("mumh_quarterly_jun23_covid.Rmd",
+                  output_format = "word_document",
+                  output_file = "mumh_quarterly_jun23_covid.docx")
+rmarkdown::render("mumh_quarterly_jun23_overview.Rmd",
+                  output_format = "html_document",
+                  output_file = "mumh_quarterly_jun23_overview.html")
+rmarkdown::render("mumh_quarterly_jun23_overview.Rmd",
+                  output_format = "word_document",
+                  output_file = "mumh_quarterly_jun23_overview.docx")
 
 rmarkdown::render("background.Rmd",
                   output_format = "html_document",

@@ -2246,22 +2246,23 @@ age_gender_chart_no_fill <- function(data,
 
 covid_chart_hc <- function(data,
                            title = NULL) {
-  chart_data <- data %>%
+  chart_data <- figure_32_data %>%
     dplyr::mutate(
       ACT = prettyNum(signif(total_items, 3), big.mark = ","),
       EXP = prettyNum(signif(mean_fit, 3), big.mark = ","),
       RANGE_95 = paste(
-        prettyNum(signif(PIlwr, 3), big.mark = ","),
+        formatC(signif(PIlwr, 3), big.mark = ",", format = "f", digits = 0),
         "-",
-        prettyNum(signif(PIupr, 3), big.mark = ",")
+        formatC(signif(PIupr, 3), big.mark = ",", format = "f", digits = 0)
       ),
       RANGE_99 = paste(
-        prettyNum(signif(PIlwr99, 3), big.mark = ","),
+        formatC(signif(PIlwr99, 3), big.mark = ",", format = "f", digits = 0),
         "-",
-        prettyNum(signif(PIupr99, 3), big.mark = ",")
+        formatC(signif(PIupr99, 3), big.mark = ",", format = "f", digits = 0)
       ),
       MONTH_START = as.Date(paste0(YEAR_MONTH_string, "01"), format = "%Y%m%d")
     )
+  
   
   chart <- highchart() %>%
     highcharter::hc_chart(style = list(fontFamily = "Arial")) %>%

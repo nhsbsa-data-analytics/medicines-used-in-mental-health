@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = FALSE,
   
 # Background Information and Methodology {.toc-ignore}
   
-## July 2023 {.toc-ignore}
+## September 2023 {.toc-ignore}
   
   
 ---
@@ -172,6 +172,8 @@ This model states expected figures if trends had continued as before but doesn't
 ## 3. Changes to this publication
 
 ### 3.1. Additional quarterly breakdowns {.toc-ignore}
+
+From the Q1 2023/24 quarterly release, we have split the publication into smaller summaries,one for each BNF Section and one for the modelling of future prescribing. 
 
 From 2022/23 we have amended the annual publication to combine it with the quarterly release for January to March 2023. Demographic information such as breakdowns by gender, age band, and IMD have been added into the quarterly summary tables to align it with the information reported in previous annual publications. These breakdowns have not been applied to the monthly tables.
 

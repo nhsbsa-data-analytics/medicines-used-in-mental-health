@@ -1,0 +1,177 @@
+---
+title: "`r config$publication_0404_name`"
+pagetitle: MUMH England quarterly summary
+always_allow_html: true
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    anchor_sections: no
+    css: www/style.css
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+---
+
+<script>
+  $(document).ready(function() {
+    $('#header').prepend('<img src=`r knitr::image_uri("www/bsa_logo.svg")` alt=\"NHSBSA logo\" style=\"position:absolute; top: 0; right: 0; padding: 10px; width: 25%;\">');
+  });
+</script>
+
+<style type="text/css">  body, td {
+    font-size: 16px;
+    font-family: sans-serif;
+  }
+  .list-group-item.active {
+    background-color: #005EB8!important;
+    border-color: #005EB8!important;
+  }
+    a {
+        color: #005EB8!important;
+    }
+    .tocify {
+        border-radius: 0px!important;
+    }
+</style>
+  <html lang="en">
+
+```{r setup, include=FALSE}
+# set code chunk options to disable echo by default
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+```
+
+<main>
+
+# `r config$publication_sub_name` {.toc-ignore}
+
+Published `r config$publication_date` 
+
+`r mumhquarterly::infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we have split the publication into smaller summaries,one for each BNF Section and one for the modelling of future prescribing. We are interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
+
+## Summary
+
+Between April and June 2023:
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r mumhquarterly::infoBox_no_border("", text = "<b>710,000 CNS stimulants and drugs for ADHD items were prescribed to an estimated 200,000 identified patients.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r mumhquarterly::infoBox_no_border("", text = "<b>The cost of prescribed CNS stimulants and drugs for ADHD items was £30 million.</b>", width = "100%")`
+:::
+
+:::
+::::
+
+
+
+
+---
+
+## 1. Things you should know
+### 1.1. Scope {.toc-ignore} 
+
+`r mumhquarterly::infoBox_border("Background ", text = "The [NHS Long Term Plan](https://www.longtermplan.nhs.uk/) published in 2019 focuses on improving mental health care in the UK. It aims to provide more funding for mental health services, particularly for children and people with dementia. The [Core20PLUS5](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/) approach  to reduce health inequalities also seeks to improve community care for those with severe mental illnesses.", width = "100%")`
+
+This publication provides information on medicines used to treat psychosis in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. 
+
+An overview including definitions can be found [here](`r config$html_top_link`) Five BNF specific summaries total are available covering medicines used in mental health, the others being for [depression](`r config$html_0403_link`),[insomnia and anxiety](`r config$html_0401_link`), [psychosis](`r config$html_0402_link`) and [dementia](`r config$html_0411_link`). There is also a [summary](`r config$html_model_link`) exploring how the COVID-19 pandemic has affected the use of these medicines.
+
+These summary narratives do not discuss the demographic data associated with the provision of these medicines, but this information is available in the supporting summary tables which accompany this release. Medicines are not the only way to treat mental health conditions, and this publication does not capture information on the use of other mental health services, such as psychological therapies. Therefore, this publication may not give a complete picture of the number of people receiving treatment for mental health conditions. Information on where to find related statistics can be found in Section 4.
+
+
+---
+
+## 2. Results - Central nervous system (CNS) stimulants and drugs used for ADHD
+
+`r mumhquarterly::infoBox_border(" ", text = "These drugs are used to treat psychoses and related disorders, and are referred to under the umbrella term antipsychotics. These drugs are classified and described under the BNF 68 section 4.2:
+
+* BNF paragraph 4.2.1 - Antipsychotic drugs
+* BNF paragraph 4.2.2 - Antipsychotic depot injections
+* BNF paragraph 4.2.3 - Drugs for mania and hypomania
+
+More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+
+#### Figure 1: Number of prescribed items and identified patients by financial quarter - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
+
+```{r quarterly_0404, out.width="100%"}
+
+figure_1_0404
+  
+```
+`r get_download_button(title = "Download chart data", data = figure_1_data_0404, filename = "figure_1_0404")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r mumhquarterly::infoBox_no_border("", text = "<b>710,000 CNS stimulants and drugs for ADHD items prescribed in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r mumhquarterly::infoBox_no_border("", text = "<b>200,000 identified patients received a items from the CNS stimulant and drugs for ADHD section in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r mumhquarterly::infoBox_no_border("", text = "<b>Items and patients continue to trend upwards for CNS stimulants and drugs for ADHD items.</b>", width = "100%")`
+:::
+::::
+
+
+#### Figure 2: Cost of prescribing by financial quarter - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
+
+```{r quarterly_0404_nic, out.width="100%"}
+
+figure_2_0404
+  
+```
+`r get_download_button(title = "Download chart data", data = figure_2_data_0404, filename = "figure_2_0404")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r mumhquarterly::infoBox_no_border("", text = "<b>The cost of prescribed CNS stimulants and drugs for ADHD items was £30 million in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r mumhquarterly::infoBox_no_border("", text = "<b>The cost of prescribing CNS stimulants and drugs for ADHD  continues to trend upwards inline with the increase in items.</b>", width = "100%")`
+:::
+::::
+
+#### Figure 3: Number of prescribed items and identified patients by month - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
+
+```{r monthly_0404, out.width="100%"}
+
+figure_3_0404
+```
+`r get_download_button(title = "Download chart data", data = figure_3_data_0404, filename = "figure_3_0404")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r mumhquarterly::infoBox_no_border("", text = "<b>On average, 130,000 patients per month received prescribing for a CNS stimulants and drugs for ADHD item over the last 12 months.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r mumhquarterly::infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD items increased by 19% over the last 12 months.</b>", width = "100%")`
+:::
+::::
+
+
+---
+
+## 3. Background
+
+### 3.1. Central nervous system (CNS) stimulants and drugs used for ADHD {.toc-ignore}
+
+Attention deficit hyperactivity disorder (ADHD) and attention deficit disorder (ADD) refer to a range of problem behaviours associated with poor attention span. These may include impulsiveness and hyperactivity, as well as inattentiveness; behaviours that often prevent children and adults from learning and socialising. ADHD is sometimes referred to as hyperkinetic disorder (HD).
+
+You can find more information about [ADHD](https://www.nhs.uk/conditions/attention-deficit-hyperactivity-disorder-adhd/) on the NHS website.
+
+### 3.2. Related statistics and resources {.toc-ignore}
+
+Prescribing of medications in primary care is only part of the big picture for mental health care in England. The [NHS Digital mental health data hub](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/mental-health-data-hub) has links to statistics on a range of related topics which may provide further context. These include a mental health bulletin, reports on children and young people's mental health surveys, dementia assessment and referral statistics, and more.
+
+---
+
+## 4. Further details
+
+Further information including details about the statistics, accessibility and contact details can be found [here](`r config$html_top_link`) in the overview publication. 

@@ -5,6 +5,7 @@
 #clear environment
 rm(list = ls())
 
+
 #source functions
 source("./functions/functions.R")
 
@@ -93,6 +94,7 @@ con <- nhsbsaR::con_nhsbsa(dsn = "FBS_8192k",
 
 
 #quarterly data extracts
+
 
 capture_rate_extract_quarter <- capture_rate_extract_period(con = con,
                                                              period_type = "quarter")
@@ -875,7 +877,7 @@ covid_model_predictions_aug <- rbind(predictions_0401,
 
 
 # update month in file name for new publications
-fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Jun23.csv")
+fwrite(covid_model_predictions_aug, "Y:/Official Stats/MUMH/Covid model tables/Jun23kg.csv")
 
 
 #4. chart data
@@ -890,9 +892,24 @@ table_1_data <- capture_rate_extract_quarter |>
                 `2022/2023 Q3`,
                 `2022/2023 Q4`,
                 `2023/2024 Q1`) |>
-  dplyr::mutate(across(where(is.numeric), round, 1))
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
-table_1 <- table_1_data |>
+table_1_data_format <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q2`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`) |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+mutate(across(where(is.numeric), round, 2)) |>
+  mutate(across(where(is.numeric), format, nsmall = 2)) |>
+  mutate(across(contains("20"), ~ paste0(.x, "%")))
+
+table_1 <- table_1_data_format |>
   DT::datatable(rownames = FALSE,
                 options = list(dom = "t",
                                columnDefs = list(
@@ -912,7 +929,10 @@ table_1_data_0403 <- capture_rate_extract_quarter |>
                 `2022/2023 Q4`,
                 `2023/2024 Q1`) |>
   dplyr::filter(`BNF Section Code` == "0403") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
   
 table_1_0403 <- table_1_data_0403 |>
   DT::datatable(rownames = FALSE,
@@ -932,7 +952,10 @@ table_1_data_0401 <- capture_rate_extract_quarter |>
                 `2022/2023 Q4`,
                 `2023/2024 Q1`) |>
   dplyr::filter(`BNF Section Code` == "0401") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 table_1_0401 <- table_1_data_0401 |>
   DT::datatable(rownames = FALSE,
@@ -952,7 +975,10 @@ table_1_data_0402 <- capture_rate_extract_quarter |>
                 `2022/2023 Q4`,
                 `2023/2024 Q1`) |>
   dplyr::filter(`BNF Section Code` == "0402") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 table_1_0402 <- table_1_data_0402 |>
   DT::datatable(rownames = FALSE,
@@ -972,7 +998,10 @@ table_1_data_0404 <- capture_rate_extract_quarter |>
                 `2022/2023 Q4`,
                 `2023/2024 Q1`) |>
   dplyr::filter(`BNF Section Code` == "0404") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 table_1_0404 <- table_1_data_0404 |>
   DT::datatable(rownames = FALSE,
@@ -992,7 +1021,10 @@ table_1_data_0411 <- capture_rate_extract_quarter |>
                 `2022/2023 Q4`,
                 `2023/2024 Q1`) |>
   dplyr::filter(`BNF Section Code` == "0411") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 table_1_0411 <- table_1_data_0411 |>
   DT::datatable(rownames = FALSE,
@@ -1023,13 +1055,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_1_0403 <- figure_1_data_0403 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1065,13 +1100,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_2_0403 <- figure_2_data_0403 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1114,13 +1152,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_3_0403 <- figure_3_data_0403 |>
   nhsbsaVis::group_chart_hc(
-    x = MONTH_START,
-    y = value,
-    group = measure,
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1155,13 +1196,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_1_0401 <- figure_1_data_0401 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1197,13 +1241,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_2_0401 <- figure_2_data_0401 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1246,13 +1293,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_3_0401 <- figure_3_data_0401 |>
   nhsbsaVis::group_chart_hc(
-    x = MONTH_START,
-    y = value,
-    group = measure,
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1287,13 +1337,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_1_0402 <- figure_1_data_0402 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1329,13 +1382,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_2_0402 <- figure_2_data_0402 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1378,13 +1434,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_3_0402 <- figure_3_data_0402 |>
   nhsbsaVis::group_chart_hc(
-    x = MONTH_START,
-    y = value,
-    group = measure,
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1419,13 +1478,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_1_0404 <- figure_1_data_0404 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1461,13 +1523,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_2_0404 <- figure_2_data_0404 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1510,13 +1575,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_3_0404 <- figure_3_data_0404 |>
   nhsbsaVis::group_chart_hc(
-    x = MONTH_START,
-    y = value,
-    group = measure,
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1551,13 +1619,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_1_0411 <- figure_1_data_0411 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1593,13 +1664,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_2_0411 <- figure_2_data_0411 |>
   nhsbsaVis::group_chart_hc(
-    x = `Financial Quarter`,
-    y = value,
-    group = measure,
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1642,13 +1716,16 @@ dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
 
 figure_3_0411 <- figure_3_data_0411 |>
   nhsbsaVis::group_chart_hc(
-    x = MONTH_START,
-    y = value,
-    group = measure,
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -1705,46 +1782,46 @@ figure_5_covid <- figure_5_data_covid |>
 
 rmarkdown::render("mumh_quarterly_jun23_0403.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh_quarterly_jun23_0403.html")
+                  output_file = "outputs/mumh_quarterly_jun23_0403.html")
 rmarkdown::render("mumh_quarterly_jun23_0403.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh_quarterly_jun23_0403.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_0403.docx")
 rmarkdown::render("mumh_quarterly_jun23_0401.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh_quarterly_jun23_0401.html")
+                  output_file = "outputs/mumh_quarterly_jun23_0401.html")
 rmarkdown::render("mumh_quarterly_jun23_0401.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh_quarterly_jun23_0401.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_0401.docx")
 rmarkdown::render("mumh_quarterly_jun23_0402.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh_quarterly_jun23_0402.html")
+                  output_file = "outputs/mumh_quarterly_jun23_0402.html")
 rmarkdown::render("mumh_quarterly_jun23_0402.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh_quarterly_jun23_0402.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_0402.docx")
 rmarkdown::render("mumh_quarterly_jun23_0404.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh_quarterly_jun23_0404.html")
+                  output_file = "outputs/mumh_quarterly_jun23_0404.html")
 rmarkdown::render("mumh_quarterly_jun23_0404.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh_quarterly_jun23_0404.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_0404.docx")
 rmarkdown::render("mumh_quarterly_jun23_0411.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh_quarterly_jun23_0411.html")
+                  output_file = "outputs/mumh_quarterly_jun23_0411.html")
 rmarkdown::render("mumh_quarterly_jun23_0411.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh_quarterly_jun23_0411.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_0411.docx")
 rmarkdown::render("mumh_quarterly_jun23_covid.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh_quarterly_jun23_covid.html")
+                  output_file = "outputs/mumh_quarterly_jun23_covid.html")
 rmarkdown::render("mumh_quarterly_jun23_covid.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh_quarterly_jun23_covid.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_covid.docx")
 rmarkdown::render("mumh_quarterly_jun23_overview.Rmd",
                   output_format = "html_document",
-                  output_file = "mumh_quarterly_jun23_overview.html")
+                  output_file = "outputs/mumh_quarterly_jun23_overview.html")
 rmarkdown::render("mumh_quarterly_jun23_overview.Rmd",
                   output_format = "word_document",
-                  output_file = "mumh_quarterly_jun23_overview.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_overview.docx")
 
 rmarkdown::render("background.Rmd",
                   output_format = "html_document",

@@ -52,43 +52,22 @@ knitr::opts_chunk$set(echo = FALSE,
 
 Published `r config$publication_date` 
 
-`r mumhquarterly::infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we have split the publication into smaller summaries,one for each BNF Section and one for the modelling of future prescribing. We are interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
-
 ## Summary
 
 Between April and June 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r mumhquarterly::infoBox_no_border("", text = "<b>22 million antidepressant items were prescribed to an estimated 6.7 million identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>22 million antidepressant items were prescribed to an estimated 6.7 million identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r mumhquarterly::infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items was £60 million.</b>", width = "100%")`
-:::
-
+`r infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items was £60 million.</b>", width = "100%")`
 :::
 ::::
-
-
-
 
 ---
 
 ## 1. Things you should know
-### 1.1. Scope {.toc-ignore} 
-
-`r mumhquarterly::infoBox_border("Background ", text = "The [NHS Long Term Plan](https://www.longtermplan.nhs.uk/) published in 2019 focuses on improving mental health care in the UK. It aims to provide more funding for mental health services, particularly for children and people with dementia. The [Core20PLUS5](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/) approach  to reduce health inequalities also seeks to improve community care for those with severe mental illnesses.", width = "100%")`
-
-This publication provides information on medicines used to treat depression in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. 
-
-An overview including definitions can be found [here](`r config$html_top_link`) Five BNF specific summaries total are available covering medicines used in mental health, the others being for [insomnia and anxiety](`r config$html_0401_link`), [psychosis](`r config$html_0402_link`), [attention deficit hyperactivity disorder (ADHD)](`r config$html_0404_link`), and [dementia](`r config$html_0411_link`). There is also a [summary](`r config$html_model_link`) exploring how the COVID-19 pandemic has affected the use of these medicines.
-
-These summary narratives do not discuss the demographic data associated with the provision of these medicines, but this information is available in the supporting summary tables which accompany this release. Medicines are not the only way to treat mental health conditions, and this publication does not capture information on the use of other mental health services, such as psychological therapies. Therefore, this publication may not give a complete picture of the number of people receiving treatment for mental health conditions. Information on where to find related statistics can be found in Section 4.
-
-
----
-
-## 2. Results - Antidepressant drugs
 
 `r mumhquarterly::infoBox_border(" ", text = "Antidepressant drugs are effective for treating moderate to severe depression, but are not usually recommended for the routine treatment of mild depression. In those cases, psychological therapy should be considered initially. However, a trial of antidepressant therapy may be considered in cases resistant to psychological treatments or associated with other problems. The National Institute for Health and Care Excellence (NICE) has [released updated guidance](https://www.nice.org.uk/news/nice-draft-quality-standard-depression-adults-update-2023) to recommend adult patients stopping antidepressants should have their dose reduced in stages across time.
 
@@ -97,9 +76,19 @@ Antidepressant drugs are described in the BNF 68 section 4.3:
 * BNF paragraph 4.3.1 - Tricyclic and related antidepressant drugs
 * BNF paragraph 4.3.2 - Monoamine-oxidase inhibitors (MAOIs)
 * BNF paragraph 4.3.3 - Selective serotonin re-uptake inhibitors (SSRIs)
-* BNF paragraph 4.3.4 - Other antidepressant drugs
+* BNF paragraph 4.3.4 - Other antidepressant drugs", width = "100%")`
 
-More information about these medicines can be found in section 4 of this summary.", width = "100%")`
+### 1.1. Antidepressant drugs {.toc-ignore}
+
+Antidepressant drugs are licensed to treat major depression. Health professionals use the words depression, depressive illness or clinical depression to refer to depression. It is a serious illness and very different from the common experience of feeling unhappy or fed up for a short period of time. Depressed people may have feelings of extreme sadness that can last for a long time. These feelings are severe enough to interfere with daily life, and can last for weeks, months or years, rather than days.
+
+It should be noted that antidepressant drugs are used for indications other than depression, for example migraine, chronic pain, myalgic encephalomyelitis (ME), or a range of other conditions. Clinical indication isn't captured by the NHSBSA. Therefore, the statistics on these drugs do not relate solely to prescribing for depression.
+
+You can find more information about [depression](https://www.nhs.uk/conditions/clinical-depression/) on the NHS website.
+
+---
+
+## 2. Results - Antidepressant drugs
 
 #### Figure 1: Number of prescribed items and identified patients by financial quarter - BNF 4.3: Antidepressant drugs
 
@@ -112,13 +101,13 @@ figure_1_0403
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r mumhquarterly::infoBox_no_border("", text = "<b>22 million antidepressant items prescribed in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>22 million antidepressant items prescribed in Q1 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r mumhquarterly::infoBox_no_border("", text = "<b>6.7 million identified patients received an antidepressant in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>6.7 million identified patients received an antidepressant in Q1 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r mumhquarterly::infoBox_no_border("", text = "<b>Items and patients continue to trend upwards for antidepressants.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Items and patients continue to trend upwards for antidepressants.</b>", width = "100%")`
 :::
 ::::
 
@@ -134,10 +123,10 @@ figure_2_0403
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r mumhquarterly::infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items was £60 million in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items was £60 million in Q1 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r mumhquarterly::infoBox_no_border("", text = "<b>The long-term trend for the cost of antidepressant prescribing, has varied more than volume due to price fluctuations.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The long-term trend for the cost of antidepressant prescribing, has varied more than volume due to price fluctuations.</b>", width = "100%")`
 :::
 ::::
 
@@ -151,32 +140,26 @@ figure_3_0403
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r mumhquarterly::infoBox_no_border("", text = "<b>On average, 4.6 million patients received an antidepressant each month over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>On average, 4.6 million patients received an antidepressant each month over the last 12 months.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r mumhquarterly::infoBox_no_border("", text = "<b>Antidepressant items increased by 3.2% over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antidepressant items increased by 3.2% over the last 12 months.</b>", width = "100%")`
 :::
 ::::
 
 
 ---
 
-## 3. Background
 
-### 3.1. Antidepressant drugs {.toc-ignore}
-
-Antidepressant drugs are licensed to treat major depression. Health professionals use the words depression, depressive illness or clinical depression to refer to depression. It is a serious illness and very different from the common experience of feeling unhappy or fed up for a short period of time. Depressed people may have feelings of extreme sadness that can last for a long time. These feelings are severe enough to interfere with daily life, and can last for weeks, months or years, rather than days.
-
-It should be noted that antidepressant drugs are used for indications other than depression, for example migraine, chronic pain, myalgic encephalomyelitis (ME), or a range of other conditions. Clinical indication isn't captured by the NHSBSA. Therefore, the statistics on these drugs do not relate solely to prescribing for depression.
-
-You can find more information about [depression](https://www.nhs.uk/conditions/clinical-depression/) on the NHS website.
-
-### 3.2. Related statistics and resources {.toc-ignore}
-
-Prescribing of medications in primary care is only part of the big picture for mental health care in England. The [NHS Digital mental health data hub](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/mental-health-data-hub) has links to statistics on a range of related topics which may provide further context. These include a mental health bulletin, reports on children and young people's mental health surveys, dementia assessment and referral statistics, and more.
 
 ---
 
-## 4. Further details
+## 3. Sections in this release
 
-Further information including details about the statistics, accessibility and contact details can be found [here](`r config$html_top_link`) in the overview publication. 
+* Medicines used in Mental Health [summary](`r config$html_top_link`)
+* BNF Section 4.1 - [Hypnotics and anxiolytics](`r config$html_0401_link`)
+* BNF Section 4.2 - [Drugs used in psychoses and related disorders](`r config$html_0402_link`)
+* BNF Section 4.4 - [Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$html_0404_link`)
+* BNF Section 4.11 - [Drugs for dementia](`r config$html_0411_link`)
+* [Prescribing during the COVID-19 pandemic](`r config$html_model_link`)
+* Medicines used in Mental Health [background](`r config$background_link`)

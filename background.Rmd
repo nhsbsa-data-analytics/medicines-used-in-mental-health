@@ -183,6 +183,10 @@ From 1 July 2022, Sustainability and Transformation Partnerships (STPs) have bee
 
 Adding these demographic and geographical breakdowns to the quarterly tables will allow users more timely access to data than when previously limited to the annual release.
 
+### 3.3. Quarterly section summaries {.toc-ignore}
+
+From the Q1 2023/24 quarterly release, we have split the publication into smaller sections, an overall summary plus one for each BNF Section and one for the modelling based on previous prescribing trends.
+
 <!-- ### 3.3. Planned changes to this publication {.toc-ignore} -->
 
 ## 4. Strengths and limitations

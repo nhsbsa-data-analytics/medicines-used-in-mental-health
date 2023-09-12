@@ -1784,18 +1784,18 @@ month_pred_fun <- function(month, data, model, alpha = 0.95) {
                   data,
                   lmObject = model,
                   alpha = 0.99)
-  output <- data.frame(unit = 1)
+  output <- data.frame(UNIT = 1)
   
   #use list of months within data
   #include columns for lower and upper 95% and 99% CI
   output$YEAR_MONTH <- month
-  output$mean_fit <- pred[["mean"]]
-  output$var <- pred[["var"]]
-  output$PIlwr <- pred[["PI"]][["lower"]]
-  output$PIupr <- pred[["PI"]][["upper"]]
-  output$PIlwr99 <- pred99[["PI"]][["lower"]]
-  output$PIupr99 <- pred99[["PI"]][["upper"]]
-  output$unit <- NULL
+  output$MEAN_FIT <- pred[["mean"]]
+  output$VAR <- pred[["var"]]
+  output$PILWR <- pred[["PI"]][["lower"]]
+  output$PIUPR <- pred[["PI"]][["upper"]]
+  output$PILWR99 <- pred99[["PI"]][["lower"]]
+  output$PIUPR99 <- pred99[["PI"]][["upper"]]
+  output$UNIT <- NULL
   
   return(output)
   
@@ -1829,9 +1829,9 @@ prediction_list <- function(data,
     #add YEAR_MONTH as character column for easier use in chart
     section_pred_list <- df_0401 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0401)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1851,9 +1851,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0402 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0402)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1873,9 +1873,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0403 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0403)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1895,9 +1895,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0404 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0404)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1917,9 +1917,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0411 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0411)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1927,86 +1927,109 @@ prediction_list <- function(data,
   
 }
 
-### INFO BOXES
-
-infoBox_border <- function(
-    header = "Header here",
-    text = "More text here",
-    backgroundColour = "#ccdff1",
-    borderColour = "#005EB8",
-    width = "31%",
-    fontColour = "black") {
-  
+# Info boxes -------------------------------------------------------------
+infoBox_border <- function(header = "Header here",
+                           text = "More text here",
+                           backgroundColour = "#ccdff1",
+                           borderColour = "#005EB8",
+                           width = "31%",
+                           fontColour = "black") {
   #set handling for when header is blank
   display <- "block"
   
-  if(header == "") {
+  if (header == "") {
     display <- "none"
   }
   
   paste(
-    "<div class='infobox_border' style = 'border: 1px solid ", borderColour,"!important;
-  border-left: 5px solid ", borderColour,"!important;
-  background-color: ", backgroundColour,"!important;
+    "<div class='infobox_border' style = 'border: 1px solid ",
+    borderColour,
+    "!important;
+  border-left: 5px solid ",
+  borderColour,
+  "!important;
+  background-color: ",
+  backgroundColour,
+  "!important;
   padding: 10px;
-  width: ", width,"!important;
+  width: ",
+  width,
+  "!important;
   display: inline-block;
   vertical-align: top;
   flex: 1;
   height: 100%;'>
-  <h4 style = 'color: ", fontColour, ";
+  <h4 style = 'color: ",
+  fontColour,
+  ";
   font-weight: bold;
   font-size: 18px;
   margin-top: 0px;
   margin-bottom: 10px;
-  display: ", display,";'>", 
-  header, "</h4>
-  <p style = 'color: ", fontColour, ";
+  display: ",
+  display,
+  ";'>",
+  header,
+  "</h4>
+  <p style = 'color: ",
+  fontColour,
+  ";
   font-size: 16px;
   margin-top: 0px;
-  margin-bottom: 0px;'>", text, "</p>
+  margin-bottom: 0px;'>",
+  text,
+  "</p>
 </div>"
   )
 }
 
-infoBox_no_border <- function(
-    header = "Header here",
-    text = "More text here",
-    backgroundColour = "#005EB8",
-    width = "31%",
-    fontColour = "white") {
-  
+infoBox_no_border <- function(header = "Header here",
+                              text = "More text here",
+                              backgroundColour = "#005EB8",
+                              width = "31%",
+                              fontColour = "white") {
   #set handling for when header is blank
   display <- "block"
   
-  if(header == "") {
+  if (header == "") {
     display <- "none"
   }
   
   paste(
     "<div class='infobox_no_border',
-    style = 'background-color: ",backgroundColour,
+    style = 'background-color: ",
+    backgroundColour,
     "!important;padding: 10px;
-    width: ",width,";
+    width: ",
+    width,
+    ";
     display: inline-block;
     vertical-align: top;
     flex: 1;
     height: 100%;'>
-  <h4 style = 'color: ", fontColour, ";
+  <h4 style = 'color: ",
+  fontColour,
+  ";
   font-weight: bold;
   font-size: 18px;
   margin-top: 0px;
   margin-bottom: 10px;
-  display: ", display,";'>", 
-  header, "</h4>
-  <p style = 'color: ", fontColour, ";
+  display: ",
+  display,
+  ";'>",
+  header,
+  "</h4>
+  <p style = 'color: ",
+  fontColour,
+  ";
   font-size: 16px;
   margin-top: 0px;
-  margin-bottom: 0px;'>", text, "</p>
+  margin-bottom: 0px;'>",
+  text,
+  "</p>
 </div>"
   )
 }
-
 ### Chart functions
 age_gender_chart <- function(data,
                              labels = FALSE) {
@@ -2246,21 +2269,21 @@ age_gender_chart_no_fill <- function(data,
 
 covid_chart_hc <- function(data,
                            title = NULL) {
-  chart_data <- figure_32_data %>%
+  chart_data <- data %>%
     dplyr::mutate(
-      ACT = prettyNum(signif(total_items, 3), big.mark = ","),
-      EXP = prettyNum(signif(mean_fit, 3), big.mark = ","),
+      ACT = prettyNum(signif(TOTAL_ITEMS, 3), big.mark = ","),
+      EXP = prettyNum(signif(MEAN_FIT, 3), big.mark = ","),
       RANGE_95 = paste(
-        formatC(signif(PIlwr, 3), big.mark = ",", format = "f", digits = 0),
+        formatC(signif(PILWR, 3), big.mark = ",", format = "f", digits = 0),
         "-",
-        formatC(signif(PIupr, 3), big.mark = ",", format = "f", digits = 0)
+        formatC(signif(PIUPR, 3), big.mark = ",", format = "f", digits = 0)
       ),
       RANGE_99 = paste(
-        formatC(signif(PIlwr99, 3), big.mark = ",", format = "f", digits = 0),
+        formatC(signif(PILWR99, 3), big.mark = ",", format = "f", digits = 0),
         "-",
-        formatC(signif(PIupr99, 3), big.mark = ",", format = "f", digits = 0)
+        formatC(signif(PIUPR99, 3), big.mark = ",", format = "f", digits = 0)
       ),
-      MONTH_START = as.Date(paste0(YEAR_MONTH_string, "01"), format = "%Y%m%d")
+      MONTH_START = as.Date(paste0(YEAR_MONTH_STRING, "01"), format = "%Y%m%d")
     )
   
   
@@ -2277,8 +2300,8 @@ covid_chart_hc <- function(data,
       # enableMouseTracking = FALSE,
       highcharter::hcaes(
         x = MONTH_START,
-        high = signif(PIupr99, 3),
-        low = signif(PIlwr99, 3),
+        high = signif(PIUPR99, 3),
+        low = signif(PILWR99, 3),
         tooltip = RANGE_99
       )
     ) %>%
@@ -2307,7 +2330,7 @@ covid_chart_hc <- function(data,
     dataLabels = list(enabled = FALSE),
     hcaes(
       x = MONTH_START,
-      y = signif(mean_fit, 3),
+      y = signif(MEAN_FIT, 3),
       tooltip = EXP
     )
   ) %>%
@@ -2321,7 +2344,7 @@ covid_chart_hc <- function(data,
       dataLabels = list(enabled = FALSE),
       hcaes(
         x = MONTH_START,
-        y = signif(total_items, 3),
+        y = signif(TOTAL_ITEMS, 3),
         tooltip = ACT
       )
     ) %>%

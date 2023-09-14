@@ -1812,10 +1812,10 @@ rmarkdown::render("mumh_quarterly_jun23_0411.Rmd",
                   output_file = "outputs/mumh_quarterly_jun23_0411.docx")
 rmarkdown::render("mumh_quarterly_jun23_covid.Rmd",
                   output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_jun23_covid.html")
+                  output_file = "outputs/mumh_quarterly_jun23_model.html")
 rmarkdown::render("mumh_quarterly_jun23_covid.Rmd",
                   output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_jun23_covid.docx")
+                  output_file = "outputs/mumh_quarterly_jun23_model.docx")
 rmarkdown::render("mumh_quarterly_jun23_overview.Rmd",
                   output_format = "html_document",
                   output_file = "outputs/mumh_quarterly_jun23_overview.html")

@@ -63,7 +63,7 @@ Between April and June 2023:
 `r infoBox_no_border("", text = "<b>22 million antidepressant items were prescribed to an estimated 6.7 million identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>The costs of prescribed antidepressant items was £60 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items was £60 million.</b>", width = "100%")`
 :::
 :::{.col-md-4}
 `r infoBox_no_border("", text = "<b>Prescribing of drugs for dementia items remained below expected values based on pre-pandemic trends.</b>", width = "100%")`
@@ -76,7 +76,7 @@ Prescribing of CNS stimulants and drugs for ADHD items increased by 3.6% over th
 
 Drugs for dementia also showed an increase of 1% for both prescribing and number of identified patients.
 
-Hypnotics and anxiolytics saw a 2.4% decrease in prescribed items from the previous quarter and a 3.2% fewer identified patients.
+Hypnotics and anxiolytics saw a 2.4% decrease in prescribed items from the previous quarter and 3.2% fewer identified patients.
 
 Drugs used in psychoses and related disorders showed a decrease in prescribing and identified patients, both of less than 1%.
 

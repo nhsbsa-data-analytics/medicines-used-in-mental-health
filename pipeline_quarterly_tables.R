@@ -486,7 +486,7 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0401 Hypnotics and anxiolytics",
-  "England 2015/16 - 2023/24",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
   "Publication Date: 14 September 2023",
   wb,
   sheetNames,
@@ -998,7 +998,7 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0402 Drugs used in psychoses and related disorders",
-  "England 2015/16 - 2023/24",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
   "Publication Date: 14 September 2023",
   wb,
   sheetNames,
@@ -1545,7 +1545,7 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0403 Antidepressant drugs",
-  "England 2015/16 - 2023/24",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
   "Publication Date: 14 September 2023",
   wb,
   sheetNames,
@@ -2054,7 +2054,7 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0404 Central nervous system (CNS) stimulants and drugs used for ADHD",
-  "England 2015/16 - 2023/24",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
   "Publication Date: 14 September 2023",
   wb,
   sheetNames,
@@ -2531,7 +2531,7 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0411 Drugs for dementia",
-  "England 2015/16 - 2023/24",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
   "Publication Date: 14 September 2023",
   wb,
   sheetNames,

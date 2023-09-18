@@ -218,7 +218,7 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
 }
 
 population_extract <- function(){
-  national_pop <- ons_national_pop(year = c(2015:2021),
+  national_pop <- nhsbsaExternalData::ons_national_pop(year = c(2015:2021),
                                    area = "ENPOP") %>% 
     mutate(YEAR = as.character(YEAR))
   
@@ -2248,19 +2248,19 @@ covid_chart_hc <- function(data,
                            title = NULL) {
   chart_data <- data %>%
     dplyr::mutate(
-      ACT = prettyNum(signif(total_items, 3), big.mark = ","),
-      EXP = prettyNum(signif(mean_fit, 3), big.mark = ","),
+      ACT = prettyNum(signif(TOTAL_ITEMS, 3), big.mark = ","),
+      EXP = prettyNum(signif(MEAN_FIT, 3), big.mark = ","),
       RANGE_95 = paste(
-        prettyNum(signif(PIlwr, 3), big.mark = ","),
+        prettyNum(signif(PI_LOWER_95, 3), big.mark = ","),
         "-",
-        prettyNum(signif(PIupr, 3), big.mark = ",")
+        prettyNum(signif(PI_UPPER_95, 3), big.mark = ",")
       ),
       RANGE_99 = paste(
-        prettyNum(signif(PIlwr99, 3), big.mark = ","),
+        prettyNum(signif(PI_LOWER_99, 3), big.mark = ","),
         "-",
-        prettyNum(signif(PIupr99, 3), big.mark = ",")
+        prettyNum(signif(PI_UPPER_99, 3), big.mark = ",")
       ),
-      MONTH_START = as.Date(paste0(YEAR_MONTH_string, "01"), format = "%Y%m%d")
+      MONTH_START = as.Date(paste0(YEAR_MONTH, "01"), format = "%Y%m%d")
     )
   
   chart <- highchart() %>%
@@ -2276,8 +2276,8 @@ covid_chart_hc <- function(data,
       # enableMouseTracking = FALSE,
       highcharter::hcaes(
         x = MONTH_START,
-        high = signif(PIupr99, 3),
-        low = signif(PIlwr99, 3),
+        high = signif(PI_UPPER_99, 3),
+        low = signif(PI_LOWER_99, 3),
         tooltip = RANGE_99
       )
     ) %>%
@@ -2291,8 +2291,8 @@ covid_chart_hc <- function(data,
       #dataLabels = list(enabled = FALSE),
       #hcaes(
         #x = MONTH_START,
-        #high = signif(PIupr, 3),
-        #low = signif(PIlwr, 3),
+        #high = signif(PI_UPPER_95, 3),
+        #low = signif(PI_LOWER_95, 3),
         #tooltip = RANGE_95
       #)
     #) %>%
@@ -2306,7 +2306,7 @@ covid_chart_hc <- function(data,
       dataLabels = list(enabled = FALSE),
       hcaes(
         x = MONTH_START,
-        y = signif(mean_fit, 3),
+        y = signif(MEAN_FIT, 3),
         tooltip = EXP
       )
     ) %>%
@@ -2320,7 +2320,7 @@ covid_chart_hc <- function(data,
       dataLabels = list(enabled = FALSE),
       hcaes(
         x = MONTH_START,
-        y = signif(total_items, 3),
+        y = signif(TOTAL_ITEMS, 3),
         tooltip = ACT
       )
     ) %>%

@@ -65,6 +65,7 @@ req_pkgs <- c("broom",
 
 #library/install packages as required using nhsbsaUtils
 nhsbsaUtils::check_and_install_packages(req_pkgs)
+library(nhsbsabsaR)
 
 # set up logging
 lf <-
@@ -2416,7 +2417,7 @@ figure_29_data <- age_gender_extract_year |>
                 `Total Identified Patients`,
                 `Total Items`,
                 `Total Net Ingredient Cost (GBP)`) |>
-  dplyr::filter(`BNF Section Code` == "04011") |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
   dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
   dplyr::mutate(`Total Identified Patients` = signif(`Total Identified Patients`, 3)) |> 
   dplyr::filter(`Financial Year` == max(`Financial Year`)) |>
@@ -2534,35 +2535,83 @@ figure_31 <- figure_31_data |>
 
 #figure 32 antidepressants model data
 figure_32_data <- predictions_0403 |>
-  dplyr::filter(YEAR_MONTH > 202002)
+  dplyr::filter(YEAR_MONTH > 202002) |>
+  dplyr::select(YEAR_MONTH,
+                SECTION_CODE,
+                TOTAL_ITEMS = total_items,
+                MEAN_FIT = mean_fit,
+                VAR = var,
+                PI_LOWER_95 = PIlwr,
+                PI_UPPER_95 = PIupr,
+                PI_LOWER_99 = PIlwr99,
+                PI_UPPER_99 = PIupr99)
 
 figure_32 <- figure_32_data |>
   covid_chart_hc(title = "")
 
 #figure 33 hypnotics anxiolytics model data
 figure_33_data <- predictions_0401 |>
-  dplyr::filter(YEAR_MONTH > 202002)
+  dplyr::filter(YEAR_MONTH > 202002)|>
+  dplyr::select(YEAR_MONTH,
+                SECTION_CODE,
+                TOTAL_ITEMS = total_items,
+                MEAN_FIT = mean_fit,
+                VAR = var,
+                PI_LOWER_95 = PIlwr,
+                PI_UPPER_95 = PIupr,
+                PI_LOWER_99 = PIlwr99,
+                PI_UPPER_99 = PIupr99)
 
 figure_33 <- figure_33_data |>
   covid_chart_hc(title = "")
 
 #figure 34 antipsychotics model data
 figure_34_data <- predictions_0402 |>
-  dplyr::filter(YEAR_MONTH > 202002)
+  dplyr::filter(YEAR_MONTH > 202002)|>
+  dplyr::select(YEAR_MONTH,
+                SECTION_CODE,
+                TOTAL_ITEMS = total_items,
+                MEAN_FIT = mean_fit,
+                VAR = var,
+                PI_LOWER_95 = PIlwr,
+                PI_UPPER_95 = PIupr,
+                PI_LOWER_99 = PIlwr99,
+                PI_UPPER_99 = PIupr99)
+
 
 figure_34 <- figure_34_data |>
   covid_chart_hc(title = "")
 
 #figure 35 CNS ADHD model data
 figure_35_data <- predictions_0404 |>
-  dplyr::filter(YEAR_MONTH > 202002)
+  dplyr::filter(YEAR_MONTH > 202002)|>
+  dplyr::select(YEAR_MONTH,
+                SECTION_CODE,
+                TOTAL_ITEMS = total_items,
+                MEAN_FIT = mean_fit,
+                VAR = var,
+                PI_LOWER_95 = PIlwr,
+                PI_UPPER_95 = PIupr,
+                PI_LOWER_99 = PIlwr99,
+                PI_UPPER_99 = PIupr99)
+
 
 figure_35 <- figure_35_data |>
   covid_chart_hc(title = "")
 
 #figure 36 dementia model data
 figure_36_data <- predictions_0411 |>
-  filter(YEAR_MONTH > 202002)
+  filter(YEAR_MONTH > 202002)|>
+  dplyr::select(YEAR_MONTH,
+                SECTION_CODE,
+                TOTAL_ITEMS = total_items,
+                MEAN_FIT = mean_fit,
+                VAR = var,
+                PI_LOWER_95 = PIlwr,
+                PI_UPPER_95 = PIupr,
+                PI_LOWER_99 = PIlwr99,
+                PI_UPPER_99 = PIupr99)
+
 
 figure_36 <- figure_36_data |>
   covid_chart_hc(title = "")
@@ -2575,18 +2624,23 @@ figure_36 <- figure_36_data |>
 
 df20 <- ageband_manip_20yr(age_gender_extract_month)
 
+#split df20 data into pre-covid months, to build model on pre-pandemic data only
+df20_pc <- df20 |>
+  dplyr::filter(time_period == "pre_covid")
+
 #create linear model for each section and apply to 20 year ageband data to get output
 #if error thrown by group_mc_cv() function try rerunning covid_lm() function again
 
-model_0401 <- covid_lm(df20,
+#build model for each BNF section, using the pre-pandemic items
+model_0401 <- covid_lm(df20_pc,
                        section_code = "0401")
-model_0402 <- covid_lm(df20,
+model_0402 <- covid_lm(df20_pc,
                        section_code = "0402")
-model_0403 <- covid_lm(df20,
+model_0403 <- covid_lm(df20_pc,
                        section_code = "0403")
-model_0404 <- covid_lm(df20,
+model_0404 <- covid_lm(df20_pc,
                        section_code = "0404")
-model_0411 <- covid_lm(df20,
+model_0411 <- covid_lm(df20_pc,
                        section_code = "0411")
 
 #get predictions for number of items by BNF section per month
@@ -2619,7 +2673,7 @@ covid_model_predictions <- rbind(predictions_0401,
                                  predictions_0411)
 
 # update month in file name for new publications
-fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Mar23.csv")
+fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Mar23_corrected.csv")
 
 
 #7. tables
@@ -2628,7 +2682,7 @@ fwrite(covid_model_predictions, "Y:/Official Stats/MUMH/Covid model tables/Mar23
 
 rmarkdown::render("mumh_narrative_2223_v001.Rmd",
                   output_format = "html_document",
-                  output_file = "outputs/mumh_annual_2223_v001.html")
+                  output_file = "outputs/mumh_annual_2223_v002.html")
 rmarkdown::render("mumh_narrative_2223_v001.Rmd",
                   output_format = "word_document",
                   output_file = "outputs/mumh_annual_2223_v001.docx")

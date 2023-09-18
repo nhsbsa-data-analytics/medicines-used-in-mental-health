@@ -37,10 +37,20 @@ knitr::opts_chunk$set(echo = FALSE,
 
 # `r config$publication_sub_name` {.toc-ignore}
 
-`r paste("Published", config$publication_date)`
+`r paste("Published 6 July 2023. 
+
+This narrative was last reviewed and updated on 15 September 2023.")`
 
 ::::{.row style="display: flex; padding-bottom: 10px;"} 
 :::{.col-md-12} 
+`r infoBox_border(header = "Notice of correction", text = paste0("We've identified that the model used to produce the charts and commentary in section 3 'Prescribing during the COVID-19 pandemic' wasn't trained on the correct data. 
+
+New charts and commentary for section 3 have been produced. Data and commentary in section 2 was not affected and has not changed. You can find more details in section 5.10 'Revisions and corrections to this release'."), width = "100%")` 
+:::
+::::
+
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12}
 `r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we have combined our annual and quarterly publications. The supporting summary tables have been expanded to provide quarterly and monthly data at a more granular level than previously released. 
 
 We have made changes to how we count patients and assign them to an Index of Multiple Deprivation (IMD) quintile. Some historical figures may have changed from previous releases. You can read more about these changes in section 5.
@@ -889,10 +899,10 @@ NHS Birmingham and Solihull ICB was the ICB with the lowest estimated number of 
 ## 3. Prescribing during the COVID-19 pandemic 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b> Prescribing of items in all five BNF sections has generally remained within the range of expected values, based on pre-pandemic trends.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b> Prescribing of antidepressants, hypnotics and axiolytics, and antipsychotics stayed mostly within the range of expected items based on pre-pandemic trends.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>CNS stimulants and drugs used for ADHD items have become closer to the upper boundary of the range of expected values.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Over the past year, CNS stimulants and drugs used for ADHD items have consistently exceeded the range of expected values.</b>", width = "100%")`
 :::
 ::::
 
@@ -929,7 +939,8 @@ figure_32
 
 Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0403_Mar_23.xlsx)
 
-Between March 2020 and March 2023 there were 253 million antidepressant items prescribed to identified patients with a known age and gender. This was only 0.16% more than the 253 million items expected based on historical trends, so antidepressant items remained well within the expected values for this period.
+Between March 2020 and March 2023 there were 253 million antidepressant items prescribed to identified patients with a known age and gender. This was 0.57% more than the 252 million items expected based on historical trends, so antidepressant items remained well within the expected values for this period.
+
 
 ### 3.2. Hypnotics and anxiolytics prescribing {.toc-ignore}
 
@@ -944,7 +955,7 @@ figure_33
 
 Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0401_Mar_23.xlsx)
 
-There were 42.0 million hypnotics and anxiolytics items prescribed between March 2020 and March 2023 to identified patients with a known age and gender. This closely followed the expected number of items for this time period, as there were only 0.09% more items prescribed than the 41.9 million items expected based on historical trends. Hypnotics and anxiolytics therefore stayed within the range of values expected for items in this period.
+There were 42.0 million hypnotics and anxiolytics items prescribed between March 2020 and March 2023 to identified patients with a known age and gender. This follows the expected number of items for this time period, as there were only 0.42% more items prescribed than the 41.8 million items expected based on historical trends. Hypnotics and anxiolytics therefore mostly stayed within the range of values expected for items in this period, with the exception of April 2020.
 
 ### 3.3. Drugs used in psychoses and related disorders prescribing {.toc-ignore}
 
@@ -959,7 +970,7 @@ figure_34
 
 Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0402_Mar_23.xlsx)
 
-There were 39.4 million antipsychotics items prescribed from March 2020 to March 2023 to identified patients with known age and gender, only 0.05% less than the 39.4 million items that were expected to be prescribed. Over this period antipsychotics items stayed mostly within the range of expected values, apart from April 2020.
+There were 39.4 million antipsychotics items prescribed from March 2020 to March 2023 to identified patients with known age and gender, 1.69% less than the 40.0 million items that were expected to be prescribed. Over this period antipsychotics items stayed mostly within the range of expected values, but several months have fallen below this range, most recently in February 2023.
 
 ### 3.4. CNS stimulants and drugs used for ADHD prescribing {.toc-ignore}
 
@@ -974,7 +985,7 @@ figure_35
 
 Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0404_Mar_23.xlsx)
 
-From March 2020 to March 2023, 5.86 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was 0.71% more than the 5.82 million items expected based on historical trends. Since February 2022, CNS stimulants and drugs used for ADHD items have remained consistently higher than the number of items expected based on historical trends. Items have remained within the range of expected values but show signs of reaching the upper boundary of the 99% PI. Since 2015/16 there has always been an increase between February and March, with a noticeably steeper increase between February and March 2023 than previous years.
+From March 2020 to March 2023, 5.86 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was 13.2% more than the 5.17 million items expected based on historical trends. Since March 2022, CNS stimulants and drugs used for ADHD items have remained consistently higher than the range of items expected based on historical trends.  Since 2015/16 there has always been an increase between February and March, with a noticeably steeper increase between February and March 2023 than previous years.
 
 The model is based on data containing identified patients with known age and gender only. As CNS stimulants and drugs used for ADHD have a relatively low patient identification rate, a lower proportion of prescribing is included in the model data. For example, patient identification for this BNF section was 79.3% in Q1 of 2015/16, rising to 87.7% in Q4 of 2022/23. This may have an impact on how well the model can extrapolate expected values from the data.
 
@@ -991,7 +1002,7 @@ figure_36
 
 Source: [Quarterly Summary Tables - Monthly table](https://nhsbsa-opendata.s3.eu-west-2.amazonaws.com/mumh/mumh_bnf0411_Mar_23.xlsx)
 
-There were 12.3 million drugs for dementia items prescribed from March 2020 to March 2023 to identified patients with known age and gender. This was 1.72% less than the 12.5 million items expected to be prescribed. Drugs for dementia items have stayed within the range of values expected for items across most of the past year, with the exception of June 2022. Although drugs for dementia items have remained within the 99% PI, the number of items prescribed has consistently been slightly lower than expected. 
+There were 12.3 million drugs for dementia items prescribed from March 2020 to March 2023 to identified patients with known age and gender. This was 11.6% less than the 13.9 million items expected to be prescribed. Drugs for dementia items have generally fallen below the range of values expected for items across this time period, with only one month in the past year within the 99% prediction interval.
 
 ---
 
@@ -1116,6 +1127,14 @@ Where this document refers to 'average', this is the mean unless otherwise state
 ### 5.9. Planned changes to this publication {.toc-ignore}
 
 This is an experimental official statistic release. Experimental statistics are newly developed or innovative statistics. These are published so that users and stakeholders can be involved in the assessment of their suitability and quality at an early stage. We will regularly be reviewing the methodology used within the statistics.
+
+### 5.10 Revisions and corrections to this release {.toc-ignore}
+
+We've identified an error in the training of the model used to produce the data, charts, and commentary for section 3 'Prescribing during the COVID-19 pandemic'. The model was initially trained on all months in the dataset, instead of only trained on pre-pandemic months from April 2015 to February 2020. This resulted in incorrect values for the expected items and prediction intervals used in this section, and therefore the accompanying charts and commentary in this section were also incorrect. 
+
+The affected charts and commentary in this section have been corrected by training the model only on data for April 2015 to February 2020, then applying the model to data from March 2020 to March 2023 to give the corrected values for expected items and associated 99% prediction interval. Charts and commentary have been recreated using the new corrected data. 
+
+This error was limited to section 3 and did not affect the data, charts, or commentary in section 2. We apologise for any inconvenience caused.
 
 ---
 

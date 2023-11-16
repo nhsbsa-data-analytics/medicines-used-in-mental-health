@@ -1,0 +1,162 @@
+---
+title: "`r config$publication_0404_name`"
+pagetitle: MUMH England quarterly summary
+always_allow_html: true
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    anchor_sections: no
+    css: www/style.css
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+---
+
+<script>
+  $(document).ready(function() {
+    $('#header').prepend('<img src=`r knitr::image_uri("www/bsa_logo.svg")` alt=\"NHSBSA logo\" style=\"position:absolute; top: 0; right: 0; padding: 10px; width: 25%;\">');
+  });
+</script>
+
+<style type="text/css">  body, td {
+    font-size: 16px;
+    font-family: sans-serif;
+  }
+  .list-group-item.active {
+    background-color: #005EB8!important;
+    border-color: #005EB8!important;
+  }
+    a {
+        color: #005EB8!important;
+    }
+    .tocify {
+        border-radius: 0px!important;
+    }
+</style>
+  <html lang="en">
+
+```{r setup, include=FALSE}
+# set code chunk options to disable echo by default
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+```
+
+<main>
+
+# `r config$publication_sub_name` {.toc-ignore}
+
+Published `r config$publication_date` 
+
+## Summary
+
+Between April and June 2023:
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>710,000 CNS stimulants and drugs for ADHD items were prescribed to an estimated 200,000 identified patients.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>The cost of prescribed CNS stimulants and drugs for ADHD items was £30 million.</b>", width = "100%")`
+:::
+::::
+
+---
+
+## 1. Things you should know
+
+`r infoBox_border(" ", text = "CNS stimulants and drugs used for ADHD are described in the BNF 68 section 4.4: 
+
+* BNF chemical substance 0404000D0 - Caffeine
+* BNF chemical substance 0404000E0 - Caffeine citrate
+* BNF chemical substance 0404000L0 - Dexamfetamine sulfate
+* BNF chemical substance 0404000M0 - Methylphenidate hydrochloride
+* BNF chemical substance 0404000R0 - Modafinil
+* BNF chemical substance 0404000S0 - Atomoxetine hydrochloride
+* BNF chemical substance 0404000T0 - Dexmethylphenidate hydrochloride
+* BNF chemical substance 0404000U0 - Lisdexamfetamine dimesylate
+* BNF chemical substance 0404000V0 - Guanfacine
+* BNF chemical substance 0404000W0 - Pitolisant hydrochloride", width = "100%")`
+
+### 1.1. Central nervous system (CNS) stimulants and drugs used for ADHD {.toc-ignore}
+
+Attention deficit hyperactivity disorder (ADHD) and attention deficit disorder (ADD) refer to a range of problem behaviours associated with poor attention span. These may include impulsiveness and hyperactivity, as well as inattentiveness; behaviours that often prevent children and adults from learning and socialising. ADHD is sometimes referred to as hyperkinetic disorder (HD).
+
+You can find more information about [ADHD](https://www.nhs.uk/conditions/attention-deficit-hyperactivity-disorder-adhd/) on the NHS website.
+
+---
+
+## 2. Results - Central nervous system (CNS) stimulants and drugs used for ADHD
+
+#### Figure 1: Number of prescribed items and identified patients by financial quarter - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
+
+```{r quarterly_0404, out.width="100%"}
+
+figure_1_0404
+  
+```
+`r get_download_button(title = "Download chart data", data = figure_1_data_0404, filename = "figure_1_0404")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>710,000 CNS stimulants and drugs for ADHD items prescribed in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>200,000 identified patients received prescribing for CNS stimulants and drugs for ADHD section in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Items and patients continue to trend upwards for CNS stimulants and drugs for ADHD items. There was a 3.6% increase in items and a 5.6% increase in patients on the previous quarter.</b>", width = "100%")`
+:::
+::::
+
+
+#### Figure 2: Cost of prescribing by financial quarter - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
+
+```{r quarterly_0404_nic, out.width="100%"}
+
+figure_2_0404
+  
+```
+`r get_download_button(title = "Download chart data", data = figure_2_data_0404, filename = "figure_2_0404")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>The cost of prescribed CNS stimulants and drugs for ADHD items was £30 million in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>The cost of prescribing CNS stimulants and drugs for ADHD  continues to trend upwards, there was a 5.1% increase on the previous quarter.</b>", width = "100%")`
+:::
+::::
+
+#### Figure 3: Number of prescribed items and identified patients by month - BNF 4.4: Central nervous system (CNS) stimulants and drugs used for ADHD
+
+```{r monthly_0404, out.width="100%"}
+
+figure_3_0404
+```
+`r get_download_button(title = "Download chart data", data = figure_3_data_0404, filename = "figure_3_0404")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>On average, 130,000 patients per month received prescribing for a CNS stimulants and drugs for ADHD item over the last 12 months.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD items increased by 19% over the last 12 months.</b>", width = "100%")`
+:::
+::::
+
+---
+
+## 3. Sections in this release
+
+* Medicines used in Mental Health [summary](`r config$html_top_link`)
+* BNF Section 4.3 - [Antidepressant drugs](`r config$html_0403_link`)
+* BNF Section 4.1 - [Hypnotics and anxiolytics](`r config$html_0401_link`)
+* BNF Section 4.2 - [Drugs used in psychoses and related disorders](`r config$html_0402_link`)
+* BNF Section 4.11 - [Drugs for dementia](`r config$html_0411_link`)
+* [Prescribing during the COVID-19 pandemic](`r config$html_model_link`)
+* Medicines used in Mental Health [background](`r config$background_link`)

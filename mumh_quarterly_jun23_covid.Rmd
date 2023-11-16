@@ -1,0 +1,181 @@
+---
+title: "`r config$publication_model_name`"
+pagetitle: MUMH England quarterly summary
+always_allow_html: true
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    anchor_sections: no
+    css: www/style.css
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+---
+
+<script>
+  $(document).ready(function() {
+    $('#header').prepend('<img src=`r knitr::image_uri("www/bsa_logo.svg")` alt=\"NHSBSA logo\" style=\"position:absolute; top: 0; right: 0; padding: 10px; width: 25%;\">');
+  });
+</script>
+
+<style type="text/css">  body, td {
+    font-size: 16px;
+    font-family: sans-serif;
+  }
+  .list-group-item.active {
+    background-color: #005EB8!important;
+    border-color: #005EB8!important;
+  }
+    a {
+        color: #005EB8!important;
+    }
+    .tocify {
+        border-radius: 0px!important;
+    }
+</style>
+  <html lang="en">
+
+```{r setup, include=FALSE}
+# set code chunk options to disable echo by default
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+```
+
+<main>
+
+# `r config$publication_sub_name` {.toc-ignore}
+
+Published `r config$publication_date` 
+
+## Summary
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b> Antidepressants, hypnotics and anxiolytics, and antipsychotics have generally remained within the range of values expected based on pre-pandemic trends.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD have continued to increase beyond the range of expected items to be prescribed.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>Prescribing of drugs for dementia items has consistently been below the range of expected values for the previous 2 years.</b>", width = "100%")`
+:::
+::::
+
+## 1. Things you should know
+### 1.1. Scope {.toc-ignore} 
+
+
+
+This publication provides information exploring how the COVID-19 pandemic has affected the use of medicines used to treat mental health in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. 
+
+Further information on the drug groups covered here can be found in the overview and relevant summaries also included in this release.
+
+
+### 1.2. Prescribing during the COVID-19 pandemic 
+
+
+We have created a model to help users interpret the impact of the COVID-19 pandemic on prescribing trends.
+
+The number of expected prescription items for each BNF section during this period has been calculated by extrapolating figures for March 2020 to June 2023 according to:
+
+* the trend in prescription items for each section between April 2015 and February 2020
+* the number of dispensing days that occur in each month
+* the typical differences between each month of the year observed between April 2015 and February 2020
+* the typical differences between each combination of 20 year age band group and gender
+
+A linear regression model has been used to estimate the number of items prescribed, to stay relatively simple and consistent with the model used in previous releases. The model estimates the expected number of items prescribed based on pre-pandemic trends, for each combination of age band and gender. These estimates have then been added together to get an estimate of the total items expected per month, with a 99% prediction interval (PI) calculated.
+
+::::{.row style="display: flex; padding-bottom: 10px;"} 
+:::{.col-md-12}
+`r infoBox_border("Prediction interval (PI)", text = "A range calculated based on the uncertainty around the fit of the model. A 99% PI means the new observation is likely to fall within the interval of predicted values 99% of the time.", width = "100%")`
+:::
+::::
+
+The data used in this model has been split into groups by patients' 20 year age band and gender. As age band and gender were included in the model, the model was only fitted to data where age band and gender were both known. This means the charts of predictions made using the model are not based on the same full data used in the rest of this publication. These charts cannot be directly compared to each other or to the quarterly and monthly charts of items prescribed. More information on the methodology behind the model can be found in the [background and methodology document](`r config$background_link`)
+
+
+### 2.1. Antidepressant Prescribing {.toc-ignore}
+
+#### Figure 1: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.3: Antidepressant drugs
+
+```{r covid_0403_items, out.width="100%"}
+
+figure_1_covid
+
+```
+`r get_download_button(title = "Download chart data", data = figure_1_data_covid, filename = "figure_1_covid")`
+
+Between March 2020 and June 2023 there were 275 million antidepressant items prescribed to identified patients with a known age and gender. This was only 0.49% more than the 274 million items expected based on historical trends, Antidepressant items remained within the expected range of values for this period.
+
+### 2.2. Hypnotics and anxiolytics prescribing {.toc-ignore}
+
+#### Figure 2: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.1: Hypnotics and anxiolytics
+
+```{r covid_0401_items, out.width="100%"}
+
+figure_2_covid
+
+```
+`r get_download_button(title = "Download chart data", data = figure_2_data_covid, filename = "figure_2_covid")`
+
+There were 45.2 million hypnotics and anxiolytics items prescribed between March 2020 and June 2023 to identified patients with a known age and gender. This was only 0.48% more than the 45.0 million items expected based on historical trends, so hypnotics and anxiolytics items remained within the expected range of values for this period.. 
+
+### 2.3. Drugs used in psychoses and related disorders prescribing {.toc-ignore}
+
+#### Figure 3: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.2: Drugs used in psychoses and related disorders
+
+```{r covid_0402_items, out.width="100%"}
+
+figure_3_covid
+
+```
+`r get_download_button(title = "Download chart data", data = figure_3_data_covid, filename = "figure_3_covid")`
+
+There were 42.6 million antipsychotics items prescribed from March 2020 to June 2023 to identified patients with known age and gender, 1.90% less than the 43.4 million items that were expected to be prescribed. Over this period antipsychotics items stayed within the range of expected values.
+
+### 2.4. CNS stimulants and drugs used for ADHD prescribing {.toc-ignore}
+
+#### Figure 4: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.4: CNS stimulants and drugs used for ADHD
+
+```{r covid_0404_items, out.width="100%"}
+
+figure_4_covid
+
+```
+`r get_download_button(title = "Download chart data", data = figure_4_data_covid, filename = "figure_4_covid")`
+
+From March 2020 to June 2023, 6.48 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was 15.0% more than the 5.64 million items expected based on historical trends. The difference between actual and expected items prescribed has increased since March 2022. This upward trajectory is beyond the range of the expected values.
+
+The model is based on data containing identified patients with known age and gender only. As CNS stimulants and drugs used for ADHD have a relatively low patient identification rate, a lower proportion of prescribing is included in the model data. For example, patient identification for this BNF section was 79.3% in Q1 of 2015/16, rising to 88.3% in Q1 of 2023/24. This may have an impact on how well the model can extrapolate expected values from the data.
+
+### 2.5. Drugs for dementia prescribing {.toc-ignore}
+
+#### Figure 5: Expected and actual prescribing activity during the COVID-19 Pandemic - BNF 4.11: Drugs for dementia
+
+```{r covid_0411_items, out.width="100%"}
+
+figure_5_covid
+
+```
+`r get_download_button(title = "Download chart data", data = figure_5_data_covid, filename = "figure_5_covid")`
+
+There were 13.3 million drugs for dementia items prescribed from March 2020 to June 2023 to identified patients with known age and gender. This is significantly lower than the 15.1 million items expected to be prescribed, a difference of 11.7%. 
+
+
+---
+
+## 3. Sections in this release
+
+
+* Medicines used in Mental Health [summary](`r config$html_top_link`)
+* BNF Section 4.3 - [Antidepressant drugs](`r config$html_0403_link`)
+* BNF Section 4.1 - [Hypnotics and anxiolytics](`r config$html_0401_link`)
+* BNF Section 4.2 - [Drugs used in psychoses and related disorders](`r config$html_0402_link`)
+* BNF Section 4.4 - [Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$html_0404_link`)
+* BNF Section 4.11 - [Drugs for dementia](`r config$html_0411_link`)
+* Medicines used in Mental Health [background](`r config$background_link`)

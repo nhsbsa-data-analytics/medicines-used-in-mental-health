@@ -1,0 +1,167 @@
+---
+title: "`r config$publication_0401_name`"
+pagetitle: MUMH England quarterly summary
+always_allow_html: true
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    anchor_sections: no
+    css: www/style.css
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+---
+
+<script>
+  $(document).ready(function() {
+    $('#header').prepend('<img src=`r knitr::image_uri("www/bsa_logo.svg")` alt=\"NHSBSA logo\" style=\"position:absolute; top: 0; right: 0; padding: 10px; width: 25%;\">');
+  });
+</script>
+
+<style type="text/css">  body, td {
+    font-size: 16px;
+    font-family: sans-serif;
+  }
+  .list-group-item.active {
+    background-color: #005EB8!important;
+    border-color: #005EB8!important;
+  }
+    a {
+        color: #005EB8!important;
+    }
+    .tocify {
+        border-radius: 0px!important;
+    }
+</style>
+  <html lang="en">
+
+```{r setup, include=FALSE}
+# set code chunk options to disable echo by default
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+```
+
+<main>
+
+# `r config$publication_sub_name` {.toc-ignore}
+
+Published `r config$publication_date` 
+
+## Summary
+
+Between April and June 2023:
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items were prescribed to an estimated 1.0 million identified patients.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £29 million.</b>", width = "100%")`
+:::
+::::
+
+
+---
+
+## 1. Things you should know
+
+`r infoBox_border(" ", text = "Hypnotics are used to treat insomnia - a difficulty getting to sleep or staying asleep long enough to feel refreshed. Most hypnotics will sedate if given during the day. Anxiolytics are used in the treatment of anxiety states and if given at night will help to induce sleep. The drugs classified as hypnotics and anxiolytics are described in the BNF 68 section 4.1:
+
+* BNF paragraph 4.1.1 - Hypnotics
+* BNF paragraph 4.1.2 - Anxiolytics
+* BNF paragraph 4.1.3 - Barbiturates", width = "100%")`
+
+### 1.1. Hypnotics and anxiolytics {.toc-ignore}
+
+Hypnotics and anxiolytics are used to treat insomnia and anxiety respectively.
+
+Insomnia is difficulty getting to sleep or staying asleep for long enough to feel refreshed in the morning, despite there being enough opportunity to sleep. The most common problem with insomnia is difficult falling asleep (sleep-onset insomnia). An insomniac may also experience:
+
+* waking in the night
+* not feeling refreshed after sleep and not being able to function normally during the day
+* feeling irritable and tired and finding it difficult to concentrate
+* waking when they have been disturbed from sleep by pain or noise
+* waking early in the morning
+
+Anxiety is a feeling of unease, such as worry or fear, which can be mild or severe. Everyone experiences feelings of anxiety at some point in their life and feeling anxious is sometimes perfectly normal. However, people with generalised anxiety disorder (GAD) find it hard to control their worries. Their feelings of anxiety are more constant and often affect their daily life. There are several conditions for which anxiety is the main symptom. Panic disorder, phobias and post-traumatic stress disorder can all cause severe anxiety.
+
+You can find more information about [insomnia](https://www.nhs.uk/conditions/insomnia/) and [anxiety](https://www.nhs.uk/conditions/generalised-anxiety-disorder/) from the NHS website.
+
+---
+
+## 2. Results - Hypnotics and anxiolytics
+
+#### Figure 1: Number of prescribed items and identified patients by financial quarter - BNF 4.1: Hypnotics and anxiolytics
+
+```{r quarterly_0401, out.width="100%"}
+
+figure_1_0401
+  
+```
+`r get_download_button(title = "Download chart data", data = figure_1_data_0401, filename = "figure_1_0401")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items prescribed in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>1.0 million identified patients received an hypnotics and anxiolytic item in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Items and patients continue to trend downwards for hypnotics and anxiolytics items.</b>", width = "100%")`
+:::
+::::
+
+
+#### Figure 2: Cost of prescribing by financial quarter - BNF 4.1: Hypnotics and anxiolytics
+
+```{r quarterly_0401_nic, out.width="100%"}
+
+figure_2_0401
+  
+```
+`r get_download_button(title = "Download chart data", data = figure_1_data_0401, filename = "figure_1_0401")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £29 million in Q1 2023/24.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>The long-term trend for the cost of hypnotics and anxiolytics prescribing is trending upwards but decreased in Q1 2023/24.</b>", width = "100%")`
+:::
+::::
+
+#### Figure 3: Number of prescribed items and identified patients by month - BNF 4.1: Hypnotics and anxiolytics
+
+```{r monthly_0401, out.width="100%"}
+
+figure_3_0401
+```
+`r get_download_button(title = "Download chart data", data = figure_3_data_0401, filename = "figure_3_0401")`
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>On average, 660,000 patients per month received prescribing for hypnotics and anxiolytics over the last 12 months.</b>", width = "100%")`
+:::
+:::{.col-md-6}
+`r infoBox_no_border("", text = "<b>Hypnotics and anxiolytics items decreased by 2.4% over the last 12 months.</b>", width = "100%")`
+:::
+::::
+
+---
+
+## 3. Sections in this release
+
+
+* Medicines used in Mental Health [summary](`r config$html_top_link`)
+* BNF Section 4.3 - [Antidepressant drugs](`r config$html_0403_link`)
+* BNF Section 4.2 - [Drugs used in psychoses and related disorders](`r config$html_0402_link`)
+* BNF Section 4.4 - [Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$html_0404_link`)
+* BNF Section 4.11 - [Drugs for dementia](`r config$html_0411_link`)
+* [Prescribing during the COVID-19 pandemic](`r config$html_model_link`)
+* Medicines used in Mental Health [background](`r config$background_link`)

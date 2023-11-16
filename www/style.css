@@ -2,26 +2,32 @@
 /* style headers */
 h1 {
   font-size: 34px;
+  font-weight: 700;
 }
 .title {
   font-size: 38px;
+  font-weight: 700;
 }
 h2 {
   font-size: 30px;
   color: #005EB8;
+  font-weight: 700;
 }
 h3 {
   font-size: 24px;
+  font-weight: 700;
 }
 h4 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
 }
 h5 {
   font-size: 16px;
+  font-weight: 700;
 }
 h6 {
   font-size: 12px;
+  font-weight: 700;
 }
 
 /* style main container */

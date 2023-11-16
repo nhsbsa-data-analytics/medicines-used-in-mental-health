@@ -72,7 +72,7 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Proportion of items for which an NHS number was recorded (%)",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Proportion of items for which an NHS number was recorded (%)",
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -136,8 +136,9 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by identified patients",
-  c("1. Field definitions can be found on the 'Metadata' tab."),
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by identified patients",
+  c("1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
   quarterly_0401$national_total,
   14
 )
@@ -169,10 +170,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by BNF paragraph and identified patients",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by BNF paragraph and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$national_paragraph,
   14
@@ -204,10 +206,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by ICB",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$icb,
   14
@@ -239,11 +242,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
+    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$gender,
   14
@@ -275,10 +279,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$ageband,
   14
@@ -310,11 +315,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band and gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. These totals only include patients where both age and gender are known."
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$age_gender,
   14
@@ -346,11 +352,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by IMD",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
+    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$imd,
   14
@@ -382,10 +389,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF section",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF section",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$monthly_section,
   14
@@ -417,10 +424,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Paragraph",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF paragraph",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF paragraph",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$monthly_paragraph,
   14
@@ -452,11 +459,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF chemical substance",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF chemical substance",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$monthly_chem_substance,
   14
@@ -486,31 +493,30 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0401 Hypnotics and anxiolytics",
-  "England 2015/16 - 2022/23",
-  "Publication Date: 6 July 2023",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
+  "Publication Date: 14 September 2023",
   wb,
   sheetNames,
   c(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Paragraph",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Paragraph",
-    "Table 12: Monthly Chemical Substance"
+    "Table 3: National Paragraph",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Monthly Section",
+    "Table 10: Monthly Paragraph",
+    "Table 11: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0401_Mar_23_QR.xlsx",
+                       "outputs/mumh_bnf0401_Jun_23.xlsx",
                        overwrite = TRUE)
 
 # 0402 Drugs used in psychoses and related disorders - quarterly and monthly
@@ -585,7 +591,7 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Proportion of items for which an NHS number was recorded (%)",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Proportion of items for which an NHS number was recorded (%)",
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -649,8 +655,9 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by identified patients",
-  c("1. Field definitions can be found on the 'Metadata' tab."),
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by identified patients",
+  c("1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
   quarterly_0402$national_total,
   14
 )
@@ -682,10 +689,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by BNF paragraph and identified patients",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by BNF paragraph and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$national_paragraph,
   14
@@ -717,10 +725,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by ICB",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$icb,
   14
@@ -752,11 +761,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
+    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$gender,
   14
@@ -788,10 +798,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$ageband,
   14
@@ -823,11 +834,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band and gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. These totals only include patients where both age and gender are known."
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$age_gender,
   14
@@ -859,11 +871,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by IMD",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
+    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$imd,
   14
@@ -895,10 +908,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF section",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF section",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$monthly_section,
   14
@@ -930,10 +943,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Paragraph",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF paragraph",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF paragraph",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$monthly_paragraph,
   14
@@ -965,11 +978,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF chemical substance",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF chemical substance",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$monthly_chem_substance,
   14
@@ -999,31 +1012,30 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0402 Drugs used in psychoses and related disorders",
-  "England 2015/16 - 2022/23",
-  "Publication Date: 6 July 2023",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
+  "Publication Date: 14 September 2023",
   wb,
   sheetNames,
   c(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Paragraph",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Paragraph",
-    "Table 12: Monthly Chemical Substance"
+    "Table 3: National Paragraph",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Monthly Section",
+    "Table 10: Monthly Paragraph",
+    "Table 11: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0402_Mar_23_QR.xlsx",
+                       "outputs/mumh_bnf0402_Jun_23.xlsx",
                        overwrite = TRUE)
 
 
@@ -1100,7 +1112,7 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Proportion of items for which an NHS number was recorded (%)",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Proportion of items for which an NHS number was recorded (%)",
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -1164,8 +1176,9 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by identified patients",
-  c("1. Field definitions can be found on the 'Metadata' tab."),
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by identified patients",
+  c("1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
   quarterly_0403$national_total,
   14
 )
@@ -1197,10 +1210,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by BNF paragraph and identified patients",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by BNF paragraph and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$national_paragraph,
   14
@@ -1232,10 +1246,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by ICB",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$icb,
   14
@@ -1267,11 +1282,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
+    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$gender,
   14
@@ -1303,10 +1319,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$ageband,
   14
@@ -1338,11 +1355,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band and gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. These totals only include patients where both age and gender are known."
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$age_gender,
   14
@@ -1374,11 +1392,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by IMD",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
+    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$imd,
   14
@@ -1410,8 +1429,9 @@ accessibleTables::format_data(wb,
 write_sheet(
   wb,
   "Presc_in_Children",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Prescribing in adults and children, age bands 17 and under to 18 and over",
-  c("1. Field definitions can be found on the 'Metadata' tab."),
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Prescribing in adults and children, age bands 17 and under to 18 and over",
+  c("1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
   quarterly_0403$prescribing_in_children,
   14
 )
@@ -1442,10 +1462,10 @@ format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF section",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF section",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$monthly_section,
   14
@@ -1477,10 +1497,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Paragraph",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF paragraph",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF paragraph",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$monthly_paragraph,
   14
@@ -1512,11 +1532,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF chemical substance",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF chemical substance",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$monthly_chem_substance,
   14
@@ -1547,32 +1567,31 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0403 Antidepressant drugs",
-  "England 2015/16 - 2022/23",
-  "Publication Date: 6 July 2023",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
+  "Publication Date: 14 September 2023",
   wb,
   sheetNames,
   c(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Paragraph",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Prescribing in Children",
-    "Table 11: Monthly Section",
-    "Table 12: Monthly Paragraph",
-    "Table 13: Monthly Chemical Substance"
+    "Table 3: National Paragraph",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Prescribing in Children",
+    "Table 10: Monthly Section",
+    "Table 11: Monthly Paragraph",
+    "Table 12: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0403_Mar_23_QR.xlsx",
+                       "outputs/mumh_bnf0403_Jun_23.xlsx",
                        overwrite = TRUE)
 
 # 0404 CNS stimulants and drugs used for ADHD - quarterly and monthly
@@ -1647,7 +1666,7 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Proportion of items for which an NHS number was recorded (%)",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Proportion of items for which an NHS number was recorded (%)",
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -1711,8 +1730,9 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by identified patients",
-  c("1. Field definitions can be found on the 'Metadata' tab."),
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by identified patients",
+  c("1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
   quarterly_0404$national_total,
   14
 )
@@ -1744,10 +1764,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Chemical_Substance",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by BNF chemical substance and identified patients",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by BNF chemical substance and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$national_chem_substance,
   14
@@ -1779,10 +1800,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by ICB",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$icb,
   14
@@ -1814,11 +1836,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
+    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$gender,
   14
@@ -1850,10 +1873,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$ageband,
   14
@@ -1885,11 +1909,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band and gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. These totals only include patients where both age and gender are known."
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$age_gender,
   14
@@ -1921,11 +1946,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by IMD",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
+    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$imd,
   14
@@ -1957,8 +1983,9 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Presc_in_Children",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Prescribing in adults and children, age bands 17 and under to 18 and over",
-  c("1. Field definitions can be found on the 'Metadata' tab."),
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Prescribing in adults and children, age bands 17 and under to 18 and over",
+  c("1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
   quarterly_0404$prescribing_in_children,
   14
 )
@@ -1989,10 +2016,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF section",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF section",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$monthly_section,
   14
@@ -2024,11 +2051,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF chemical substance",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF chemical substance",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$monthly_chem_substance,
   14
@@ -2057,31 +2084,31 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0404 Central nervous system (CNS) stimulants and drugs used for ADHD",
-  "England 2015/16 - 2022/23",
-  "Publication Date: 6 July 2023",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
+  "Publication Date: 14 September 2023",
   wb,
   sheetNames,
   c(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Chemical Substance",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Prescribing in Children",
-    "Table 11: Monthly Section",
-    "Table 12: Monthly Chemical Substance"
+    "Table 3: National Chemical Substance",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Prescribing in Children",
+    "Table 10: Monthly Section",
+    "Table 11: Monthly Chemical Substance"
+    
   ),
   c("Metadata", sheetNames)
 )
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0404_Mar_23_QR.xlsx",
+                       "outputs/mumh_bnf0404_Jun_23.xlsx",
                        overwrite = TRUE)
 
 # 0411 Drugs for dementia - quarterly and monthly
@@ -2155,7 +2182,7 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Proportion of items for which an NHS number was recorded (%)",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Proportion of items for which an NHS number was recorded (%)",
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -2219,8 +2246,9 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by identified patients",
-  c("1. Field definitions can be found on the 'Metadata' tab."),
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by identified patients",
+  c("1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
   quarterly_0411$national_total,
   14
 )
@@ -2252,10 +2280,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Chemical_Substance",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals split by BNF chemical substance and identified patients",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals split by BNF chemical substance and identified patients",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$national_chem_substance,
   14
@@ -2287,10 +2316,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "ICB",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by ICB",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by ICB",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$icb,
   14
@@ -2322,11 +2352,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together."
+    "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$gender,
   14
@@ -2358,10 +2389,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank."
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$ageband,
   14
@@ -2393,11 +2425,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by age band and gender",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by age band and gender",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. These totals only include patients where both age and gender are known."
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$age_gender,
   14
@@ -2429,11 +2462,12 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "IMD",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Quarterly totals by IMD",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Quarterly totals by IMD",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile."
+    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$imd,
   14
@@ -2465,10 +2499,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF section",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF section",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$monthly_section,
   14
@@ -2500,11 +2534,11 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  "Medicines Used in Mental Health - England - April 2015 to March 2023 - Monthly totals by BNF chemical substance",
+  "Medicines Used in Mental Health - England - April 2015 to June 2023 - Monthly totals by BNF chemical substance",
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
-    "3. Patient counts should not be aggregated to any other level than that which is displayed to prevent multiple counting of patients."
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$monthly_chem_substance,
   14
@@ -2534,28 +2568,27 @@ accessibleTables::format_data(wb,
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0411 Drugs for dementia",
-  "England 2015/16 - 2022/23",
-  "Publication Date: 6 July 2023",
+  "England Quarterly Summary Statistics April 2015 to June 2023",
+  "Publication Date: 14 September 2023",
   wb,
   sheetNames,
   c(
     "Metadata",
     "Table 1: Patient Identification Rates",
     "Table 2: National Total",
-    "Table 3: National Population",
-    "Table 4: National Chemical Substance",
-    "Table 5: ICB",
-    "Table 6: Gender",
-    "Table 7: Age Band",
-    "Table 8: Age Band and Sex",
-    "Table 9: Indices of Deprivation (IMD)",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Chemical Substance"
+    "Table 3: National Chemical Substance",
+    "Table 4: ICB",
+    "Table 5: Gender",
+    "Table 6: Age Band",
+    "Table 7: Age Band and Sex",
+    "Table 8: Indices of Deprivation (IMD)",
+    "Table 9: Monthly Section",
+    "Table 10: Monthly Chemical Substance"
   ),
   c("Metadata", sheetNames)
 )
 
 #save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0411_Mar_23_QR.xlsx",
+                       "outputs/mumh_bnf0411_Jun_23.xlsx",
                        overwrite = TRUE)

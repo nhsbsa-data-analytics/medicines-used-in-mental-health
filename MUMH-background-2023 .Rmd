@@ -2,9 +2,6 @@
 title: "Medicines Used in Mental Health (MUMH) – England"
 always_allow_html: true
 output:
-  word_document:
-    toc: yes
-    toc_depth: '3'
   html_document:
     anchor_sections: no
     css: www/style.css
@@ -12,6 +9,9 @@ output:
     toc_depth: 3
     toc_float:
       collapsed: no
+  word_document:
+    toc: yes
+    toc_depth: '3'
 ---
   
   <script>
@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = FALSE,
   
 # Background Information and Methodology {.toc-ignore}
   
-## July 2023 {.toc-ignore}
+## September 2023 {.toc-ignore}
   
   
 ---
@@ -115,7 +115,7 @@ There are some inconsistencies within the PDS data that is held within the NHSBS
 
 #### 2.1.2 Patient gender/sex
 
-The NHSBSA does not capture information relating to a patient’s sex or gender from a prescription during processing activities. Gender is instead obtained from the PDS. Therefore, gender information is only available for patients that we have been able to obtain a matched NHS number for.
+The NHSBSA does not capture information relating to a patient’s sex or gender from a prescription during processing activities. Gender is instead obtained from the PDS. Therefore, gender information is only available for patients that we have been able obtain a matched NHS number for.
 
 
 A patient is classified in one of four ways for gender by PDS:
@@ -171,21 +171,15 @@ This model states expected figures if trends had continued as before but doesn't
 
 ## 3. Changes to this publication
 
-### 3.1 Patient counts {.toc-ignore}
+### 3.1. Additional quarterly breakdowns {.toc-ignore}
 
-From 2022/23 we have changed how we count patients, which brings the publication in line with other NHSBSA data products. Some historical figures may have changed from previous releases. Patient counts are of identified patients, where a unique NHS number has been captured from a prescription form or electronic prescription service (EPS) message.
-
-### 3.2. Additional quarterly breakdowns {.toc-ignore}
+From the Q1 2023/24 quarterly release, we have split the publication into smaller summaries,one for each BNF Section and one for the modelling of future prescribing. 
 
 From 2022/23 we have amended the annual publication to combine it with the quarterly release for January to March 2023. Demographic information such as breakdowns by gender, age band, and IMD have been added into the quarterly summary tables to align it with the information reported in previous annual publications. These breakdowns have not been applied to the monthly tables.
 
 From 1 July 2022, Sustainability and Transformation Partnerships (STPs) have been replaced by Integrated Care Boards (ICBs) within the NHS geographical structure. A breakdown of the data by ICB has been added to the annual and quarterly tables, replacing the breakdown by STP available in previous annual publications.
 
 Adding these demographic and geographical breakdowns to the quarterly tables will allow users more timely access to data than when previously limited to the annual release.
-
-### 3.3. Quarterly section summaries {.toc-ignore}
-
-From the Q1 2023/24 quarterly release, we have split the publication into smaller sections, an overall summary plus one for each BNF Section and one for the modelling based on previous prescribing trends.
 
 <!-- ### 3.3. Planned changes to this publication {.toc-ignore} -->
 
@@ -423,7 +417,7 @@ You can view our [privacy policy](https://www.nhsbsa.nhs.uk/our-policies/privacy
 
 You can contact us by:
   
-**Email:** statistics@nhsbsa.nhs.uk
+**Email:** nhsbsa.statistics@nhs.net
 
 **You can also write to us at:**
   

@@ -2,9 +2,9 @@
 
 capture_rate_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -56,11 +56,11 @@ capture_rate_extract_period <- function(con, period_type = c("year", "quarter"))
 national_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -218,7 +218,7 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
 }
 
 population_extract <- function(){
-  national_pop <- nhsbsaExternalData::ons_national_pop(year = c(2015:2021),
+  national_pop <- ons_national_pop(year = c(2015:2021),
                                    area = "ENPOP") %>% 
     mutate(YEAR = as.character(YEAR))
   
@@ -248,11 +248,11 @@ population_extract <- function(){
 paragraph_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -424,11 +424,11 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
 chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -616,11 +616,11 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
 icb_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   
   if (period_type == "year") {
     
@@ -843,9 +843,9 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
 
 ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -978,9 +978,9 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
 gender_extract_period <- function(con, period_type = c("year", "quarter")) {
   
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   
   if (period_type == "year") {
     #filter for year in function call
@@ -1086,11 +1086,11 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
 
 age_gender_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   fact_month <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307")) 
+                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308")) 
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1299,9 +1299,9 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter", "m
 
 imd_extract_period <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1421,9 +1421,9 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
 
 child_adult_extract <- function(con, period_type = c("year", "quarter")) {
   fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))
+                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
   fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("MAWIL", "MUMH_FACT_202307"))   
+                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
   if (period_type == "year") { 
     #filter for year in function call
     fact <- fact_year %>%
@@ -1701,7 +1701,7 @@ covid_lm <- function(training_data,
     lm(
       ITEM_COUNT ~ MONTH_INDEX + DISPENSING_DAYS + m_02 + m_03
       + m_04 + m_05 + m_06 + m_07 + m_08 + m_09 + m_10 + m_11 + m_12
-      + PDS_GENDER * as.factor(BAND_20YR),
+      + as.factor(PDS_GENDER) * as.factor(BAND_20YR),
       data = filter(training_data, SECTION_CODE == section_code)
     )
   
@@ -1784,18 +1784,18 @@ month_pred_fun <- function(month, data, model, alpha = 0.95) {
                   data,
                   lmObject = model,
                   alpha = 0.99)
-  output <- data.frame(unit = 1)
+  output <- data.frame(UNIT = 1)
   
   #use list of months within data
   #include columns for lower and upper 95% and 99% CI
   output$YEAR_MONTH <- month
-  output$mean_fit <- pred[["mean"]]
-  output$var <- pred[["var"]]
-  output$PIlwr <- pred[["PI"]][["lower"]]
-  output$PIupr <- pred[["PI"]][["upper"]]
-  output$PIlwr99 <- pred99[["PI"]][["lower"]]
-  output$PIupr99 <- pred99[["PI"]][["upper"]]
-  output$unit <- NULL
+  output$MEAN_FIT <- pred[["mean"]]
+  output$VAR <- pred[["var"]]
+  output$PILWR <- pred[["PI"]][["lower"]]
+  output$PIUPR <- pred[["PI"]][["upper"]]
+  output$PILWR99 <- pred99[["PI"]][["lower"]]
+  output$PIUPR99 <- pred99[["PI"]][["upper"]]
+  output$UNIT <- NULL
   
   return(output)
   
@@ -1829,9 +1829,9 @@ prediction_list <- function(data,
     #add YEAR_MONTH as character column for easier use in chart
     section_pred_list <- df_0401 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0401)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1851,9 +1851,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0402 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0402)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1873,9 +1873,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0403 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0403)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1895,9 +1895,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0404 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0404)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1917,9 +1917,9 @@ prediction_list <- function(data,
     
     section_pred_list <- df_0411 %>%
       dplyr::group_by(YEAR_MONTH, SECTION_CODE) %>%
-      dplyr::summarise(total_items = sum(ITEM_COUNT)) %>%
+      dplyr::summarise(TOTAL_ITEMS = sum(ITEM_COUNT)) %>%
       left_join(rbindlist(pred_0411)) %>%
-      dplyr::mutate(YEAR_MONTH_string = as.character(YEAR_MONTH)) %>%
+      dplyr::mutate(YEAR_MONTH_STRING = as.character(YEAR_MONTH)) %>%
       ungroup()
   }
   
@@ -1927,86 +1927,109 @@ prediction_list <- function(data,
   
 }
 
-### INFO BOXES
-
-infoBox_border <- function(
-    header = "Header here",
-    text = "More text here",
-    backgroundColour = "#ccdff1",
-    borderColour = "#005EB8",
-    width = "31%",
-    fontColour = "black") {
-  
+# Info boxes -------------------------------------------------------------
+infoBox_border <- function(header = "Header here",
+                           text = "More text here",
+                           backgroundColour = "#ccdff1",
+                           borderColour = "#005EB8",
+                           width = "31%",
+                           fontColour = "black") {
   #set handling for when header is blank
   display <- "block"
   
-  if(header == "") {
+  if (header == "") {
     display <- "none"
   }
   
   paste(
-    "<div class='infobox_border' style = 'border: 1px solid ", borderColour,"!important;
-  border-left: 5px solid ", borderColour,"!important;
-  background-color: ", backgroundColour,"!important;
+    "<div class='infobox_border' style = 'border: 1px solid ",
+    borderColour,
+    "!important;
+  border-left: 5px solid ",
+  borderColour,
+  "!important;
+  background-color: ",
+  backgroundColour,
+  "!important;
   padding: 10px;
-  width: ", width,"!important;
+  width: ",
+  width,
+  "!important;
   display: inline-block;
   vertical-align: top;
   flex: 1;
   height: 100%;'>
-  <h4 style = 'color: ", fontColour, ";
+  <h4 style = 'color: ",
+  fontColour,
+  ";
   font-weight: bold;
   font-size: 18px;
   margin-top: 0px;
   margin-bottom: 10px;
-  display: ", display,";'>", 
-    header, "</h4>
-  <p style = 'color: ", fontColour, ";
+  display: ",
+  display,
+  ";'>",
+  header,
+  "</h4>
+  <p style = 'color: ",
+  fontColour,
+  ";
   font-size: 16px;
   margin-top: 0px;
-  margin-bottom: 0px;'>", text, "</p>
+  margin-bottom: 0px;'>",
+  text,
+  "</p>
 </div>"
   )
 }
 
-infoBox_no_border <- function(
-    header = "Header here",
-    text = "More text here",
-    backgroundColour = "#005EB8",
-    width = "31%",
-    fontColour = "white") {
-  
+infoBox_no_border <- function(header = "Header here",
+                              text = "More text here",
+                              backgroundColour = "#005EB8",
+                              width = "31%",
+                              fontColour = "white") {
   #set handling for when header is blank
   display <- "block"
   
-  if(header == "") {
+  if (header == "") {
     display <- "none"
   }
   
   paste(
     "<div class='infobox_no_border',
-    style = 'background-color: ",backgroundColour,
+    style = 'background-color: ",
+    backgroundColour,
     "!important;padding: 10px;
-    width: ",width,";
+    width: ",
+    width,
+    ";
     display: inline-block;
     vertical-align: top;
     flex: 1;
     height: 100%;'>
-  <h4 style = 'color: ", fontColour, ";
+  <h4 style = 'color: ",
+  fontColour,
+  ";
   font-weight: bold;
   font-size: 18px;
   margin-top: 0px;
   margin-bottom: 10px;
-  display: ", display,";'>", 
-    header, "</h4>
-  <p style = 'color: ", fontColour, ";
+  display: ",
+  display,
+  ";'>",
+  header,
+  "</h4>
+  <p style = 'color: ",
+  fontColour,
+  ";
   font-size: 16px;
   margin-top: 0px;
-  margin-bottom: 0px;'>", text, "</p>
+  margin-bottom: 0px;'>",
+  text,
+  "</p>
 </div>"
   )
 }
-
 ### Chart functions
 age_gender_chart <- function(data,
                              labels = FALSE) {
@@ -2251,17 +2274,18 @@ covid_chart_hc <- function(data,
       ACT = prettyNum(signif(TOTAL_ITEMS, 3), big.mark = ","),
       EXP = prettyNum(signif(MEAN_FIT, 3), big.mark = ","),
       RANGE_95 = paste(
-        prettyNum(signif(PI_LOWER_95, 3), big.mark = ","),
+        formatC(signif(PILWR, 3), big.mark = ",", format = "f", digits = 0),
         "-",
-        prettyNum(signif(PI_UPPER_95, 3), big.mark = ",")
+        formatC(signif(PIUPR, 3), big.mark = ",", format = "f", digits = 0)
       ),
       RANGE_99 = paste(
-        prettyNum(signif(PI_LOWER_99, 3), big.mark = ","),
+        formatC(signif(PILWR99, 3), big.mark = ",", format = "f", digits = 0),
         "-",
-        prettyNum(signif(PI_UPPER_99, 3), big.mark = ",")
+        formatC(signif(PIUPR99, 3), big.mark = ",", format = "f", digits = 0)
       ),
-      MONTH_START = as.Date(paste0(YEAR_MONTH, "01"), format = "%Y%m%d")
+      MONTH_START = as.Date(paste0(YEAR_MONTH_STRING, "01"), format = "%Y%m%d")
     )
+  
   
   chart <- highchart() %>%
     highcharter::hc_chart(style = list(fontFamily = "Arial")) %>%
@@ -2276,40 +2300,40 @@ covid_chart_hc <- function(data,
       # enableMouseTracking = FALSE,
       highcharter::hcaes(
         x = MONTH_START,
-        high = signif(PI_UPPER_99, 3),
-        low = signif(PI_LOWER_99, 3),
+        high = signif(PIUPR99, 3),
+        low = signif(PILWR99, 3),
         tooltip = RANGE_99
       )
     ) %>%
     #highcharter::hc_add_series(
-      #data = chart_data,
-      #name = "95% prediction interval",
-      #type = "arearange",
-      #lineWidth = 0,
-      #color = "#b3bbc1",
-      #marker = list(enabled = FALSE),
-      #dataLabels = list(enabled = FALSE),
-      #hcaes(
-        #x = MONTH_START,
-        #high = signif(PI_UPPER_95, 3),
-        #low = signif(PI_LOWER_95, 3),
-        #tooltip = RANGE_95
-      #)
-    #) %>%
-    highcharter::hc_add_series(
-      data = chart_data,
-      name = "Expected items",
-      type = "line",
-      dashStyle = "Dash",
-      color = "#231f20",
-      marker = list(enabled = FALSE),
-      dataLabels = list(enabled = FALSE),
-      hcaes(
-        x = MONTH_START,
-        y = signif(MEAN_FIT, 3),
-        tooltip = EXP
-      )
-    ) %>%
+    #data = chart_data,
+    #name = "95% prediction interval",
+    #type = "arearange",
+    #lineWidth = 0,
+    #color = "#b3bbc1",
+    #marker = list(enabled = FALSE),
+    #dataLabels = list(enabled = FALSE),
+    #hcaes(
+    #x = MONTH_START,
+    #high = signif(PIupr, 3),
+  #low = signif(PIlwr, 3),
+  #tooltip = RANGE_95
+  #)
+  #) %>%
+  highcharter::hc_add_series(
+    data = chart_data,
+    name = "Expected items",
+    type = "line",
+    dashStyle = "Dash",
+    color = "#231f20",
+    marker = list(enabled = FALSE),
+    dataLabels = list(enabled = FALSE),
+    hcaes(
+      x = MONTH_START,
+      y = signif(MEAN_FIT, 3),
+      tooltip = EXP
+    )
+  ) %>%
     highcharter::hc_add_series(
       data = chart_data,
       name = "Prescribed items",
@@ -2538,4 +2562,10 @@ pca_exemption_categories <- function(con) {
     collect()
   
   return(data)
+}
+
+`%!in%` <- function(x, y) {
+  
+  !('%in%'(x,y))
+  
 }

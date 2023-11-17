@@ -164,10 +164,6 @@ WITH  fact  AS  (
     ,drug.chemical_substance_bnf_descr
     ,drug.presentation_bnf
     ,drug.presentation_bnf_descr
-    ,fact.pfea_charge_status
-    ,fact.charge_status
-    ,fact.pfea_exempt_cat
-    ,fact.exempt_cat
     ,fact.item_ssp_fees
     ,fact.item_ssp_vat_value
     --  <methodology change 2023> no longer impute patient flag from PDS data
@@ -231,10 +227,6 @@ WITH  fact  AS  (
     ,drug.chemical_substance_bnf_descr
     ,drug.presentation_bnf
     ,drug.presentation_bnf_descr
-    ,fact.pfea_charge_status
-    ,fact.charge_status
-    ,fact.pfea_exempt_cat
-    ,fact.exempt_cat
     ,fact.item_ssp_fees
     ,fact.item_ssp_vat_value
     ,fact.patient_identified
@@ -284,10 +276,6 @@ SELECT
     ,chemical_substance_bnf_descr
     ,presentation_bnf
     ,presentation_bnf_descr
-    ,pfea_charge_status
-    ,charge_status
-    ,pfea_exempt_cat
-    ,exempt_cat
     ,item_ssp_fees
     ,item_ssp_vat_value
     ,patient_identified
@@ -327,10 +315,6 @@ GROUP BY
     ,chemical_substance_bnf_descr
     ,presentation_bnf
     ,presentation_bnf_descr
-    ,pfea_charge_status
-    ,charge_status
-    ,pfea_exempt_cat
-    ,exempt_cat
     ,item_ssp_fees
     ,item_ssp_vat_value
     ,patient_identified

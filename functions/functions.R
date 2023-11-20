@@ -1,10 +1,13 @@
 ### data warehouse extracts from fact table
 
-capture_rate_extract_period <- function(con, period_type = c("year", "quarter")) {
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
+capture_rate_extract_period <- function(con,
+                                        schema,
+                                        table,
+                                        period_type = c("year", "quarter")) {
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -53,14 +56,17 @@ capture_rate_extract_period <- function(con, period_type = c("year", "quarter"))
   
 }
 
-national_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
+national_extract_period <- function(con,
+                                    schema,
+                                    table,
+                                    period_type = c("year", "quarter", "month")) {
   
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))
+  fact_month <- dplyr::tbl(src = con,
+                           dbplyr::in_schema(schema, table))
   
   if (period_type == "year") {
     
@@ -218,7 +224,7 @@ national_extract_period <- function(con, period_type = c("year", "quarter", "mon
 }
 
 population_extract <- function(){
-  national_pop <- ons_national_pop(year = c(2015:2021),
+  national_pop <- ons_national_pop(year = c(2015:2023),
                                    area = "ENPOP") %>% 
     mutate(YEAR = as.character(YEAR))
   
@@ -245,14 +251,17 @@ population_extract <- function(){
   return(patient_population)
 }
 
-paragraph_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
+paragraph_extract_period <- function(con,
+                                     schema,
+                                     table,
+                                     period_type = c("year", "quarter", "month")) {
   
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))
+  fact_month <- dplyr::tbl(src = con,
+                           dbplyr::in_schema(schema, table))
   
   if (period_type == "year") {
     
@@ -421,14 +430,17 @@ paragraph_extract_period <- function(con, period_type = c("year", "quarter", "mo
   
 }
 
-chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
+chem_sub_extract_period <- function(con,
+                                    schema,
+                                    table,
+                                    period_type = c("year", "quarter", "month")) {
   
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))
+  fact_month <- dplyr::tbl(src = con,
+                           dbplyr::in_schema(schema, table))
   
   if (period_type == "year") {
     
@@ -613,14 +625,17 @@ chem_sub_extract_period <- function(con, period_type = c("year", "quarter", "mon
   
 }
 
-icb_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
+icb_extract_period <- function(con,
+                               schema,
+                               table,
+                               period_type = c("year", "quarter", "month")) {
   
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))
+  fact_month <- dplyr::tbl(src = con,
+                           dbplyr::in_schema(schema, table))
   
   if (period_type == "year") {
     
@@ -841,12 +856,17 @@ icb_extract_period <- function(con, period_type = c("year", "quarter", "month"))
   
 }
 
-ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
+ageband_extract_period <- function(con,
+                                   schema,
+                                   table,
+                                   period_type = c("year", "quarter")) {
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))   
+  
   if (period_type == "year") {
+    
     #filter for year in function call
     fact <- fact_year %>%
       dplyr::mutate(
@@ -975,12 +995,15 @@ ageband_extract_period <- function(con, period_type = c("year", "quarter")) {
   
 }
 
-gender_extract_period <- function(con, period_type = c("year", "quarter")) {
+gender_extract_period <- function(con,
+                                  schema,
+                                  table,
+                                  period_type = c("year", "quarter")) {
   
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))   
   
   if (period_type == "year") {
     #filter for year in function call
@@ -1084,13 +1107,16 @@ gender_extract_period <- function(con, period_type = c("year", "quarter")) {
   
 }
 
-age_gender_extract_period <- function(con, period_type = c("year", "quarter", "month")) {
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
-  fact_month <- dplyr::tbl(con,
-                           from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308")) 
+age_gender_extract_period <- function(con,
+                                      schema,
+                                      table,
+                                      period_type = c("year", "quarter", "month")) {
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))   
+  fact_month <- dplyr::tbl(src = con,
+                           dbplyr::in_schema(schema, table)) 
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1297,11 +1323,14 @@ age_gender_extract_period <- function(con, period_type = c("year", "quarter", "m
   
 }
 
-imd_extract_period <- function(con, period_type = c("year", "quarter")) {
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
+imd_extract_period <- function(con,
+                               schema,
+                               table,
+                               period_type = c("year", "quarter")) {
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))   
   if (period_type == "year") {
     #filter for year in function call
     fact <- fact_year %>%
@@ -1419,11 +1448,14 @@ imd_extract_period <- function(con, period_type = c("year", "quarter")) {
   
 }
 
-child_adult_extract <- function(con, period_type = c("year", "quarter")) {
-  fact_year <- dplyr::tbl(con,
-                          from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))
-  fact_quarter <- dplyr::tbl(con,
-                             from = dbplyr::in_schema("KIGRA", "MUMH_FACT_202308"))   
+child_adult_extract <- function(con,
+                                schema,
+                                table,
+                                period_type = c("year", "quarter")) {
+  fact_year <- dplyr::tbl(src = con,
+                          dbplyr::in_schema(schema, table))
+  fact_quarter <- dplyr::tbl(src = con,
+                             dbplyr::in_schema(schema, table))   
   if (period_type == "year") { 
     #filter for year in function call
     fact <- fact_year %>%
@@ -1533,7 +1565,6 @@ child_adult_extract <- function(con, period_type = c("year", "quarter")) {
   return(child_adult_split)
   
 }
-
 
 ### Statistical Disclosure Control
 
@@ -2536,36 +2567,4 @@ get_download_button <- function(data = data, title = "Download chart data", file
   )
   
   return(dt)
-}
-#---------------
-
-### add_anl_4ii function
-pca_exemption_categories <- function(con) {
-  raw_data <- dplyr::tbl(con,
-                         from = dbplyr::in_schema("AML", "PCA_MY_FY_CY_FACT")) |>
-    dplyr::filter(MONTH_TYPE %in% c("FY"),YEAR_DESC != "2013/2014") |>
-    dplyr::select(
-      "YEAR_DESC",
-      "PFEA_EXEMPT_CAT",
-      "EXEMPT_CAT",
-      "ITEM_COUNT",
-      "ITEM_PAY_DR_NIC"
-    ) |>
-    dplyr::group_by(YEAR_DESC, PFEA_EXEMPT_CAT, EXEMPT_CAT) |>
-    dplyr::summarise(ITEM_COUNT = sum(ITEM_COUNT),
-                     ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC) / 100
-    ) |>
-    dplyr::ungroup()  |>
-    dplyr::arrange(YEAR_DESC)
-  #pull data from warehouse
-  data <- raw_data |>
-    collect()
-  
-  return(data)
-}
-
-`%!in%` <- function(x, y) {
-  
-  !('%in%'(x,y))
-  
 }

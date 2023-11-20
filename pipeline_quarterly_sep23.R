@@ -16,7 +16,6 @@ for (file in function_files) {
 
 #1. Setup and package installation
 
-
 # load GITHUB_KEY if available in environment or enter if not
 if (Sys.getenv("GITHUB_PAT") == "") {
   usethis::edit_r_environ()
@@ -101,7 +100,7 @@ log_print(config, hide_notes = TRUE)
 nhsbsaUtils::publication_options()
 log_print("Options loaded", hide_notes = TRUE)
 
-#2. data import
+#2. Data import
 
 con <- nhsbsaR::con_nhsbsa(dsn = "FBS_8192k",
                            driver = "Oracle in OraClient19Home1",
@@ -154,3 +153,34 @@ child_adult_extract_quarter <- child_adult_extract(con = con,
                                                    period_type = "quarter")
 
 log_print("Quarterly extracts pulled", hide_notes = TRUE)
+
+# monthly data extracts
+
+national_extract_monthly <- national_extract_period(con = con,
+                                                    schema = schema,
+                                                    table = config$sql_table_name,
+                                                    period_type = "month")
+paragraph_extract_monthly <- paragraph_extract_period(con = con,
+                                                      schema = schema,
+                                                      table = config$sql_table_name,
+                                                      period_type = "month")
+chem_sub_extract_monthly <- chem_sub_extract_period(con = con,
+                                                    schema = schema,
+                                                    table = config$sql_table_name,
+                                                    period_type = "month")
+age_gender_extract_month <- age_gender_extract_period(con = con,
+                                                      schema = schema,
+                                                      table = config$sql_table_name,
+                                                      period_type = "month")
+
+log_print("Monthly extracts pulled", hide_notes = TRUE)
+
+# disconnect from data warehouse once all extracts pulled
+
+DBI::dbDisconnect(con)
+
+#3. Aggregations and analysis
+
+#0401 Hypnotics and anxiolytics workbook - quarterly
+
+

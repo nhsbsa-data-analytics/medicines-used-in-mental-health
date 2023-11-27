@@ -2568,3 +2568,135 @@ get_download_button <- function(data = data, title = "Download chart data", file
   
   return(dt)
 }
+
+### Population function for use in age-gender standardised figures
+
+pop_age_gen <- function() {
+  ### mid-2022 data
+  temp1 <- tempfile()
+  pop_url <-
+    utils::download.file(url = "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales/mid20222023localauthorityboundaires/mye22tablesew2023geogs.xlsx",
+                         temp1,
+                         mode = "wb") 
+  #TO DO: change to loop applied to sheets 7, 8 and 9
+  #read xlsx population file for all persons
+  df_all <- readxl::read_xlsx(temp1,
+                              sheet = 7,
+                              range = "A8:CQ10",
+                              col_names = TRUE) |>
+    dplyr::filter(`Name` == "ENGLAND") |>
+    stats::na.omit() |>
+    dplyr::mutate(`Area` = `Name`,
+                  Sex = "All", .after = `Area`,) |>
+    dplyr::select(-c(`Code`, `Geography`, `Name`, `All ages`)) |>
+    tidyr::pivot_longer(cols = `0`:`90+`,
+                        names_to = "AGE",
+                        values_to = "POPULATION") |>
+    dplyr::mutate(AGE = as.numeric(gsub("[^0-9.-]", "", AGE))) |>
+    dplyr::mutate(
+      AGE_BAND = dplyr::case_when(
+        AGE == 90 ~ "90+",
+        AGE >= 85 ~ "85-89",
+        AGE >= 80 ~ "80-84",
+        AGE >= 75 ~ "75-79",
+        AGE >= 70 ~ "70-74",
+        AGE >= 65 ~ "65-69",
+        AGE >= 60 ~ "60-64",
+        AGE >= 55 ~ "55-59",
+        AGE >= 50 ~ "50-54",
+        AGE >= 45 ~ "45-49",
+        AGE >= 40 ~ "40-44",
+        AGE >= 35 ~ "35-39",
+        AGE >= 30 ~ "30-34",
+        AGE >= 25 ~ "25-29",
+        AGE >= 20 ~ "20-24",
+        AGE >= 15 ~ "15-19",
+        AGE >= 10 ~ "10-14",
+        AGE >= 5 ~ "05-09",
+        TRUE ~ "00-04"))
+  
+  #read xlsx population file for females
+  df_female <- readxl::read_xlsx(temp1,
+                                 sheet = 8,
+                                 range = "A8:CQ10",
+                                 col_names = TRUE) |>
+    dplyr::filter(`Name` == "ENGLAND") |>
+    stats::na.omit() |>
+    dplyr::mutate(`Area` = `Name`,
+                  Sex = "Female", .after = `Area`,) |>
+    dplyr::select(-c(`Code`, `Geography`, `Name`, `All ages`)) |>
+    tidyr::pivot_longer(cols = `0`:`90+`,
+                        names_to = "AGE",
+                        values_to = "POPULATION") |>
+    dplyr::mutate(AGE = as.numeric(gsub("[^0-9.-]", "", AGE))) |>
+    dplyr::mutate(
+      AGE_BAND = dplyr::case_when(
+        AGE == 90 ~ "90+",
+        AGE >= 85 ~ "85-89",
+        AGE >= 80 ~ "80-84",
+        AGE >= 75 ~ "75-79",
+        AGE >= 70 ~ "70-74",
+        AGE >= 65 ~ "65-69",
+        AGE >= 60 ~ "60-64",
+        AGE >= 55 ~ "55-59",
+        AGE >= 50 ~ "50-54",
+        AGE >= 45 ~ "45-49",
+        AGE >= 40 ~ "40-44",
+        AGE >= 35 ~ "35-39",
+        AGE >= 30 ~ "30-34",
+        AGE >= 25 ~ "25-29",
+        AGE >= 20 ~ "20-24",
+        AGE >= 15 ~ "15-19",
+        AGE >= 10 ~ "10-14",
+        AGE >= 5 ~ "05-09",
+        TRUE ~ "00-04")) 
+  
+  #read xlsx population file for females
+  df_male <- readxl::read_xlsx(temp1,
+                               sheet = 9,
+                               range = "A8:CQ10",
+                               col_names = TRUE) |>
+    dplyr::filter(`Name` == "ENGLAND") |>
+    stats::na.omit() |>
+    dplyr::mutate(`Area` = `Name`,
+                  Sex = "Male", .after = `Area`,) |>
+    dplyr::select(-c(`Code`, `Geography`, `Name`, `All ages`)) |>
+    tidyr::pivot_longer(cols = `0`:`90+`,
+                        names_to = "AGE",
+                        values_to = "POPULATION") |>
+    dplyr::mutate(AGE = as.numeric(gsub("[^0-9.-]", "", AGE))) |>
+    dplyr::mutate(
+      AGE_BAND = dplyr::case_when(
+        AGE == 90 ~ "90+",
+        AGE >= 85 ~ "85-89",
+        AGE >= 80 ~ "80-84",
+        AGE >= 75 ~ "75-79",
+        AGE >= 70 ~ "70-74",
+        AGE >= 65 ~ "65-69",
+        AGE >= 60 ~ "60-64",
+        AGE >= 55 ~ "55-59",
+        AGE >= 50 ~ "50-54",
+        AGE >= 45 ~ "45-49",
+        AGE >= 40 ~ "40-44",
+        AGE >= 35 ~ "35-39",
+        AGE >= 30 ~ "30-34",
+        AGE >= 25 ~ "25-29",
+        AGE >= 20 ~ "20-24",
+        AGE >= 15 ~ "15-19",
+        AGE >= 10 ~ "10-14",
+        AGE >= 5 ~ "05-09",
+        TRUE ~ "00-04"))
+  
+  pop_2022_agegen <- df_all |>
+    dplyr::bind_rows(
+      df_female,
+      df_male
+    ) |>
+    dplyr::arrange(`Sex`, `AGE`) |>
+    dplyr::group_by(`Sex`, AGE_BAND) |>
+    dplyr::summarise(POPULATION = sum(POPULATION), .groups = "drop") |>
+    dplyr::rename(`Population` = POPULATION,
+                  `Age Band` = AGE_BAND) |>
+    dplyr::mutate(`Year` = "2022", .before = `Sex`)
+  return(pop_2022_agegen)
+  }

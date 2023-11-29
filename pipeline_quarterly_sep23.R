@@ -181,13 +181,20 @@ DBI::dbDisconnect(con)
 
 # external data extracts
 
-# population data
+#mid-year england population by ageband and gender 2015 to 2022
+pop_agegen_2022 <- national_pop_agegen() |>
+  dplyr::mutate(`Year` = as.double(`Year`)) |>
+  dplyr::filter(`Sex` != "All")
 
+#national england population 2022
+total_pop_eng_2022 <- pop_agegen_2022 |>
+  dplyr::filter(`Sex` == "All",
+                `Year` == "2022") |>
+  dplyr::summarise(`Total population` = sum(`Population`))
 
+log_print("External data pulled", hide_notes = TRUE)
 
 #3. Aggregations and analysis
-
-# volume measures - items and quantity per identified patient
 
 
 #0401 Hypnotics and anxiolytics workbook - quarterly
@@ -321,6 +328,52 @@ quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly |>
     `Total Net Ingredient Cost (GBP)`) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
+quarterly_0401$avg_per_pat <- chem_sub_extract_monthly |>
+  apply_sdc(rounding = F) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::filter(`BNF Section Code` == "0401",
+                `Identified Patient Flag` == "Y") |>
+  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
+                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+
+quarterly_0401$pat_per_1000_pop <- age_gender_extract_quarter |>
+  apply_sdc(rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(`Financial Year`,
+                `Financial Quarter`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Age Band`,
+                `Patient Gender`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
+    c(`Financial Year`), 1, 4
+  ))), .after = `Financial Year`) |>
+  dplyr::filter(`Identified Patient Flag` == "Y",
+                `Age Band` != "Unknown") |>
+  stats::na.omit() |>
+  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+                   by = c("Mid-year Population Year" = "Year",
+                          "Patient Gender" = "Sex",
+                          "Age Band" = "Age Band")) |>
+  dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
+                                                      `Mid-year Population Estimate`) * 1000)) 
+
 # 0402 Drugs used in psychoses and related disorders workbook - quarterly
 
 quarterly_0402 <- list()
@@ -452,6 +505,51 @@ quarterly_0402$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Total Net Ingredient Cost (GBP)`) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
+quarterly_0402$avg_per_pat <- chem_sub_extract_monthly |>
+  apply_sdc(rounding = F) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::filter(`BNF Section Code` == "0402",
+                `Identified Patient Flag` == "Y") |>
+  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
+                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+
+quarterly_0402$pat_per_1000_pop <- age_gender_extract_quarter |>
+  apply_sdc(rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(`Financial Year`,
+                `Financial Quarter`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Age Band`,
+                `Patient Gender`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
+    c(`Financial Year`), 1, 4
+  ))), .after = `Financial Year`) |>
+  dplyr::filter(`Identified Patient Flag` == "Y",
+                `Age Band` != "Unknown") |>
+  stats::na.omit() |>
+  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+                   by = c("Mid-year Population Year" = "Year",
+                          "Patient Gender" = "Sex",
+                          "Age Band" = "Age Band")) |>
+  dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
+                                                      `Mid-year Population Estimate`) * 1000)) 
 
 # 0403 Antidepressants workbook - quarterly
 
@@ -598,6 +696,52 @@ quarterly_0403$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Total Net Ingredient Cost (GBP)`) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
+quarterly_0403$avg_per_pat <- chem_sub_extract_monthly |>
+  apply_sdc(rounding = F) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::filter(`BNF Section Code` == "0403",
+                `Identified Patient Flag` == "Y") |>
+  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
+                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+
+quarterly_0403$pat_per_1000_pop <- age_gender_extract_quarter |>
+  apply_sdc(rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(`Financial Year`,
+                `Financial Quarter`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Age Band`,
+                `Patient Gender`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
+    c(`Financial Year`), 1, 4
+  ))), .after = `Financial Year`) |>
+  dplyr::filter(`Identified Patient Flag` == "Y",
+                `Age Band` != "Unknown") |>
+  stats::na.omit() |>
+  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+                   by = c("Mid-year Population Year" = "Year",
+                          "Patient Gender" = "Sex",
+                          "Age Band" = "Age Band")) |>
+  dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
+                                                      `Mid-year Population Estimate`) * 1000)) 
+
 # 0404 CNS stimulants and drugs used for ADHD - quarterly
 
 quarterly_0404 <- list()
@@ -733,6 +877,52 @@ quarterly_0404$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Total Net Ingredient Cost (GBP)`) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
+quarterly_0404$avg_per_pat <- chem_sub_extract_monthly |>
+  apply_sdc(rounding = F) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::filter(`BNF Section Code` == "0404",
+                `Identified Patient Flag` == "Y") |>
+  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
+                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+
+quarterly_0404$pat_per_1000_pop <- age_gender_extract_quarter |>
+  apply_sdc(rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(`Financial Year`,
+                `Financial Quarter`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Age Band`,
+                `Patient Gender`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
+    c(`Financial Year`), 1, 4
+  ))), .after = `Financial Year`) |>
+  dplyr::filter(`Identified Patient Flag` == "Y",
+                `Age Band` != "Unknown") |>
+  stats::na.omit() |>
+  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+                   by = c("Mid-year Population Year" = "Year",
+                          "Patient Gender" = "Sex",
+                          "Age Band" = "Age Band")) |>
+  dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
+                                                      `Mid-year Population Estimate`) * 1000)) 
+
 # 0411 Drugs for dementia workbook - quarterly
 
 quarterly_0411 <- list()
@@ -857,6 +1047,52 @@ quarterly_0411$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Total Net Ingredient Cost (GBP)`) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
+quarterly_0411$avg_per_pat <- chem_sub_extract_monthly |>
+  apply_sdc(rounding = F) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `Year Month`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::filter(`BNF Section Code` == "0411",
+                `Identified Patient Flag` == "Y") |>
+  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
+                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+
+quarterly_0411$pat_per_1000_pop <- age_gender_extract_quarter |>
+  apply_sdc(rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(`Financial Year`,
+                `Financial Quarter`,
+                `BNF Section Name`,
+                `BNF Section Code`,
+                `Age Band`,
+                `Patient Gender`,
+                `Identified Patient Flag`,
+                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
+    c(`Financial Year`), 1, 4
+  ))), .after = `Financial Year`) |>
+  dplyr::filter(`Identified Patient Flag` == "Y",
+                `Age Band` != "Unknown") |>
+  stats::na.omit() |>
+  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+                   by = c("Mid-year Population Year" = "Year",
+                          "Patient Gender" = "Sex",
+                          "Age Band" = "Age Band")) |>
+  dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
+                                                      `Mid-year Population Estimate`) * 1000)) 
+
 #3. covid model
 
 #data manipulation to get 20 year agebands and month columns needed for use in model
@@ -941,10 +1177,12 @@ sheetNames <- c(
   "Gender",
   "Age_Band",
   "Age_Band_and_Gender",
+  "Population_by_Age_Gender",
   "IMD",
   "Monthly_Section",
   "Monthly_Paragraph",
-  "Monthly_Chemical_Substance"
+  "Monthly_Chemical_Substance",
+  "Average_Items_per_Patient"
 )
 
 wb <- accessibleTables::create_wb(sheetNames)
@@ -968,7 +1206,12 @@ meta_fields <- c(
   "BNF Chemical Substance Code",
   "Patient Gender",
   "Age Band",
-  "IMD Quintile"
+  "IMD Quintile",
+  "Average Items per Patient",
+  "Average NIC per patient (GBP)",
+  "Mid-Year England Population Estimate",
+  "Mid-Year Population Year",
+  "Patients per 1,000 Population"
 )
 
 meta_descs <-
@@ -990,7 +1233,12 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The population estimate for the corresponding Mid-Year Population Year.",
+    "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1278,6 +1526,45 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+## Patients per 1000 population by Age and gender
+
+accessibleTables::write_sheet(
+  wb,
+  "Population_by_Age_Gender",
+  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
+    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+  ),
+  quarterly_0401$pat_per_1000_pop,
+  14
+)
+
+#left align columns A to h
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("A", "B", "C", "D", "E", "F", "G", "H"),
+                              "left",
+                              "")
+
+#right align columns I and J and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("I", "J"),
+                              "right",
+                              "#,##0")
+
+#right align column K and round to 2dp with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("K"),
+                              "right",
+                              "#,##0.00")
+
 ## IMD
 
 accessibleTables::write_sheet(
@@ -1421,6 +1708,44 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+##  Average items per patient monthly chemical substance data
+# write data to sheet
+accessibleTables::write_sheet(
+  wb,
+  "Average_Items_per_Patient",
+  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+  ),
+  quarterly_0401$avg_per_pat,
+  14
+)
+
+# left align columns A to J
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+                              "left",
+                              "")
+
+# right align columns K and L and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("K", "L"),
+                              "right",
+                              "#,##0")
+
+# right align column M, N, and O and round to 2 decimal places with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("M", "N", "O"),
+                              "right",
+                              "#,##0.00")
+
+
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0401 Hypnotics and anxiolytics",
@@ -1436,11 +1761,13 @@ accessibleTables::makeCoverSheet(
     "Table 4: ICB",
     "Table 5: Gender",
     "Table 6: Age Band",
-    "Table 7: Age Band and Sex",
-    "Table 8: Indices of Deprivation (IMD)",
-    "Table 9: Monthly Section",
-    "Table 10: Monthly Paragraph",
-    "Table 11: Monthly Chemical Substance"
+    "Table 7: Age Band and Gender",
+    "Table 8: Population by Age Band and Gender",
+    "Table 9: Indices of Deprivation (IMD)",
+    "Table 10: Monthly Section",
+    "Table 11: Monthly Paragraph",
+    "Table 12: Monthly Chemical Substance",
+    "Table 13: Average Items per Identified Patient"
   ),
   c("Metadata", sheetNames)
 )
@@ -1460,10 +1787,12 @@ sheetNames <- c(
   "Gender",
   "Age_Band",
   "Age_Band_and_Gender",
+  "Population_by_Age_Gender",
   "IMD",
   "Monthly_Section",
   "Monthly_Paragraph",
-  "Monthly_Chemical_Substance"
+  "Monthly_Chemical_Substance",
+  "Average_Items_per_Patient"
 )
 
 wb <- accessibleTables::create_wb(sheetNames)
@@ -1487,7 +1816,12 @@ meta_fields <- c(
   "BNF Chemical Substance Code",
   "Patient Gender",
   "Age Band",
-  "IMD Quintile"
+  "IMD Quintile",
+  "Average items per patient",
+  "Average NIC per patient (GBP)",
+  "Mid-Year England Population Estimate",
+  "Mid-Year Population Year",
+  "Patients per 1,000 Population"
 )
 
 meta_descs <-
@@ -1509,7 +1843,12 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The population estimate for the corresponding Mid-Year Population Year.",
+    "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1797,6 +2136,45 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+## Patients per 1000 population by Age and gender
+
+accessibleTables::write_sheet(
+  wb,
+  "Population_by_Age_Gender",
+  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
+    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+  ),
+  quarterly_0402$pat_per_1000_pop,
+  14
+)
+
+#left align columns A to h
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("A", "B", "C", "D", "E", "F", "G", "H"),
+                              "left",
+                              "")
+
+#right align columns I and J and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("I", "J"),
+                              "right",
+                              "#,##0")
+
+#right align column K and round to 2dp with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("K"),
+                              "right",
+                              "#,##0.00")
+
 ## IMD
 
 accessibleTables::write_sheet(
@@ -1940,6 +2318,43 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+##  Average items per patient monthly chemical substance data
+# write data to sheet
+accessibleTables::write_sheet(
+  wb,
+  "Average_Items_per_Patient",
+  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+  ),
+  quarterly_0402$avg_per_pat,
+  14
+)
+
+# left align columns A to J
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+                              "left",
+                              "")
+
+# right align columns K and L and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("K", "L"),
+                              "right",
+                              "#,##0")
+
+# right align column M, N, and O and round to 2 decimal places with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("M", "N", "O"),
+                              "right",
+                              "#,##0.00")
+
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0402 Drugs used in psychoses and related disorders",
@@ -1955,11 +2370,13 @@ accessibleTables::makeCoverSheet(
     "Table 4: ICB",
     "Table 5: Gender",
     "Table 6: Age Band",
-    "Table 7: Age Band and Sex",
-    "Table 8: Indices of Deprivation (IMD)",
-    "Table 9: Monthly Section",
-    "Table 10: Monthly Paragraph",
-    "Table 11: Monthly Chemical Substance"
+    "Table 7: Age Band and Gender",
+    "Table 8: Population by Age Band and Gender",
+    "Table 9: Indices of Deprivation (IMD)",
+    "Table 10: Monthly Section",
+    "Table 11: Monthly Paragraph",
+    "Table 12: Monthly Chemical Substance",
+    "Table 13: Average Items per Identified Patient"
   ),
   c("Metadata", sheetNames)
 )
@@ -1980,12 +2397,14 @@ sheetNames <- c(
   "Gender",
   "Age_Band",
   "Age_Band_and_Gender",
+  "Population_by_Age_Gender",
   "IMD",
   "Presc_in_Children",
   "Monthly_Section",
   "Monthly_Paragraph",
-  "Monthly_Chemical_Substance"
-)
+  "Monthly_Chemical_Substance",
+  "Average_Items_per_Patient"
+  )
 
 wb <- accessibleTables::create_wb(sheetNames)
 
@@ -2008,7 +2427,12 @@ meta_fields <- c(
   "BNF Chemical Substance Code",
   "Patient Gender",
   "Age Band",
-  "IMD Quintile"
+  "IMD Quintile",
+  "Average Items per Patient",
+  "Average NIC per Patient (GBP)",
+  "Mid-Year England Population Estimate",
+  "Mid-Year Population Year",
+  "Patients per 1,000 Population"
 )
 
 meta_descs <-
@@ -2030,7 +2454,12 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The population estimate for the corresponding Mid-Year Population Year.",
+    "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -2318,6 +2747,45 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+## Patients per 1000 population by Age and gender
+
+accessibleTables::write_sheet(
+  wb,
+  "Population_by_Age_Gender",
+  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
+    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+  ),
+  quarterly_0403$pat_per_1000_pop,
+  14
+)
+
+#left align columns A to h
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("A", "B", "C", "D", "E", "F", "G", "H"),
+                              "left",
+                              "")
+
+#right align columns I and J and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("I", "J"),
+                              "right",
+                              "#,##0")
+
+#right align column K and round to 2dp with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("K"),
+                              "right",
+                              "#,##0.00")
+
 ## IMD
 
 accessibleTables::write_sheet(
@@ -2357,7 +2825,7 @@ accessibleTables::format_data(wb,
 
 ## Prescribing in children
 
-write_sheet(
+accessibleTables::write_sheet(
   wb,
   "Presc_in_Children",
   paste0(config$publication_table_title, " - Prescribing in adults and children, age bands 17 and under to 18 and over"),
@@ -2368,21 +2836,21 @@ write_sheet(
 )
 
 #left align columns A to e
-format_data(wb,
+accessibleTables::format_data(wb,
             "Presc_in_Children",
             c("A", "B", "C", "D", "E"),
             "left",
             "")
 
 #right align columns F and G and round to whole numbers with thousand separator
-format_data(wb,
+accessibleTables::format_data(wb,
             "Presc_in_Children",
             c("F", "G"),
             "right",
             "#,##0")
 
 #right align column H and round to 2dp with thousand separator
-format_data(wb,
+accessibleTables::format_data(wb,
             "Presc_in_Children",
             c("H"),
             "right",
@@ -2494,6 +2962,43 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+##  Average items per patient monthly chemical substance data
+# write data to sheet
+accessibleTables::write_sheet(
+  wb,
+  "Average_Items_per_Patient",
+  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+  ),
+  quarterly_0403$avg_per_pat,
+  14
+)
+
+# left align columns A to J
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+                              "left",
+                              "")
+
+# right align columns K and L and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("K", "L"),
+                              "right",
+                              "#,##0")
+
+# right align column M, N, and O and round to 2 decimal places with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("M", "N", "O"),
+                              "right",
+                              "#,##0.00")
+
 
 #create cover sheet
 accessibleTables::makeCoverSheet(
@@ -2510,12 +3015,14 @@ accessibleTables::makeCoverSheet(
     "Table 4: ICB",
     "Table 5: Gender",
     "Table 6: Age Band",
-    "Table 7: Age Band and Sex",
-    "Table 8: Indices of Deprivation (IMD)",
-    "Table 9: Prescribing in Children",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Paragraph",
-    "Table 12: Monthly Chemical Substance"
+    "Table 7: Age Band and Gender",
+    "Table 8: Population by Age Band and Gender",
+    "Table 9: Indices of Deprivation (IMD)",
+    "Table 10: Prescribing in Children",
+    "Table 11: Monthly Section",
+    "Table 12: Monthly Paragraph",
+    "Table 13: Monthly Chemical Substance",
+    "Table 14: Average Items per Identified Patient"
   ),
   c("Metadata", sheetNames)
 )
@@ -2535,11 +3042,13 @@ sheetNames <- c(
   "Gender",
   "Age_Band",
   "Age_Band_and_Gender",
+  "Population_by_Age_Gender",
   "IMD",
   "Presc_in_Children",
   "Monthly_Section",
-  "Monthly_Chemical_Substance"
-)
+  "Monthly_Chemical_Substance",
+  "Average_Items_per_Patient"
+  )
 
 wb <- accessibleTables::create_wb(sheetNames)
 
@@ -2562,7 +3071,12 @@ meta_fields <- c(
   "BNF Chemical Substance Code",
   "Patient Gender",
   "Age Band",
-  "IMD Quintile"
+  "IMD Quintile",
+  "Average Items per Patient",
+  "Average NIC per Patient (GBP)",
+  "Mid-Year England Population Estimate",
+  "Mid-Year Population Year",
+  "Patients per 1,000 Population"
 )
 
 meta_descs <-
@@ -2584,7 +3098,12 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The population estimate for the corresponding Mid-Year Population Year.",
+    "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -2872,6 +3391,45 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+## Patients per 1000 population by Age and gender
+
+accessibleTables::write_sheet(
+  wb,
+  "Population_by_Age_Gender",
+  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
+    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+  ),
+  quarterly_0404$pat_per_1000_pop,
+  14
+)
+
+#left align columns A to h
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("A", "B", "C", "D", "E", "F", "G", "H"),
+                              "left",
+                              "")
+
+#right align columns I and J and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("I", "J"),
+                              "right",
+                              "#,##0")
+
+#right align column K and round to 2dp with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("K"),
+                              "right",
+                              "#,##0.00")
+
 ## IMD
 
 accessibleTables::write_sheet(
@@ -3012,6 +3570,44 @@ accessibleTables::format_data(wb,
                               c("M"),
                               "right",
                               "#,##0.00")
+
+##  Average items per patient monthly chemical substance data
+# write data to sheet
+accessibleTables::write_sheet(
+  wb,
+  "Average_Items_per_Patient",
+  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+  ),
+  quarterly_0404$avg_per_pat,
+  14
+)
+
+# left align columns A to J
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+                              "left",
+                              "")
+
+# right align columns K and L and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("K", "L"),
+                              "right",
+                              "#,##0")
+
+# right align column M, N, and O and round to 2 decimal places with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("M", "N", "O"),
+                              "right",
+                              "#,##0.00")
+
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0404 Central nervous system (CNS) stimulants and drugs used for ADHD",
@@ -3027,11 +3623,13 @@ accessibleTables::makeCoverSheet(
     "Table 4: ICB",
     "Table 5: Gender",
     "Table 6: Age Band",
-    "Table 7: Age Band and Sex",
-    "Table 8: Indices of Deprivation (IMD)",
-    "Table 9: Prescribing in Children",
-    "Table 10: Monthly Section",
-    "Table 11: Monthly Chemical Substance"
+    "Table 7: Age Band and Gender",
+    "Table 8 Population by Age Band and Gender",
+    "Table 9: Indices of Deprivation (IMD)",
+    "Table 10: Prescribing in Children",
+    "Table 11: Monthly Section",
+    "Table 12: Monthly Chemical Substance",
+    "Table 13: Average Items per Identified Patient"
     
   ),
   c("Metadata", sheetNames)
@@ -3052,10 +3650,12 @@ sheetNames <- c(
   "Gender",
   "Age_Band",
   "Age_Band_and_Gender",
+  "Population_by_Age_Gender",
   "IMD",
   "Monthly_Section",
-  "Monthly_Chemical_Substance"
-)
+  "Monthly_Chemical_Substance",
+  "Average_Items_per_Patient"
+  )
 
 wb <- accessibleTables::create_wb(sheetNames)
 
@@ -3078,7 +3678,12 @@ meta_fields <- c(
   "BNF Chemical Substance Code",
   "Patient Gender",
   "Age Band",
-  "IMD Quintile"
+  "IMD Quintile",
+  "Average Items per Patient",
+  "Average NIC per Patient (GBP)",
+  "Mid-Year England Population Estimate",
+  "Mid-Year Population Year",
+  "Patients per 1,000 Population"
 )
 
 meta_descs <-
@@ -3100,7 +3705,12 @@ meta_descs <-
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL)."
+    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The population estimate for the corresponding Mid-Year Population Year.",
+    "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -3388,6 +3998,45 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+## Patients per 1000 population by Age and gender
+
+accessibleTables::write_sheet(
+  wb,
+  "Population_by_Age_Gender",
+  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. These totals only include patients where both age and gender are known.",
+    "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
+    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+  ),
+  quarterly_0411$pat_per_1000_pop,
+  14
+)
+
+#left align columns A to h
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("A", "B", "C", "D", "E", "F", "G", "H"),
+                              "left",
+                              "")
+
+#right align columns I and J and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("I", "J"),
+                              "right",
+                              "#,##0")
+
+#right align column K and round to 2dp with thousand separator
+accessibleTables::format_data(wb,
+                              "Population_by_Age_Gender",
+                              c("K"),
+                              "right",
+                              "#,##0.00")
+
 ## IMD
 
 accessibleTables::write_sheet(
@@ -3496,6 +4145,43 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
+##  Average items per patient monthly chemical substance data
+# write data to sheet
+accessibleTables::write_sheet(
+  wb,
+  "Average_Items_per_Patient",
+  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
+    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+  ),
+  quarterly_0411$avg_per_pat,
+  14
+)
+
+# left align columns A to J
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+                              "left",
+                              "")
+
+# right align columns K and L and round to whole numbers with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("K", "L"),
+                              "right",
+                              "#,##0")
+
+# right align column M, N, and O and round to 2 decimal places with thousand separator
+accessibleTables::format_data(wb,
+                              "Average_Items_per_Patient",
+                              c("M", "N", "O"),
+                              "right",
+                              "#,##0.00")
+
 #create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0411 Drugs for dementia",
@@ -3511,10 +4197,12 @@ accessibleTables::makeCoverSheet(
     "Table 4: ICB",
     "Table 5: Gender",
     "Table 6: Age Band",
-    "Table 7: Age Band and Sex",
-    "Table 8: Indices of Deprivation (IMD)",
-    "Table 9: Monthly Section",
-    "Table 10: Monthly Chemical Substance"
+    "Table 7: Age Band and Gender",
+    "Table 8: Population by Age Band and Gender",
+    "Table 9: Indices of Deprivation (IMD)",
+    "Table 10: Monthly Section",
+    "Table 11: Monthly Chemical Substance",
+    "Table 12: Average Items per Identified Patient"
   ),
   c("Metadata", sheetNames)
 )

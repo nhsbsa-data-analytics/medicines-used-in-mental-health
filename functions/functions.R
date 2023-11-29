@@ -2620,11 +2620,16 @@ national_pop_agegen <- function(url = "https://www.ons.gov.uk/file?uri=/peoplepo
         `Year` == "Mid-2017" ~ "2017",
         `Year` == "Mid-2016" ~ "2016",
         TRUE ~ "2015"
+      ),
+      `Sex` = dplyr::case_when(
+        `Sex` == "Females" ~ "Female",
+        `Sex` == "Males" ~ "Male",
+        TRUE ~ "All"
       )
     ) |>
     dplyr::arrange(`Year`, `Sex`, `Age Band`) |>
     dplyr::group_by(`Year`, `Sex`, `Age Band`) |>
-    dplyr::summarise(`Population` = sum(`Population`), .groups = "drop")
+    dplyr::summarise(`Mid-year Population Estimate` = sum(`Population`), .groups = "drop")
   
   return(pop_all)
 }

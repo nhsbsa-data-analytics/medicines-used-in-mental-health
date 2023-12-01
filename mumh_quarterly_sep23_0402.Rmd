@@ -55,18 +55,16 @@ Published `r config$publication_date`
 
 ## Summary
 
-Between April and June 2023:
+Between July and September 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>3.3 million antipsychotic items were prescribed to an estimated 650,000 identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>3.4 million antipsychotic items were prescribed to an estimated 650,000 identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed antipsychotic items was £41 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed antipsychotic items was £39 million.</b>", width = "100%")`
 :::
 ::::
-
-
 
 
 ---
@@ -101,13 +99,13 @@ figure_1_0402
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>3.3 million antipsychotic items prescribed in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>3.4 million antipsychotic items prescribed in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>650,000 identified patients received an antipsychotic item in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>650,000 identified patients received an antipsychotic item in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Items and patients continue to trend upwards for antipsychotics.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antipsychotics continue to show an upwards trend for items and identified patients.</b>", width = "100%")`
 :::
 ::::
 
@@ -123,10 +121,10 @@ figure_2_0402
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed antipsychotic items was £41 million in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed antipsychotic items was £39 million in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of antipsychotic prescribing decreased 2.9% from last quarter.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Since the previous quarter, the cost of antipsychotic prescribing has decreased by 4.3%.</b>", width = "100%")`
 :::
 ::::
 
@@ -140,10 +138,10 @@ figure_3_0402
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>On average, 500,000 patients per month received prescribing for antipsychotic over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>An average of 500,000 patients per month received prescribing for antipsychotic over the last 12 months.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Antipsychotic items increased by 1.1% over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antipsychotic items increased by 1.4% over the last 12 months, compared to the previous 12 month period.</b>", width = "100%")`
 :::
 ::::
 

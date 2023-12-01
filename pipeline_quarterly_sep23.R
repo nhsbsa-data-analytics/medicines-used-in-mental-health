@@ -1154,7 +1154,7 @@ predictions_0411 <- prediction_list(df20,
                                     pred_month_list)
 
 #save covid estimated items to excel wb for QR
-covid_model_predictions_aug <- rbind(predictions_0401,
+covid_model_predictions_sep <- rbind(predictions_0401,
                                      predictions_0402,
                                      predictions_0403,
                                      predictions_0404,
@@ -1162,7 +1162,9 @@ covid_model_predictions_aug <- rbind(predictions_0401,
 
 
 # update month in file name for new publications
-fwrite(covid_model_predictions_aug, "Y:/Official Stats/MUMH/Covid model tables/Sep23.csv")
+fwrite(covid_model_predictions_sep, "Y:/Official Stats/MUMH/Covid model tables/Sep23check.csv")
+
+# 4. Data tables
 
 # Data tables for spreadsheet outputs
 # format according to accessibility standards
@@ -1238,7 +1240,7 @@ meta_descs <-
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
-    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1352,7 +1354,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals split by BNF paragraph and identified patients"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$national_paragraph,
@@ -1388,7 +1390,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by ICB"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$icb,
@@ -1424,7 +1426,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -1461,7 +1463,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$ageband,
@@ -1497,7 +1499,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -1534,11 +1536,11 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
-    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+    "6. Patients per 1,000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
   ),
   quarterly_0401$pat_per_1000_pop,
   14
@@ -1573,7 +1575,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by IMD"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -1680,7 +1682,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$monthly_chem_substance,
@@ -1716,7 +1718,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
@@ -1848,7 +1850,7 @@ meta_descs <-
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
-    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -1962,7 +1964,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals split by BNF paragraph and identified patients"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$national_paragraph,
@@ -1998,7 +2000,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by ICB"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$icb,
@@ -2034,7 +2036,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -2071,7 +2073,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$ageband,
@@ -2107,7 +2109,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -2144,11 +2146,11 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
-    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+    "6. Patients per 1,000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
   ),
   quarterly_0402$pat_per_1000_pop,
   14
@@ -2183,7 +2185,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by IMD"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -2290,7 +2292,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$monthly_chem_substance,
@@ -2326,7 +2328,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
@@ -2459,7 +2461,7 @@ meta_descs <-
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
-    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -2573,7 +2575,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals split by BNF paragraph and identified patients"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$national_paragraph,
@@ -2609,7 +2611,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by ICB"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$icb,
@@ -2645,7 +2647,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -2682,7 +2684,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$ageband,
@@ -2718,7 +2720,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -2755,11 +2757,11 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
-    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+    "6. Patients per 1,000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
   ),
   quarterly_0403$pat_per_1000_pop,
   14
@@ -2794,7 +2796,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by IMD"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -2934,7 +2936,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$monthly_chem_substance,
@@ -2970,7 +2972,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
@@ -3103,7 +3105,7 @@ meta_descs <-
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
-    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -3217,7 +3219,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals split by BNF chemical substance and identified patients"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$national_chem_substance,
@@ -3253,7 +3255,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by ICB"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$icb,
@@ -3289,7 +3291,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -3326,7 +3328,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$ageband,
@@ -3362,7 +3364,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -3399,11 +3401,12 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
-    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+    "6. Patients per 1,000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections.",
+    "7. BNF section 0404 has relatively lower patient identification rates, with the most recent at 89.1% as of Q2 2023/24. This may result in an under-estimate of the number of patients receiving prescribing, and a corresponding under-estimate of patients per 1,000 population."
   ),
   quarterly_0404$pat_per_1000_pop,
   14
@@ -3438,7 +3441,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by IMD"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -3543,7 +3546,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$monthly_chem_substance,
@@ -3579,7 +3582,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
@@ -3710,7 +3713,7 @@ meta_descs <-
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
-    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
+    "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
   )
 
 accessibleTables::create_metadata(wb,
@@ -3824,7 +3827,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals split by BNF chemical substance and identified patients"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$national_chem_substance,
@@ -3860,7 +3863,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by ICB"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$icb,
@@ -3896,7 +3899,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. It is possible for a patient to be codified with gender 'unknown' or 'indeterminate'. Due to the low number of patients that these two groups contain the NHSBSA has decided to group these classifications together.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -3933,7 +3936,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$ageband,
@@ -3969,7 +3972,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -4006,11 +4009,11 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. These totals only include patients where both age and gender are known.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
-    "6. Patients per 1000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
+    "6. Patients per 1,000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections."
   ),
   quarterly_0411$pat_per_1000_pop,
   14
@@ -4045,7 +4048,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Quarterly totals by IMD"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
@@ -4117,7 +4120,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$monthly_chem_substance,
@@ -4153,7 +4156,7 @@ accessibleTables::write_sheet(
   paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
-    "2. Statistical disclosure control has been applied to cells containing 5 or fewer patients or items. These cells will appear blank.",
+    "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
@@ -4211,5 +4214,955 @@ accessibleTables::makeCoverSheet(
 openxlsx::saveWorkbook(wb,
                        "outputs/mumh_bnf0411_Sep_23.xlsx",
                        overwrite = TRUE)
+
+# 5. Charts and figures
+
+# chart data for use in markdown
+
+#table 1 patient ID rates
+table_1_data <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`,
+                `2023/2024 Q2`) |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+table_1_data_format <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`,
+                `2023/2024 Q2`) |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  mutate(across(where(is.numeric), round, 2)) |>
+  mutate(across(where(is.numeric), format, nsmall = 2)) |>
+  mutate(across(contains("20"), ~ paste0(.x, "%")))
+
+table_1 <- table_1_data_format |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+
+#table 1 patient ID rates by section
+#antidepressants 0403
+table_1_data_0403 <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`,
+                `2023/2024 Q2`) |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+table_1_0403 <- table_1_data_0403 |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+#Hypnotics and anxiolytics 0401
+table_1_data_0401 <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`,
+                `2023/2024 Q2`) |>
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+table_1_0401 <- table_1_data_0401 |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+#Drugs used in psychoses and related disorders 0402
+table_1_data_0402 <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`,
+                `2023/2024 Q2`) |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+table_1_0402 <- table_1_data_0402 |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+#CNS stimulants and drugs used for ADHD 0404
+table_1_data_0404 <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`,
+                `2023/2024 Q2`) |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+table_1_0404 <- table_1_data_0404 |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+#dementia 0411
+table_1_data_0411 <- capture_rate_extract_quarter |>
+  dplyr::select(`BNF Section Name`,
+                `BNF Section Code`,
+                `2022/2023 Q3`,
+                `2022/2023 Q4`,
+                `2023/2024 Q1`,
+                `2023/2024 Q2`) |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+table_1_0411 <- table_1_data_0411 |>
+  DT::datatable(rownames = FALSE,
+                options = list(dom = "t",
+                               columnDefs = list(
+                                 list(orderable = FALSE,
+                                      targets = "_all"),
+                                 list(className = "dt-left", targets = 0:1),
+                                 list(className = "dt-right", targets = 2:5)
+                               )))
+
+#figure 1 quarterly antidepressant items and patients
+figure_1_data_0403 <- quarterly_0403$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_1_0403 <- figure_1_data_0403 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y = VALUE,
+    group = MEASURE,
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+#figure 2 quarterly antidepressant cost
+figure_2_data_0403 <- quarterly_0403$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Cost (GBP)`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_2_0403 <- figure_2_data_0403 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Cost (GBP)",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 3 monthly antidepressant items and patients
+figure_3_data_0403 <- quarterly_0403$monthly_section |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Year Month`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(
+    MONTH_INDEX = dplyr::row_number(),
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
+    MONTH_NUM = lubridate::month(MONTH_START)
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_3_0403 <- figure_3_data_0403 |>
+  nhsbsaVis::group_chart_hc(
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Month",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(type = "datetime",
+           dateTimeLabelFormats = list(month = "%b %y"),
+           title = list(text = "Month")) 
+
+#figure 1 quarterly hypnotics and anxiolytics items and patients
+figure_1_data_0401 <- quarterly_0401$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_1_0401 <- figure_1_data_0401 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 2 quarterly hypnotics and anxiolytics cost
+figure_2_data_0401 <- quarterly_0401$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Cost (GBP)`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_2_0401 <- figure_2_data_0401 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Cost (GBP)",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 3 monthly hypnotics and anxiolytics items and patients
+figure_3_data_0401 <- quarterly_0401$monthly_section |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Year Month`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(
+    MONTH_INDEX = dplyr::row_number(),
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
+    MONTH_NUM = lubridate::month(MONTH_START)
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_3_0401 <- figure_3_data_0401 |>
+  nhsbsaVis::group_chart_hc(
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Month",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(type = "datetime",
+           dateTimeLabelFormats = list(month = "%b %y"),
+           title = list(text = "Month")) 
+
+#figure 1 quarterly antipsychotic items and patients
+figure_1_data_0402 <- quarterly_0402$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_1_0402 <- figure_1_data_0402 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 2 quarterly antipsychotic cost
+figure_2_data_0402 <- quarterly_0402$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Cost (GBP)`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_2_0402 <- figure_2_data_0402 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Cost (GBP)",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 3 monthly antipsychotic items and patients
+figure_3_data_0402 <- quarterly_0402$monthly_section |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Year Month`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(
+    MONTH_INDEX = dplyr::row_number(),
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
+    MONTH_NUM = lubridate::month(MONTH_START)
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_3_0402 <- figure_3_data_0402 |>
+  nhsbsaVis::group_chart_hc(
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Month",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(type = "datetime",
+           dateTimeLabelFormats = list(month = "%b %y"),
+           title = list(text = "Month")) 
+
+#figure 10 quarterly CNS ADHD items and patients
+figure_1_data_0404 <- quarterly_0404$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_1_0404 <- figure_1_data_0404 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 2 quarterly CNS ADHD cost
+figure_2_data_0404 <- quarterly_0404$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Cost (GBP)`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_2_0404 <- figure_2_data_0404 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Cost (GBP)",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 3 monthly CNS ADHD items and patients
+figure_3_data_0404 <- quarterly_0404$monthly_section |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Year Month`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(
+    MONTH_INDEX = dplyr::row_number(),
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
+    MONTH_NUM = lubridate::month(MONTH_START)
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_3_0404 <- figure_3_data_0404 |>
+  nhsbsaVis::group_chart_hc(
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Month",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(type = "datetime",
+           dateTimeLabelFormats = list(month = "%b %y"),
+           title = list(text = "Month")) 
+
+#figure 1 quarterly dementia items and patients
+figure_1_data_0411 <- quarterly_0411$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_1_0411 <- figure_1_data_0411 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 2 quarterly dementia cost
+figure_2_data_0411 <- quarterly_0411$national_total |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Financial Quarter`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+    .groups = "drop"
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Cost (GBP)`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_2_0411 <- figure_2_data_0411 |>
+  nhsbsaVis::group_chart_hc(
+    x = FINANCIAL_QUARTER,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Financial quarter",
+    yLab = "Cost (GBP)",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(
+    labels = list(
+      step = 2,
+      rotation = -45
+    )
+  )
+
+#figure 3 monthly dementia items and patients
+figure_3_data_0411 <- quarterly_0411$monthly_section |>
+  #added financial year filter now only using rolling years
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::group_by(`Financial Year`,
+                  `Year Month`,
+                  `BNF Section Name`,
+                  `BNF Section Code`) |>
+  dplyr::summarise(
+    `Prescribed items` = sum(`Total Items`),
+    `Identified patients` = sum(`Total Identified Patients`),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(
+    MONTH_INDEX = dplyr::row_number(),
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
+    MONTH_NUM = lubridate::month(MONTH_START)
+  ) |>
+  tidyr::pivot_longer(
+    cols = c(`Identified patients`, `Prescribed items`),
+    names_to = "measure",
+    values_to = "value"
+  ) |>
+  dplyr::mutate(value = signif(value, 3)) |>
+  dplyr::arrange(desc(measure))|>
+  rename_with(~ gsub(" ", "_", toupper(gsub(
+    "[^[:alnum:] ]", "", .
+  ))), everything())
+
+figure_3_0411 <- figure_3_data_0411 |>
+  nhsbsaVis::group_chart_hc(
+    x = MONTHSTART,
+    y =VALUE,  
+    group = MEASURE,  
+    type = "line",
+    marker = FALSE,
+    dlOn = FALSE,
+    xLab = "Month",
+    yLab = "Volume",
+    title = ""
+  ) |>
+  hc_tooltip(enabled = TRUE,
+             shared = TRUE,
+             sort = TRUE) |>
+  hc_legend(enabled = TRUE) |>
+  hc_xAxis(type = "datetime",
+           dateTimeLabelFormats = list(month = "%b %y"),
+           title = list(text = "Month")) 
+
+
+
+#figure 1  antidepressants model data
+figure_1_data_covid <- predictions_0403 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_1_covid <- figure_1_data_covid |>
+  covid_chart_hc(title = "")
+
+#figure 2 hypnotics anxiolytics model data
+figure_2_data_covid <- predictions_0401 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_2_covid <- figure_2_data_covid |>
+  covid_chart_hc(title = "")
+
+#figure 3 antipsychotics model data
+figure_3_data_covid<- predictions_0402 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_3_covid <- figure_3_data_covid |>
+  covid_chart_hc(title = "")
+
+#figure 4 CNS ADHD model data
+figure_4_data_covid <- predictions_0404 |>
+  dplyr::filter(YEAR_MONTH > 202002)
+
+figure_4_covid <- figure_4_data_covid |>
+  covid_chart_hc(title = "")
+
+#figure 5 dementia model data
+figure_5_data_covid <- predictions_0411 |>
+  filter(YEAR_MONTH > 202002)
+
+figure_5_covid <- figure_5_data_covid |>
+  covid_chart_hc(title = "")
+
+
+# render outputs
+
+rmarkdown::render("mumh_quarterly_sep23_overview.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_quarterly_sep23_overview.html")
+rmarkdown::render("mumh_quarterly_sep23_overview.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_overview.docx")
+
+rmarkdown::render("mumh_quarterly_sep23_0403.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0403.html")
+rmarkdown::render("mumh_quarterly_sep23_0403.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0403.docx")
+rmarkdown::render("mumh_quarterly_sep23_0401.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0401.html")
+rmarkdown::render("mumh_quarterly_sep23_0401.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0401.docx")
+rmarkdown::render("mumh_quarterly_sep23_0402.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0402.html")
+rmarkdown::render("mumh_quarterly_sep23_0402.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0402.docx")
+rmarkdown::render("mumh_quarterly_sep23_0404.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0404.html")
+rmarkdown::render("mumh_quarterly_sep23_0404.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0404.docx")
+rmarkdown::render("mumh_quarterly_sep23_0411.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0411.html")
+rmarkdown::render("mumh_quarterly_sep23_0411.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_0411.docx")
+
+rmarkdown::render("mumh_quarterly_sep23_covid.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_quarterly_sep23_model.html")
+rmarkdown::render("mumh_quarterly_sep23_covid.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_model.docx")
 
   

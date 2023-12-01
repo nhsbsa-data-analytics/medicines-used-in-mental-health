@@ -54,14 +54,14 @@ Published `r config$publication_date`
 
 ## Summary
 
-Between April and June 2023:
+Between July and September 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
 `r infoBox_no_border("", text = "<b>1.1 million drugs for dementia items were prescribed to an estimated 250,000 identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed drugs for dementia items was £6.7 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed drugs for dementia items was £6.8 million.</b>", width = "100%")`
 :::
 ::::
 
@@ -111,13 +111,13 @@ figure_1_0411
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>1.1 million drugs for dementia items prescribed in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>1.1 million drugs for dementia items prescribed in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>250,000 identified patients received a drugs for dementia item Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>250,000 identified patients received a drugs for dementia item in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Items for drugs for dementia declined over the initial COVID-19 period, but are returning to their pre-pandemic upward trend.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Drugs for dementia items and patients have increased above pre-COVID-19 pandemic levels, after a decline over the initial COVID-19 period.</b>", width = "100%")`
 :::
 ::::
 
@@ -133,10 +133,10 @@ figure_2_0411
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed drugs for dementia items was £6.7 million in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed drugs for dementia items in Q2 2023/24 was £6.8 million.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of drugs for dementia items have trended upwards for the last four quarters.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of drugs for dementia items has continued the recent upwards trend.</b>", width = "100%")`
 :::
 ::::
 
@@ -150,10 +150,10 @@ figure_3_0411
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>On average, 200,000 patients per month received prescribing for a drugs for dementia items over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>An average of 200,000 patients per month received prescribing for drugs for dementia items over the last 12 months.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Drugs for dementia items increased by 4.2% over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Drugs for dementia items increased by 4.7% over the last 12 months, compared to the previous 12 month period.</b>", width = "100%")`
 :::
 ::::
 

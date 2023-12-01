@@ -54,14 +54,14 @@ Published `r config$publication_date`
 
 ## Summary
 
-Between April and June 2023:
+Between July and September 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
 `r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items were prescribed to an estimated 1.0 million identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £29 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £28 million.</b>", width = "100%")`
 :::
 ::::
 
@@ -107,13 +107,13 @@ figure_1_0401
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items prescribed in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items prescribed in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>1.0 million identified patients received an hypnotics and anxiolytic item in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>1.0 million identified patients received a hypnotics and anxiolytic item in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Items and patients continue to trend downwards for hypnotics and anxiolytics items.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Hypnotics and anxiolytics items and patients have started to trend upwards. Items increased by 1.0% and identified patients increased by 1.4% compared to the previous quarter.</b>", width = "100%")`
 :::
 ::::
 
@@ -129,10 +129,10 @@ figure_2_0401
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £29 million in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £28 million in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The long-term trend for the cost of hypnotics and anxiolytics prescribing is trending upwards but decreased in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of hypnotics and anxiolytics prescribing fell for the second quarter in a row, after a previous upward trend.</b>", width = "100%")`
 :::
 ::::
 
@@ -146,10 +146,10 @@ figure_3_0401
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>On average, 660,000 patients per month received prescribing for hypnotics and anxiolytics over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>An average of 670,000 patients per month received prescribing for hypnotics and anxiolytics over the last 12 months.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Hypnotics and anxiolytics items decreased by 2.4% over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Hypnotics and anxiolytics items decreased by 2.2% over the last 12 months, compared to the previous 12 month period.</b>", width = "100%")`
 :::
 ::::
 

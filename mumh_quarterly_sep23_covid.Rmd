@@ -56,13 +56,13 @@ Published `r config$publication_date`
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b> Antidepressants, hypnotics and anxiolytics, and antipsychotics have generally remained within the range of values expected based on pre-pandemic trends.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antidepressants items and hypnotics and anxiolytics items have mostly remained within the range of expected values, based on pre-pandemic trends.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD have continued to increase beyond the range of expected items to be prescribed.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Previously, antipsychotics items have generally remained within the range of expected values, but July and September 2023 showed prescribing below this range.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Prescribing of drugs for dementia items has consistently been below the range of expected values for the previous 2 years.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD have continued to increase beyond the range of expected values. Drugs for dementia items remained below the range of expected values.</b>", width = "100%")`
 :::
 ::::
 
@@ -81,7 +81,7 @@ Further information on the drug groups covered here can be found in the overview
 
 We have created a model to help users interpret the impact of the COVID-19 pandemic on prescribing trends.
 
-The number of expected prescription items for each BNF section during this period has been calculated by extrapolating figures for March 2020 to June 2023 according to:
+The number of expected prescription items for each BNF section during this period has been calculated by extrapolating figures for March 2020 to September 2023 according to:
 
 * the trend in prescription items for each section between April 2015 and February 2020
 * the number of dispensing days that occur in each month
@@ -110,7 +110,7 @@ figure_1_covid
 ```
 `r get_download_button(title = "Download chart data", data = figure_1_data_covid, filename = "figure_1_covid")`
 
-Between March 2020 and June 2023 there were 275 million antidepressant items prescribed to identified patients with a known age and gender. This was only 0.49% more than the 274 million items expected based on historical trends, Antidepressant items remained within the expected range of values for this period.
+There were 297 million antidepressant items prescribed to identified patients with a known age and gender between March 2020 and September 2023, only 0.37% more than the 296 million items expected based on historical trends. Antidepressant items remained within the expected range of values over this period.
 
 ### 2.2. Hypnotics and anxiolytics prescribing {.toc-ignore}
 
@@ -123,7 +123,7 @@ figure_2_covid
 ```
 `r get_download_button(title = "Download chart data", data = figure_2_data_covid, filename = "figure_2_covid")`
 
-There were 45.2 million hypnotics and anxiolytics items prescribed between March 2020 and June 2023 to identified patients with a known age and gender. This was only 0.48% more than the 45.0 million items expected based on historical trends, so hypnotics and anxiolytics items remained within the expected range of values for this period.. 
+Between March 2020 and September 2023 there were 48.5 million hypnotics and anxiolytics items prescribed to identified patients with a known age and gender. This was only 0.43% more than the 48.3 million items expected based on historical trends, so hypnotics and anxiolytics items remained well within the expected range of values for this period. 
 
 ### 2.3. Drugs used in psychoses and related disorders prescribing {.toc-ignore}
 
@@ -136,7 +136,7 @@ figure_3_covid
 ```
 `r get_download_button(title = "Download chart data", data = figure_3_data_covid, filename = "figure_3_covid")`
 
-There were 42.6 million antipsychotics items prescribed from March 2020 to June 2023 to identified patients with known age and gender, 1.90% less than the 43.4 million items that were expected to be prescribed. Over this period antipsychotics items stayed within the range of expected values.
+There were 45.9 million antipsychotics items prescribed from March 2020 to September 2023 to identified patients with known age and gender. This was 2.16% less than the 46.9 million items that were expected to be prescribed. Over this period antipsychotics items stayed mostly within the range of expected values. However over the three months of quarter 2 in 2023/24, both July and September were below the range of expected values for items prescribed.
 
 ### 2.4. CNS stimulants and drugs used for ADHD prescribing {.toc-ignore}
 
@@ -149,9 +149,9 @@ figure_4_covid
 ```
 `r get_download_button(title = "Download chart data", data = figure_4_data_covid, filename = "figure_4_covid")`
 
-From March 2020 to June 2023, 6.48 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender. This was 15.0% more than the 5.64 million items expected based on historical trends. The difference between actual and expected items prescribed has increased since March 2022. This upward trajectory is beyond the range of the expected values.
+From March 2020 to September 2023, 7.12 million CNS stimulants and drugs used for ADHD items were prescribed to identified patients with known age and gender, 16.6% more than the 6.10 million items expected based on historical trends. The difference between the trends for actual and expected items prescribed has increased since March 2022, and this upward trajectory continues to be beyond the range of the expected values.
 
-The model is based on data containing identified patients with known age and gender only. As CNS stimulants and drugs used for ADHD have a relatively low patient identification rate, a lower proportion of prescribing is included in the model data. For example, patient identification for this BNF section was 79.3% in Q1 of 2015/16, rising to 88.3% in Q1 of 2023/24. This may have an impact on how well the model can extrapolate expected values from the data.
+The model is based on data containing identified patients with known age and gender only. CNS stimulants and drugs used for ADHD have a relatively low patient identification rate compared to the other BNF sections included in this publication. For example, patient identification for this BNF section was 79.3% in Q1 2015/16, rising to 89.1% in Q2 of 2023/24. As a lower proportion of prescribing is included in the model data, this may have an impact on how well the model can extrapolate expected values from the data. Section 1.4 of the [summary report](`r config$html_top_link`) has more information on patient identification rates and a table of rates by BNF section.
 
 ### 2.5. Drugs for dementia prescribing {.toc-ignore}
 
@@ -164,7 +164,7 @@ figure_5_covid
 ```
 `r get_download_button(title = "Download chart data", data = figure_5_data_covid, filename = "figure_5_covid")`
 
-There were 13.3 million drugs for dementia items prescribed from March 2020 to June 2023 to identified patients with known age and gender. This is significantly lower than the 15.1 million items expected to be prescribed, a difference of 11.7%. 
+There were 14.4 million drugs for dementia items prescribed from March 2020 to September 2023 to identified patients with known age and gender. This was 11.8% fewer items than the 16.3 million that were expected to be prescribed during this time period. 
 
 
 ---

@@ -190,7 +190,7 @@ pop_agegen_2022 <- national_pop_agegen() |>
 total_pop_eng_2022 <- pop_agegen_2022 |>
   dplyr::filter(`Sex` == "All",
                 `Year` == "2022") |>
-  dplyr::summarise(`Total population` = sum(`Population`))
+  dplyr::summarise(`Total population` = sum(`Mid-year Population Estimate`))
 
 log_print("External data pulled", hide_notes = TRUE)
 
@@ -367,7 +367,7 @@ quarterly_0401$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
                    by = c("Mid-year Population Year" = "Year",
                           "Patient Gender" = "Sex",
                           "Age Band" = "Age Band")) |>
@@ -544,7 +544,7 @@ quarterly_0402$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
                    by = c("Mid-year Population Year" = "Year",
                           "Patient Gender" = "Sex",
                           "Age Band" = "Age Band")) |>
@@ -735,7 +735,7 @@ quarterly_0403$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
                    by = c("Mid-year Population Year" = "Year",
                           "Patient Gender" = "Sex",
                           "Age Band" = "Age Band")) |>
@@ -916,7 +916,7 @@ quarterly_0404$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
                    by = c("Mid-year Population Year" = "Year",
                           "Patient Gender" = "Sex",
                           "Age Band" = "Age Band")) |>
@@ -1086,7 +1086,7 @@ quarterly_0411$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_by_quarter, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
+  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
                    by = c("Mid-year Population Year" = "Year",
                           "Patient Gender" = "Sex",
                           "Age Band" = "Age Band")) |>
@@ -5164,5 +5164,12 @@ rmarkdown::render("mumh_quarterly_sep23_covid.Rmd",
 rmarkdown::render("mumh_quarterly_sep23_covid.Rmd",
                   output_format = "word_document",
                   output_file = "outputs/mumh_quarterly_sep23_model.docx")
+
+rmarkdown::render("mumh_background_sep23.Rmd",
+                  output_format = "html_document",
+                  output_file = "outputs/mumh_background_sep23.html")
+rmarkdown::render("mumh_quarterly_sep23_overview.Rmd",
+                  output_format = "word_document",
+                  output_file = "outputs/mumh_quarterly_sep23_overview.docx")
 
   

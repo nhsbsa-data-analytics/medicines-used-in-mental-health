@@ -1,0 +1,297 @@
+---
+title: "`r config$publication_top_name`"
+pagetitle: MUMH England quarterly summary
+always_allow_html: true
+output:
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    anchor_sections: no
+    css: www/style.css
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+---
+
+<script>
+  $(document).ready(function() {
+    $('#header').prepend('<img src=`r knitr::image_uri("www/bsa_logo.svg")` alt=\"NHSBSA logo\" style=\"position:absolute; top: 0; right: 0; padding: 10px; width: 25%;\">');
+  });
+</script>
+
+<style type="text/css">  body, td {
+    font-size: 16px;
+    font-family: sans-serif;
+  }
+  .list-group-item.active {
+    background-color: #005EB8!important;
+    border-color: #005EB8!important;
+  }
+    a {
+        color: #005EB8!important;
+    }
+    .tocify {
+        border-radius: 0px!important;
+    }
+</style>
+  <html lang="en">
+
+```{r setup, include=FALSE}
+# set code chunk options to disable echo by default
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+```
+
+<main>
+
+# `r config$publication_sub_name` {.toc-ignore}
+
+Published `r config$publication_date` 
+
+`r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we've added new measures to the summary tables for each BNF section. These include items per identified patient by month and chemical substance and Net Ingredient Cost (NIC) per identified patient by month and chemical substance. The number of identified patients per 1,000 population by age band and gender has also been added.  We're interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
+
+## Key findings
+
+Between July and September 2023:
+
+::::{.row style="display: flex; padding-bottom: 15px;"}
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>22 million antidepressant items were prescribed to an estimated 6.8 million identified patients.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items fell to £56 million.</b>", width = "100%")`
+:::
+:::{.col-md-4}
+`r infoBox_no_border("", text = "<b>Prescribing of CNS stimulants and drugs for ADHD items remained above the range of expected values based on pre-pandemic trends.</b>", width = "100%")`
+:::
+::::
+
+There were 22 million antidepressants prescribed to an estimated 6.8 million identified patients. This was a small increase in items and identified patients compared to the previous quarter, at 1.5% for items and less than one percentage point for patients.
+
+Over the same period, prescribing of hypnotics and anxiolytics items increased by 1% to 3.4 million and identified patients increased by 1.4% to 1 million.
+
+Drugs used in psychoses and related disorders also saw 3.4 million items prescribed, a 1.3% increase. There was an increase of less than 1% for identified patients, to 650,000.
+
+Prescribing of CNS stimulants and drugs for ADHD items also increased by less than one percentage point, to 720,000 items. Identified patients increased by 2.6% to 210,000 patients. 
+
+The number of drugs for dementia items prescribed increased by 3.1% to 1.1 million. This was the largest percentage increase in items out of the drug groups in this publication. Identified patients increased by 2.3%. 
+
+The total Net ingredient Cost (NIC) decreased for antidepressants, hypnotics and anxiolytics, and antipsychotics. This was in contrast to increases in identified patients and items in these drug groups. The total NIC increased for CNS stimulants and drugs for ADHD, and drugs for dementia. Antidepressants had the largest change in total NIC of the drug groups in this publication, with a 6.8% decrease.
+
+
+---
+
+## 1. Things you should know
+### 1.1. Scope {.toc-ignore} 
+
+`r infoBox_border("Background ", text = "The [NHS Long Term Plan](https://www.longtermplan.nhs.uk/) published in 2019 focuses on improving mental health care in the UK. It aims to provide more funding for mental health services, particularly for children and people with dementia. The [Core20PLUS5](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/) approach  to reduce health inequalities also seeks to improve community care for those with severe mental illnesses.", width = "100%")`
+
+This publication provides information on medicines used to treat mental health in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. 
+
+The five sections of the British National Formulary (BNF) included in this publication cover medicines which are primarily used to treat anxiety, depression, psychosis, attention deficit hyperactivity disorder (ADHD), and dementia. We do not capture the clinical indication of a prescription, so there may be instances where these drugs are used for other conditions. 
+
+This publication does not discuss the demographic data associated with the provision of these medicines, but this information is available in the supporting summary tables which accompany this release. 
+
+Medicines are not the only way to treat mental health conditions, and this publication does not capture information on the use of other mental health services, such as psychological therapies. Therefore, this publication may not give a complete picture of the number of people receiving treatment for mental health conditions. Information on where to find related statistics can be found in Section 4.
+
+### 1.2. Definitions {.toc-ignore}
+
+`r infoBox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
+
+`r infoBox_border("Patient", text = "A unique NHS number verified from a prescription form. Verification of an NHS number for patient identification is done by the NHS Personal Demographics Service (PDS).", width = "100%")`
+
+`r infoBox_border("NIC", text = "The Net Ingredient Cost (NIC) is the basic price of the medication and the quantity prescribed. It does not include other fees incurred by dispensing contractors, such as controlled drug fees or the single activity fee. The basic price is determined by the [Drug Tariff](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/drug-tariff) or by the manufacturer, wholesaler, or supplier of the product.", width = "100%")`
+
+`r infoBox_border("Classification", text = "This publication uses the British National Formulary (BNF), which lists medicines used in the UK and classifies them according to their primary therapeutic use. Medication may also be prescribed for other purposes beyond their intended use. For example, certain antidepressants may be recommended to individuals experiencing chronic pain. The NHSBSA does not capture the clinical indication of a prescription during processing.", width = "100%")`
+
+### 1.3. Time periods {.toc-ignore}
+
+The data in this publication covers the period from April 2018 to September 2023. Q1, Q2, Q3, and Q4 refer to different periods within a financial year. 
+
+These statistics cover the period of the coronavirus (COVID-19) pandemic. A detailed [timeline](https://commonslibrary.parliament.uk/research-briefings/cbp-9068/) of events and restrictions in the UK during this time can be found on the UK parliament website. The impact of COVID-19 should be considered when comparing across time periods 
+
+### 1.4. Patient identification {.toc-ignore}
+
+When the NHSBSA processes prescriptions it is not always possible to capture the NHS number of the patient. Table 1 shows the proportion of items for which a patient could be identified. This means that the data relating to patient counts represents most, but not all, patients. Patient identification rates going back to Q1 2015/16 can be found in the individual summary tables for each BNF section.
+
+Due to an increase in digital prescription processing through the Electronic Prescription Service (EPS) during the COVID-19 pandemic, more patients were identified in 2020/21 and 2021/22 compared to previous years then stabilised. When patient identification rates increase, any increases in the number of identified patients between periods are likely to be an overestimate of the actual increase in patient numbers. This is because the proportion of patients who could be identified has increased. Conversely, any decrease over the same period is likely to be an underestimate of the actual decrease.
+
+These statistics do not include any information that is personally identifiable. You can find more information about how the NHSBSA protect personal information in the [confidentiality and access statement](https://www.nhsbsa.nhs.uk/policies-and-procedures). 
+
+#### Table 1: The proportion of items for which an NHS number was recorded for  for listed BNF sections for previous 4 quarters
+```{r pat_ident_rates, out.width="100%"}
+
+table_1
+
+```
+`r get_download_button(title = "Download data table", data = table_1_data, filename = "table_1")`
+
+---
+
+## 2. Results
+
+A summary exploring the volumes and costs for each BNF section in this publication is available, along with a summary exploring the impacts of the COVID-19 pandemic on the use of these medicines.:
+
+* BNF Section 4.3 - [Antidepressant drugs](`r config$html_0403_link`)
+* BNF Section 4.1 - [Hypnotics and anxiolytics](`r config$html_0401_link`)
+* BNF Section 4.2 - [Drugs used in psychoses and related disorders](`r config$html_0402_link`)
+* BNF Section 4.4 - [Central nervous system (CNS) stimulants and drugs used for ADHD](`r config$html_0404_link`)
+* BNF Section 4.11 - [Drugs for dementia](`r config$html_0411_link`)
+* [Prescribing during the COVID-19 pandemic](`r config$html_model_link`)
+
+More information about these medicines can be found in section 3 of this summary.
+
+---
+
+## 3. Background
+
+This publication provides information on medicines used to treat mental health conditions in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands by a pharmacy, appliance contractor, dispensing doctor, or have been personally administered by a GP practice . The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors.
+
+### 3.1. Antidepressant drugs {.toc-ignore}
+
+Antidepressant drugs are licensed to treat major depression. Health professionals use the words depression, depressive illness or clinical depression to refer to depression. It is a serious illness and very different from the common experience of feeling unhappy or fed up for a short period of time. Depressed people may have feelings of extreme sadness that can last for a long time. These feelings are severe enough to interfere with daily life, and can last for weeks, months or years, rather than days.
+
+It should be noted that antidepressant drugs are used for indications other than depression, for example migraine, chronic pain, myalgic encephalomyelitis (ME), or a range of other conditions. Clinical indication isn't captured by the NHSBSA. Therefore, the statistics on these drugs do not relate solely to prescribing for depression.
+
+You can find more information about [depression](https://www.nhs.uk/conditions/clinical-depression/) on the NHS website.
+
+### 3.2. Hypnotics and anxiolytics {.toc-ignore}
+
+Hypnotics and anxiolytics are used to treat insomnia and anxiety respectively.
+
+Insomnia is difficulty getting to sleep or staying asleep for long enough to feel refreshed in the morning, despite there being enough opportunity to sleep. The most common problem with insomnia is difficult falling asleep (sleep-onset insomnia). An insomniac may also experience:
+
+* waking in the night
+* not feeling refreshed after sleep and not being able to function normally during the day
+* feeling irritable and tired and finding it difficult to concentrate
+* waking when they have been disturbed from sleep by pain or noise
+* waking early in the morning
+
+Anxiety is a feeling of unease, such as worry or fear, which can be mild or severe. Everyone experiences feelings of anxiety at some point in their life and feeling anxious is sometimes perfectly normal. However, people with generalised anxiety disorder (GAD) find it hard to control their worries. Their feelings of anxiety are more constant and often affect their daily life. There are several conditions for which anxiety is the main symptom. Panic disorder, phobias and post-traumatic stress disorder can all cause severe anxiety.
+
+You can find more information about [insomnia](https://www.nhs.uk/conditions/insomnia/) and [anxiety](https://www.nhs.uk/conditions/generalised-anxiety-disorder/) from the NHS website.
+
+### 3.3. Drugs used in psychoses and related disorders {.toc-ignore}
+
+People experiencing psychoses may report hallucinations (seeing or hearing things that other people cannot see or hear) or delusional beliefs (believing things that are not actually true), and may exhibit personality changes and thought disorder. As well as this, they may experience difficulties with social interaction and impairment in carrying out daily life activities.
+
+You can find more information about [psychoses and related disorders](https://www.nhs.uk/conditions/psychosis/) on the NHS website.
+
+### 3.4. Central nervous system (CNS) stimulants and drugs used for ADHD  {.toc-ignore}
+
+Attention deficit hyperactivity disorder (ADHD) and attention deficit disorder (ADD) refer to a range of problem behaviours associated with poor attention span. These may include impulsiveness and hyperactivity, as well as inattentiveness; behaviours that often prevent children and adults from learning and socialising. ADHD is sometimes referred to as hyperkinetic disorder (HD).
+
+You can find more information about [ADHD](https://www.nhs.uk/conditions/attention-deficit-hyperactivity-disorder-adhd/) on the NHS website.
+
+### 3.5. Drugs for dementia {.toc-ignore}
+
+Dementia is a disease that leads to progressive loss of brain function typified by memory loss, confusion, speech difficulties and problems in understanding. There are over 100 different types of dementia. The most common forms are:
+
+* Alzheimer's disease
+* Vascular dementia
+* Dementia with Lewy bodies
+* Pick's disease
+* Huntington's disease
+* Alcohol-related dementia
+* HIV/AIDS related dementia
+
+Dementia mainly affects older people but can also occur in people as young as thirty due to either alcohol abuse or HIV/AIDS. No cure for dementia currently exists. However, drugs may slow the rate of decline or in some patients make a small improvement in symptoms. Despite this, disease progression is inevitable.
+
+You can find more information about the [various types of dementia](https://www.nhs.uk/conditions/dementia/) on the NHS website.
+
+### 3.6. Related statistics and resources {.toc-ignore}
+
+Prescribing of medications in primary care is only part of the big picture for mental health care in England. The [NHS England mental health data hub](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/mental-health-data-hub) has links to statistics on a range of related topics which may provide further context. These include a mental health bulletin, reports on children and young people's mental health surveys, dementia assessment and referral statistics, and more.
+
+---
+
+## 4. About these statistics
+
+This publication is part of a series by the NHSBSA, which can be found on our [Medicines Used in Mental Health webpage](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england). Medicines Used in Mental Health is released quarterly and annually. To learn more about how this series compares to our other publications, you can view the Official Statistics guidance table on our [statistical collections page](https://www.nhsbsa.nhs.uk/statistical-collections). 
+
+### 4.1. Changes to this publication {.toc-ignore}
+
+For this release, we have added the following measures to the summary tables for each BNF section:
+
+* the number of identified patients per 1,000 population, by age band and gender
+* items per identified patient, by month and chemical substance
+* Net Ingredient Cost (NIC) per identified patient, by month and chemical substance
+
+### 4.2 Statistical Disclosure Control (SDC) {.toc-ignore}
+
+Statistical disclosure control has been applied to these statistics. Patient count, items, and net ingredient cost (NIC) have been redacted in the supporting summary tables if they relate to fewer than 5 patients. Further information about our statistical disclosure control protocol [can be found on our website](https://www.nhsbsa.nhs.uk/policies-and-procedures).
+
+### 4.3. Rounding {.toc-ignore}
+
+The high-level figures in this statistical summary have been rounded where appropriate for clarity. In most cases rounding has been to two significant figures in the key findings and information boxes and three significant figures in the main text. This is to make this narrative as accessible as possible to all readers. The summary tables released with this publication allow users to investigate this data at lower levels of granularity. Figures in the supplementary tables have not been rounded.
+
+### 4.4. Trends during COVID-19 {.toc-ignore}
+
+The number of items for each BNF section in the 34-month period March 2020 to September 2023 were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to September 2023. These figures were extrapolated according to:
+
+* the trends between April 2015 and February 2020
+* the number of dispensing days that occur in each month
+* the typical differences between each month of the year observed between April 2015 and February 2020
+* the typical differences between each combination of 20 year age band group and gender
+
+This model states expected figures if trends had continued as before but doesn't confirm causation of any differences. Factors other than COVID-19 may have influenced prescribing, such as:
+
+*	changes in patient behaviour, demographics, or morbidity
+*	external environmental factors that could drive prescribing
+*	any (and all) policy initiatives and guidance
+*	other local priorities and resources
+
+
+### 4.5. Planned changes to this publication {.toc-ignore}
+
+This is an experimental official statistic release. Experimental statistics are newly developed or innovative statistics. These are published so that users and stakeholders can be involved in the assessment of their suitability and quality at an early stage. We will regularly be reviewing the methodology used within the statistics.
+
+---
+
+## 5. Accessibility
+
+If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille, you can contact us by:
+
+**Email**: accessibility@nhsbsa.nhs.uk
+
+**Phone**: 0191 203 5318
+
+[Find out about call charges](https://www.nhsbsa.nhs.uk/contact-us/call-charges-and-phone-numbers)
+
+We’ll consider your request and get back to you in 5 working days.
+
+These contact details are only for accessibility queries. This inbox is not for technical queries or IT problems. If you have a query that is not about accessibility, go to the ‘Contact us’ section of this page.
+
+View our [Accessibility statement for Official Statistics Narratives](https://www.nhsbsa.nhs.uk/accessibility-statement-official-statistics-narratives).
+
+---
+
+## 6. Feedback and contact us
+
+Feedback is important to us; we welcome any questions and comments relating to these statistics. 
+
+You can complete a [short survey about this publication](`r config$stats_survey_link`)  to help us improve the Official Statistics that we produce. All responses will remain anonymous and individuals will not be identifiable in any report that we produce.
+
+You can view our [privacy policy](https://www.nhsbsa.nhs.uk/our-policies/privacy) on our website to see how your data is used and stored.
+
+You can contact us by:
+
+**Email:** statistica@nhsbsa.nhs.uk
+
+**You can also write to us at:**
+
+NHSBSA - Statistics  
+NHS Business Services Authority  
+Stella House  
+Goldcrest Way  
+Newburn Riverside  
+Newcastle upon Tyne  
+NE15 8NY
+
+**Responsible statistician:** `r config$responsible_statistician`
+
+</main>

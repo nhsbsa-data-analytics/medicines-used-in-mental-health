@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = FALSE,
   
 # Background Information and Methodology {.toc-ignore}
   
-## September 2023 {.toc-ignore}
+## December 2023 {.toc-ignore}
   
   
 ---
@@ -57,38 +57,39 @@ The Medicines Used in Mental Health annual publication and quarterly summary sta
 
 These sections are held in the same structure of the BNF prior to the release of version 70.
 
-The statistics also include breakdowns of prescribing by age band, gender, and the Index of Multiple Deprivation (IMD).
+The statistics also include breakdowns of prescribing by age band, gender, Integrated Care Board (ICB), and the Index of Multiple Deprivation (IMD).
 
-This publication can have a wide range of uses including informing government or local NHS policy and allowing public scrutiny of national and regional prescribing habits. 
+#### Users and uses
 
-Prescription data is a long-standing administrative source of data that has been used by commissioners, providers, government, academia, industry, and media to inform local and national policy, in academic research, to monitor medicine uptake, and allow public scrutiny of prescribing habits. It is collected by the NHS Business Services Authority (NHSBSA) for the operational purpose of reimbursing and remunerating dispensing contractors for the costs of supplying drugs and devices, along with essential and advanced services, to NHS patients. The data that forms the basis of these statistics is collected as a by-product of this process.
+This publication can have a wide range of uses including informing government or local NHS policy and allowing public scrutiny of national and regional prescribing habits. It is often used to assist in responding to queries from the general public made under the Freedom of Information (FOI) act and ad-hoc enquiries. 
+
+Prescription data is a long-standing administrative source of data that has been used by commissioners, providers, government, academia, industry, and media to inform local and national policy, in academic research, to monitor medicine uptake, and to make information on prescribing habits public and transparent. 
+
+It is collected by the NHS Business Services Authority (NHSBSA) for the operational purpose of reimbursing and remunerating dispensing contractors for the costs of supplying drugs and devices, along with essential and advanced services, to NHS patients. The data that forms the basis of these statistics is collected as a by-product of this process.
 
 ### 1.1. How prescription data is collected  {.toc-ignore}
 
 Data is collected from the submission of prescriptions by dispensing contractors to the NHSBSA. These prescriptions can be issued by GPs and other authorised prescribers such as nurses, dentists, and allied health professionals. Prescriptions that are issued by hospitals can also be dispensed in the community and submitted for reimbursement. Prescriptions that are issued in hospitals and fulfilled by the hospital pharmacy or dispensary are not included in this data.
 
-Prescriptions can be issued as either a paper form or as an electronic message using the Electronic Prescription Service (EPS). EPS prescriptions make up most of prescribing and dispensing activity carried out in England, accounting for 88%<sup>1</sup>  of all prescriptions dispensed in England during 2021. EPS messages are submitted by the dispensing contractor once the prescription has been fulfilled and issued to the patient. The message is initially sent to the NHS Spine, maintained by NHS Digital, and then sent to the NHSBSA for processing. Paper prescriptions are compiled by the dispensing contractor and sent to the NHSBSA at the end of each month by secure courier. These paper prescriptions are then scanned and transformed into digital images, which are passed through intelligent character recognition (ICR) to extract the relevant data from them. Most paper forms go through ICR without any manual intervention. However, there are cases where operator intervention is required to accurately capture information from the prescription form. This manual intervention can be required for many reasons, such as if a form is handwritten or information is obscured by a pharmacy stamp.
+Prescriptions can be issued as either a paper form or as an electronic message using the Electronic Prescription Service (EPS). EPS prescriptions make up most of prescribing and dispensing activity carried out in England, accounting for 89%  of all prescriptions dispensed in England during 2022. EPS messages are submitted by the dispensing contractor once the prescription has been fulfilled and issued to the patient. The message is initially sent to the NHS Spine, maintained by NHS Digital, and then sent to the NHSBSA for processing. Paper prescriptions are compiled by the dispensing contractor and sent to the NHSBSA at the end of each month by secure courier. These paper prescriptions are then scanned and transformed into digital images, which are passed through intelligent character recognition (ICR) to extract the relevant data from them. Most paper forms go through ICR without any manual intervention. However, there are cases where operator intervention is required to accurately capture information from the prescription form. This manual intervention can be required for many reasons, such as if a form is handwritten or information is obscured by a pharmacy stamp.
 
 After this processing for the reimbursement and remuneration of dispensing contractors, data is extracted from the NHSBSA transactional systems alongside data from the NHSBSA drug and organisational databases and loaded in to the NHSBSA Enterprise Data Warehouse (EDW). During this extract, load and transform (ELT) process a series of business logic is applied to the data to make it easier to use and more useful than if it were to be kept in its raw form. The EDW is the source used by many of our reporting systems and data extracts, including ePACT2, eDEN, eOPS, the English Prescribing Dataset (EPD), and Official Statistics publications.
 
-<small><sup>1</sup> Source – NHSBSA Enterprise Data Warehouse.</small>
+### 1.2 Drug data held by the NHSBSA {.toc-ignore}
 
-### 1.2.1 Drug data held by the NHSBSA {.toc-ignore}
-
-The NHSBSA has a single drug database<sup>2</sup>  that is used for both the reimbursement and reporting of drugs, appliances, and medical devices. This database is called Common Drug Reference (CDR) and holds all drug related information, including BNF classification, SNOMED CT, price and much more. This database is also the basis for the NHS Dictionary of Medicines and Devices (DM+D), which the NHSBSA maintain with support from NHS Digital. In these statistics we use the BNF, preparation class, and SNOMED CT classifications for drugs, appliances, and medical devices.
+The NHSBSA has a single drug database<sup>1</sup>  that is used for both the reimbursement and reporting of drugs, appliances, and medical devices. This database is called Common Drug Reference (CDR) and holds all drug related information, including BNF classification, SNOMED CT, price and much more. This database is also the basis for the NHS Dictionary of Medicines and Devices (DM+D), which the NHSBSA maintain with support from NHS Digital. In these statistics we use the BNF, preparation class, and SNOMED CT classifications for drugs, appliances, and medical devices.
 
 Drugs are held on CDR at an individual pack level. For example, Paracetamol 500mg tablets 16 pack and Paracetamol 500mg tablets 32 pack have separate entries in the database, along with separate entries for each supplier of the pack and any proprietary versions. 
 
 The NHSBSA holds drug and prescription data at a pack level and uses this information for the correct reimbursement of dispensing contractors. However, the most granular data that we release in our reporting systems and other data outputs, including these statistics, is at a product level.
 
-<small><sup>2</sup> Before March 2020 the NHSBSA maintained two drug databases that were difficult to align and reconcile. These were combined and the legacy system decommissioned by the ‘One Drug Database’ project.</small>
+<small><sup>1</sup> Before March 2020 the NHSBSA maintained two drug databases that were difficult to align and reconcile. These were combined and the legacy system decommissioned by the ‘One Drug Database’ project.</small>
 
-#### 1.2 British National Formulary (BNF) hierarchy
+#### 1.2.1 British National Formulary (BNF) hierarchy
 
 These statistics use the therapeutic classifications defined in the BNF to group medicines together based on their primary therapeutic indication. The NHSBSA uses and maintains the classification system of the BNF implemented prior to the release of edition 70, including the six pseudo BNF chapters (18 to 23) created by NHS Prescription Services used to classify products that fall outside of chapters 1 to 15. Most of these presentations held in these pseudo chapters are dressings, appliances, and medical devices. Each January the NHSBSA updates the classification of drugs within the BNF hierarchy which may involve some drugs changing BNF codes and moving within the hierarchy.
 
 The BNF has multiple levels, in descending order from the largest grouping to smallest they are chapter, section, paragraph, sub-paragraph, chemical substance, product, and individual presentation. Presentations in chapters 20 to 23 do not have assigned BNF paragraphs, sub-paragraphs, chemical substances, or products.
-
 
 
 ### 1.3. Other data held by the NHSBSA {.toc-ignore}
@@ -137,9 +138,9 @@ A patient’s gender may change over time due to several reasons. Therefore, in 
 
 #### 2.1.3  Patient deprivation
 
-The [English Indices of Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019) have been used in these statistics as a measure of the level of deprivation of the areas in which a patient lived when they were prescribed an item. In particular, the headline Index of Multiple Deprivation (IMD) is included. IMD data has been joined to the National Statistics Postcode lookup (NSPL) UK May 2023 release using lower-layer super output area (LSOA) 2011. This combined dataset has then been joined to prescription data using the postcode of the patient the prescription was for. The LSOAs are analysed in groups, or ‘quintiles’ each representing 20% of the areas from the deprivation scores, to the lowest. The measure of deprivation reported in these statistics is therefore the IMD quintile of the area in which the patient is located.
+The [English Indices of Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019) have been used in these statistics as a measure of the level of deprivation of the areas in which a patient lived when they were prescribed an item. In particular, the headline Index of Multiple Deprivation (IMD) is included. IMD data has been joined to the National Statistics Postcode lookup (NSPL) UK May 2023 release using lower-layer super output area (LSOA) 2011. This combined dataset has then been joined to prescription data using the postcode of the patient the prescription was for. The LSOAs are analysed in groups, or ‘quintiles’ each representing 20% of the areas from the deprivation scores, to the lowest. The measure of deprivation reported in these statistics is therefore the IMD quintile of the area in which the patient is located. For some patients where a patient postcode is not available, the postcode of the prescribing practice has been used as a secondary way of assigning to an IMD quintile if present in the data. 
 
-Where a patient's postcode has not been able to be matched to NSPL or the patient has not been identified, the records are reported as ‘unknown’ IMD quintile. 
+Where both the patient's postcode or practice postcode has not been able to be matched to NSPL or the patient has not been identified, the records are reported as ‘unknown’ IMD quintile. 
 
 ### 2.2 Changes to BNF classifications {.toc-ignore}
 
@@ -147,7 +148,7 @@ These statistics use the BNF therapeutic classifications defined in the British 
 
 ### 2.3 Item trends during COVID-19 {.toc-ignore}
 
-The number of items for each BNF section in the 37 month period March 2020 to March 2023 were compared to the number of items expected to be prescribed based on trends from the ‘pre-COVID-19’ period. The monthly data for April 2015 to February 2020 was used to create a linear regression forecast for March 2020 to March 2023, with the actual totals compared. By using a linear regression, this predicts a future value based on a line of best fit of previous values. This linear regression extrapolated figures according to:
+The number of items for each BNF section in the 43 month period March 2020 to September 2023 were compared to the number of items expected to be prescribed based on trends from the ‘pre-COVID-19’ period. The monthly data for April 2015 to February 2020 was used to create a linear regression forecast for March 2020 to September 2023, with the actual totals compared. By using a linear regression, this predicts a future value based on a line of best fit of previous values. This linear regression extrapolated figures according to:
 
 *	the trends between April 2015 and February 2020
 *	the number of dispensing days that occur in each month
@@ -171,7 +172,9 @@ This model states expected figures if trends had continued as before but doesn't
 
 ## 3. Changes to this publication
 
-### 3.1. Additional quarterly breakdowns {.toc-ignore}
+### 3.1 Additional quarterly breakdowns {.toc-ignore}
+
+From the Q2 2023/24 quarterly release, we have added new measures to the summary tables for each BNF section. The average number of items per identified patient and the average Net Ingredient Cost (NIC) per patient have been added as additional columns into the breakdowns by month and chemical substance. A new table of the number of identified patients per 1,000 population by age band and gender has also been added.
 
 From the Q1 2023/24 quarterly release, we have split the publication into smaller summaries,one for each BNF Section and one for the modelling of future prescribing. 
 
@@ -266,7 +269,7 @@ We will be gathering feedback from users of these statistics on an on-going basi
   
 These statistics are derived from data collected during processing activities carried out by the NHSBSA to reimburse dispensing contractors for providing services to NHS patients. Prescriptions are scanned and subject to rigorous automatic and manual validation processes to ensure accurate payments are made to dispensing contractors. Where electronic prescriptions are used the scope for manual intervention and input into data is reduced dramatically.
 
-The figures used are collected as an essential part of the process of reimbursing dispensing contractors (mainly pharmacists and dispensing doctors) for medicines supplied. All prescriptions which are dispensed in England need to be submitted to the NHSBSA if the dispenser is to be reimbursed, and so coverage should be complete. Due to the manual processes involved in the processing of prescriptions there may be random inaccuracies in capturing prescription information which are then reflected in the data. NHS Prescription Services, a division of NHSBSA, internally quality assures the data that is captured from prescriptions to a 99.70% level via a statistically valid random sample of 50,000 items that are reprocessed monthly. The latest reported [Prescription Processing Information Accuracy](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/payments-and-pricing/how-we-process-prescriptions) from NHS Prescriptions services, which covers the 12 month period March 2022 to February 2023 is 99.91%.
+The figures used are collected as an essential part of the process of reimbursing dispensing contractors (mainly pharmacists and dispensing doctors) for medicines supplied. All prescriptions which are dispensed in England need to be submitted to the NHSBSA if the dispenser is to be reimbursed, and so coverage should be complete. Due to the manual processes involved in the processing of prescriptions there may be random inaccuracies in capturing prescription information which are then reflected in the data. NHS Prescription Services, a division of NHSBSA, internally quality assures the data that is captured from prescriptions to a 99.85% level via a statistically valid random sample of 50,000 items that are reprocessed monthly. The latest reported [Prescription Processing Information Accuracy](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/payments-and-pricing/how-we-process-prescriptions) from NHS Prescriptions services, which covers the 12 month period September 2022 to August 2023 is 99.91%.
 
 #### 7.2.2. Reliability {.toc-ignore}
 
@@ -417,7 +420,7 @@ You can view our [privacy policy](https://www.nhsbsa.nhs.uk/our-policies/privacy
 
 You can contact us by:
   
-**Email:** nhsbsa.statistics@nhs.net
+**Email:** statistics@nhsbsa.nhs.uk
 
 **You can also write to us at:**
   

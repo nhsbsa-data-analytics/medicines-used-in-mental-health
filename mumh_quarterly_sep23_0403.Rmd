@@ -69,7 +69,7 @@ Between July and September 2023:
 
 ## 1. Things you should know
 
-`r infoBox_border(" ", text = "Antidepressant drugs are effective for treating moderate to severe depression, but are not usually recommended for the routine treatment of mild depression. In those cases, psychological therapy should be considered initially. However, a trial of antidepressant therapy may be considered in cases resistant to psychological treatments or associated with other problems. The National Institute for Health and Care Excellence (NICE) has [released updated guidance](https://www.nice.org.uk/news/nice-draft-quality-standard-depression-adults-update-2023) to recommend adult patients stopping antidepressants should have their dose reduced in stages across time.
+`r infobox_border(" ", text = "Antidepressant drugs are effective for treating moderate to severe depression, but are not usually recommended for the routine treatment of mild depression. In those cases, psychological therapy should be considered initially. However, a trial of antidepressant therapy may be considered in cases resistant to psychological treatments or associated with other problems. The National Institute for Health and Care Excellence (NICE) has [released updated guidance](https://www.nice.org.uk/news/nice-draft-quality-standard-depression-adults-update-2023) to recommend adult patients stopping antidepressants should have their dose reduced in stages across time.
 
 Antidepressant drugs are described in the BNF 68 section 4.3:
 

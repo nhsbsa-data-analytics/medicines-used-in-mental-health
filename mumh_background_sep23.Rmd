@@ -138,9 +138,11 @@ A patient’s gender may change over time due to several reasons. Therefore, in 
 
 #### 2.1.3  Patient deprivation
 
-The [English Indices of Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019) have been used in these statistics as a measure of the level of deprivation of the areas in which a patient lived when they were prescribed an item. In particular, the headline Index of Multiple Deprivation (IMD) is included. IMD data has been joined to the National Statistics Postcode lookup (NSPL) UK May 2023 release using lower-layer super output area (LSOA) 2011. This combined dataset has then been joined to prescription data using the postcode of the patient the prescription was for. The LSOAs are analysed in groups, or ‘quintiles’ each representing 20% of the areas from the deprivation scores, to the lowest. The measure of deprivation reported in these statistics is therefore the IMD quintile of the area in which the patient is located. For some patients where a patient postcode is not available, the postcode of the prescribing practice has been used as a secondary way of assigning to an IMD quintile if present in the data. 
+The [English Indices of Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019) have been used in these statistics as a measure of the level of deprivation of the areas in which a patient lived when they were prescribed an item. In particular, the headline Index of Multiple Deprivation (IMD) is included. IMD data has been joined to the National Statistics Postcode lookup (NSPL) UK May 2023 release using lower-layer super output area (LSOA) 2011. This combined dataset has then been joined to prescription data using the postcode of the patient the prescription was for. The LSOAs are analysed in groups, or ‘quintiles’ each representing 20% of the areas from the deprivation scores, to the lowest. 
 
-Where both the patient's postcode or practice postcode has not been able to be matched to NSPL or the patient has not been identified, the records are reported as ‘unknown’ IMD quintile. 
+The measure of deprivation reported in these statistics is therefore the IMD quintile of the area in which the patient is located. For some patients where a patient postcode is not available, the postcode of the prescribing practice has been used as a secondary way of assigning to an IMD quintile if present in the data. Where both the patient's postcode or practice postcode has not been able to be matched to NSPL or the patient has not been identified, the records are reported as ‘unknown’ IMD quintile. 
+
+Due to the methodology used to assign IMD quintile, some historical data in the IMD level summary tables may change between releases.
 
 ### 2.2 Changes to BNF classifications {.toc-ignore}
 
@@ -174,7 +176,7 @@ This model states expected figures if trends had continued as before but doesn't
 
 ### 3.1 Additional quarterly breakdowns {.toc-ignore}
 
-From the Q2 2023/24 quarterly release, we have added new measures to the summary tables for each BNF section. The average number of items per identified patient and the average Net Ingredient Cost (NIC) per patient have been added as additional columns into the breakdowns by month and chemical substance. A new table of the number of identified patients per 1,000 population by age band and gender has also been added.
+From the Q2 2023/24 quarterly release, we have added new measures to the summary tables for each BNF section. The average number of items per identified patient and the average Net Ingredient Cost (NIC) per patient have been added as additional columns into the breakdowns by month and chemical substance. These averages are the mean. A new table of the number of identified patients per 1,000 population by age band and gender has also been added.
 
 From the Q1 2023/24 quarterly release, we have split the publication into smaller summaries,one for each BNF Section and one for the modelling of future prescribing. 
 
@@ -256,7 +258,7 @@ These principles guide us and are complimented by the UKSA’s regulatory standa
 
 ***This dimension covers the degree to which the product meets user need in both coverage and content***
   
-The MUMH publication, released annually, as well as a quarterly summary statistic, summarises the number of items prescribed for drugs related to mental health. The annual statistics also give patient breakdowns including by 5 year age band, gender, and IMD decile. These statistics cover from financial year 2015/16 onwards, allowing the analysis of long-term trends in prescribing. These publications are the first in a new series released by the NHSBSA. We believe that they can be used to inform policy decisions at a national and local level, by the public to scrutinise prescribing habits, and by academia and applied health researchers for matters relating to public health. The NHSBSA also routinely receives Freedom of Information requests and parliamentary questions about this subject matter. 
+The MUMH publication, released annually, as well as a quarterly summary statistic, summarises the number of items prescribed for drugs related to mental health. The statistics also give patient breakdowns including by 5 year age band, gender, and IMD quintile. These statistics cover from financial year 2015/16 onwards, allowing the analysis of long-term trends in prescribing. These publications are the first in a new series released by the NHSBSA. We believe that they can be used to inform policy decisions at a national and local level, by the public to scrutinise prescribing habits, and by academia and applied health researchers for matters relating to public health. The NHSBSA also routinely receives Freedom of Information requests and parliamentary questions about this subject matter. 
 
 We will be gathering feedback from users of these statistics on an on-going basis to help shape them and ensure that they remain relevant and of use.
 

@@ -56,13 +56,13 @@ Published `r config$publication_date`
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Antidepressants items and hypnotics and anxiolytics items have mostly remained within the range of expected values, based on pre-pandemic trends.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antidepressants and hypnotics and anxiolytics generally remained within the range of expected values, based on pre-pandemic trends.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Previously, antipsychotics items have generally remained within the range of expected values, but July and September 2023 showed prescribing below this range.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antipsychotics were below the range of expected items in July and September 2023.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD have continued to increase beyond the range of expected values. Drugs for dementia items remained below the range of expected values.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD continued to increase beyond the range of expected items to be prescribed.</b>", width = "100%")`
 :::
 ::::
 

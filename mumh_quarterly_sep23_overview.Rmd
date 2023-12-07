@@ -52,7 +52,7 @@ knitr::opts_chunk$set(echo = FALSE,
 
 Published `r config$publication_date` 
 
-`r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we've added new measures to the summary tables for each BNF section. These include items per identified patient by month and chemical substance and Net Ingredient Cost (NIC) per identified patient by month and chemical substance. The number of identified patients per 1,000 population by age band and gender has also been added.  We're interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
+`r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we've added new measures to the summary tables for each BNF section. These include the items per identified patient by month and chemical substance and Net Ingredient Cost (NIC) per identified patient by month and chemical substance. The number of identified patients per 1,000 population by age band and gender has also been added.  We're interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
 
 ## Key findings
 
@@ -80,7 +80,7 @@ Prescribing of CNS stimulants and drugs for ADHD items also increased by less th
 
 The number of drugs for dementia items prescribed increased by 3.1% to 1.1 million. This was the largest percentage increase in items out of the drug groups in this publication. Identified patients increased by 2.3%. 
 
-The total Net ingredient Cost (NIC) decreased for antidepressants, hypnotics and anxiolytics, and antipsychotics. This was in contrast to increases in identified patients and items in these drug groups. The total NIC increased for CNS stimulants and drugs for ADHD, and drugs for dementia. Antidepressants had the largest change in total NIC of the drug groups in this publication, with a 6.8% decrease.
+Total Net ingredient Cost (NIC) decreased for antidepressants, hypnotics and anxiolytics, and antipsychotics, despite increases in identified patients and items in these drug groups. The total NIC increased for CNS stimulants and drugs for ADHD, and drugs for dementia. Antidepressants had the largest change in total NIC of the drug groups in this publication, with a 6.8% decrease.
 
 
 ---
@@ -100,7 +100,7 @@ Medicines are not the only way to treat mental health conditions, and this publi
 
 ### 1.2. Definitions {.toc-ignore}
 
-`r infoBox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
+`r infobox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
 
 `r infoBox_border("Patient", text = "A unique NHS number verified from a prescription form. Verification of an NHS number for patient identification is done by the NHS Personal Demographics Service (PDS).", width = "100%")`
 
@@ -218,8 +218,8 @@ This publication is part of a series by the NHSBSA, which can be found on our [M
 For this release, we have added the following measures to the summary tables for each BNF section:
 
 * the number of identified patients per 1,000 population, by age band and gender
-* items per identified patient, by month and chemical substance
-* Net Ingredient Cost (NIC) per identified patient, by month and chemical substance
+* the average (mean) number of items per identified patient, by month and chemical substance
+* the average (mean) Net Ingredient Cost (NIC) per identified patient, by month and chemical substance
 
 ### 4.2 Statistical Disclosure Control (SDC) {.toc-ignore}
 
@@ -231,7 +231,7 @@ The high-level figures in this statistical summary have been rounded where appro
 
 ### 4.4. Trends during COVID-19 {.toc-ignore}
 
-The number of items for each BNF section in the 34-month period March 2020 to September 2023 were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to September 2023. These figures were extrapolated according to:
+The number of items for each BNF section in the 43-month period March 2020 to September 2023 were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to September 2023. These figures were extrapolated according to:
 
 * the trends between April 2015 and February 2020
 * the number of dispensing days that occur in each month
@@ -280,7 +280,7 @@ You can view our [privacy policy](https://www.nhsbsa.nhs.uk/our-policies/privacy
 
 You can contact us by:
 
-**Email:** statistica@nhsbsa.nhs.uk
+**Email:** statistics@nhsbsa.nhs.uk
 
 **You can also write to us at:**
 

@@ -2,7 +2,7 @@
 
 This code is published as part of the NHSBSA Official Statistics team's commitment to open code and transparency in how we produce our publications. The Medicines Used in Mental Health (MUMH) reproducible analytical pipeline (RAP) is owned and maintained by the Official Statistics team.
 
-#Introduction
+## Introduction
 
 This RAP aims to bring together all code needed to run a pipeline in R to produce the latest MUMH publication. It includes accompanying documentation in line with RAP best practice. 
 
@@ -42,17 +42,21 @@ Functions written directly for MUMH have been split into several R script files.
 
 1. `extract_functions.R` contains functions for getting the required data out of the fact table. They generally use the dbplyr package to interact with the NHSBSA data warehouse. 
 
-Functions include `national_extract()`, `paragraph_extract()`, `child_adult_extract()`, `imd_extract()`, `imd_paragraph_extract()`, `ageband_extract()`, `ageband_paragraph_extract()`, `gender_extract()`, `gender_paragraph_extract()`, `age_gender_extract()`, `age_gender_paragraph_extract()`, `national_presentation()`, `capture_rate_extract()`, `capture_rate_extract_dt()`, `cost_per_icb_extract()`, and `cost_per_patient_extract()`.
+Functions include `capture_rate_extract_period()`, `national_extract_period()`, `paragraph_extract_period()`, `chem_sub_extract_period()`, `icb_extract_period()`, `ageband_extract_period()`, `gender_extract_period()`, `age_gender_extract_period()`, `imd_extract_period()`, `child_adult_extract()`.
 
-2. `vis_functions.R` contains functions for use in data visualisation for MUMH outputs, such as creating charts and formatting in markdown outputs. 
+2. `population_functions.R` contains functions for extracting and manipulation population data for use in the pipeline.
 
-Functions include `infoBox_border()`, `infoBox_no_border()`, `age_gender_chart()`, `get_download_button()`, and `group_chart_hc_new()`.
+Functions include `population_extract()` and `national_pop_agegen()`.
 
-3. `model_functions.R` contains functions for building the linear regression model of pre-COVID-19 pandemic trends.
+3. `vis_functions.R` contains functions for use in data visualisation for MUMH outputs, such as creating charts and formatting in markdown outputs. 
+
+Functions include `infoBox_border()`, `infoBox_no_border()`, `age_gender_chart()`, `covid_chart_hc()`, `group_chart_hc_new()`, `get_download_button()`, and .
+
+4. `model_functions.R` contains functions for building the linear regression model of pre-COVID-19 pandemic trends.
 
 Functions include `ageband_manip_20yr()`, `covid_lm()`, `fast_agg_pred()`, `month_pred_fun()`, and `prediction_list()`.
 
-4. `apply_sdc.R` contains the `apply_sdc()` function to apply statistical disclosure control (SDC) to data in MUMH spreadsheet outputs. This is done in line with our [statistical disclosure control protocol](https://www.nhsbsa.nhs.uk/policies-and-procedures). 
+5. `apply_sdc.R` contains the `apply_sdc()` function to apply statistical disclosure control (SDC) to data in MUMH spreadsheet outputs. This is done in line with our [statistical disclosure control protocol](https://www.nhsbsa.nhs.uk/policies-and-procedures). 
 
 
 # Contributing

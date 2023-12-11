@@ -2,6 +2,15 @@
 # this script provides the code to run the reproducible analytical pipeline
 # and produce the Medicines Used in Mental Health (MUMH) quarterly publication
 
+# contains the following sections:
+# 1. Setup and package installation
+# 2. Data import
+# 3. Aggregations and analysis
+# 4. Model of pre-COVID-19-pandemic prescribing trends
+# 5. Data tables
+# 6. Charts and figures
+# 7. Render outputs
+
 # clear environment
 rm(list = ls())
 
@@ -1291,7 +1300,7 @@ quarterly_0411$pat_per_1000_pop <- age_gender_extract_quarter |>
                                                       `Mid-year Population Estimate`) * 1000
   ))
 
-# 3. Model of pre-COVID-19-pandemic prescribing trends -------------------------
+# 4. Model of pre-COVID-19-pandemic prescribing trends -------------------------
 
 # model of item predictions extrapolated from pre-covid pandemic prescribing trends
 
@@ -1354,7 +1363,7 @@ covid_model_predictions_sep <- rbind(
 # update month in file name for new publications
 fwrite(covid_model_predictions_sep, "Y:/Official Stats/MUMH/Covid model tables/Sep23.csv")
 
-# 4. Data tables ---------------------------------------------------------------
+# 5. Data tables ---------------------------------------------------------------
 
 # data tables for spreadsheet outputs
 # formatted according to accessibility standards
@@ -1506,7 +1515,7 @@ accessibleTables::format_data(
   "0.00"
 )
 
-# national Total
+# national total
 
 accessibleTables::write_sheet(
   wb,
@@ -1545,7 +1554,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-# national Paragraph
+# national paragraph
 
 accessibleTables::write_sheet(
   wb,
@@ -1657,7 +1666,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-# age Band
+# age band
 
 accessibleTables::write_sheet(
   wb,
@@ -1813,6 +1822,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 # monthly section data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -1851,6 +1861,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 # monthly paragraph data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -1889,6 +1900,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 # monthly chemical substance data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -1930,6 +1942,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 # average items per patient monthly chemical substance data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -2149,7 +2162,7 @@ accessibleTables::format_data(
   "0.00"
 )
 
-# national Total
+# national total
 
 accessibleTables::write_sheet(
   wb,
@@ -2188,7 +2201,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-# national Paragraph
+# national paragraph
 
 accessibleTables::write_sheet(
   wb,
@@ -2263,7 +2276,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-# Gender
+# gender
 
 accessibleTables::write_sheet(
   wb,
@@ -2300,7 +2313,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-# age Band
+# age band
 
 accessibleTables::write_sheet(
   wb,
@@ -2376,7 +2389,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-# patients per 1000 population by Age and gender
+# patients per 1000 population by age and gender
 
 accessibleTables::write_sheet(
   wb,
@@ -2456,6 +2469,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 # monthly section data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -2494,6 +2508,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 # monthly paragraph data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -2531,7 +2546,8 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly chemical substance data
+# monthly chemical substance data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -2572,7 +2588,8 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Average items per patient monthly chemical substance data
+# average items per patient monthly chemical substance data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -2614,7 +2631,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-#create cover sheet
+# create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0402 Drugs used in psychoses and related disorders",
   config$cover_sheet_sub_title,
@@ -2640,7 +2657,7 @@ accessibleTables::makeCoverSheet(
   c("Metadata", sheetNames)
 )
 
-#save file into outputs folder
+# save file into outputs folder
 openxlsx::saveWorkbook(wb,
                        "outputs/mumh_bnf0402_Sep_23.xlsx",
                        overwrite = TRUE)
@@ -2667,7 +2684,7 @@ sheetNames <- c(
 
 wb <- accessibleTables::create_wb(sheetNames)
 
-#create metadata tab (will need to open file and auto row heights once ran)
+# create metadata tab (will need to open file and auto row heights once ran)
 meta_fields <- c(
   "BNF Section Name",
   "BNF Section Code",
@@ -2725,7 +2742,7 @@ accessibleTables::create_metadata(wb,
                                   meta_fields,
                                   meta_descs)
 
-## Patient identification
+# patient identification
 
 # write data to sheet
 accessibleTables::write_sheet(
@@ -2742,14 +2759,14 @@ accessibleTables::write_sheet(
   42
 )
 
-#left align columns A to C
+# left align columns A to B
 accessibleTables::format_data(wb,
                               "Patient_Identification",
                               c("A", "B"),
                               "left",
                               "")
 
-#right align columns and round to 2 DP - D (if using long data not pivoting wider) (!!NEED TO UPDATE AS DATA EXPANDS!!)
+#right align columns and round to 2 decimal places
 accessibleTables::format_data(
   wb,
   "Patient_Identification",
@@ -2793,7 +2810,7 @@ accessibleTables::format_data(
   "0.00"
 )
 
-## National Total
+# national total
 
 accessibleTables::write_sheet(
   wb,
@@ -2810,21 +2827,21 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns E and F and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column G and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("H"),
@@ -2832,7 +2849,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-## National Paragraph
+# national paragraph
 
 accessibleTables::write_sheet(
   wb,
@@ -2850,28 +2867,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## ICB
+# ICB
 
 accessibleTables::write_sheet(
   wb,
@@ -2886,28 +2903,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to K
+# left align columns A to K
 accessibleTables::format_data(wb,
                               "ICB",
                               c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"),
                               "left",
                               "")
 
-#right align columns L and M and round to whole numbers with thousand separator
+# right align columns L and M and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("L", "M"),
                               "right",
                               "#,##0")
 
-#right align column N and round to 2dp with thousand separator
+# right align column N and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("N"),
                               "right",
                               "#,##0.00")
 
-## Gender
+# gender
 
 accessibleTables::write_sheet(
   wb,
@@ -2923,28 +2940,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Gender",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age Band
+# age band
 
 accessibleTables::write_sheet(
   wb,
@@ -2959,28 +2976,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age and gender
+# age and gender
 
 accessibleTables::write_sheet(
   wb,
@@ -2999,28 +3016,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to G
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns H and I and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column J and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## Patients per 1000 population by Age and gender
+# patients per 1000 population by age and gender
 
 accessibleTables::write_sheet(
   wb,
@@ -3041,28 +3058,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to h
+# left align columns A to H
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("A", "B", "C", "D", "E", "F", "G", "H"),
                               "left",
                               "")
 
-#right align columns I and J and round to whole numbers with thousand separator
+# right align columns I and J and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("I", "J"),
                               "right",
                               "#,##0")
 
-#right align column K and round to 2dp with thousand separator
+# right align column K and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("K"),
                               "right",
                               "#,##0.00")
 
-## IMD
+# IMD
 
 accessibleTables::write_sheet(
   wb,
@@ -3078,28 +3095,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "IMD",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns F and G and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column H and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("H"),
                               "right",
                               "#,##0.00")
 
-## Prescribing in children
+# prescribing in children
 
 accessibleTables::write_sheet(
   wb,
@@ -3116,28 +3133,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to e
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "Presc_in_Children",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns F and G and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Presc_in_Children",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column H and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Presc_in_Children",
                               c("H"),
                               "right",
                               "#,##0.00")
 
-##  Monthly section data
+# monthly section data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -3175,7 +3192,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly paragraph data
+# monthly paragraph data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -3213,7 +3230,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly chemical substance data
+# monthly chemical substance data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -3254,7 +3271,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Average items per patient monthly chemical substance data
+# average items per patient monthly chemical substance data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -3297,7 +3314,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-#create cover sheet
+# create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0403 Antidepressant drugs",
   config$cover_sheet_sub_title,
@@ -3324,7 +3341,7 @@ accessibleTables::makeCoverSheet(
   c("Metadata", sheetNames)
 )
 
-#save file into outputs folder
+# save file into outputs folder
 openxlsx::saveWorkbook(wb,
                        "outputs/mumh_bnf0403_Sep_23.xlsx",
                        overwrite = TRUE)
@@ -3349,7 +3366,7 @@ sheetNames <- c(
 
 wb <- accessibleTables::create_wb(sheetNames)
 
-#create metadata tab (will need to open file and auto row heights once ran)
+# create metadata tab (will need to open file and auto row heights once ran)
 meta_fields <- c(
   "BNF Section Name",
   "BNF Section Code",
@@ -3407,7 +3424,7 @@ accessibleTables::create_metadata(wb,
                                   meta_fields,
                                   meta_descs)
 
-## Patient identification
+# patient identification
 
 # write data to sheet
 accessibleTables::write_sheet(
@@ -3424,14 +3441,14 @@ accessibleTables::write_sheet(
   42
 )
 
-#left align columns A to C
+# left align columns A to B
 accessibleTables::format_data(wb,
                               "Patient_Identification",
                               c("A", "B"),
                               "left",
                               "")
 
-#right align columns and round to 2 DP - D (if using long data not pivoting wider) (!!NEED TO UPDATE AS DATA EXPANDS!!)
+# right align columns and round to 2 decimal places
 accessibleTables::format_data(
   wb,
   "Patient_Identification",
@@ -3475,7 +3492,7 @@ accessibleTables::format_data(
   "0.00"
 )
 
-## National Total
+# national Total
 
 accessibleTables::write_sheet(
   wb,
@@ -3492,21 +3509,21 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns E and F and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column G and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("H"),
@@ -3514,7 +3531,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-## National Chemical Substance
+# national chemical substance
 
 accessibleTables::write_sheet(
   wb,
@@ -3532,28 +3549,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column J and round to 2dp with thousand separator
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## ICB
+# ICB
 
 accessibleTables::write_sheet(
   wb,
@@ -3568,28 +3585,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to K
+# left align columns A to K
 accessibleTables::format_data(wb,
                               "ICB",
                               c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"),
                               "left",
                               "")
 
-#right align columns L and M and round to whole numbers with thousand separator
+# right align columns L and M and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("L", "M"),
                               "right",
                               "#,##0")
 
-#right align column N and round to 2dp with thousand separator
+# right align column N and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("N"),
                               "right",
                               "#,##0.00")
 
-## Gender
+# gender
 
 accessibleTables::write_sheet(
   wb,
@@ -3605,28 +3622,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Gender",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age Band
+# age band
 
 accessibleTables::write_sheet(
   wb,
@@ -3641,28 +3658,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age and gender
+# age and gender
 
 accessibleTables::write_sheet(
   wb,
@@ -3681,28 +3698,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to G
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns H and I and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column J and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## Patients per 1000 population by Age and gender
+# patients per 1000 population by age and gender
 
 accessibleTables::write_sheet(
   wb,
@@ -3724,28 +3741,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to h
+# left align columns A to H
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("A", "B", "C", "D", "E", "F", "G", "H"),
                               "left",
                               "")
 
-#right align columns I and J and round to whole numbers with thousand separator
+# right align columns I and J and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("I", "J"),
                               "right",
                               "#,##0")
 
-#right align column K and round to 2dp with thousand separator
+# right align column K and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("K"),
                               "right",
                               "#,##0.00")
 
-## IMD
+# IMD
 
 accessibleTables::write_sheet(
   wb,
@@ -3761,28 +3778,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "IMD",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns F and G and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column H and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("H"),
                               "right",
                               "#,##0.00")
 
-## Prescribing in children
+# prescribing in children
 
 accessibleTables::write_sheet(
   wb,
@@ -3799,28 +3816,29 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to e
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "Presc_in_Children",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns F and G and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Presc_in_Children",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column H and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Presc_in_Children",
                               c("H"),
                               "right",
                               "#,##0.00")
 
-##  Monthly section data
+# monthly section data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -3858,7 +3876,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly chemical substance data
+# monthly chemical substance data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -3899,7 +3917,8 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Average items per patient monthly chemical substance data
+# average items per patient monthly chemical substance data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -3941,7 +3960,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-#create cover sheet
+# create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0404 Central nervous system (CNS) stimulants and drugs used for ADHD",
   config$cover_sheet_sub_title,
@@ -3968,7 +3987,7 @@ accessibleTables::makeCoverSheet(
   c("Metadata", sheetNames)
 )
 
-#save file into outputs folder
+# save file into outputs folder
 openxlsx::saveWorkbook(wb,
                        "outputs/mumh_bnf0404_Sep_23.xlsx",
                        overwrite = TRUE)
@@ -3992,7 +4011,7 @@ sheetNames <- c(
 
 wb <- accessibleTables::create_wb(sheetNames)
 
-#create metadata tab (will need to open file and auto row heights once ran)
+# create metadata tab (will need to open file and auto row heights once ran)
 meta_fields <- c(
   "BNF Section Name",
   "BNF Section Code",
@@ -4050,7 +4069,7 @@ accessibleTables::create_metadata(wb,
                                   meta_fields,
                                   meta_descs)
 
-## Patient identification
+# patient identification
 
 # write data to sheet
 accessibleTables::write_sheet(
@@ -4067,14 +4086,14 @@ accessibleTables::write_sheet(
   42
 )
 
-#left align columns A to C
+# left align columns A to B
 accessibleTables::format_data(wb,
                               "Patient_Identification",
                               c("A", "B"),
                               "left",
                               "")
 
-#right align columns and round to 2 DP - D (if using long data not pivoting wider) (!!NEED TO UPDATE AS DATA EXPANDS!!)
+# right align columns and round to 2 decimal places
 accessibleTables::format_data(
   wb,
   "Patient_Identification",
@@ -4118,7 +4137,7 @@ accessibleTables::format_data(
   "0.00"
 )
 
-## National Total
+# national Total
 
 accessibleTables::write_sheet(
   wb,
@@ -4135,21 +4154,21 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns E and F and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column G and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("H"),
@@ -4157,7 +4176,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-## National Chemical Substance
+# national chemical substance
 
 accessibleTables::write_sheet(
   wb,
@@ -4175,28 +4194,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## ICB
+# ICB
 
 accessibleTables::write_sheet(
   wb,
@@ -4211,28 +4230,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to K
+# left align columns A to K
 accessibleTables::format_data(wb,
                               "ICB",
                               c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"),
                               "left",
                               "")
 
-#right align columns L and M and round to whole numbers with thousand separator
+# right align columns L and M and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("L", "M"),
                               "right",
                               "#,##0")
 
-#right align column N and round to 2dp with thousand separator
+# right align column N and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("N"),
                               "right",
                               "#,##0.00")
 
-## Gender
+# gender
 
 accessibleTables::write_sheet(
   wb,
@@ -4248,28 +4267,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Gender",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age Band
+# age band
 
 accessibleTables::write_sheet(
   wb,
@@ -4284,28 +4303,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age and gender
+# age and gender
 
 accessibleTables::write_sheet(
   wb,
@@ -4324,28 +4343,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to G
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns H and I and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column J and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## Patients per 1000 population by Age and gender
+# patients per 1000 population by age and gender
 
 accessibleTables::write_sheet(
   wb,
@@ -4366,28 +4385,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to h
+# left align columns A to H
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("A", "B", "C", "D", "E", "F", "G", "H"),
                               "left",
                               "")
 
-#right align columns I and J and round to whole numbers with thousand separator
+# right align columns I and J and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("I", "J"),
                               "right",
                               "#,##0")
 
-#right align column K and round to 2dp with thousand separator
+# right align column K and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("K"),
                               "right",
                               "#,##0.00")
 
-## IMD
+# IMD
 
 accessibleTables::write_sheet(
   wb,
@@ -4403,28 +4422,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "IMD",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns F and G and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column H and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("H"),
                               "right",
                               "#,##0.00")
 
-##  Monthly section data
+# monthly section data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -4462,7 +4481,8 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly chemical substance data
+# monthly chemical substance data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -4501,7 +4521,8 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Average items per patient monthly chemical substance data
+# average items per patient monthly chemical substance data
+
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
@@ -4543,7 +4564,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-#create cover sheet
+# create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0411 Drugs for dementia",
   config$cover_sheet_sub_title,
@@ -4568,36 +4589,40 @@ accessibleTables::makeCoverSheet(
   c("Metadata", sheetNames)
 )
 
-#save file into outputs folder
+# save file into outputs folder
 openxlsx::saveWorkbook(wb,
                        "outputs/mumh_bnf0411_Sep_23.xlsx",
                        overwrite = TRUE)
 
-# 5. Charts and figures
+# 6. Charts and figures --------------------------------------------------------
 
 # chart data for use in markdown
 
-#table 1 patient ID rates
+# table 1 patient ID rates
 table_1_data <- capture_rate_extract_quarter |>
-  dplyr::select(`BNF Section Name`,
-                `BNF Section Code`,
-                `2022/2023 Q3`,
-                `2022/2023 Q4`,
-                `2023/2024 Q1`,
-                `2023/2024 Q2`) |>
-  dplyr::mutate(across(where(is.numeric), round, 1))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::select(
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `2022/2023 Q3`,
+    `2022/2023 Q4`,
+    `2023/2024 Q1`,
+    `2023/2024 Q2`
+  ) |>
+  dplyr::mutate(across(where(is.numeric), round, 1)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 table_1_data_format <- capture_rate_extract_quarter |>
-  dplyr::select(`BNF Section Name`,
-                `BNF Section Code`,
-                `2022/2023 Q3`,
-                `2022/2023 Q4`,
-                `2023/2024 Q1`,
-                `2023/2024 Q2`) |>
-  dplyr::mutate(across(where(is.numeric), round, 1))|>
+  dplyr::select(
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `2022/2023 Q3`,
+    `2022/2023 Q4`,
+    `2023/2024 Q1`,
+    `2023/2024 Q2`
+  ) |>
+  dplyr::mutate(across(where(is.numeric), round, 1)) |>
   mutate(across(where(is.numeric), round, 2)) |>
   mutate(across(where(is.numeric), format, nsmall = 2)) |>
   mutate(across(contains("20"), ~ paste0(.x, "%")))
@@ -4612,18 +4637,20 @@ table_1 <- table_1_data_format |>
                                  list(className = "dt-right", targets = 2:5)
                                )))
 
-#table 1 patient ID rates by section
-#antidepressants 0403
+# table 1 patient ID rates by section
+# antidepressants 0403
 table_1_data_0403 <- capture_rate_extract_quarter |>
-  dplyr::select(`BNF Section Name`,
-                `BNF Section Code`,
-                `2022/2023 Q3`,
-                `2022/2023 Q4`,
-                `2023/2024 Q1`,
-                `2023/2024 Q2`) |>
+  dplyr::select(
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `2022/2023 Q3`,
+    `2022/2023 Q4`,
+    `2023/2024 Q1`,
+    `2023/2024 Q2`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0403") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::mutate(across(where(is.numeric), round, 1)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
@@ -4636,17 +4663,20 @@ table_1_0403 <- table_1_data_0403 |>
                                  list(className = "dt-left", targets = 0:1),
                                  list(className = "dt-right", targets = 2:5)
                                )))
-#Hypnotics and anxiolytics 0401
+
+# hypnotics and anxiolytics 0401
 table_1_data_0401 <- capture_rate_extract_quarter |>
-  dplyr::select(`BNF Section Name`,
-                `BNF Section Code`,
-                `2022/2023 Q3`,
-                `2022/2023 Q4`,
-                `2023/2024 Q1`,
-                `2023/2024 Q2`) |>
+  dplyr::select(
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `2022/2023 Q3`,
+    `2022/2023 Q4`,
+    `2023/2024 Q1`,
+    `2023/2024 Q2`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::mutate(across(where(is.numeric), round, 1)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
@@ -4659,17 +4689,20 @@ table_1_0401 <- table_1_data_0401 |>
                                  list(className = "dt-left", targets = 0:1),
                                  list(className = "dt-right", targets = 2:5)
                                )))
-#Drugs used in psychoses and related disorders 0402
+
+# drugs used in psychoses and related disorders 0402
 table_1_data_0402 <- capture_rate_extract_quarter |>
-  dplyr::select(`BNF Section Name`,
-                `BNF Section Code`,
-                `2022/2023 Q3`,
-                `2022/2023 Q4`,
-                `2023/2024 Q1`,
-                `2023/2024 Q2`) |>
+  dplyr::select(
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `2022/2023 Q3`,
+    `2022/2023 Q4`,
+    `2023/2024 Q1`,
+    `2023/2024 Q2`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0402") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::mutate(across(where(is.numeric), round, 1)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
@@ -4682,17 +4715,20 @@ table_1_0402 <- table_1_data_0402 |>
                                  list(className = "dt-left", targets = 0:1),
                                  list(className = "dt-right", targets = 2:5)
                                )))
-#CNS stimulants and drugs used for ADHD 0404
+
+# CNS stimulants and drugs used for ADHD 0404
 table_1_data_0404 <- capture_rate_extract_quarter |>
-  dplyr::select(`BNF Section Name`,
-                `BNF Section Code`,
-                `2022/2023 Q3`,
-                `2022/2023 Q4`,
-                `2023/2024 Q1`,
-                `2023/2024 Q2`) |>
+  dplyr::select(
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `2022/2023 Q3`,
+    `2022/2023 Q4`,
+    `2023/2024 Q1`,
+    `2023/2024 Q2`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0404") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::mutate(across(where(is.numeric), round, 1)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
@@ -4705,17 +4741,19 @@ table_1_0404 <- table_1_data_0404 |>
                                  list(className = "dt-left", targets = 0:1),
                                  list(className = "dt-right", targets = 2:5)
                                )))
-#dementia 0411
+# drugs for dementia 0411
 table_1_data_0411 <- capture_rate_extract_quarter |>
-  dplyr::select(`BNF Section Name`,
-                `BNF Section Code`,
-                `2022/2023 Q3`,
-                `2022/2023 Q4`,
-                `2023/2024 Q1`,
-                `2023/2024 Q2`) |>
+  dplyr::select(
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `2022/2023 Q3`,
+    `2022/2023 Q4`,
+    `2023/2024 Q1`,
+    `2023/2024 Q2`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0411") |>
-  dplyr::mutate(across(where(is.numeric), round, 1))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::mutate(across(where(is.numeric), round, 1)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
@@ -4729,10 +4767,10 @@ table_1_0411 <- table_1_data_0411 |>
                                  list(className = "dt-right", targets = 2:5)
                                )))
 
-#figure 1 quarterly antidepressant items and patients
+# figure 1 quarterly antidepressant items and patients
 figure_1_data_0403 <- quarterly_0403$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -4748,8 +4786,8 @@ figure_1_data_0403 <- quarterly_0403$national_total |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
@@ -4769,41 +4807,35 @@ figure_1_0403 <- figure_1_data_0403 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 2 quarterly antidepressant cost
+# figure 2 quarterly antidepressant net ingredient cost
 figure_2_data_0403 <- quarterly_0403$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
                   `BNF Section Code`) |>
-  dplyr::summarise(
-    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
-    .groups = "drop"
-  ) |>
+  dplyr::summarise(`Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+                   .groups = "drop") |>
   tidyr::pivot_longer(
     cols = c(`Cost (GBP)`),
     names_to = "measure",
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_2_0403 <- figure_2_data_0403 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -4815,17 +4847,13 @@ figure_2_0403 <- figure_2_data_0403 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 3 monthly antidepressant items and patients
+# figure 3 monthly antidepressant items and patients
 figure_3_data_0403 <- quarterly_0403$monthly_section |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -4846,16 +4874,16 @@ figure_3_data_0403 <- quarterly_0403$monthly_section |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0403 <- figure_3_data_0403 |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -4867,14 +4895,16 @@ figure_3_0403 <- figure_3_data_0403 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(type = "datetime",
-           dateTimeLabelFormats = list(month = "%b %y"),
-           title = list(text = "Month")) 
+  hc_xAxis(
+    type = "datetime",
+    dateTimeLabelFormats = list(month = "%b %y"),
+    title = list(text = "Month")
+  )
 
-#figure 1 quarterly hypnotics and anxiolytics items and patients
+# figure 1 quarterly hypnotics and anxiolytics items and patients
 figure_1_data_0401 <- quarterly_0401$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -4890,16 +4920,16 @@ figure_1_data_0401 <- quarterly_0401$national_total |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0401 <- figure_1_data_0401 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -4911,41 +4941,35 @@ figure_1_0401 <- figure_1_data_0401 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 2 quarterly hypnotics and anxiolytics cost
+# figure 2 quarterly hypnotics and anxiolytics net ingredient cost
 figure_2_data_0401 <- quarterly_0401$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
                   `BNF Section Code`) |>
-  dplyr::summarise(
-    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
-    .groups = "drop"
-  ) |>
+  dplyr::summarise(`Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+                   .groups = "drop") |>
   tidyr::pivot_longer(
     cols = c(`Cost (GBP)`),
     names_to = "measure",
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_2_0401 <- figure_2_data_0401 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -4957,17 +4981,13 @@ figure_2_0401 <- figure_2_data_0401 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 3 monthly hypnotics and anxiolytics items and patients
+# figure 3 monthly hypnotics and anxiolytics items and patients
 figure_3_data_0401 <- quarterly_0401$monthly_section |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -4988,16 +5008,16 @@ figure_3_data_0401 <- quarterly_0401$monthly_section |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0401 <- figure_3_data_0401 |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5009,14 +5029,16 @@ figure_3_0401 <- figure_3_data_0401 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(type = "datetime",
-           dateTimeLabelFormats = list(month = "%b %y"),
-           title = list(text = "Month")) 
+  hc_xAxis(
+    type = "datetime",
+    dateTimeLabelFormats = list(month = "%b %y"),
+    title = list(text = "Month")
+  )
 
-#figure 1 quarterly antipsychotic items and patients
+# figure 1 quarterly antipsychotic items and patients
 figure_1_data_0402 <- quarterly_0402$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -5032,16 +5054,16 @@ figure_1_data_0402 <- quarterly_0402$national_total |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0402 <- figure_1_data_0402 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5053,41 +5075,35 @@ figure_1_0402 <- figure_1_data_0402 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 2 quarterly antipsychotic cost
+# figure 2 quarterly antipsychotic net ingredient cost
 figure_2_data_0402 <- quarterly_0402$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
                   `BNF Section Code`) |>
-  dplyr::summarise(
-    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
-    .groups = "drop"
-  ) |>
+  dplyr::summarise(`Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+                   .groups = "drop") |>
   tidyr::pivot_longer(
     cols = c(`Cost (GBP)`),
     names_to = "measure",
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_2_0402 <- figure_2_data_0402 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5099,17 +5115,13 @@ figure_2_0402 <- figure_2_data_0402 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 3 monthly antipsychotic items and patients
+# figure 3 monthly antipsychotic items and patients
 figure_3_data_0402 <- quarterly_0402$monthly_section |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -5130,16 +5142,16 @@ figure_3_data_0402 <- quarterly_0402$monthly_section |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0402 <- figure_3_data_0402 |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5151,14 +5163,16 @@ figure_3_0402 <- figure_3_data_0402 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(type = "datetime",
-           dateTimeLabelFormats = list(month = "%b %y"),
-           title = list(text = "Month")) 
+  hc_xAxis(
+    type = "datetime",
+    dateTimeLabelFormats = list(month = "%b %y"),
+    title = list(text = "Month")
+  )
 
-#figure 10 quarterly CNS ADHD items and patients
+# figure 1 quarterly CNS ADHD items and patients
 figure_1_data_0404 <- quarterly_0404$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -5174,16 +5188,16 @@ figure_1_data_0404 <- quarterly_0404$national_total |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0404 <- figure_1_data_0404 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5195,41 +5209,35 @@ figure_1_0404 <- figure_1_data_0404 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 2 quarterly CNS ADHD cost
+# figure 2 quarterly CNS ADHD net ingredient cost
 figure_2_data_0404 <- quarterly_0404$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
                   `BNF Section Code`) |>
-  dplyr::summarise(
-    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
-    .groups = "drop"
-  ) |>
+  dplyr::summarise(`Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+                   .groups = "drop") |>
   tidyr::pivot_longer(
     cols = c(`Cost (GBP)`),
     names_to = "measure",
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_2_0404 <- figure_2_data_0404 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5241,17 +5249,13 @@ figure_2_0404 <- figure_2_data_0404 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 3 monthly CNS ADHD items and patients
+# figure 3 monthly CNS ADHD items and patients
 figure_3_data_0404 <- quarterly_0404$monthly_section |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -5272,16 +5276,16 @@ figure_3_data_0404 <- quarterly_0404$monthly_section |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0404 <- figure_3_data_0404 |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5293,14 +5297,16 @@ figure_3_0404 <- figure_3_data_0404 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(type = "datetime",
-           dateTimeLabelFormats = list(month = "%b %y"),
-           title = list(text = "Month")) 
+  hc_xAxis(
+    type = "datetime",
+    dateTimeLabelFormats = list(month = "%b %y"),
+    title = list(text = "Month")
+  )
 
-#figure 1 quarterly dementia items and patients
+# figure 1 quarterly drugs for dementia items and patients
 figure_1_data_0411 <- quarterly_0411$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
@@ -5316,16 +5322,16 @@ figure_1_data_0411 <- quarterly_0411$national_total |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0411 <- figure_1_data_0411 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5337,41 +5343,35 @@ figure_1_0411 <- figure_1_data_0411 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 2 quarterly dementia cost
+# figure 2 quarterly drugs for dementia net ingredient cost
 figure_2_data_0411 <- quarterly_0411$national_total |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Financial Quarter`,
                   `BNF Section Name`,
                   `BNF Section Code`) |>
-  dplyr::summarise(
-    `Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
-    .groups = "drop"
-  ) |>
+  dplyr::summarise(`Cost (GBP)` = sum(`Total Net Ingredient Cost (GBP)`),
+                   .groups = "drop") |>
   tidyr::pivot_longer(
     cols = c(`Cost (GBP)`),
     names_to = "measure",
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_2_0411 <- figure_2_data_0411 |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5383,17 +5383,13 @@ figure_2_0411 <- figure_2_data_0411 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(
-    labels = list(
-      step = 2,
-      rotation = -45
-    )
-  )
+  hc_xAxis(labels = list(step = 2,
+                         rotation = -45))
 
-#figure 3 monthly dementia items and patients
+# figure 3 monthly drugs for dementia items and patients
 figure_3_data_0411 <- quarterly_0411$monthly_section |>
   #added financial year filter now only using rolling years
-  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017","2017/2018")) |>
+  dplyr::filter(`Financial Year` %!in% c("2015/2016", "2016/2017", "2017/2018")) |>
   dplyr::group_by(`Financial Year`,
                   `Year Month`,
                   `BNF Section Name`,
@@ -5414,16 +5410,16 @@ figure_3_data_0411 <- quarterly_0411$monthly_section |>
     values_to = "value"
   ) |>
   dplyr::mutate(value = signif(value, 3)) |>
-  dplyr::arrange(desc(measure))|>
-  rename_with(~ gsub(" ", "_", toupper(gsub(
+  dplyr::arrange(desc(measure)) |>
+  rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0411 <- figure_3_data_0411 |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
-    y =VALUE,  
-    group = MEASURE,  
+    y = VALUE,
+    group = MEASURE,
     type = "line",
     marker = FALSE,
     dlOn = FALSE,
@@ -5435,13 +5431,13 @@ figure_3_0411 <- figure_3_data_0411 |>
              shared = TRUE,
              sort = TRUE) |>
   hc_legend(enabled = TRUE) |>
-  hc_xAxis(type = "datetime",
-           dateTimeLabelFormats = list(month = "%b %y"),
-           title = list(text = "Month")) 
+  hc_xAxis(
+    type = "datetime",
+    dateTimeLabelFormats = list(month = "%b %y"),
+    title = list(text = "Month")
+  )
 
-
-
-#figure 1  antidepressants model data
+# figure 1 antidepressants model data
 figure_1_data_covid <- predictions_0403 |>
   dplyr::filter(YEAR_MONTH > 202002)
 library(highcharter)
@@ -5449,81 +5445,108 @@ library(highcharter)
 figure_1_covid <- figure_1_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 2 hypnotics anxiolytics model data
+# figure 2 hypnotics anxiolytics model data
 figure_2_data_covid <- predictions_0401 |>
   dplyr::filter(YEAR_MONTH > 202002)
 
 figure_2_covid <- figure_2_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 3 antipsychotics model data
-figure_3_data_covid<- predictions_0402 |>
+# figure 3 antipsychotics model data
+figure_3_data_covid <- predictions_0402 |>
   dplyr::filter(YEAR_MONTH > 202002)
 
 figure_3_covid <- figure_3_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 4 CNS ADHD model data
+# figure 4 CNS ADHD model data
 figure_4_data_covid <- predictions_0404 |>
   dplyr::filter(YEAR_MONTH > 202002)
 
 figure_4_covid <- figure_4_data_covid |>
   covid_chart_hc(title = "")
 
-#figure 5 dementia model data
+# figure 5 dementia model data
 figure_5_data_covid <- predictions_0411 |>
   filter(YEAR_MONTH > 202002)
 
 figure_5_covid <- figure_5_data_covid |>
   covid_chart_hc(title = "")
 
+# 7. Render outputs ------------------------------------------------------------
 
-# render outputs
+rmarkdown::render(
+  "mumh_quarterly_sep23_overview.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_quarterly_sep23_overview.html"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_overview.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_quarterly_sep23_overview.docx"
+)
 
-rmarkdown::render("mumh_quarterly_sep23_overview.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_sep23_overview.html")
-rmarkdown::render("mumh_quarterly_sep23_overview.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_overview.docx")
+rmarkdown::render(
+  "mumh_quarterly_sep23_0403.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_quarterly_sep23_0403.html"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0403.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_quarterly_sep23_0403.docx"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0401.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_quarterly_sep23_0401.html"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0401.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_quarterly_sep23_0401.docx"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0402.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_quarterly_sep23_0402.html"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0402.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_quarterly_sep23_0402.docx"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0404.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_quarterly_sep23_0404.html"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0404.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_quarterly_sep23_0404.docx"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0411.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_quarterly_sep23_0411.html"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_0411.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_quarterly_sep23_0411.docx"
+)
 
-rmarkdown::render("mumh_quarterly_sep23_0403.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0403.html")
-rmarkdown::render("mumh_quarterly_sep23_0403.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0403.docx")
-rmarkdown::render("mumh_quarterly_sep23_0401.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0401.html")
-rmarkdown::render("mumh_quarterly_sep23_0401.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0401.docx")
-rmarkdown::render("mumh_quarterly_sep23_0402.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0402.html")
-rmarkdown::render("mumh_quarterly_sep23_0402.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0402.docx")
-rmarkdown::render("mumh_quarterly_sep23_0404.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0404.html")
-rmarkdown::render("mumh_quarterly_sep23_0404.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0404.docx")
-rmarkdown::render("mumh_quarterly_sep23_0411.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0411.html")
-rmarkdown::render("mumh_quarterly_sep23_0411.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_0411.docx")
-
-rmarkdown::render("mumh_quarterly_sep23_covid.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_quarterly_sep23_model.html")
-rmarkdown::render("mumh_quarterly_sep23_covid.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_model.docx")
+rmarkdown::render(
+  "mumh_quarterly_sep23_covid.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_quarterly_sep23_model.html"
+)
+rmarkdown::render(
+  "mumh_quarterly_sep23_covid.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_quarterly_sep23_model.docx"
+)
 
 rmarkdown::render("mumh_background_sep23.Rmd",
                   output_format = "html_document",
@@ -5531,5 +5554,3 @@ rmarkdown::render("mumh_background_sep23.Rmd",
 rmarkdown::render("mumh_background_sep23.Rmd",
                   output_format = "word_document",
                   output_file = "outputs/mumh_background_sep23.docx")
-
-  

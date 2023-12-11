@@ -4,7 +4,7 @@ This code is published as part of the NHSBSA Official Statistics team's commitme
 
 ## Introduction
 
-This RAP aims to bring together all code needed to run a pipeline in R to produce the latest MUMH publication. It includes accompanying documentation in line with RAP best practice. 
+This RAP aims to bring together all code needed to run a pipeline in R to produce the latest [MUMH publication](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england). It includes accompanying documentation in line with RAP best practice. 
 
 The RAP includes a `functions` folder containing several files with functions specific to this publication, as well as a `sql` folder containing SQL code for extracting the raw data used by the pipeline. The RAP will produce an HTML report and accompanying HTML background and methodology document. This RAP makes use of many R packages, including several produced internally at the NHSBSA. Therefore, some of these packages cannot be accessed by external users. 
 

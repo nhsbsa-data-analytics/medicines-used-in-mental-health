@@ -1,6 +1,6 @@
-#pipeline_quarterly.R
-#this script provides the code to run the reproducible analytical pipeline
-#and produce the Medicines Used in Mental Health (MUMH) quarterly publication
+# pipeline_quarterly.R
+# this script provides the code to run the reproducible analytical pipeline
+# and produce the Medicines Used in Mental Health (MUMH) quarterly publication
 
 # clear environment
 rm(list = ls())
@@ -14,7 +14,7 @@ for (file in function_files) {
   source(file.path("functions", file))
 }
 
-#1. Setup and package installation
+#1. Setup and package installation ---------------------------------------------
 
 # load GITHUB_KEY if available in environment or enter if not
 if (Sys.getenv("GITHUB_PAT") == "") {
@@ -41,44 +41,56 @@ install.packages("devtools")
 library(devtools)
 
 # install nhsbsaUtils package first to use function check_and_install_packages()
-devtools::install_github("nhsbsa-data-analytics/nhsbsaUtils",
-                         auth_token = Sys.getenv("GITHUB_PAT"), force = TRUE)
+devtools::install_github(
+  "nhsbsa-data-analytics/nhsbsaUtils",
+  auth_token = Sys.getenv("GITHUB_PAT"),
+  force = TRUE
+)
 
 library(nhsbsaUtils)
 
 # install required packages
 # double check required packages once full pipeline built eg. if maps used
-req_pkgs <- c("broom",
-              "data.table",
-              "devtools",
-              "DBI",
-              "dbplyr",
-              "dplyr",
-              "DT" ,
-              "geojsonsf",
-              "highcharter",
-              "htmltools",
-              "janitor",
-              "kableExtra",
-              "lubridate",
-              "logr",
-              "magrittr",
-              "nhsbsa-data-analytics/nhsbsaR",
-              "nhsbsa-data-analytics/nhsbsaExternalData",
-              "nhsbsa-data-analytics/accessibleTables",
-              "nhsbsa-data-analytics/nhsbsaDataExtract",
-              "nhsbsa-data-analytics/nhsbsaVis",
-              "openxlsx",
-              "rmarkdown",
-              "rsample",
-              "sf",
-              "stringr",
-              "svDialogs",
-              "tcltk",
-              "tidyr",
-              "tidyverse",
-              "vroom",
-              "yaml")
+req_pkgs <- c(
+  "broom",
+  "data.table",
+  "devtools",
+  "DBI",
+  "dbplyr",
+  "dplyr",
+  "DT" ,
+  "geojsonsf",
+  "highcharter",
+  "htmltools",
+  "janitor",
+  "kableExtra",
+  "lubridate",
+  "logr",
+  "magrittr",
+  "nhsbsa-data-analytics/nhsbsaR",
+  "nhsbsa-data-analytics/nhsbsaExternalData",
+  "nhsbsa-data-analytics/accessibleTables",
+  "nhsbsa-data-analytics/nhsbsaDataExtract",
+  "nhsbsa-data-analytics/nhsbsaVis",
+  "openxlsx",
+  "rmarkdown",
+  "rsample",
+  "sf",
+  "stringr",
+  "svDialogs",
+  "tcltk",
+  "tidyr",
+  "tidyverse",
+  "vroom",
+  "yaml"
+)
+
+library(nhsbsaVis)
+devtools::install_github(
+  "nhsbsa-data-analytics/nhsbsaVis",
+  auth_token = Sys.getenv("GITHUB_PAT"),
+  force = TRUE
+)
 
 # library/install packages as required
 nhsbsaUtils::check_and_install_packages(req_pkgs)
@@ -100,7 +112,7 @@ log_print(config, hide_notes = TRUE)
 nhsbsaUtils::publication_options()
 log_print("Options loaded", hide_notes = TRUE)
 
-#2. Data import
+#2. Data import ----------------------------------------------------------------
 
 con <- nhsbsaR::con_nhsbsa(dsn = "FBS_8192k",
                            driver = "Oracle in OraClient19Home1",
@@ -111,67 +123,96 @@ schema <-
 
 # quarterly data extracts
 
-capture_rate_extract_quarter <- capture_rate_extract_period(con = con,
-                                                            schema = schema,
-                                                            table = config$sql_table_name,
-                                                            period_type = "quarter")
-national_extract_quarter <- national_extract_period(con = con,
-                                                    schema = schema,
-                                                    table = config$sql_table_name,
-                                                    period_type = "quarter")
-paragraph_extract_quarter <- paragraph_extract_period(con = con,
-                                                      schema = schema,
-                                                      table = config$sql_table_name,
-                                                      period_type = "quarter")
-chem_sub_extract_quarter <- chem_sub_extract_period(con = con,
-                                                    schema = schema,
-                                                    table = config$sql_table_name,
-                                                    period_type = "quarter")
-icb_extract_quarter <- icb_extract_period(con = con,
-                                          schema = schema,
-                                          table = config$sql_table_name,
-                                          period_type = "quarter")
-ageband_data_quarter <- ageband_extract_period(con = con,
-                                               schema = schema,
-                                               table = config$sql_table_name,
-                                               period_type = "quarter")
-gender_extract_quarter <- gender_extract_period(con = con,
-                                                schema = schema,
-                                                table = config$sql_table_name,
-                                                period_type = "quarter")
-age_gender_extract_quarter <- age_gender_extract_period(con = con,
-                                                        schema = schema,
-                                                        table = config$sql_table_name,
-                                                        period_type = "quarter")
-imd_extract_quarter <- imd_extract_period(con = con,
-                                          schema = schema,
-                                          table = config$sql_table_name,
-                                          period_type = "quarter")
-child_adult_extract_quarter <- child_adult_extract(con = con,
-                                                   schema = schema,
-                                                   table = config$sql_table_name,
-                                                   period_type = "quarter")
+capture_rate_extract_quarter <-
+  capture_rate_extract_period(
+    con = con,
+    schema = schema,
+    table = config$sql_table_name,
+    period_type = "quarter"
+  )
+national_extract_quarter <- national_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+paragraph_extract_quarter <- paragraph_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+chem_sub_extract_quarter <- chem_sub_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+icb_extract_quarter <- icb_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+ageband_data_quarter <- ageband_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+gender_extract_quarter <- gender_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+age_gender_extract_quarter <- age_gender_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+imd_extract_quarter <- imd_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
+child_adult_extract_quarter <- child_adult_extract(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "quarter"
+)
 
 log_print("Quarterly extracts pulled", hide_notes = TRUE)
 
 # monthly data extracts
 
-national_extract_monthly <- national_extract_period(con = con,
-                                                    schema = schema,
-                                                    table = config$sql_table_name,
-                                                    period_type = "month")
-paragraph_extract_monthly <- paragraph_extract_period(con = con,
-                                                      schema = schema,
-                                                      table = config$sql_table_name,
-                                                      period_type = "month")
-chem_sub_extract_monthly <- chem_sub_extract_period(con = con,
-                                                    schema = schema,
-                                                    table = config$sql_table_name,
-                                                    period_type = "month")
-age_gender_extract_month <- age_gender_extract_period(con = con,
-                                                      schema = schema,
-                                                      table = config$sql_table_name,
-                                                      period_type = "month")
+national_extract_monthly <- national_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "month"
+)
+paragraph_extract_monthly <- paragraph_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "month"
+)
+chem_sub_extract_monthly <- chem_sub_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "month"
+)
+age_gender_extract_month <- age_gender_extract_period(
+  con = con,
+  schema = schema,
+  table = config$sql_table_name,
+  period_type = "month"
+)
 
 log_print("Monthly extracts pulled", hide_notes = TRUE)
 
@@ -181,12 +222,12 @@ DBI::dbDisconnect(con)
 
 # external data extracts
 
-#mid-year england population by ageband and gender 2015 to 2022
+# mid-year England population by ageband and gender 2015 to 2022
 pop_agegen_2022 <- national_pop_agegen() |>
   dplyr::mutate(`Year` = as.double(`Year`)) |>
   dplyr::filter(`Sex` != "All")
 
-#national england population 2022
+# national mid-year England population 2022
 total_pop_eng_2022 <- pop_agegen_2022 |>
   dplyr::filter(`Sex` == "All",
                 `Year` == "2022") |>
@@ -194,15 +235,14 @@ total_pop_eng_2022 <- pop_agegen_2022 |>
 
 log_print("External data pulled", hide_notes = TRUE)
 
-#3. Aggregations and analysis
+#3. Aggregations and analysis --------------------------------------------------
 
-
-#0401 Hypnotics and anxiolytics workbook - quarterly
+# 0401 Hypnotics and anxiolytics workbook - quarterly
 
 quarterly_0401 <- list()
 
 quarterly_0401$patient_id <- capture_rate_extract_quarter |>
-  dplyr::filter(`BNF Section Code` == "0401") 
+  dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$national_total <- national_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0401")
@@ -212,60 +252,68 @@ quarterly_0401$national_paragraph <- paragraph_extract_quarter |>
 
 quarterly_0401$icb <-  icb_extract_quarter |>
   apply_sdc(rounding = F) |>
-  dplyr::select( `Financial Year`,
-                 `Financial Quarter`,
-                 `ICB Name`,
-                 `ICB Code`,
-                 `BNF Section Name`,
-                 `BNF Section Code`,
-                 `BNF Paragraph Name`,
-                 `BNF Paragraph Code`,
-                 `BNF Chemical Substance Name`,
-                 `BNF Chemical Substance Code`,
-                 `Identified Patient Flag`,
-                 `Total Identified Patients` = `sdc_Total Identified Patients`,
-                 `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `ICB Name`,
+    `ICB Code`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$gender <- gender_extract_quarter |>
   apply_sdc(rounding = F) |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) |>
-  dplyr::filter(`BNF Section Code` == "0401") 
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
+  dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$ageband <- ageband_data_quarter |>
   apply_sdc(rounding = F) |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$age_gender <- age_gender_extract_quarter |>
   apply_sdc(rounding = F) |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$imd <- imd_extract_quarter |>
@@ -278,7 +326,8 @@ quarterly_0401$imd <- imd_extract_quarter |>
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$monthly_section <- national_extract_monthly |>
@@ -291,7 +340,8 @@ quarterly_0401$monthly_section <- national_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients`,
     `Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$monthly_paragraph <- paragraph_extract_monthly |>
@@ -307,7 +357,8 @@ quarterly_0401$monthly_paragraph <- paragraph_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly |>
@@ -325,7 +376,8 @@ quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$avg_per_pat <- chem_sub_extract_monthly |>
@@ -343,23 +395,29 @@ quarterly_0401$avg_per_pat <- chem_sub_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401",
                 `Identified Patient Flag` == "Y") |>
-  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
-                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+  dplyr::mutate(
+    `Average Items per patient` = (`Total Items` / `Total Identified Patients`),
+    `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)` /
+                                         `Total Identified Patients`)
+  )
 
 quarterly_0401$pat_per_1000_pop <- age_gender_extract_quarter |>
   apply_sdc(rounding = F) |>
   dplyr::ungroup() |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0401") |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
@@ -367,19 +425,30 @@ quarterly_0401$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
-                   by = c("Mid-year Population Year" = "Year",
-                          "Patient Gender" = "Sex",
-                          "Age Band" = "Age Band")) |>
+  dplyr::left_join(
+    select(
+      pop_agegen_2022,
+      `Year`,
+      `Sex`,
+      `Age Band`,
+      `Mid-year Population Estimate`
+    ),
+    by = c(
+      "Mid-year Population Year" = "Year",
+      "Patient Gender" = "Sex",
+      "Age Band" = "Age Band"
+    )
+  ) |>
   dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
-                                                      `Mid-year Population Estimate`) * 1000)) 
+                                                      `Mid-year Population Estimate`) * 1000
+  ))
 
 # 0402 Drugs used in psychoses and related disorders workbook - quarterly
 
 quarterly_0402 <- list()
 
 quarterly_0402$patient_id <- capture_rate_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0402") 
+  dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$national_total <- national_extract_quarter %>%
   dplyr::filter(`BNF Section Code` == "0402")
@@ -389,60 +458,68 @@ quarterly_0402$national_paragraph <- paragraph_extract_quarter %>%
 
 quarterly_0402$icb <-  icb_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select( `Financial Year`,
-                 `Financial Quarter`,
-                 `ICB Name`,
-                 `ICB Code`,
-                 `BNF Section Name`,
-                 `BNF Section Code`,
-                 `BNF Paragraph Name`,
-                 `BNF Paragraph Code`,
-                 `BNF Chemical Substance Name`,
-                 `BNF Chemical Substance Code`,
-                 `Identified Patient Flag`,
-                 `Total Identified Patients` = `sdc_Total Identified Patients`,
-                 `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `ICB Name`,
+    `ICB Code`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$gender <- gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
-  dplyr::filter(`BNF Section Code` == "0402") 
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
+  dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$ageband <- ageband_data_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$age_gender <- age_gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$imd <- imd_extract_quarter %>%
@@ -455,7 +532,8 @@ quarterly_0402$imd <- imd_extract_quarter %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$monthly_section <- national_extract_monthly %>%
@@ -468,7 +546,8 @@ quarterly_0402$monthly_section <- national_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients`,
     `Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$monthly_paragraph <- paragraph_extract_monthly %>%
@@ -484,10 +563,12 @@ quarterly_0402$monthly_paragraph <- paragraph_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
-quarterly_0402$monthly_chem_substance <- chem_sub_extract_monthly %>%
+quarterly_0402$monthly_chem_substance <-
+  chem_sub_extract_monthly %>%
   apply_sdc(rounding = F) %>%
   dplyr::select(
     `Financial Year`,
@@ -502,7 +583,8 @@ quarterly_0402$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0402")
 
 quarterly_0402$avg_per_pat <- chem_sub_extract_monthly |>
@@ -520,23 +602,29 @@ quarterly_0402$avg_per_pat <- chem_sub_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0402",
                 `Identified Patient Flag` == "Y") |>
-  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
-                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+  dplyr::mutate(
+    `Average Items per patient` = (`Total Items` / `Total Identified Patients`),
+    `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)` /
+                                         `Total Identified Patients`)
+  )
 
 quarterly_0402$pat_per_1000_pop <- age_gender_extract_quarter |>
   apply_sdc(rounding = F) |>
   dplyr::ungroup() |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0402") |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
@@ -544,19 +632,30 @@ quarterly_0402$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
-                   by = c("Mid-year Population Year" = "Year",
-                          "Patient Gender" = "Sex",
-                          "Age Band" = "Age Band")) |>
+  dplyr::left_join(
+    select(
+      pop_agegen_2022,
+      `Year`,
+      `Sex`,
+      `Age Band`,
+      `Mid-year Population Estimate`
+    ),
+    by = c(
+      "Mid-year Population Year" = "Year",
+      "Patient Gender" = "Sex",
+      "Age Band" = "Age Band"
+    )
+  ) |>
   dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
-                                                      `Mid-year Population Estimate`) * 1000)) 
+                                                      `Mid-year Population Estimate`) * 1000
+  ))
 
 # 0403 Antidepressants workbook - quarterly
 
 quarterly_0403 <- list()
 
 quarterly_0403$patient_id <- capture_rate_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0403") 
+  dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$national_total <- national_extract_quarter %>%
   dplyr::filter(`BNF Section Code` == "0403")
@@ -566,60 +665,68 @@ quarterly_0403$national_paragraph <- paragraph_extract_quarter %>%
 
 quarterly_0403$icb <-  icb_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select( `Financial Year`,
-                 `Financial Quarter`,
-                 `ICB Name`,
-                 `ICB Code`,
-                 `BNF Section Name`,
-                 `BNF Section Code`,
-                 `BNF Paragraph Name`,
-                 `BNF Paragraph Code`,
-                 `BNF Chemical Substance Name`,
-                 `BNF Chemical Substance Code`,
-                 `Identified Patient Flag`,
-                 `Total Identified Patients` = `sdc_Total Identified Patients`,
-                 `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `ICB Name`,
+    `ICB Code`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$gender <- gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
-  dplyr::filter(`BNF Section Code` == "0403") 
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
+  dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$ageband <- ageband_data_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$age_gender <- age_gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$imd <- imd_extract_quarter %>%
@@ -632,19 +739,23 @@ quarterly_0403$imd <- imd_extract_quarter %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
-quarterly_0403$prescribing_in_children <- child_adult_extract_quarter %>%
+quarterly_0403$prescribing_in_children <-
+  child_adult_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$monthly_section <- national_extract_monthly %>%
@@ -657,7 +768,8 @@ quarterly_0403$monthly_section <- national_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients`,
     `Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$monthly_paragraph <- paragraph_extract_monthly %>%
@@ -673,12 +785,13 @@ quarterly_0403$monthly_paragraph <- paragraph_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
-###add chemical substance level in monthly tables if needed
-
-quarterly_0403$monthly_chem_substance <- chem_sub_extract_monthly %>%
+# add chemical substance level in monthly tables if needed
+quarterly_0403$monthly_chem_substance <-
+  chem_sub_extract_monthly %>%
   apply_sdc(rounding = F) %>%
   dplyr::select(
     `Financial Year`,
@@ -693,7 +806,8 @@ quarterly_0403$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0403")
 
 quarterly_0403$avg_per_pat <- chem_sub_extract_monthly |>
@@ -711,23 +825,29 @@ quarterly_0403$avg_per_pat <- chem_sub_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0403",
                 `Identified Patient Flag` == "Y") |>
-  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
-                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+  dplyr::mutate(
+    `Average Items per patient` = (`Total Items` / `Total Identified Patients`),
+    `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)` /
+                                         `Total Identified Patients`)
+  )
 
 quarterly_0403$pat_per_1000_pop <- age_gender_extract_quarter |>
   apply_sdc(rounding = F) |>
   dplyr::ungroup() |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0403") |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
@@ -735,92 +855,114 @@ quarterly_0403$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
-                   by = c("Mid-year Population Year" = "Year",
-                          "Patient Gender" = "Sex",
-                          "Age Band" = "Age Band")) |>
+  dplyr::left_join(
+    select(
+      pop_agegen_2022,
+      `Year`,
+      `Sex`,
+      `Age Band`,
+      `Mid-year Population Estimate`
+    ),
+    by = c(
+      "Mid-year Population Year" = "Year",
+      "Patient Gender" = "Sex",
+      "Age Band" = "Age Band"
+    )
+  ) |>
   dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
-                                                      `Mid-year Population Estimate`) * 1000)) 
+                                                      `Mid-year Population Estimate`) * 1000
+  )) 
 
 # 0404 CNS stimulants and drugs used for ADHD - quarterly
 
 quarterly_0404 <- list()
 
 quarterly_0404$patient_id <- capture_rate_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0404") 
+  dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$national_total <- national_extract_quarter %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
-quarterly_0404$national_chem_substance <- chem_sub_extract_quarter %>%
+quarterly_0404$national_chem_substance <-
+  chem_sub_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select( `Financial Year`,
-                 `Financial Quarter`,
-                 `BNF Section Name`,
-                 `BNF Section Code`,
-                 `BNF Chemical Substance Name`,
-                 `BNF Chemical Substance Code`,
-                 `Identified Patient Flag`,
-                 `Total Identified Patients` = `sdc_Total Identified Patients`,
-                 `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
-quarterly_0404$icb <-  icb_extract_quarter%>%
+quarterly_0404$icb <-  icb_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select( `Financial Year`,
-                 `Financial Quarter`,
-                 `ICB Name`,
-                 `ICB Code`,
-                 `BNF Section Name`,
-                 `BNF Section Code`,
-                 `BNF Paragraph Name`,
-                 `BNF Paragraph Code`,
-                 `BNF Chemical Substance Name`,
-                 `BNF Chemical Substance Code`,
-                 `Identified Patient Flag`,
-                 `Total Identified Patients` = `sdc_Total Identified Patients`,
-                 `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `ICB Name`,
+    `ICB Code`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$gender <- gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
-  dplyr::filter(`BNF Section Code` == "0404") 
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
+  dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$ageband <- ageband_data_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$age_gender <- age_gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$imd <- imd_extract_quarter %>%
@@ -833,20 +975,24 @@ quarterly_0404$imd <- imd_extract_quarter %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
-quarterly_0404$prescribing_in_children <- child_adult_extract_quarter %>%
+quarterly_0404$prescribing_in_children <-
+  child_adult_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
-  dplyr::filter(`BNF Section Code` == "0404")  
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
+  dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$monthly_section <- national_extract_monthly %>%
   dplyr::select(
@@ -858,10 +1004,12 @@ quarterly_0404$monthly_section <- national_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients`,
     `Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
-quarterly_0404$monthly_chem_substance <- chem_sub_extract_monthly %>%
+quarterly_0404$monthly_chem_substance <-
+  chem_sub_extract_monthly %>%
   apply_sdc(rounding = F) %>%
   dplyr::select(
     `Financial Year`,
@@ -874,7 +1022,8 @@ quarterly_0404$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$avg_per_pat <- chem_sub_extract_monthly |>
@@ -892,23 +1041,29 @@ quarterly_0404$avg_per_pat <- chem_sub_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0404",
                 `Identified Patient Flag` == "Y") |>
-  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
-                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+  dplyr::mutate(
+    `Average Items per patient` = (`Total Items` / `Total Identified Patients`),
+    `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)` /
+                                         `Total Identified Patients`)
+  )
 
 quarterly_0404$pat_per_1000_pop <- age_gender_extract_quarter |>
   apply_sdc(rounding = F) |>
   dplyr::ungroup() |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0404") |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
@@ -916,93 +1071,115 @@ quarterly_0404$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
-                   by = c("Mid-year Population Year" = "Year",
-                          "Patient Gender" = "Sex",
-                          "Age Band" = "Age Band")) |>
+  dplyr::left_join(
+    select(
+      pop_agegen_2022,
+      `Year`,
+      `Sex`,
+      `Age Band`,
+      `Mid-year Population Estimate`
+    ),
+    by = c(
+      "Mid-year Population Year" = "Year",
+      "Patient Gender" = "Sex",
+      "Age Band" = "Age Band"
+    )
+  ) |>
   dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
-                                                      `Mid-year Population Estimate`) * 1000)) 
+                                                      `Mid-year Population Estimate`) * 1000
+  ))
 
 # 0411 Drugs for dementia workbook - quarterly
 
 quarterly_0411 <- list()
 
 quarterly_0411$patient_id <- capture_rate_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0411") 
+  dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$national_total <- national_extract_quarter %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
-quarterly_0411$national_chem_substance <- chem_sub_extract_quarter %>%
+quarterly_0411$national_chem_substance <-
+  chem_sub_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select( `Financial Year`,
-                 `Financial Quarter`,
-                 `BNF Section Name`,
-                 `BNF Section Code`,
-                 `BNF Chemical Substance Name`,
-                 `BNF Chemical Substance Code`,
-                 `Identified Patient Flag`,
-                 `Total Identified Patients` = `sdc_Total Identified Patients`,
-                 `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$icb <-  icb_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select( `Financial Year`,
-                 `Financial Quarter`,
-                 `ICB Name`,
-                 `ICB Code`,
-                 `BNF Section Name`,
-                 `BNF Section Code`,
-                 `BNF Paragraph Name`,
-                 `BNF Paragraph Code`,
-                 `BNF Chemical Substance Name`,
-                 `BNF Chemical Substance Code`,
-                 `Identified Patient Flag`,
-                 `Total Identified Patients` = `sdc_Total Identified Patients`,
-                 `Total Items` = `sdc_Total Items`,
-                 `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `ICB Name`,
+    `ICB Code`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `BNF Paragraph Name`,
+    `BNF Paragraph Code`,
+    `BNF Chemical Substance Name`,
+    `BNF Chemical Substance Code`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$gender <- gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
-  dplyr::filter(`BNF Section Code` == "0411") 
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
+  dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$ageband <- ageband_data_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$age_gender <- age_gender_extract_quarter %>%
   apply_sdc(rounding = F) %>%
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`,
-                `Total Items` = `sdc_Total Items`,
-                `Total Net Ingredient Cost (GBP)`) %>%
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`,
+    `Total Items` = `sdc_Total Items`,
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$imd <- imd_extract_quarter %>%
@@ -1015,7 +1192,8 @@ quarterly_0411$imd <- imd_extract_quarter %>%
     `IMD Quintile`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$monthly_section <- national_extract_monthly %>%
@@ -1028,10 +1206,12 @@ quarterly_0411$monthly_section <- national_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients`,
     `Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
-quarterly_0411$monthly_chem_substance <- chem_sub_extract_monthly %>%
+quarterly_0411$monthly_chem_substance <-
+  chem_sub_extract_monthly %>%
   apply_sdc(rounding = F) %>%
   dplyr::select(
     `Financial Year`,
@@ -1044,7 +1224,8 @@ quarterly_0411$monthly_chem_substance <- chem_sub_extract_monthly %>%
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) %>%
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) %>%
   dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$avg_per_pat <- chem_sub_extract_monthly |>
@@ -1062,23 +1243,29 @@ quarterly_0411$avg_per_pat <- chem_sub_extract_monthly |>
     `Identified Patient Flag`,
     `Total Identified Patients` = `sdc_Total Identified Patients`,
     `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)`) |>
+    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0411",
                 `Identified Patient Flag` == "Y") |>
-  dplyr::mutate(`Average Items per patient` = (`Total Items`/`Total Identified Patients`),
-                `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)`/`Total Identified Patients`))
+  dplyr::mutate(
+    `Average Items per patient` = (`Total Items` / `Total Identified Patients`),
+    `Average NIC per Patient (GBP)` = (`Total Net Ingredient Cost (GBP)` /
+                                         `Total Identified Patients`)
+  )
 
 quarterly_0411$pat_per_1000_pop <- age_gender_extract_quarter |>
   apply_sdc(rounding = F) |>
   dplyr::ungroup() |>
-  dplyr::select(`Financial Year`,
-                `Financial Quarter`,
-                `BNF Section Name`,
-                `BNF Section Code`,
-                `Age Band`,
-                `Patient Gender`,
-                `Identified Patient Flag`,
-                `Total Identified Patients` = `sdc_Total Identified Patients`) |>
+  dplyr::select(
+    `Financial Year`,
+    `Financial Quarter`,
+    `BNF Section Name`,
+    `BNF Section Code`,
+    `Age Band`,
+    `Patient Gender`,
+    `Identified Patient Flag`,
+    `Total Identified Patients` = `sdc_Total Identified Patients`
+  ) |>
   dplyr::filter(`BNF Section Code` == "0411") |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
@@ -1086,37 +1273,39 @@ quarterly_0411$pat_per_1000_pop <- age_gender_extract_quarter |>
   dplyr::filter(`Identified Patient Flag` == "Y",
                 `Age Band` != "Unknown") |>
   stats::na.omit() |>
-  dplyr::left_join(select(pop_agegen_2022, `Year`, `Sex`, `Age Band`, `Mid-year Population Estimate`),
-                   by = c("Mid-year Population Year" = "Year",
-                          "Patient Gender" = "Sex",
-                          "Age Band" = "Age Band")) |>
+  dplyr::left_join(
+    select(
+      pop_agegen_2022,
+      `Year`,
+      `Sex`,
+      `Age Band`,
+      `Mid-year Population Estimate`
+    ),
+    by = c(
+      "Mid-year Population Year" = "Year",
+      "Patient Gender" = "Sex",
+      "Age Band" = "Age Band"
+    )
+  ) |>
   dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
-                                                      `Mid-year Population Estimate`) * 1000)) 
+                                                      `Mid-year Population Estimate`) * 1000
+  ))
 
-#3. covid model
+# 3. Model of pre-COVID-19-pandemic prescribing trends -------------------------
 
-#data manipulation to get 20 year agebands and month columns needed for use in model
+# model of item predictions extrapolated from pre-covid pandemic prescribing trends
 
-#script showing code used for model of item predictions extrapolated from
-#pre-covid pandemic prescribing trends
-
-#To be used as part of main pipeline 
-#make sure table names and dates in underlying functions are updated before 
-#running this code
-
-#get dispensing days for up to 2023/24 financial year
+# get dispensing days for up to 2023/24 financial year
 dispensing_days_data <- nhsbsaUtils::dispensing_days(2024)
 
-age_gender_extract_month <- age_gender_extract_period(con = con,
-                                                      period_type = "month")
-
+# aggregate to 20 year agebands and calcukate month position variables
 df20 <- ageband_manip_20yr(age_gender_extract_month)
 
-#split df20 data into pre-covid months, to build model on pre-pandemic data only
+# split df20 into pre-March-2020 months, train model on pre-pandemic data only
 df20_pc <- df20 |>
   dplyr::filter(time_period == "pre_covid")
 
-#build model for each BNF section, using the pre-pandemic items
+# build model for each BNF section, using pre-pandemic items
 model_0401 <- covid_lm(df20_pc,
                        section_code = "0401")
 model_0402 <- covid_lm(df20_pc,
@@ -1128,9 +1317,9 @@ model_0404 <- covid_lm(df20_pc,
 model_0411 <- covid_lm(df20_pc,
                        section_code = "0411")
 
-#get predictions for number of items by BNF section per month
-#predictions are extrapolations of pre-covid trends, applied to full df20 data
-#so will only predict for March 2020 onwards
+# predict number of items by BNF section per month
+# predictions are extrapolations of pre-COVID-19 trends, applied to full df20 data
+# so will only predict for March 2020 onwards
 
 predictions_0401 <- prediction_list(df20,
                                     "0401",
@@ -1154,22 +1343,24 @@ predictions_0411 <- prediction_list(df20,
                                     pred_month_list)
 
 #save covid estimated items to excel wb for QR
-covid_model_predictions_sep <- rbind(predictions_0401,
-                                     predictions_0402,
-                                     predictions_0403,
-                                     predictions_0404,
-                                     predictions_0411)
-
+covid_model_predictions_sep <- rbind(
+  predictions_0401,
+  predictions_0402,
+  predictions_0403,
+  predictions_0404,
+  predictions_0411
+)
 
 # update month in file name for new publications
-fwrite(covid_model_predictions_sep, "Y:/Official Stats/MUMH/Covid model tables/Sep23check.csv")
+fwrite(covid_model_predictions_sep, "Y:/Official Stats/MUMH/Covid model tables/Sep23.csv")
 
-# 4. Data tables
+# 4. Data tables ---------------------------------------------------------------
 
-# Data tables for spreadsheet outputs
-# format according to accessibility standards
+# data tables for spreadsheet outputs
+# formatted according to accessibility standards
+# user may need to update file name to write outputs to in future releases
 
-#0401 Hypnotics and anxiolytics workbook - quarterly
+# 0401 Hypnotics and anxiolytics workbook - quarterly
 
 sheetNames <- c(
   "Patient_Identification",
@@ -1189,7 +1380,7 @@ sheetNames <- c(
 
 wb <- accessibleTables::create_wb(sheetNames)
 
-#create metadata tab (will need to open file and auto row heights once ran)
+# create metadata tab (will need to open file and auto row heights once ran)
 meta_fields <- c(
   "BNF Section Name",
   "BNF Section Code",
@@ -1236,8 +1427,8 @@ meta_descs <-
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
     "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
-    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
-    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
     "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
@@ -1247,13 +1438,16 @@ accessibleTables::create_metadata(wb,
                                   meta_fields,
                                   meta_descs)
 
-## Patient identification
+# patient identification
 
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  paste0(config$publication_table_title, " - Proportion of items for which an NHS number was recorded (%)"),
+  paste0(
+    config$publication_table_title,
+    " - Proportion of items for which an NHS number was recorded (%)"
+  ),
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -1261,14 +1455,14 @@ accessibleTables::write_sheet(
   42
 )
 
-#left align columns A to C
+# left align columns A to B
 accessibleTables::format_data(wb,
                               "Patient_Identification",
                               c("A", "B"),
                               "left",
                               "")
 
-#right align columns and round to 2 DP - D (if using long data not pivoting wider) (!!NEED TO UPDATE AS DATA EXPANDS!!)
+# right align columns, round to 2 decimal places
 accessibleTables::format_data(
   wb,
   "Patient_Identification",
@@ -1312,33 +1506,38 @@ accessibleTables::format_data(
   "0.00"
 )
 
-## National Total
+# national Total
 
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  paste0(config$publication_table_title, " - Quarterly totals split by identified patients"),
-  c("1. Field definitions can be found on the 'Metadata' tab.",
-    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by identified patients"
+  ),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
+  ),
   quarterly_0401$national_total,
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns E and F and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column G and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("H"),
@@ -1346,12 +1545,15 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-## National Paragraph
+# national Paragraph
 
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  paste0(config$publication_table_title, " - Quarterly totals split by BNF paragraph and identified patients"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by BNF paragraph and identified patients"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -1361,28 +1563,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## ICB
+# ICB
 
 accessibleTables::write_sheet(
   wb,
@@ -1397,28 +1599,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to K
+# left align columns A to K
 accessibleTables::format_data(wb,
                               "ICB",
                               c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"),
                               "left",
                               "")
 
-#right align columns L and M and round to whole numbers with thousand separator
+# right align columns L and M and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("L", "M"),
                               "right",
                               "#,##0")
 
-#right align column N and round to 2dp with thousand separator
+# right align column N and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("N"),
                               "right",
                               "#,##0.00")
 
-## Gender
+# gender
 
 accessibleTables::write_sheet(
   wb,
@@ -1434,28 +1636,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Gender",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age Band
+# age Band
 
 accessibleTables::write_sheet(
   wb,
@@ -1470,33 +1672,36 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age and gender
+# age and gender
 
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -1507,33 +1712,36 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to G
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns H and I and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column J and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## Patients per 1000 population by Age and gender
+# patients per 1000 population by age and gender
 
 accessibleTables::write_sheet(
   wb,
   "Population_by_Age_Gender",
-  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly population totals split by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -1546,28 +1754,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to h
+# left align columns A to H
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("A", "B", "C", "D", "E", "F", "G", "H"),
                               "left",
                               "")
 
-#right align columns I and J and round to whole numbers with thousand separator
+# right align columns I and J and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("I", "J"),
                               "right",
                               "#,##0")
 
-#right align column K and round to 2dp with thousand separator
+# right align column K and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("K"),
                               "right",
                               "#,##0.00")
 
-## IMD
+# IMD
 
 accessibleTables::write_sheet(
   wb,
@@ -1583,33 +1791,36 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "IMD",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns F and G and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column H and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("H"),
                               "right",
                               "#,##0.00")
 
-##  Monthly section data
+# monthly section data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  paste0(config$publication_table_title, " - Monthly totals by BNF section"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF section"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -1639,12 +1850,15 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly paragraph data
+# monthly paragraph data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Monthly_Paragraph",
-  paste0(config$publication_table_title, " - Monthly totals by BNF paragraph"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF paragraph"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -1674,12 +1888,15 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly chemical substance data
+# monthly chemical substance data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -1690,11 +1907,13 @@ accessibleTables::write_sheet(
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Monthly_Chemical_Substance",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Monthly_Chemical_Substance",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -1710,28 +1929,33 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Average items per patient monthly chemical substance data
+# average items per patient monthly chemical substance data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Average_Items_per_Patient",
-  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Average items per patient by month and BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
-    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+    "4. These averages refer to the mean. Average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
   quarterly_0401$avg_per_pat,
   14
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Average_Items_per_Patient",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Average_Items_per_Patient",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -1748,7 +1972,7 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-#create cover sheet
+# create cover sheet
 accessibleTables::makeCoverSheet(
   "Medicines Used in Mental Health - BNF 0401 Hypnotics and anxiolytics",
   config$cover_sheet_sub_title,
@@ -1774,7 +1998,7 @@ accessibleTables::makeCoverSheet(
   c("Metadata", sheetNames)
 )
 
-#save file into outputs folder
+# save file into outputs folder
 openxlsx::saveWorkbook(wb,
                        "outputs/mumh_bnf0401_Sep_23.xlsx",
                        overwrite = TRUE)
@@ -1799,7 +2023,7 @@ sheetNames <- c(
 
 wb <- accessibleTables::create_wb(sheetNames)
 
-#create metadata tab (will need to open file and auto row heights once ran)
+# create metadata tab (will need to open file and auto row heights once ran)
 meta_fields <- c(
   "BNF Section Name",
   "BNF Section Code",
@@ -1846,8 +2070,8 @@ meta_descs <-
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
     "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
-    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
-    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
     "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
@@ -1857,13 +2081,16 @@ accessibleTables::create_metadata(wb,
                                   meta_fields,
                                   meta_descs)
 
-## Patient identification
+# patient identification
 
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  paste0(config$publication_table_title, " - Proportion of items for which an NHS number was recorded (%)"),
+  paste0(
+    config$publication_table_title,
+    " - Proportion of items for which an NHS number was recorded (%)"
+  ),
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -1871,14 +2098,14 @@ accessibleTables::write_sheet(
   42
 )
 
-#left align columns A to C
+# left align columns A to B
 accessibleTables::format_data(wb,
                               "Patient_Identification",
                               c("A", "B"),
                               "left",
                               "")
 
-#right align columns and round to 2 DP - D (if using long data not pivoting wider) (!!NEED TO UPDATE AS DATA EXPANDS!!)
+#right align columns and round to 2 decimal places 
 accessibleTables::format_data(
   wb,
   "Patient_Identification",
@@ -1922,33 +2149,38 @@ accessibleTables::format_data(
   "0.00"
 )
 
-## National Total
+# national Total
 
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  paste0(config$publication_table_title, " - Quarterly totals split by identified patients"),
-  c("1. Field definitions can be found on the 'Metadata' tab.",
-    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by identified patients"
+  ),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
+  ),
   quarterly_0402$national_total,
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns E and F and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column G and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Total",
                               c("H"),
@@ -1956,12 +2188,15 @@ accessibleTables::format_data(wb,
                               "#,##0.00")
 
 
-## National Paragraph
+# national Paragraph
 
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  paste0(config$publication_table_title, " - Quarterly totals split by BNF paragraph and identified patients"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by BNF paragraph and identified patients"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -1971,28 +2206,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Paragraph",
-                              c("H", "I"),
+                              c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Paragraph",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## ICB
+# ICB
 
 accessibleTables::write_sheet(
   wb,
@@ -2007,28 +2242,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to K
+# left align columns A to K
 accessibleTables::format_data(wb,
                               "ICB",
                               c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"),
                               "left",
                               "")
 
-#right align columns L and M and round to whole numbers with thousand separator
+# right align columns L and M and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("L", "M"),
                               "right",
                               "#,##0")
 
-#right align column N and round to 2dp with thousand separator
+# right align column N and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "ICB",
                               c("N"),
                               "right",
                               "#,##0.00")
 
-## Gender
+# Gender
 
 accessibleTables::write_sheet(
   wb,
@@ -2044,28 +2279,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Gender",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Gender",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age Band
+# age Band
 
 accessibleTables::write_sheet(
   wb,
@@ -2080,33 +2315,36 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to F
+# left align columns A to F
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("A", "B", "C", "D", "E", "F"),
                               "left",
                               "")
 
-#right align columns G and H and round to whole numbers with thousand separator
+# right align columns G and H and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("G", "H"),
                               "right",
                               "#,##0")
 
-#right align column I and round to 2dp with thousand separator
+# right align column I and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band",
                               c("I"),
                               "right",
                               "#,##0.00")
 
-## Age and gender
+# age and gender
 
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -2117,33 +2355,36 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to G
+# left align columns A to G
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("A", "B", "C", "D", "E", "F", "G"),
                               "left",
                               "")
 
-#right align columns H and I and round to whole numbers with thousand separator
+# right align columns H and I and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("H", "I"),
                               "right",
                               "#,##0")
 
-#right align column J and round to 2dp with thousand separator
+# right align column J and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Age_Band_and_Gender",
                               c("J"),
                               "right",
                               "#,##0.00")
 
-## Patients per 1000 population by Age and gender
+# patients per 1000 population by Age and gender
 
 accessibleTables::write_sheet(
   wb,
   "Population_by_Age_Gender",
-  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly population totals split by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -2156,28 +2397,28 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to h
+# left align columns A to H
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("A", "B", "C", "D", "E", "F", "G", "H"),
                               "left",
                               "")
 
-#right align columns I and J and round to whole numbers with thousand separator
+# right align columns I and J and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("I", "J"),
                               "right",
                               "#,##0")
 
-#right align column K and round to 2dp with thousand separator
+# right align column K and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Population_by_Age_Gender",
                               c("K"),
                               "right",
                               "#,##0.00")
 
-## IMD
+# IMD
 
 accessibleTables::write_sheet(
   wb,
@@ -2193,33 +2434,36 @@ accessibleTables::write_sheet(
   14
 )
 
-#left align columns A to E
+# left align columns A to E
 accessibleTables::format_data(wb,
                               "IMD",
                               c("A", "B", "C", "D", "E"),
                               "left",
                               "")
 
-#right align columns F and G and round to whole numbers with thousand separator
+# right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("F", "G"),
                               "right",
                               "#,##0")
 
-#right align column H and round to 2dp with thousand separator
+# right align column H and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "IMD",
                               c("H"),
                               "right",
                               "#,##0.00")
 
-##  Monthly section data
+# monthly section data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  paste0(config$publication_table_title, " - Monthly totals by BNF section"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF section"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -2249,12 +2493,15 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0.00")
 
-##  Monthly paragraph data
+# monthly paragraph data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Monthly_Paragraph",
-  paste0(config$publication_table_title, " - Monthly totals by BNF paragraph"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF paragraph"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -2289,7 +2536,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -2299,24 +2549,26 @@ accessibleTables::write_sheet(
   14
 )
 
-# left align columns A to H
-accessibleTables::format_data(wb,
-                              "Monthly_Chemical_Substance",
-                              c("A", "B", "C", "D", "E", "F", "G", "H"),
-                              "left",
-                              "")
+# left align columns A to J
+accessibleTables::format_data(
+  wb,
+  "Monthly_Chemical_Substance",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
-# right align columns I and J and round to whole numbers with thousand separator
+# right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "Monthly_Chemical_Substance",
-                              c("I", "J"),
+                              c("K", "L"),
                               "right",
                               "#,##0")
 
-# right align column K and round to 2 decimal places with thousand separator
+# right align column M and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Monthly_Chemical_Substance",
-                              c("K"),
+                              c("M"),
                               "right",
                               "#,##0.00")
 
@@ -2325,23 +2577,28 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Average_Items_per_Patient",
-  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Average items per patient by month and BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
-    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+    "4. These averages refer to the mean. Average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
   quarterly_0402$avg_per_pat,
   14
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Average_Items_per_Patient",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Average_Items_per_Patient",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -2406,7 +2663,7 @@ sheetNames <- c(
   "Monthly_Paragraph",
   "Monthly_Chemical_Substance",
   "Average_Items_per_Patient"
-  )
+)
 
 wb <- accessibleTables::create_wb(sheetNames)
 
@@ -2457,8 +2714,8 @@ meta_descs <-
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
     "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
-    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
-    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
     "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
@@ -2474,7 +2731,10 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  paste0(config$publication_table_title, " - Proportion of items for which an NHS number was recorded (%)"),
+  paste0(
+    config$publication_table_title,
+    " - Proportion of items for which an NHS number was recorded (%)"
+  ),
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -2538,9 +2798,14 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  paste0(config$publication_table_title, " - Quarterly totals split by identified patients"),
-  c("1. Field definitions can be found on the 'Metadata' tab.",
-    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by identified patients"
+  ),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
+  ),
   quarterly_0403$national_total,
   14
 )
@@ -2572,7 +2837,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Paragraph",
-  paste0(config$publication_table_title, " - Quarterly totals split by BNF paragraph and identified patients"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by BNF paragraph and identified patients"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -2717,7 +2985,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -2754,7 +3025,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Population_by_Age_Gender",
-  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly population totals split by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -2830,40 +3104,48 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Presc_in_Children",
-  paste0(config$publication_table_title, " - Prescribing in adults and children, age bands 17 and under to 18 and over"),
-  c("1. Field definitions can be found on the 'Metadata' tab.",
-    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
+  paste0(
+    config$publication_table_title,
+    " - Prescribing in adults and children, age bands 17 and under to 18 and over"
+  ),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
+  ),
   quarterly_0403$prescribing_in_children,
   14
 )
 
 #left align columns A to e
 accessibleTables::format_data(wb,
-            "Presc_in_Children",
-            c("A", "B", "C", "D", "E"),
-            "left",
-            "")
+                              "Presc_in_Children",
+                              c("A", "B", "C", "D", "E"),
+                              "left",
+                              "")
 
 #right align columns F and G and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
-            "Presc_in_Children",
-            c("F", "G"),
-            "right",
-            "#,##0")
+                              "Presc_in_Children",
+                              c("F", "G"),
+                              "right",
+                              "#,##0")
 
 #right align column H and round to 2dp with thousand separator
 accessibleTables::format_data(wb,
-            "Presc_in_Children",
-            c("H"),
-            "right",
-            "#,##0.00")
+                              "Presc_in_Children",
+                              c("H"),
+                              "right",
+                              "#,##0.00")
 
 ##  Monthly section data
 # write data to sheet
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  paste0(config$publication_table_title, " - Monthly totals by BNF section"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF section"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -2898,7 +3180,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Paragraph",
-  paste0(config$publication_table_title, " - Monthly totals by BNF paragraph"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF paragraph"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -2933,7 +3218,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -2944,11 +3232,13 @@ accessibleTables::write_sheet(
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Monthly_Chemical_Substance",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Monthly_Chemical_Substance",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -2957,7 +3247,7 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0")
 
-# right align column K and round to 2 decimal places with thousand separator
+# right align column M and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Monthly_Chemical_Substance",
                               c("M"),
@@ -2969,23 +3259,28 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Average_Items_per_Patient",
-  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Average items per patient by month and BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
-    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+    "4. These averages refer to the mean. Average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
   quarterly_0403$avg_per_pat,
   14
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Average_Items_per_Patient",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Average_Items_per_Patient",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -3050,7 +3345,7 @@ sheetNames <- c(
   "Monthly_Section",
   "Monthly_Chemical_Substance",
   "Average_Items_per_Patient"
-  )
+)
 
 wb <- accessibleTables::create_wb(sheetNames)
 
@@ -3101,8 +3396,8 @@ meta_descs <-
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
     "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
-    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
-    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
     "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
@@ -3118,7 +3413,10 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  paste0(config$publication_table_title, " - Proportion of items for which an NHS number was recorded (%)"),
+  paste0(
+    config$publication_table_title,
+    " - Proportion of items for which an NHS number was recorded (%)"
+  ),
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -3182,9 +3480,14 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  paste0(config$publication_table_title, " - Quarterly totals split by identified patients"),
-  c("1. Field definitions can be found on the 'Metadata' tab.",
-    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by identified patients"
+  ),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
+  ),
   quarterly_0404$national_total,
   14
 )
@@ -3216,7 +3519,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Chemical_Substance",
-  paste0(config$publication_table_title, " - Quarterly totals split by BNF chemical substance and identified patients"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by BNF chemical substance and identified patients"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -3361,7 +3667,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -3398,7 +3707,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Population_by_Age_Gender",
-  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly population totals split by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -3475,9 +3787,14 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Presc_in_Children",
-  paste0(config$publication_table_title, " - Prescribing in adults and children, age bands 17 and under to 18 and over"),
-  c("1. Field definitions can be found on the 'Metadata' tab.",
-    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
+  paste0(
+    config$publication_table_title,
+    " - Prescribing in adults and children, age bands 17 and under to 18 and over"
+  ),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
+  ),
   quarterly_0404$prescribing_in_children,
   14
 )
@@ -3508,7 +3825,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  paste0(config$publication_table_title, " - Monthly totals by BNF section"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF section"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -3543,7 +3863,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -3554,11 +3877,13 @@ accessibleTables::write_sheet(
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Monthly_Chemical_Substance",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Monthly_Chemical_Substance",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -3579,23 +3904,28 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Average_Items_per_Patient",
-  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Average items per patient by month and BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
-    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+    "4. These averages refer to the mean. Average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
   quarterly_0404$avg_per_pat,
   14
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Average_Items_per_Patient",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Average_Items_per_Patient",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -3658,7 +3988,7 @@ sheetNames <- c(
   "Monthly_Section",
   "Monthly_Chemical_Substance",
   "Average_Items_per_Patient"
-  )
+)
 
 wb <- accessibleTables::create_wb(sheetNames)
 
@@ -3709,8 +4039,8 @@ meta_descs <-
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
     "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
-    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag.",
-    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This cost is given in GBP (£).",
+    "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
+    "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
     "The year in which population estimates were taken, required due to the presentation of this data in financial year format.",
     "The number of identified patients by age band and gender divided by mid-year population of the same age band and gender group in England, multiplied by 1,000. Only identified patients with a known gender and age band are included. This is calculated by (Total Identified Patients / Mid-Year England Population Estimate) * 1000."
@@ -3726,7 +4056,10 @@ accessibleTables::create_metadata(wb,
 accessibleTables::write_sheet(
   wb,
   "Patient_Identification",
-  paste0(config$publication_table_title, " - Proportion of items for which an NHS number was recorded (%)"),
+  paste0(
+    config$publication_table_title,
+    " - Proportion of items for which an NHS number was recorded (%)"
+  ),
   c(
     "The below proportions reflect the percentage of prescription items where a PDS verified NHS number was recorded."
   ),
@@ -3790,9 +4123,14 @@ accessibleTables::format_data(
 accessibleTables::write_sheet(
   wb,
   "National_Total",
-  paste0(config$publication_table_title, " - Quarterly totals split by identified patients"),
-  c("1. Field definitions can be found on the 'Metadata' tab.",
-    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by identified patients"
+  ),
+  c(
+    "1. Field definitions can be found on the 'Metadata' tab.",
+    "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
+  ),
   quarterly_0411$national_total,
   14
 )
@@ -3824,7 +4162,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "National_Chemical_Substance",
-  paste0(config$publication_table_title, " - Quarterly totals split by BNF chemical substance and identified patients"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals split by BNF chemical substance and identified patients"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -3969,7 +4310,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Age_Band_and_Gender",
-  paste0(config$publication_table_title, " - Quarterly totals by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly totals by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -4006,7 +4350,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Population_by_Age_Gender",
-  paste0(config$publication_table_title, " - Quarterly population totals split by age band and gender"),
+  paste0(
+    config$publication_table_title,
+    " - Quarterly population totals split by age band and gender"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -4082,7 +4429,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Section",
-  paste0(config$publication_table_title, " - Monthly totals by BNF section"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF section"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
@@ -4117,7 +4467,10 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Monthly_Chemical_Substance",
-  paste0(config$publication_table_title, " - Monthly totals by BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Monthly totals by BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
@@ -4153,23 +4506,28 @@ accessibleTables::format_data(wb,
 accessibleTables::write_sheet(
   wb,
   "Average_Items_per_Patient",
-  paste0(config$publication_table_title, " - Average items per patient by month and BNF chemical substance"),
+  paste0(
+    config$publication_table_title,
+    " - Average items per patient by month and BNF chemical substance"
+  ),
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
     "3. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
-    "4. The average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
+    "4. These averages refer to the mean. Average items per patient and average Net Ingredient Cost (NIC) per patient have only been calculated using items and costs associated with the identified patient flag. More information can be found in the Metadata sheet."
   ),
   quarterly_0411$avg_per_pat,
   14
 )
 
 # left align columns A to J
-accessibleTables::format_data(wb,
-                              "Average_Items_per_Patient",
-                              c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
-                              "left",
-                              "")
+accessibleTables::format_data(
+  wb,
+  "Average_Items_per_Patient",
+  c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  "left",
+  ""
+)
 
 # right align columns K and L and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
@@ -4417,6 +4775,7 @@ figure_1_0403 <- figure_1_data_0403 |>
       rotation = -45
     )
   )
+
 #figure 2 quarterly antidepressant cost
 figure_2_data_0403 <- quarterly_0403$national_total |>
   #added financial year filter now only using rolling years
@@ -5085,6 +5444,7 @@ figure_3_0411 <- figure_3_data_0411 |>
 #figure 1  antidepressants model data
 figure_1_data_covid <- predictions_0403 |>
   dplyr::filter(YEAR_MONTH > 202002)
+library(highcharter)
 
 figure_1_covid <- figure_1_data_covid |>
   covid_chart_hc(title = "")
@@ -5168,8 +5528,8 @@ rmarkdown::render("mumh_quarterly_sep23_covid.Rmd",
 rmarkdown::render("mumh_background_sep23.Rmd",
                   output_format = "html_document",
                   output_file = "outputs/mumh_background_sep23.html")
-rmarkdown::render("mumh_quarterly_sep23_overview.Rmd",
+rmarkdown::render("mumh_background_sep23.Rmd",
                   output_format = "word_document",
-                  output_file = "outputs/mumh_quarterly_sep23_overview.docx")
+                  output_file = "outputs/mumh_background_sep23.docx")
 
   

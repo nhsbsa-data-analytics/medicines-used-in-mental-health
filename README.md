@@ -50,7 +50,7 @@ Functions include `population_extract()` and `national_pop_agegen()`.
 
 3. `vis_functions.R` contains functions for use in data visualisation for MUMH outputs, such as creating charts and formatting in markdown outputs. 
 
-Functions include `infoBox_border()`, `infoBox_no_border()`, `age_gender_chart()`, `covid_chart_hc()`, `group_chart_hc_new()`, `get_download_button()`, and .
+Functions include `age_gender_chart()`, `covid_chart_hc()`, `group_chart_hc_new()`, `infoBox_border()`, `infoBox_no_border()`, and `get_download_button()`.
 
 4. `model_functions.R` contains functions for building the linear regression model of pre-COVID-19 pandemic trends.
 

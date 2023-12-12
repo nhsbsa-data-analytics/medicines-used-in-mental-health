@@ -52,35 +52,35 @@ knitr::opts_chunk$set(echo = FALSE,
 
 Published `r config$publication_date` 
 
-`r mumhquarterly::infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we have split the publication into smaller summaries,one for each BNF Section and one for the modelling based on previous prescribing trends. We are interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
+`r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we've added new measures to the summary tables for each BNF section. These include the items per identified patient by month and chemical substance and Net Ingredient Cost (NIC) per identified patient by month and chemical substance. The number of identified patients per 1,000 population by age band and gender has also been added.  We're interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
 
 ## Key findings
 
-Between April and June 2023:
+Between July and September 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>22 million antidepressant items were prescribed to an estimated 6.7 million identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>22 million antidepressant items were prescribed to an estimated 6.8 million identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items was £60 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items fell to £56 million.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Prescribing of drugs for dementia items remained below expected values based on pre-pandemic trends.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Prescribing of CNS stimulants and drugs for ADHD items remained above the range of expected values based on pre-pandemic trends.</b>", width = "100%")`
 :::
 ::::
 
-There were 22 million antidepressants prescribed to an estimated 6.7 million identified patients. This was a small increase in items and a small decrease in patients compared to the previous quarter, both changes were less than a percentage point.
+There were 22 million antidepressants prescribed to an estimated 6.8 million identified patients. This was a small increase in items and identified patients compared to the previous quarter, at 1.5% for items and less than one percentage point for patients.
 
-Prescribing of CNS stimulants and drugs for ADHD items increased by 3.6% over the same period to 710,000 items, with identified patients increasing 5.6% to 200,000. These were the largest changes of all drug groups in this publication. 
+Over the same period, prescribing of hypnotics and anxiolytics items increased by 1% to 3.4 million and identified patients increased by 1.4% to 1 million.
 
-Drugs for dementia also showed an increase of 1% for both prescribing and number of identified patients.
+Drugs used in psychoses and related disorders also saw 3.4 million items prescribed, a 1.3% increase. There was an increase of less than 1% for identified patients, to 650,000.
 
-Hypnotics and anxiolytics saw a 2.4% decrease in prescribed items from the previous quarter and 3.2% fewer identified patients.
+Prescribing of CNS stimulants and drugs for ADHD items also increased by less than one percentage point, to 720,000 items. Identified patients increased by 2.6% to 210,000 patients. 
 
-Drugs used in psychoses and related disorders showed a decrease in prescribing and identified patients, both of less than 1%.
+The number of drugs for dementia items prescribed increased by 3.1% to 1.1 million. This was the largest percentage increase in items out of the drug groups in this publication. Identified patients increased by 2.3%. 
 
-
+Total Net ingredient Cost (NIC) decreased for antidepressants, hypnotics and anxiolytics, and antipsychotics, despite increases in identified patients and items in these drug groups. The total NIC increased for CNS stimulants and drugs for ADHD, and drugs for dementia. Antidepressants had the largest change in total NIC of the drug groups in this publication, with a 6.8% decrease.
 
 
 ---
@@ -88,7 +88,7 @@ Drugs used in psychoses and related disorders showed a decrease in prescribing a
 ## 1. Things you should know
 ### 1.1. Scope {.toc-ignore} 
 
-`r mumhquarterly::infoBox_border("Background ", text = "The [NHS Long Term Plan](https://www.longtermplan.nhs.uk/) published in 2019 focuses on improving mental health care in the UK. It aims to provide more funding for mental health services, particularly for children and people with dementia. The [Core20PLUS5](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/) approach  to reduce health inequalities also seeks to improve community care for those with severe mental illnesses.", width = "100%")`
+`r infoBox_border("Background ", text = "The [NHS Long Term Plan](https://www.longtermplan.nhs.uk/) published in 2019 focuses on improving mental health care in the UK. It aims to provide more funding for mental health services, particularly for children and people with dementia. The [Core20PLUS5](https://www.england.nhs.uk/about/equality/equality-hub/core20plus5/) approach  to reduce health inequalities also seeks to improve community care for those with severe mental illnesses.", width = "100%")`
 
 This publication provides information on medicines used to treat mental health in England. It covers medicines prescribed in England that are then dispensed in the community in England, Scotland, Wales, Isle of Man of the Channel Islands. The publication does not include data on medicines used in hospitals, prisons or prescribed by private doctors. 
 
@@ -100,23 +100,23 @@ Medicines are not the only way to treat mental health conditions, and this publi
 
 ### 1.2. Definitions {.toc-ignore}
 
-`r mumhquarterly::infoBox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
+`r infobox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
 
-`r mumhquarterly::infoBox_border("Patient", text = "A unique NHS number verified from a prescription form. Verification of an NHS number for patient identification is done by the NHS Personal Demographics Service (PDS).", width = "100%")`
+`r infoBox_border("Patient", text = "A unique NHS number verified from a prescription form. Verification of an NHS number for patient identification is done by the NHS Personal Demographics Service (PDS).", width = "100%")`
 
-`r mumhquarterly::infoBox_border("NIC", text = "The Net Ingredient Cost (NIC) is the basic price of the medication and the quantity prescribed. It does not include other fees incurred by dispensing contractors, such as controlled drug fees or the single activity fee. The basic price is determined by the [Drug Tariff](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/drug-tariff) or by the manufacturer, wholesaler, or supplier of the product.", width = "100%")`
+`r infoBox_border("NIC", text = "The Net Ingredient Cost (NIC) is the basic price of the medication and the quantity prescribed. It does not include other fees incurred by dispensing contractors, such as controlled drug fees or the single activity fee. The basic price is determined by the [Drug Tariff](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/drug-tariff) or by the manufacturer, wholesaler, or supplier of the product.", width = "100%")`
 
-`r mumhquarterly::infoBox_border("Classification", text = "This publication uses the British National Formulary (BNF), which lists medicines used in the UK and classifies them according to their primary therapeutic use. Medication may also be prescribed for other purposes beyond their intended use. For example, certain antidepressants may be recommended to individuals experiencing chronic pain. The NHSBSA does not capture the clinical indication of a prescription during processing.", width = "100%")`
+`r infoBox_border("Classification", text = "This publication uses the British National Formulary (BNF), which lists medicines used in the UK and classifies them according to their primary therapeutic use. Medication may also be prescribed for other purposes beyond their intended use. For example, certain antidepressants may be recommended to individuals experiencing chronic pain. The NHSBSA does not capture the clinical indication of a prescription during processing.", width = "100%")`
 
 ### 1.3. Time periods {.toc-ignore}
 
-The data in this publication covers the period from April 2018 to June 2023. Q1, Q2, Q3, and Q4 refer to different periods within a financial year. 
+The data in this publication covers the period from April 2018 to September 2023. Q1, Q2, Q3, and Q4 refer to different periods within a financial year. 
 
 These statistics cover the period of the coronavirus (COVID-19) pandemic. A detailed [timeline](https://commonslibrary.parliament.uk/research-briefings/cbp-9068/) of events and restrictions in the UK during this time can be found on the UK parliament website. The impact of COVID-19 should be considered when comparing across time periods 
 
 ### 1.4. Patient identification {.toc-ignore}
 
-When the NHSBSA processes prescriptions it is not always possible to capture the NHS number of the patient. Table 1 shows the proportion of items for which a patient could be identified. This means that the data relating to patient counts represents most, but not all, patients.
+When the NHSBSA processes prescriptions it is not always possible to capture the NHS number of the patient. Table 1 shows the proportion of items for which a patient could be identified. This means that the data relating to patient counts represents most, but not all, patients. Patient identification rates going back to Q1 2015/16 can be found in the individual summary tables for each BNF section.
 
 Due to an increase in digital prescription processing through the Electronic Prescription Service (EPS) during the COVID-19 pandemic, more patients were identified in 2020/21 and 2021/22 compared to previous years then stabilised. When patient identification rates increase, any increases in the number of identified patients between periods are likely to be an overestimate of the actual increase in patient numbers. This is because the proportion of patients who could be identified has increased. Conversely, any decrease over the same period is likely to be an underestimate of the actual decrease.
 
@@ -211,12 +211,15 @@ Prescribing of medications in primary care is only part of the big picture for m
 
 ## 4. About these statistics
 
-This publication is part of a series by the NHSBSA, which can be found on our [Medicines Used in Mental Health webpage](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england). This release is intended to continue the annual summary statistics released in each year and combine it with the quarterly summary for quarter 4 of the 2022/23 financial year. To learn more about how this series compares to our other publications, you can view the Official Statistics guidance table on our [statistical collections page](https://www.nhsbsa.nhs.uk/statistical-collections). 
+This publication is part of a series by the NHSBSA, which can be found on our [Medicines Used in Mental Health webpage](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england). Medicines Used in Mental Health is released quarterly and annually. To learn more about how this series compares to our other publications, you can view the Official Statistics guidance table on our [statistical collections page](https://www.nhsbsa.nhs.uk/statistical-collections). 
 
 ### 4.1. Changes to this publication {.toc-ignore}
 
-For this release, we have split the publication into smaller summaries, one for each BNF section and one that explores the impact of the COVID-19 pandemic on prescribing trends.
+For this release, we have added the following measures to the summary tables for each BNF section:
 
+* the number of identified patients per 1,000 population, by age band and gender
+* the average (mean) number of items per identified patient, by month and chemical substance
+* the average (mean) Net Ingredient Cost (NIC) per identified patient, by month and chemical substance
 
 ### 4.2 Statistical Disclosure Control (SDC) {.toc-ignore}
 
@@ -224,11 +227,11 @@ Statistical disclosure control has been applied to these statistics. Patient cou
 
 ### 4.3. Rounding {.toc-ignore}
 
-The high-level figures in this statistical summary have been rounded where appropriate for clarity. In most cases rounding has been to three significant figures in the main text and two significant figures in the key findings and information boxes. This is to make this narrative as accessible as possible to all readers. The summary tables released with this publication allow users to investigate this data at lower levels of granularity. Figures in the supplementary tables have not been rounded.
+The high-level figures in this statistical summary have been rounded where appropriate for clarity. In most cases rounding has been to two significant figures in the key findings and information boxes and three significant figures in the main text. This is to make this narrative as accessible as possible to all readers. The summary tables released with this publication allow users to investigate this data at lower levels of granularity. Figures in the supplementary tables have not been rounded.
 
 ### 4.4. Trends during COVID-19 {.toc-ignore}
 
-The number of items for each BNF section in the 34-month period March 2020 to June 2023 were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to June 2023. These figures were extrapolated according to:
+The number of items for each BNF section in the 43-month period March 2020 to September 2023 were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to September 2023. These figures were extrapolated according to:
 
 * the trends between April 2015 and February 2020
 * the number of dispensing days that occur in each month
@@ -253,7 +256,7 @@ This is an experimental official statistic release. Experimental statistics are 
 
 If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille, you can contact us by:
 
-**Email**: nhsbsa.accessibility@nhs.net
+**Email**: accessibility@nhsbsa.nhs.uk
 
 **Phone**: 0191 203 5318
 
@@ -277,7 +280,7 @@ You can view our [privacy policy](https://www.nhsbsa.nhs.uk/our-policies/privacy
 
 You can contact us by:
 
-**Email:** nhsbsa.statistics@nhs.net
+**Email:** statistics@nhsbsa.nhs.uk
 
 **You can also write to us at:**
 

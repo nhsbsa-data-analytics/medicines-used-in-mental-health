@@ -54,14 +54,14 @@ Published `r config$publication_date`
 
 ## Summary
 
-Between April and June 2023:
+Between July and September 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>710,000 CNS stimulants and drugs for ADHD items were prescribed to an estimated 200,000 identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>There were 720,000 CNS stimulants and drugs for ADHD items prescribed to an estimated 210,000 identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed CNS stimulants and drugs for ADHD items was £30 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed CNS stimulants and drugs for ADHD items was £31 million.</b>", width = "100%")`
 :::
 ::::
 
@@ -103,13 +103,13 @@ figure_1_0404
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>710,000 CNS stimulants and drugs for ADHD items prescribed in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>720,000 CNS stimulants and drugs for ADHD items prescribed in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>200,000 identified patients received prescribing for CNS stimulants and drugs for ADHD section in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>210,000 identified patients received prescribing for CNS stimulants and drugs for ADHD section in Q2 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Items and patients continue to trend upwards for CNS stimulants and drugs for ADHD items. There was a 3.6% increase in items and a 5.6% increase in patients on the previous quarter.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>There was a 0.7% increase in items and a 2.6% increase in patients on the previous quarter. Items and patients continue to trend upwards for CNS stimulants and drugs for ADHD items. </b>", width = "100%")`
 :::
 ::::
 
@@ -125,10 +125,10 @@ figure_2_0404
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed CNS stimulants and drugs for ADHD items was £30 million in Q1 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>In Q2 2023/24 the cost of prescribed CNS stimulants and drugs for ADHD items was £31 million. </b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribing CNS stimulants and drugs for ADHD  continues to trend upwards, there was a 5.1% increase on the previous quarter.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>This was a 4.4% increase on the previous quarter, so costs increased by a higher proportion than items.</b>", width = "100%")`
 :::
 ::::
 
@@ -142,10 +142,10 @@ figure_3_0404
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>On average, 130,000 patients per month received prescribing for a CNS stimulants and drugs for ADHD item over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD items increased by 19% over the last 12 months, compared to the previous 12 month period. </b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>CNS stimulants and drugs for ADHD items increased by 19% over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Over the last 12 months, an average of 130,000 patients per month received prescribing for a CNS stimulants and drugs for ADHD item.</b>", width = "100%")`
 :::
 ::::
 

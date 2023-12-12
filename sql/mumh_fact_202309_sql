@@ -1,5 +1,5 @@
---DROP TABLE    mumh_tdim_202307  PURGE;
-CREATE TABLE  mumh_tdim_202307  COMPRESS FOR QUERY HIGH AS
+--DROP TABLE    mumh_tdim_202309  PURGE;
+CREATE TABLE  mumh_tdim_202309  COMPRESS FOR QUERY HIGH AS
 
 WITH  tdim  as  (
 
@@ -20,8 +20,8 @@ where 1  =  1
 select * from tdim where qtr_count = 3
 ;
 
---DROP TABLE    mumh_drug_dim_202307  PURGE;
-CREATE TABLE  mumh_drug_dim_202307  COMPRESS FOR QUERY HIGH AS
+--DROP TABLE    mumh_drug_dim_202309  PURGE;
+CREATE TABLE  mumh_drug_dim_202309  COMPRESS FOR QUERY HIGH AS
 
 SELECT
   cdr.year_month
@@ -43,14 +43,14 @@ SELECT
 FROM
   dim.cdr_ep_drug_bnf_dim cdr
 INNER JOIN
-  mawil.mumh_tdim_202307  tdim
+  grali.mumh_tdim_202309  tdim
   ON  cdr.year_month  = tdim.year_month
 WHERE 1 = 1
   AND bnf_section in  ('0401', '0402', '0403', '0404', '0411')
 ;
 
-DROP TABLE    mumh_org_dim_202307 PURGE;
-CREATE TABLE  mumh_org_dim_202307 COMPRESS FOR QUERY HIGH AS
+DROP TABLE    mumh_org_dim_202309 PURGE;
+CREATE TABLE  mumh_org_dim_202309 COMPRESS FOR QUERY HIGH AS
 
 WITH
 
@@ -135,16 +135,16 @@ max_org AS  (
 SELECT  * FROM  org
 ;
 
---DROP TABLE    mumh_fact_202307  PURGE;
-CREATE TABLE  mumh_fact_202307  COMPRESS FOR  QUERY HIGH  AS
+DROP TABLE    mumh_fact_202309  PURGE;
+CREATE TABLE  mumh_fact_202309  COMPRESS FOR  QUERY HIGH  AS
 
 WITH  fact  AS  (
   
   SELECT
     fact.identified_patient_id
     ,tdim.financial_year
-  --  ,tdim.calendar_year
-  --  ,tdim.financial_quarter
+    ,tdim.calendar_year
+    ,tdim.financial_quarter
     ,fact.year_month
     ,org.region_name
     ,org.region_code
@@ -164,6 +164,8 @@ WITH  fact  AS  (
     ,drug.chemical_substance_bnf_descr
     ,drug.presentation_bnf
     ,drug.presentation_bnf_descr
+    ,fact.item_ssp_fees
+    ,fact.item_ssp_vat_value
     --  <methodology change 2023> no longer impute patient flag from PDS data
     ,fact.patient_identified
     ,fact.eps_part_date
@@ -180,14 +182,14 @@ WITH  fact  AS  (
   FROM
     aml.px_form_item_elem_comb_fact_av  fact
   INNER JOIN
-    mumh_tdim_202307  tdim
+    mumh_tdim_202309  tdim
     ON  fact.year_month = tdim.year_month
   INNER JOIN
-    mumh_org_dim_202307 org
+    mumh_org_dim_202309 org
     ON  fact.presc_type_prnt =  org.lvl_5_oupdt
     AND fact.presc_id_prnt   =  org.lvl_5_ou
   INNER JOIN
-    mumh_drug_dim_202307  drug
+    mumh_drug_dim_202309  drug
     ON  fact.calc_prec_drug_record_id = drug.record_id
     AND fact.year_month               = drug.year_month
   WHERE 1 = 1
@@ -204,8 +206,8 @@ WITH  fact  AS  (
   GROUP BY
    fact.identified_patient_id
     ,tdim.financial_year
-  --  ,tdim.calendar_year
-  --  ,tdim.financial_quarter
+    ,tdim.calendar_year
+    ,tdim.financial_quarter
     ,fact.year_month
     ,org.region_name
     ,org.region_code
@@ -225,6 +227,8 @@ WITH  fact  AS  (
     ,drug.chemical_substance_bnf_descr
     ,drug.presentation_bnf
     ,drug.presentation_bnf_descr
+    ,fact.item_ssp_fees
+    ,fact.item_ssp_vat_value
     ,fact.patient_identified
     ,fact.eps_part_date
     ,nvl(trunc((to_number(substr(tdim.financial_year,1,4)||'0930') - to_number(to_char(fact.pds_dob,'YYYYMMDD')))/10000),-1)
@@ -254,8 +258,8 @@ WITH  fact  AS  (
 SELECT
     identified_patient_id
     ,financial_year
-  --  ,calendar_year
-  --  ,financial_quarter
+    ,calendar_year
+    ,financial_quarter
     ,year_month
     ,region_name
     ,region_code
@@ -272,6 +276,8 @@ SELECT
     ,chemical_substance_bnf_descr
     ,presentation_bnf
     ,presentation_bnf_descr
+    ,item_ssp_fees
+    ,item_ssp_vat_value
     ,patient_identified
     ,calc_age
     ,pds_gender
@@ -291,8 +297,8 @@ WHERE 1 = 1
 GROUP BY
     identified_patient_id
     ,financial_year
-  --  ,calendar_year
-  --  ,financial_quarter
+    ,calendar_year
+    ,financial_quarter
     ,year_month
     ,region_name
     ,region_code
@@ -309,6 +315,8 @@ GROUP BY
     ,chemical_substance_bnf_descr
     ,presentation_bnf
     ,presentation_bnf_descr
+    ,item_ssp_fees
+    ,item_ssp_vat_value
     ,patient_identified
     ,calc_age
     ,pds_gender
@@ -320,5 +328,3 @@ GROUP BY
     ,imd_rank_prac
     ,imd_decile
 ;
-
-  

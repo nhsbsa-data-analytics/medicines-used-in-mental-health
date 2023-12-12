@@ -42,9 +42,9 @@ Functions written directly for MUMH have been split into several R script files.
 
 1. `extract_functions.R` contains functions for getting the required data out of the fact table. They generally use the dbplyr package to interact with the NHSBSA data warehouse. 
 
-Functions include `capture_rate_extract_period()`, `national_extract_period()`, `paragraph_extract_period()`, `chem_sub_extract_period()`, `icb_extract_period()`, `ageband_extract_period()`, `gender_extract_period()`, `age_gender_extract_period()`, `imd_extract_period()`, `child_adult_extract()`.
+Functions include `capture_rate_extract_period()`, `national_extract_period()`, `paragraph_extract_period()`, `chem_sub_extract_period()`, `icb_extract_period()`, `ageband_extract_period()`, `gender_extract_period()`, `age_gender_extract_period()`, `imd_extract_period()` and `child_adult_extract()`.
 
-2. `population_functions.R` contains functions for extracting and manipulation population data for use in the pipeline.
+2. `population_functions.R` contains functions for extracting and manipulating population data for use in the pipeline.
 
 Functions include `population_extract()` and `national_pop_agegen()`.
 
@@ -56,7 +56,7 @@ Functions include `age_gender_chart()`, `covid_chart_hc()`, `group_chart_hc_new(
 
 Functions include `ageband_manip_20yr()`, `covid_lm()`, `fast_agg_pred()`, `month_pred_fun()`, and `prediction_list()`.
 
-5. `apply_sdc.R` contains the `apply_sdc()` function to apply statistical disclosure control (SDC) to data in MUMH spreadsheet outputs. This is done in line with our [statistical disclosure control protocol](https://www.nhsbsa.nhs.uk/policies-and-procedures). 
+5. `apply_sdc.R` contains the `apply_sdc()` function to apply statistical disclosure control (SDC) to data in MUMH spreadsheet outputs. This is done in line with our [statistical disclosure control protocol](https://www.nhsbsa.nhs.uk/policies-and-procedures).
 
 
 # Contributing

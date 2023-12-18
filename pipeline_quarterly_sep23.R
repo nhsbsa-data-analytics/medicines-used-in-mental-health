@@ -94,13 +94,6 @@ req_pkgs <- c(
   "yaml"
 )
 
-library(nhsbsaVis)
-devtools::install_github(
-  "nhsbsa-data-analytics/nhsbsaVis",
-  auth_token = Sys.getenv("GITHUB_PAT"),
-  force = TRUE
-)
-
 # library/install packages as required
 nhsbsaUtils::check_and_install_packages(req_pkgs)
 
@@ -1307,7 +1300,7 @@ quarterly_0411$pat_per_1000_pop <- age_gender_extract_quarter |>
 # get dispensing days for up to 2023/24 financial year
 dispensing_days_data <- nhsbsaUtils::dispensing_days(2024)
 
-# aggregate to 20 year agebands and calcukate month position variables
+# aggregate to 20 year agebands and calculate month position variables
 df20 <- ageband_manip_20yr(age_gender_extract_month)
 
 # split df20 into pre-March-2020 months, train model on pre-pandemic data only

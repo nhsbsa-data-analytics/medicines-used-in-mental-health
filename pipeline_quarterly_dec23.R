@@ -229,12 +229,6 @@ pop_agegen_2022 <- national_pop_agegen() |>
   dplyr::mutate(`Year` = as.double(`Year`)) |>
   dplyr::filter(`Sex` != "All")
 
-# national mid-year England population 2022
-total_pop_eng_2022 <- pop_agegen_2022 |>
-  dplyr::filter(`Sex` == "All",
-                `Year` == "2022") |>
-  dplyr::summarise(`Total population` = sum(`Mid-year Population Estimate`))
-
 log_print("External data pulled", hide_notes = TRUE)
 
 #3. Aggregations and analysis --------------------------------------------------
@@ -244,7 +238,11 @@ log_print("External data pulled", hide_notes = TRUE)
 quarterly_0401 <- list()
 
 quarterly_0401$patient_id <- capture_rate_extract_quarter |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  tidyr::pivot_longer(cols = (`2015/2016 Q1`:`2023/2024 Q3`), 
+                      names_to = "Financial Quarter", 
+                      values_to = "Patient Identification (%)") |>
+  dplyr::relocate(`Financial Quarter`)
 
 quarterly_0401$national_total <- national_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0401")
@@ -253,152 +251,54 @@ quarterly_0401$national_paragraph <- paragraph_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$icb <-  icb_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `ICB Name`,
-    `ICB Code`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+                exclude_columns = "Year Month",
+                rounding = F)
 
 quarterly_0401$gender <- gender_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0401$ageband <- ageband_data_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0401$age_gender <- age_gender_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0401$imd <- imd_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `IMD Quintile`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0401$monthly_section <- national_extract_monthly |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients`,
-    `Total Items`,
-    `Total Net Ingredient Cost (GBP)`
-  ) |>
   dplyr::filter(`BNF Section Code` == "0401")
 
 quarterly_0401$monthly_paragraph <- paragraph_extract_monthly |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0401$monthly_chem_substance <- chem_sub_extract_monthly |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
-  dplyr::filter(`BNF Section Code` == "0401")
+  dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0401$avg_per_pat <- chem_sub_extract_monthly |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
   dplyr::filter(`BNF Section Code` == "0401",
                 `Identified Patient Flag` == "Y") |>
   dplyr::mutate(
@@ -408,19 +308,14 @@ quarterly_0401$avg_per_pat <- chem_sub_extract_monthly |>
   )
 
 quarterly_0401$pat_per_1000_pop <- age_gender_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::ungroup() |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`
-  ) |>
   dplyr::filter(`BNF Section Code` == "0401") |>
+  apply_sdc(
+    suppress_column = "Total Identified Patients",
+    exclude_columns = "Year Month",
+    rounding = F
+  ) |>
+  dplyr::ungroup() |>
+  dplyr::select(!c(`Total Items`, `Total Net Ingredient Cost (GBP)`)) |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
   ))), .after = `Financial Year`) |>
@@ -449,163 +344,72 @@ quarterly_0401$pat_per_1000_pop <- age_gender_extract_quarter |>
 
 quarterly_0402 <- list()
 
-quarterly_0402$patient_id <- capture_rate_extract_quarter %>%
+quarterly_0402$patient_id <- capture_rate_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  tidyr::pivot_longer(cols = (`2015/2016 Q1`:`2023/2024 Q3`), 
+                      names_to = "Financial Quarter", 
+                      values_to = "Patient Identification (%)") |>
+  dplyr::relocate(`Financial Quarter`)
+
+quarterly_0402$national_total <- national_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-quarterly_0402$national_total <- national_extract_quarter %>%
+quarterly_0402$national_paragraph <- paragraph_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0402")
 
-quarterly_0402$national_paragraph <- paragraph_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+quarterly_0402$icb <- icb_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0402$icb <-  icb_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `ICB Name`,
-    `ICB Code`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+quarterly_0402$gender <- gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0402$gender <- gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+quarterly_0402$ageband <- ageband_data_quarter |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0402$ageband <- ageband_data_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+quarterly_0402$age_gender <- age_gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0402$age_gender <- age_gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+quarterly_0402$imd <- imd_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0402$imd <- imd_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `IMD Quintile`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+quarterly_0402$monthly_section <- national_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0402$monthly_section <- national_extract_monthly %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients`,
-    `Total Items`,
-    `Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
-
-quarterly_0402$monthly_paragraph <- paragraph_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+quarterly_0402$monthly_paragraph <- paragraph_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0402$monthly_chem_substance <-
-  chem_sub_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0402")
+  chem_sub_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0402$avg_per_pat <- chem_sub_extract_monthly |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
   dplyr::filter(`BNF Section Code` == "0402",
                 `Identified Patient Flag` == "Y") |>
   dplyr::mutate(
@@ -615,19 +419,12 @@ quarterly_0402$avg_per_pat <- chem_sub_extract_monthly |>
   )
 
 quarterly_0402$pat_per_1000_pop <- age_gender_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::ungroup() |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`
-  ) |>
   dplyr::filter(`BNF Section Code` == "0402") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(!c(`Total Items`, `Total Net Ingredient Cost (GBP)`)) |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
   ))), .after = `Financial Year`) |>
@@ -656,179 +453,80 @@ quarterly_0402$pat_per_1000_pop <- age_gender_extract_quarter |>
 
 quarterly_0403 <- list()
 
-quarterly_0403$patient_id <- capture_rate_extract_quarter %>%
+quarterly_0403$patient_id <- capture_rate_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  tidyr::pivot_longer(cols = (`2015/2016 Q1`:`2023/2024 Q3`), 
+                      names_to = "Financial Quarter", 
+                      values_to = "Patient Identification (%)") |>
+  dplyr::relocate(`Financial Quarter`)
+
+quarterly_0403$national_total <- national_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-quarterly_0403$national_total <- national_extract_quarter %>%
+quarterly_0403$national_paragraph <- paragraph_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0403")
 
-quarterly_0403$national_paragraph <- paragraph_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$icb <-  icb_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0403$icb <-  icb_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `ICB Name`,
-    `ICB Code`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$gender <- gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0403$gender <- gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$ageband <- ageband_data_quarter |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0403$ageband <- ageband_data_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$age_gender <- age_gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0403$age_gender <- age_gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
-
-quarterly_0403$imd <- imd_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `IMD Quintile`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$imd <- imd_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0403$prescribing_in_children <-
-  child_adult_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+  child_adult_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0403$monthly_section <- national_extract_monthly %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients`,
-    `Total Items`,
-    `Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$monthly_section <- national_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0403$monthly_paragraph <- paragraph_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+quarterly_0403$monthly_paragraph <- paragraph_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 # add chemical substance level in monthly tables if needed
 quarterly_0403$monthly_chem_substance <-
-  chem_sub_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0403")
+  chem_sub_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0403$avg_per_pat <- chem_sub_extract_monthly |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
   dplyr::filter(`BNF Section Code` == "0403",
                 `Identified Patient Flag` == "Y") |>
   dplyr::mutate(
@@ -838,19 +536,12 @@ quarterly_0403$avg_per_pat <- chem_sub_extract_monthly |>
   )
 
 quarterly_0403$pat_per_1000_pop <- age_gender_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::ungroup() |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`
-  ) |>
   dplyr::filter(`BNF Section Code` == "0403") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(!c(`Total Items`, `Total Net Ingredient Cost (GBP)`)) |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
   ))), .after = `Financial Year`) |>
@@ -873,178 +564,83 @@ quarterly_0403$pat_per_1000_pop <- age_gender_extract_quarter |>
   ) |>
   dplyr::mutate(`Patients per 1,000 Population` = ((`Total Identified Patients` /
                                                       `Mid-year Population Estimate`) * 1000
-  )) 
+  ))
 
 # 0404 CNS stimulants and drugs used for ADHD - quarterly
 
 quarterly_0404 <- list()
 
-quarterly_0404$patient_id <- capture_rate_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+quarterly_0404$patient_id <- capture_rate_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  tidyr::pivot_longer(cols = (`2015/2016 Q1`:`2023/2024 Q3`), 
+                      names_to = "Financial Quarter", 
+                      values_to = "Patient Identification (%)") |>
+  dplyr::relocate(`Financial Quarter`) 
 
-quarterly_0404$national_total <- national_extract_quarter %>%
+quarterly_0404$national_total <- national_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0404")
 
 quarterly_0404$national_chem_substance <-
-  chem_sub_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+  chem_sub_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0404$icb <-  icb_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `ICB Name`,
-    `ICB Code`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+quarterly_0404$icb <-  icb_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0404$gender <- gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+quarterly_0404$gender <- gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0404$ageband <- ageband_data_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+quarterly_0404$ageband <- ageband_data_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0404$age_gender <- age_gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+quarterly_0404$age_gender <- age_gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0404$imd <- imd_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `IMD Quintile`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+quarterly_0404$imd <- imd_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0404$prescribing_in_children <-
-  child_adult_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+  child_adult_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0404$monthly_section <- national_extract_monthly %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients`,
-    `Total Items`,
-    `Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+quarterly_0404$monthly_section <- national_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0404$monthly_chem_substance <-
-  chem_sub_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0404")
+  chem_sub_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0404$avg_per_pat <- chem_sub_extract_monthly |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
   dplyr::filter(`BNF Section Code` == "0404",
                 `Identified Patient Flag` == "Y") |>
   dplyr::mutate(
@@ -1054,19 +650,12 @@ quarterly_0404$avg_per_pat <- chem_sub_extract_monthly |>
   )
 
 quarterly_0404$pat_per_1000_pop <- age_gender_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::ungroup() |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`
-  ) |>
   dplyr::filter(`BNF Section Code` == "0404") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(!c(`Total Items`, `Total Net Ingredient Cost (GBP)`)) |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
   ))), .after = `Financial Year`) |>
@@ -1095,158 +684,70 @@ quarterly_0404$pat_per_1000_pop <- age_gender_extract_quarter |>
 
 quarterly_0411 <- list()
 
-quarterly_0411$patient_id <- capture_rate_extract_quarter %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+quarterly_0411$patient_id <- capture_rate_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  tidyr::pivot_longer(cols = (`2015/2016 Q1`:`2023/2024 Q3`), 
+                      names_to = "Financial Quarter", 
+                      values_to = "Patient Identification (%)") |>
+  dplyr::relocate(`Financial Quarter`)
 
-quarterly_0411$national_total <- national_extract_quarter %>%
+quarterly_0411$national_total <- national_extract_quarter |>
   dplyr::filter(`BNF Section Code` == "0411")
 
 quarterly_0411$national_chem_substance <-
-  chem_sub_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+  chem_sub_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0411$icb <-  icb_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `ICB Name`,
-    `ICB Code`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+quarterly_0411$icb <-  icb_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0411$gender <- gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+quarterly_0411$gender <- gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0411$ageband <- ageband_data_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+quarterly_0411$ageband <- ageband_data_quarter |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0411$age_gender <- age_gender_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+quarterly_0411$age_gender <- age_gender_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0411$imd <- imd_extract_quarter %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `IMD Quintile`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+quarterly_0411$imd <- imd_extract_quarter |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
-quarterly_0411$monthly_section <- national_extract_monthly %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients`,
-    `Total Items`,
-    `Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+quarterly_0411$monthly_section <- national_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0411$monthly_chem_substance <-
-  chem_sub_extract_monthly %>%
-  apply_sdc(rounding = F) %>%
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) %>%
-  dplyr::filter(`BNF Section Code` == "0411")
+  chem_sub_extract_monthly |>
+  dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F)
 
 quarterly_0411$avg_per_pat <- chem_sub_extract_monthly |>
-  apply_sdc(rounding = F) |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `Year Month`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `BNF Paragraph Name`,
-    `BNF Paragraph Code`,
-    `BNF Chemical Substance Name`,
-    `BNF Chemical Substance Code`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`,
-    `Total Items` = `sdc_Total Items`,
-    `Total Net Ingredient Cost (GBP)` = `sdc_Total Net Ingredient Cost (GBP)`
-  ) |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
   dplyr::filter(`BNF Section Code` == "0411",
                 `Identified Patient Flag` == "Y") |>
   dplyr::mutate(
@@ -1256,19 +757,12 @@ quarterly_0411$avg_per_pat <- chem_sub_extract_monthly |>
   )
 
 quarterly_0411$pat_per_1000_pop <- age_gender_extract_quarter |>
-  apply_sdc(rounding = F) |>
-  dplyr::ungroup() |>
-  dplyr::select(
-    `Financial Year`,
-    `Financial Quarter`,
-    `BNF Section Name`,
-    `BNF Section Code`,
-    `Age Band`,
-    `Patient Gender`,
-    `Identified Patient Flag`,
-    `Total Identified Patients` = `sdc_Total Identified Patients`
-  ) |>
   dplyr::filter(`BNF Section Code` == "0411") |>
+  apply_sdc(suppress_column = "Total Identified Patients",
+            exclude_columns = "Year Month",
+            rounding = F) |>
+  dplyr::ungroup() |>
+  dplyr::select(!c(`Total Items`, `Total Net Ingredient Cost (GBP)`)) |>
   dplyr::mutate(`Mid-year Population Year` = as.numeric((substr(
     c(`Financial Year`), 1, 4
   ))), .after = `Financial Year`) |>
@@ -1354,7 +848,7 @@ covid_model_predictions_sep <- rbind(
 )
 
 # update month in file name for new publications
-fwrite(covid_model_predictions_sep, "Y:/Official Stats/MUMH/Covid model tables/Sep23.csv")
+fwrite(covid_model_predictions_sep, "Y:/Official Stats/MUMH/Covid model tables/Dec23.csv")
 
 # 5. Data tables ---------------------------------------------------------------
 
@@ -1411,24 +905,24 @@ meta_fields <- c(
 
 meta_descs <-
   c(
-    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of The BNF Therapeutical classification system after chapter.",
+    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of the BNF therapeutical classification system after chapter.",
     "The unique code used to refer to the British National Formulary (BNF) section.",
-    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service.",
+    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service (PDS).",
     "Where patients are identified via the flag, the number of patients that the data corresponds to. This will always be 0 where 'Identified Patient' = N.",
     "The number of prescription items dispensed. 'Items' is the number of times a product appears on a prescription form. Prescription forms include both paper prescriptions and electronic messages.",
     "Total Net Ingredient Cost is the amount that would be paid using the basic price of the prescribed drug or appliance and the quantity prescribed. Sometimes called the 'Net Ingredient Cost' (NIC). The basic price is given either in the Drug Tariff or is determined from prices published by manufacturers, wholesalers or suppliers. Basic price is set out in Parts 8 and 9 of the Drug Tariff. For any drugs or appliances not in Part 8, the price is usually taken from the manufacturer, wholesaler or supplier of the product. This is given in GBP (£).",
     "The financial year to which the data belongs.",
     "The financial quarter to which the data belongs.",
     "The year and month to which the data belongs, denoted in YYYYMM format.",
-    "The name given to the British National Formular (BNF) paragraph. This level of grouping of the BNF Therapeutical classification system sits below BNF section.",
+    "The name given to the British National Formulary (BNF) paragraph. This level of grouping of the BNF therapeutical classification system sits below BNF section.",
     "The unique code used to refer to the British National Formulary (BNF) paragraph.",
     "The name given to the Integrated Care Board (ICB) that a prescribing organisation belongs to. This is based upon NHSBSA administrative records, not geographical boundaries and more closely reflect the operational organisation of practices than other geographical data sources.",
     "The unique code used to refer to an Integrated Care Board (ICB).",
-    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHS BSA for appliances. For example, Amoxicillin.",
+    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHSBSA for appliances. For example, Amoxicillin.",
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The IMD quintile of the patient, usually based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. If no patient postcode is available but the postcode of the prescribing practice is found in the data, the practice postcode is used as a secondary way of assigning to an IMD quintile. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient or practice postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
     "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
@@ -1502,7 +996,8 @@ accessibleTables::format_data(
     "AG",
     "AH",
     "AI",
-    "AJ"
+    "AJ",
+    "AK"
   ),
   "right",
   "0.00"
@@ -1786,7 +1281,7 @@ accessibleTables::write_sheet(
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "3. Where a patient's postcode has not been able to to be matched to NSPL, and the postcode of the prescribing practice is also not available or the patient has not been identified, the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0401$imd,
@@ -2006,7 +1501,7 @@ accessibleTables::makeCoverSheet(
 
 # save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0401_Sep_23.xlsx",
+                       "outputs/mumh_bnf0401_Dec_23.xlsx",
                        overwrite = TRUE)
 
 # 0402 Drugs used in psychoses and related disorders - quarterly and monthly
@@ -2058,24 +1553,24 @@ meta_fields <- c(
 
 meta_descs <-
   c(
-    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of The BNF Therapeutical classification system after chapter.",
+    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of the BNF therapeutical classification system after chapter.",
     "The unique code used to refer to the British National Formulary (BNF) section.",
-    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service.",
+    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service (PDS).",
     "Where patients are identified via the flag, the number of patients that the data corresponds to. This will always be 0 where 'Identified Patient' = N.",
     "The number of prescription items dispensed. 'Items' is the number of times a product appears on a prescription form. Prescription forms include both paper prescriptions and electronic messages.",
     "Total Net Ingredient Cost is the amount that would be paid using the basic price of the prescribed drug or appliance and the quantity prescribed. Sometimes called the 'Net Ingredient Cost' (NIC). The basic price is given either in the Drug Tariff or is determined from prices published by manufacturers, wholesalers or suppliers. Basic price is set out in Parts 8 and 9 of the Drug Tariff. For any drugs or appliances not in Part 8, the price is usually taken from the manufacturer, wholesaler or supplier of the product. This is given in GBP (£).",
     "The financial year to which the data belongs.",
     "The financial quarter to which the data belongs.",
     "The year and month to which the data belongs, denoted in YYYYMM format.",
-    "The name given to the British National Formular (BNF) paragraph. This level of grouping of the BNF Therapeutical classification system sits below BNF section.",
+    "The name given to the British National Formulary (BNF) paragraph. This level of grouping of the BNF therapeutical classification system sits below BNF section.",
     "The unique code used to refer to the British National Formulary (BNF) paragraph.",
     "The name given to the Integrated Care Board (ICB) that a prescribing organisation belongs to. This is based upon NHSBSA administrative records, not geographical boundaries and more closely reflect the operational organisation of practices than other geographical data sources.",
     "The unique code used to refer to an Integrated Care Board (ICB).",
-    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHS BSA for appliances. For example, Amoxicillin.",
+    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHSBSA for appliances. For example, Amoxicillin.",
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The IMD quintile of the patient, usually based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. If no patient postcode is available but the postcode of the prescribing practice is found in the data, the practice postcode is used as a secondary way of assigning to an IMD quintile. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient or practice postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
     "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
@@ -2149,7 +1644,8 @@ accessibleTables::format_data(
     "AG",
     "AH",
     "AI",
-    "AJ"
+    "AJ",
+    "AK"
   ),
   "right",
   "0.00"
@@ -2219,10 +1715,10 @@ accessibleTables::format_data(wb,
                               "left",
                               "")
 
-# right align columns G and H and round to whole numbers with thousand separator
+# right align columns H and I round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Paragraph",
-                              c("G", "H"),
+                              c("H", "I"),
                               "right",
                               "#,##0")
 
@@ -2433,7 +1929,7 @@ accessibleTables::write_sheet(
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "3. Where a patient's postcode has not been able to to be matched to NSPL, and the postcode of the prescribing practice is also not available or the patient has not been identified, the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0402$imd,
@@ -2652,7 +2148,7 @@ accessibleTables::makeCoverSheet(
 
 # save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0402_Sep_23.xlsx",
+                       "outputs/mumh_bnf0402_Dec_23.xlsx",
                        overwrite = TRUE)
 
 
@@ -2706,24 +2202,24 @@ meta_fields <- c(
 
 meta_descs <-
   c(
-    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of The BNF Therapeutical classification system after chapter.",
+    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of the BNF therapeutical classification system after chapter.",
     "The unique code used to refer to the British National Formulary (BNF) section.",
-    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service.",
+    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service (PDS).",
     "Where patients are identified via the flag, the number of patients that the data corresponds to. This will always be 0 where 'Identified Patient' = N.",
     "The number of prescription items dispensed. 'Items' is the number of times a product appears on a prescription form. Prescription forms include both paper prescriptions and electronic messages.",
     "Total Net Ingredient Cost is the amount that would be paid using the basic price of the prescribed drug or appliance and the quantity prescribed. Sometimes called the 'Net Ingredient Cost' (NIC). The basic price is given either in the Drug Tariff or is determined from prices published by manufacturers, wholesalers or suppliers. Basic price is set out in Parts 8 and 9 of the Drug Tariff. For any drugs or appliances not in Part 8, the price is usually taken from the manufacturer, wholesaler or supplier of the product. This is given in GBP (£).",
     "The financial year to which the data belongs.",
     "The financial quarter to which the data belongs.",
     "The year and month to which the data belongs, denoted in YYYYMM format.",
-    "The name given to the British National Formular (BNF) paragraph. This level of grouping of the BNF Therapeutical classification system sits below BNF section.",
+    "The name given to the British National Formulary (BNF) paragraph. This level of grouping of the BNF therapeutical classification system sits below BNF section.",
     "The unique code used to refer to the British National Formulary (BNF) paragraph.",
     "The name given to the Integrated Care Board (ICB) that a prescribing organisation belongs to. This is based upon NHSBSA administrative records, not geographical boundaries and more closely reflect the operational organisation of practices than other geographical data sources.",
     "The unique code used to refer to an Integrated Care Board (ICB).",
-    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHS BSA for appliances. For example, Amoxicillin.",
+    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHSBSA for appliances. For example, Amoxicillin.",
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The IMD quintile of the patient, usually based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. If no patient postcode is available but the postcode of the prescribing practice is found in the data, the practice postcode is used as a secondary way of assigning to an IMD quintile. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient or practice postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
     "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
@@ -2797,7 +2293,8 @@ accessibleTables::format_data(
     "AG",
     "AH",
     "AI",
-    "AJ"
+    "AJ",
+    "AK"
   ),
   "right",
   "0.00"
@@ -3081,7 +2578,7 @@ accessibleTables::write_sheet(
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "3. Where a patient's postcode has not been able to to be matched to NSPL, and the postcode of the prescribing practice is also not available or the patient has not been identified, the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0403$imd,
@@ -3336,7 +2833,7 @@ accessibleTables::makeCoverSheet(
 
 # save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0403_Sep_23.xlsx",
+                       "outputs/mumh_bnf0403_Dec_23.xlsx",
                        overwrite = TRUE)
 
 # 0404 CNS stimulants and drugs used for ADHD - quarterly and monthly
@@ -3388,24 +2885,24 @@ meta_fields <- c(
 
 meta_descs <-
   c(
-    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of The BNF Therapeutical classification system after chapter.",
+    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of the BNF therapeutical classification system after chapter.",
     "The unique code used to refer to the British National Formulary (BNF) section.",
-    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service.",
+    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service (PDS).",
     "Where patients are identified via the flag, the number of patients that the data corresponds to. This will always be 0 where 'Identified Patient' = N.",
     "The number of prescription items dispensed. 'Items' is the number of times a product appears on a prescription form. Prescription forms include both paper prescriptions and electronic messages.",
     "Total Net Ingredient Cost is the amount that would be paid using the basic price of the prescribed drug or appliance and the quantity prescribed. Sometimes called the 'Net Ingredient Cost' (NIC). The basic price is given either in the Drug Tariff or is determined from prices published by manufacturers, wholesalers or suppliers. Basic price is set out in Parts 8 and 9 of the Drug Tariff. For any drugs or appliances not in Part 8, the price is usually taken from the manufacturer, wholesaler or supplier of the product. This is given in GBP (£).",
     "The financial year to which the data belongs.",
     "The financial quarter to which the data belongs.",
     "The year and month to which the data belongs, denoted in YYYYMM format.",
-    "The name given to the British National Formular (BNF) paragraph. This level of grouping of the BNF Therapeutical classification system sits below BNF section.",
+    "The name given to the British National Formulary (BNF) paragraph. This level of grouping of the BNF therapeutical classification system sits below BNF section.",
     "The unique code used to refer to the British National Formulary (BNF) paragraph.",
     "The name given to the Integrated Care Board (ICB) that a prescribing organisation belongs to. This is based upon NHSBSA administrative records, not geographical boundaries and more closely reflect the operational organisation of practices than other geographical data sources.",
     "The unique code used to refer to an Integrated Care Board (ICB).",
-    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHS BSA for appliances. For example, Amoxicillin.",
+    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHSBSA for appliances. For example, Amoxicillin.",
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The IMD quintile of the patient, usually based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. If no patient postcode is available but the postcode of the prescribing practice is found in the data, the practice postcode is used as a secondary way of assigning to an IMD quintile. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient or practice postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
     "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
@@ -3479,7 +2976,8 @@ accessibleTables::format_data(
     "AG",
     "AH",
     "AI",
-    "AJ"
+    "AJ",
+    "AK"
   ),
   "right",
   "0.00"
@@ -3542,24 +3040,24 @@ accessibleTables::write_sheet(
   14
 )
 
-# left align columns A to G
+# left align columns A to I
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
-                              c("A", "B", "C", "D", "E", "F", "G"),
+                              c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
                               "left",
                               "")
 
-# right align columns H and I and round to whole numbers with thousand separator
+# right align columns J and K and round to whole numbers with thousand separator
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
-                              c("H", "I"),
+                              c("J", "K"),
                               "right",
                               "#,##0")
 
-# right align column J and round to 2dp with thousand separator
+# right align column L and round to 2dp with thousand separator
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
-                              c("J"),
+                              c("L"),
                               "right",
                               "#,##0.00")
 
@@ -3728,7 +3226,7 @@ accessibleTables::write_sheet(
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients.",
     "5. ONS population estimates for 2023/2024 were not available prior to publication. ONS population estimates taken from https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/estimatesofthepopulationforenglandandwales",
     "6. Patients per 1,000 population is an age-gender specific rate. These rates should only be analysed at the level at which they are presented and should not be used to compare across BNF sections.",
-    "7. BNF section 0404 has relatively lower patient identification rates, with the most recent at 89.1% as of Q2 2023/24. This may result in an under-estimate of the number of patients receiving prescribing, and a corresponding under-estimate of patients per 1,000 population."
+    "7. BNF section 0404 has relatively lower patient identification rates, with the most recent at 89.0% as of Q3 2023/24. This may result in an under-estimate of the number of patients receiving prescribing, and a corresponding under-estimate of patients per 1,000 population."
   ),
   quarterly_0404$pat_per_1000_pop,
   14
@@ -3764,7 +3262,7 @@ accessibleTables::write_sheet(
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "3. Where a patient's postcode has not been able to to be matched to NSPL, and the postcode of the prescribing practice is also not available or the patient has not been identified, the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0404$imd,
@@ -3982,7 +3480,7 @@ accessibleTables::makeCoverSheet(
 
 # save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0404_Sep_23.xlsx",
+                       "outputs/mumh_bnf0404_Dec_23.xlsx",
                        overwrite = TRUE)
 
 # 0411 Drugs for dementia - quarterly and monthly
@@ -4033,24 +3531,24 @@ meta_fields <- c(
 
 meta_descs <-
   c(
-    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of The BNF Therapeutical classification system after chapter.",
+    "The name given to a British National Formulary (BNF) section. This is the next broadest grouping of the BNF therapeutical classification system after chapter.",
     "The unique code used to refer to the British National Formulary (BNF) section.",
-    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service.",
+    "This shows where an item has been attributed to an NHS number that has been verified by the Personal Demographics Service (PDS).",
     "Where patients are identified via the flag, the number of patients that the data corresponds to. This will always be 0 where 'Identified Patient' = N.",
     "The number of prescription items dispensed. 'Items' is the number of times a product appears on a prescription form. Prescription forms include both paper prescriptions and electronic messages.",
     "Total Net Ingredient Cost is the amount that would be paid using the basic price of the prescribed drug or appliance and the quantity prescribed. Sometimes called the 'Net Ingredient Cost' (NIC). The basic price is given either in the Drug Tariff or is determined from prices published by manufacturers, wholesalers or suppliers. Basic price is set out in Parts 8 and 9 of the Drug Tariff. For any drugs or appliances not in Part 8, the price is usually taken from the manufacturer, wholesaler or supplier of the product. This is given in GBP (£).",
     "The financial year to which the data belongs.",
     "The financial quarter to which the data belongs.",
     "The year and month to which the data belongs, denoted in YYYYMM format.",
-    "The name given to the British National Formular (BNF) paragraph. This level of grouping of the BNF Therapeutical classification system sits below BNF section.",
+    "The name given to the British National Formulary (BNF) paragraph. This level of grouping of the BNF therapeutical classification system sits below BNF section.",
     "The unique code used to refer to the British National Formulary (BNF) paragraph.",
     "The name given to the Integrated Care Board (ICB) that a prescribing organisation belongs to. This is based upon NHSBSA administrative records, not geographical boundaries and more closely reflect the operational organisation of practices than other geographical data sources.",
     "The unique code used to refer to an Integrated Care Board (ICB).",
-    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHS BSA for appliances. For example, Amoxicillin.",
+    "The name of the main active ingredient in a drug. Appliances do not hold a chemical substance, but instead inherit the corresponding BNF section. Determined by the British National Formulatory (BNF) for drugs, or the NHSBSA for appliances. For example, Amoxicillin.",
     "The unique code used to refer to the British National Formulary (BNF) chemical substance.",
     "The gender of the patient as at the time the prescription was processed. Please see the detailed Background Information and Methodology notice released with this publication for further information.",
     "The age band of the patient as of the 30th September of the corresponding financial year the drug was prescribed.",
-    "The IMD quintile of the patient, based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
+    "The IMD quintile of the patient, usually based on the patient's postcode, where '1' is the 20% of areas with the highest deprivation score in the Index of Multiple Deprivation (IMD) from the English Indices of Deprivation 2019, and '5' is the 20% of areas with the lowest IMD deprivation score. If no patient postcode is available but the postcode of the prescribing practice is found in the data, the practice postcode is used as a secondary way of assigning to an IMD quintile. The IMD quintile has been recorded as 'Unknown' where the items are attributed to an unidentified patient, or where we have been unable to match the patient or practice postcode to a postcode in the National Statistics Postcode Lookup (NSPL).",
     "The total number of items divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean.",
     "The total Net Ingredient Cost divided by the total number of identified patients, by month and chemical substance. This only uses items that have been attributed to patients via the identified patient flag. This average refers to the mean, and is given in GBP (£).",
     "The population estimate for the corresponding Mid-Year Population Year.",
@@ -4124,7 +3622,8 @@ accessibleTables::format_data(
     "AG",
     "AH",
     "AI",
-    "AJ"
+    "AJ",
+    "AK"
   ),
   "right",
   "0.00"
@@ -4201,10 +3700,10 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0")
 
-# right align column J and round to 2 decimal places with thousand separator
+# right align columns J to L and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "National_Chemical_Substance",
-                              c("J"),
+                              c("J", "K", "L"),
                               "right",
                               "#,##0.00")
 
@@ -4408,7 +3907,7 @@ accessibleTables::write_sheet(
   c(
     "1. Field definitions can be found on the 'Metadata' tab.",
     "2. Statistical disclosure control has been applied to cells containing fewer than 5 patients or items. These cells will appear blank.",
-    "3. Where a patient's postcode has not been able to to be matched to NSPL or the patient has not been identified the records are reported as 'unknown' IMD quintile.",
+    "3. Where a patient's postcode has not been able to to be matched to NSPL, and the postcode of the prescribing practice is also not available or the patient has not been identified, the records are reported as 'unknown' IMD quintile.",
     "4. The patient counts shown in these statistics should only be analysed at the level at which they are presented. Adding together any patient counts is likely to result in an overestimate of the number of patients."
   ),
   quarterly_0411$imd,
@@ -4507,10 +4006,10 @@ accessibleTables::format_data(wb,
                               "right",
                               "#,##0")
 
-# right align column K and round to 2 decimal places with thousand separator
+# right align column K to M and round to 2 decimal places with thousand separator
 accessibleTables::format_data(wb,
                               "Monthly_Chemical_Substance",
-                              c("K"),
+                              c("K", "L", "M"),
                               "right",
                               "#,##0.00")
 
@@ -4584,7 +4083,7 @@ accessibleTables::makeCoverSheet(
 
 # save file into outputs folder
 openxlsx::saveWorkbook(wb,
-                       "outputs/mumh_bnf0411_Sep_23.xlsx",
+                       "outputs/mumh_bnf0411_Dec_23.xlsx",
                        overwrite = TRUE)
 
 # 6. Charts and figures --------------------------------------------------------
@@ -4596,29 +4095,31 @@ table_1_data <- capture_rate_extract_quarter |>
   dplyr::select(
     `BNF Section Name`,
     `BNF Section Code`,
-    `2022/2023 Q3`,
     `2022/2023 Q4`,
     `2023/2024 Q1`,
-    `2023/2024 Q2`
+    `2023/2024 Q2`,
+    `2023/2024 Q3`
   ) |>
   dplyr::mutate(across(where(is.numeric), round, 1)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
-  ))), everything())
+  ))), everything()) |>
+  dplyr::arrange(factor(BNF_SECTION_CODE, levels = c("0401", "0402", "0403", "0404", "0411")))
 
 table_1_data_format <- capture_rate_extract_quarter |>
   dplyr::select(
     `BNF Section Name`,
     `BNF Section Code`,
-    `2022/2023 Q3`,
     `2022/2023 Q4`,
     `2023/2024 Q1`,
-    `2023/2024 Q2`
+    `2023/2024 Q2`,
+    `2023/2024 Q3`
   ) |>
   dplyr::mutate(across(where(is.numeric), round, 1)) |>
-  mutate(across(where(is.numeric), round, 2)) |>
-  mutate(across(where(is.numeric), format, nsmall = 2)) |>
-  mutate(across(contains("20"), ~ paste0(.x, "%")))
+  dplyr::mutate(across(where(is.numeric), round, 2)) |>
+  dplyr::mutate(across(where(is.numeric), format, nsmall = 2)) |>
+  dplyr::mutate(across(contains("20"), ~ paste0(.x, "%"))) |>
+  dplyr::arrange(factor(`BNF Section Code`, levels = c("0401", "0402", "0403", "0404", "0411")))
 
 table_1 <- table_1_data_format |>
   DT::datatable(rownames = FALSE,
@@ -4636,10 +4137,10 @@ table_1_data_0403 <- capture_rate_extract_quarter |>
   dplyr::select(
     `BNF Section Name`,
     `BNF Section Code`,
-    `2022/2023 Q3`,
     `2022/2023 Q4`,
     `2023/2024 Q1`,
-    `2023/2024 Q2`
+    `2023/2024 Q2`,
+    `2023/2024 Q3`
   ) |>
   dplyr::filter(`BNF Section Code` == "0403") |>
   dplyr::mutate(across(where(is.numeric), round, 1)) |>
@@ -4662,10 +4163,10 @@ table_1_data_0401 <- capture_rate_extract_quarter |>
   dplyr::select(
     `BNF Section Name`,
     `BNF Section Code`,
-    `2022/2023 Q3`,
     `2022/2023 Q4`,
     `2023/2024 Q1`,
-    `2023/2024 Q2`
+    `2023/2024 Q2`,
+    `2023/2024 Q3`
   ) |>
   dplyr::filter(`BNF Section Code` == "0401") |>
   dplyr::mutate(across(where(is.numeric), round, 1)) |>
@@ -4688,10 +4189,10 @@ table_1_data_0402 <- capture_rate_extract_quarter |>
   dplyr::select(
     `BNF Section Name`,
     `BNF Section Code`,
-    `2022/2023 Q3`,
     `2022/2023 Q4`,
     `2023/2024 Q1`,
-    `2023/2024 Q2`
+    `2023/2024 Q2`,
+    `2023/2024 Q3`
   ) |>
   dplyr::filter(`BNF Section Code` == "0402") |>
   dplyr::mutate(across(where(is.numeric), round, 1)) |>
@@ -4714,10 +4215,10 @@ table_1_data_0404 <- capture_rate_extract_quarter |>
   dplyr::select(
     `BNF Section Name`,
     `BNF Section Code`,
-    `2022/2023 Q3`,
     `2022/2023 Q4`,
     `2023/2024 Q1`,
-    `2023/2024 Q2`
+    `2023/2024 Q2`,
+    `2023/2024 Q3`
   ) |>
   dplyr::filter(`BNF Section Code` == "0404") |>
   dplyr::mutate(across(where(is.numeric), round, 1)) |>
@@ -4734,15 +4235,16 @@ table_1_0404 <- table_1_data_0404 |>
                                  list(className = "dt-left", targets = 0:1),
                                  list(className = "dt-right", targets = 2:5)
                                )))
+
 # drugs for dementia 0411
 table_1_data_0411 <- capture_rate_extract_quarter |>
   dplyr::select(
     `BNF Section Name`,
     `BNF Section Code`,
-    `2022/2023 Q3`,
     `2022/2023 Q4`,
     `2023/2024 Q1`,
-    `2023/2024 Q2`
+    `2023/2024 Q2`,
+    `2023/2024 Q3`
   ) |>
   dplyr::filter(`BNF Section Code` == "0411") |>
   dplyr::mutate(across(where(is.numeric), round, 1)) |>
@@ -4778,13 +4280,13 @@ figure_1_data_0403 <- quarterly_0403$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0403 <- figure_1_data_0403 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -4818,13 +4320,14 @@ figure_2_data_0403 <- quarterly_0403$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
-  ))), everything())
+  ))), everything()) |>
+  dplyr::mutate(VALUE = round(VALUE, 2)) 
 
 figure_2_0403 <- figure_2_data_0403 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -4857,22 +4360,20 @@ figure_3_data_0403 <- quarterly_0403$monthly_section |>
     .groups = "drop"
   ) |>
   dplyr::mutate(
-    MONTH_INDEX = dplyr::row_number(),
-    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
-    MONTH_NUM = lubridate::month(MONTH_START)
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d")
   ) |>
   tidyr::pivot_longer(
     cols = c(`Identified patients`, `Prescribed items`),
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0403 <- figure_3_data_0403 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
     y = VALUE,
@@ -4912,13 +4413,13 @@ figure_1_data_0401 <- quarterly_0401$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0401 <- figure_1_data_0401 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -4952,13 +4453,14 @@ figure_2_data_0401 <- quarterly_0401$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
-  ))), everything())
+  ))), everything()) |>
+  dplyr::mutate(VALUE = round(VALUE, 2))
 
 figure_2_0401 <- figure_2_data_0401 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -4988,25 +4490,21 @@ figure_3_data_0401 <- quarterly_0401$monthly_section |>
   dplyr::summarise(
     `Prescribed items` = sum(`Total Items`),
     `Identified patients` = sum(`Total Identified Patients`),
-    .groups = "drop"
-  ) |>
+    .groups = "drop") |>
   dplyr::mutate(
-    MONTH_INDEX = dplyr::row_number(),
-    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
-    MONTH_NUM = lubridate::month(MONTH_START)
-  ) |>
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d")) |>
   tidyr::pivot_longer(
     cols = c(`Identified patients`, `Prescribed items`),
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0401 <- figure_3_data_0401 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
     y = VALUE,
@@ -5046,13 +4544,13 @@ figure_1_data_0402 <- quarterly_0402$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0402 <- figure_1_data_0402 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -5086,13 +4584,14 @@ figure_2_data_0402 <- quarterly_0402$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
-  ))), everything())
+  ))), everything()) |>
+  dplyr::mutate(VALUE = round(VALUE, 2))
 
 figure_2_0402 <- figure_2_data_0402 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -5125,22 +4624,20 @@ figure_3_data_0402 <- quarterly_0402$monthly_section |>
     .groups = "drop"
   ) |>
   dplyr::mutate(
-    MONTH_INDEX = dplyr::row_number(),
-    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
-    MONTH_NUM = lubridate::month(MONTH_START)
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d")
   ) |>
   tidyr::pivot_longer(
     cols = c(`Identified patients`, `Prescribed items`),
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0402 <- figure_3_data_0402 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
     y = VALUE,
@@ -5180,13 +4677,13 @@ figure_1_data_0404 <- quarterly_0404$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0404 <- figure_1_data_0404 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -5220,13 +4717,14 @@ figure_2_data_0404 <- quarterly_0404$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
-  ))), everything())
+  ))), everything()) |>
+  dplyr::mutate(VALUE = round(VALUE, 2))
 
 figure_2_0404 <- figure_2_data_0404 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -5259,22 +4757,20 @@ figure_3_data_0404 <- quarterly_0404$monthly_section |>
     .groups = "drop"
   ) |>
   dplyr::mutate(
-    MONTH_INDEX = dplyr::row_number(),
-    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
-    MONTH_NUM = lubridate::month(MONTH_START)
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d")
   ) |>
   tidyr::pivot_longer(
     cols = c(`Identified patients`, `Prescribed items`),
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0404 <- figure_3_data_0404 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
     y = VALUE,
@@ -5314,13 +4810,13 @@ figure_1_data_0411 <- quarterly_0411$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_1_0411 <- figure_1_data_0411 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -5354,13 +4850,14 @@ figure_2_data_0411 <- quarterly_0411$national_total |>
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
-  ))), everything())
+  ))), everything()) |>
+  dplyr::mutate(VALUE = round(VALUE, 2))
 
 figure_2_0411 <- figure_2_data_0411 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = FINANCIAL_QUARTER,
     y = VALUE,
@@ -5393,22 +4890,20 @@ figure_3_data_0411 <- quarterly_0411$monthly_section |>
     .groups = "drop"
   ) |>
   dplyr::mutate(
-    MONTH_INDEX = dplyr::row_number(),
-    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d"),
-    MONTH_NUM = lubridate::month(MONTH_START)
+    MONTH_START = as.Date(paste0(`Year Month`, "01"), format = "%Y%m%d")
   ) |>
   tidyr::pivot_longer(
     cols = c(`Identified patients`, `Prescribed items`),
     names_to = "measure",
     values_to = "value"
   ) |>
-  dplyr::mutate(value = signif(value, 3)) |>
   dplyr::arrange(desc(measure)) |>
   rename_with( ~ gsub(" ", "_", toupper(gsub(
     "[^[:alnum:] ]", "", .
   ))), everything())
 
 figure_3_0411 <- figure_3_data_0411 |>
+  dplyr::mutate(VALUE = signif(VALUE, 3)) |>
   nhsbsaVis::group_chart_hc(
     x = MONTHSTART,
     y = VALUE,
@@ -5433,7 +4928,6 @@ figure_3_0411 <- figure_3_data_0411 |>
 # figure 1 antidepressants model data
 figure_1_data_covid <- predictions_0403 |>
   dplyr::filter(YEAR_MONTH > 202002)
-library(highcharter)
 
 figure_1_covid <- figure_1_data_covid |>
   covid_chart_hc(title = "")
@@ -5469,81 +4963,85 @@ figure_5_covid <- figure_5_data_covid |>
 # 7. Render outputs ------------------------------------------------------------
 
 rmarkdown::render(
-  "mumh_quarterly_sep23_overview.Rmd",
+  "mumh_quarterly_dec23_overview.Rmd",
   output_format = "html_document",
-  output_file = "outputs/mumh_quarterly_sep23_overview.html"
+  output_file = "outputs/mumh_quarterly_dec23_overview.html"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_overview.Rmd",
+  "mumh_quarterly_dec23_overview.Rmd",
   output_format = "word_document",
-  output_file = "outputs/mumh_quarterly_sep23_overview.docx"
+  output_file = "outputs/mumh_quarterly_dec23_overview.docx"
 )
 
 rmarkdown::render(
-  "mumh_quarterly_sep23_0403.Rmd",
+  "mumh_quarterly_dec23_0401.Rmd",
   output_format = "html_document",
-  output_file = "outputs/mumh_quarterly_sep23_0403.html"
+  output_file = "outputs/mumh_quarterly_dec23_0401.html"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0403.Rmd",
+  "mumh_quarterly_dec23_0401.Rmd",
   output_format = "word_document",
-  output_file = "outputs/mumh_quarterly_sep23_0403.docx"
+  output_file = "outputs/mumh_quarterly_dec23_0401.docx"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0401.Rmd",
+  "mumh_quarterly_dec23_0402.Rmd",
   output_format = "html_document",
-  output_file = "outputs/mumh_quarterly_sep23_0401.html"
+  output_file = "outputs/mumh_quarterly_dec23_0402.html"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0401.Rmd",
+  "mumh_quarterly_dec23_0402.Rmd",
   output_format = "word_document",
-  output_file = "outputs/mumh_quarterly_sep23_0401.docx"
+  output_file = "outputs/mumh_quarterly_dec23_0402.docx"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0402.Rmd",
+  "mumh_quarterly_dec23_0403.Rmd",
   output_format = "html_document",
-  output_file = "outputs/mumh_quarterly_sep23_0402.html"
+  output_file = "outputs/mumh_quarterly_dec23_0403.html"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0402.Rmd",
+  "mumh_quarterly_dec23_0403.Rmd",
   output_format = "word_document",
-  output_file = "outputs/mumh_quarterly_sep23_0402.docx"
+  output_file = "outputs/mumh_quarterly_dec23_0403.docx"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0404.Rmd",
+  "mumh_quarterly_dec23_0404.Rmd",
   output_format = "html_document",
-  output_file = "outputs/mumh_quarterly_sep23_0404.html"
+  output_file = "outputs/mumh_quarterly_dec23_0404.html"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0404.Rmd",
+  "mumh_quarterly_dec23_0404.Rmd",
   output_format = "word_document",
-  output_file = "outputs/mumh_quarterly_sep23_0404.docx"
+  output_file = "outputs/mumh_quarterly_dec23_0404.docx"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0411.Rmd",
+  "mumh_quarterly_dec23_0411.Rmd",
   output_format = "html_document",
-  output_file = "outputs/mumh_quarterly_sep23_0411.html"
+  output_file = "outputs/mumh_quarterly_dec23_0411.html"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_0411.Rmd",
+  "mumh_quarterly_dec23_0411.Rmd",
   output_format = "word_document",
-  output_file = "outputs/mumh_quarterly_sep23_0411.docx"
+  output_file = "outputs/mumh_quarterly_dec23_0411.docx"
 )
 
 rmarkdown::render(
-  "mumh_quarterly_sep23_covid.Rmd",
+  "mumh_quarterly_dec23_covid.Rmd",
   output_format = "html_document",
-  output_file = "outputs/mumh_quarterly_sep23_model.html"
+  output_file = "outputs/mumh_quarterly_dec23_model.html"
 )
 rmarkdown::render(
-  "mumh_quarterly_sep23_covid.Rmd",
+  "mumh_quarterly_dec23_covid.Rmd",
   output_format = "word_document",
-  output_file = "outputs/mumh_quarterly_sep23_model.docx"
+  output_file = "outputs/mumh_quarterly_dec23_model.docx"
 )
 
-rmarkdown::render("mumh_background_sep23.Rmd",
-                  output_format = "html_document",
-                  output_file = "outputs/mumh_background_sep23.html")
-rmarkdown::render("mumh_background_sep23.Rmd",
-                  output_format = "word_document",
-                  output_file = "outputs/mumh_background_sep23.docx")
+rmarkdown::render(
+  "mumh_background_dec23.Rmd",
+  output_format = "html_document",
+  output_file = "outputs/mumh_background_dec23.html"
+  )
+rmarkdown::render(
+  "mumh_background_dec23.Rmd",
+  output_format = "word_document",
+  output_file = "outputs/mumh_background_dec23.docx"
+  )

@@ -1,16 +1,16 @@
---DROP TABLE    mumh_tdim_202309  PURGE;
-CREATE TABLE  mumh_tdim_202309  COMPRESS FOR QUERY HIGH AS
+--DROP TABLE mumh_tdim_202312  PURGE;
+CREATE TABLE  mumh_tdim_202312  COMPRESS FOR QUERY HIGH AS
 
-WITH  tdim  as  (
+WITH tdim as (
 
 select
   year_month
   ,financial_year
   ,calendar_year
   ,financial_quarter_ext
-  ,financial_year||' Q'||financial_quarter				      as	financial_quarter
-  ,count(year_month)	over(partition by	financial_year)	as	ym_count
-  ,count(year_month)  over(partition by financial_quarter_ext) as  qtr_count
+  ,financial_year||' Q'||financial_quarter as financial_quarter
+  ,count(year_month) over(partition by	financial_year)	as	ym_count
+  ,count(year_month) over(partition by financial_quarter_ext) as  qtr_count
 from
   dim.year_month_dim
 where 1  =  1
@@ -20,8 +20,8 @@ where 1  =  1
 select * from tdim where qtr_count = 3
 ;
 
---DROP TABLE    mumh_drug_dim_202309  PURGE;
-CREATE TABLE  mumh_drug_dim_202309  COMPRESS FOR QUERY HIGH AS
+--DROP TABLE mumh_drug_dim_202312 PURGE;
+CREATE TABLE mumh_drug_dim_202312 COMPRESS FOR QUERY HIGH AS
 
 SELECT
   cdr.year_month
@@ -43,14 +43,14 @@ SELECT
 FROM
   dim.cdr_ep_drug_bnf_dim cdr
 INNER JOIN
-  grali.mumh_tdim_202309  tdim
+  grali.mumh_tdim_202312 tdim
   ON  cdr.year_month  = tdim.year_month
 WHERE 1 = 1
   AND bnf_section in  ('0401', '0402', '0403', '0404', '0411')
 ;
 
-DROP TABLE    mumh_org_dim_202309 PURGE;
-CREATE TABLE  mumh_org_dim_202309 COMPRESS FOR QUERY HIGH AS
+--DROP TABLE mumh_org_dim_202312 PURGE;
+CREATE TABLE mumh_org_dim_202312 COMPRESS FOR QUERY HIGH AS
 
 WITH
 
@@ -75,14 +75,14 @@ max_org AS  (
     year_month
     ,lvl_5_oupdt
     ,lvl_5_ou
-    ,CASE WHEN  lvl_5_ou  < 0 THEN  NULL  
-          ELSE  LAST_VALUE(UPPER(REPLACE(lvl_5_hist_postcode, ' ', '')))  IGNORE NULLS  OVER(PARTITION BY lvl_5_oupdt, lvl_5_ou, lvl_5_ltst_alt_cde ORDER BY  year_month)
+    ,CASE WHEN lvl_5_ou < 0 THEN  NULL  
+          ELSE LAST_VALUE(UPPER(REPLACE(lvl_5_hist_postcode, ' ', ''))) IGNORE NULLS OVER(PARTITION BY lvl_5_oupdt, lvl_5_ou, lvl_5_ltst_alt_cde ORDER BY  year_month)
           END AS  lvl_5_cur_postcode
   FROM
     dim.hs_dy_level_5_flat_dim
   WHERE 1 = 1
-    AND hs_ctry_ou  = 1
-    AND data_added_by_dental  = 'N'
+    AND hs_ctry_ou = 1
+    AND data_added_by_dental = 'N'
     AND lvl_5_oupdt > 0
 )
 
@@ -107,20 +107,20 @@ max_org AS  (
     ,l5.frmttd_lvl_5_ltst_nm
     ,l5.lvl_5_ltst_alt_cde
     ,cur_pcd.lvl_5_cur_postcode
-    ,UPPER(REPLACE(ons.pcd, ' ', ''))         AS  pcd
+    ,UPPER(REPLACE(ons.pcd, ' ', '')) AS  pcd
     ,ons.lsoa11 AS  practice_lsoa_code
---    ,NVL(TO_CHAR(TO_NUMBER(ons.imd_decile)), 'Unknown')	AS	imd_decile
---		,NVL(TO_CHAR(TO_NUMBER(ons.imd_rank)), 'Unknown')	  AS	imd_rank
-    ,TO_NUMBER(ons.imd_decile)	AS	imd_decile_prac
-    ,TO_NUMBER(ons.imd_rank)	  AS	imd_rank_prac
-    ,case 	when	l5.cur_area_ltst_clsd = 'Y' 	or 	l5.cur_area_team_ltst_nm	in	('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS')	then	'UNKNOWN ICB'
-				else 	l5.cur_frmttd_area_team_ltst_nm	end		as	icb_name
-		,case 	when	l5.cur_area_ltst_clsd = 'Y' 	or 	l5.cur_area_team_ltst_nm	in	('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS')	then	'-'
-				else 	l5.cur_area_team_ltst_alt_cde	end		as	icb_code
-		,case 	when	l5.cur_region_ltst_clsd = 'Y' 	or 	l5.cur_region_ltst_nm		in	('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS')	then	'UNKNOWN REGION'
-				else 	l5.cur_frmttd_region_ltst_nm	end		as	region_name
-		,case 	when	l5.cur_region_ltst_clsd = 'Y' 	or 	l5.cur_region_ltst_nm		in	('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS')	then	'-'
-				else 	l5.cur_region_ltst_alt_cde		end		as	region_code
+--  ,NVL(TO_CHAR(TO_NUMBER(ons.imd_decile)), 'Unknown') AS imd_decile
+--	,NVL(TO_CHAR(TO_NUMBER(ons.imd_rank)), 'Unknown') AS imd_rank
+    ,TO_NUMBER(ons.imd_decile) AS imd_decile_prac
+    ,TO_NUMBER(ons.imd_rank) AS	imd_rank_prac
+    ,case when l5.cur_area_ltst_clsd = 'Y' 	or 	l5.cur_area_team_ltst_nm in	('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS') then 'UNKNOWN ICB'
+				else 	l5.cur_frmttd_area_team_ltst_nm	end	as icb_name
+		,case 	when	l5.cur_area_ltst_clsd = 'Y' or l5.cur_area_team_ltst_nm	in ('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS')	then '-'
+				else 	l5.cur_area_team_ltst_alt_cde end as icb_code
+		,case 	when	l5.cur_region_ltst_clsd = 'Y' or l5.cur_region_ltst_nm in ('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS') then 'UNKNOWN REGION'
+				else 	l5.cur_frmttd_region_ltst_nm end as	region_name
+		,case 	when	l5.cur_region_ltst_clsd = 'Y' or l5.cur_region_ltst_nm	in ('ENGLISH/WELSH DUMMY DENTAL','UNIDENTIFIED DEPUTISING SERVICES','UNIDENTIFIED DOCTORS')	then '-'
+				else 	l5.cur_region_ltst_alt_cde	end	as region_code
   FROM
     dim.cur_ep_level_5_flat_dim l5
   INNER JOIN
@@ -128,15 +128,15 @@ max_org AS  (
     ON  l5.lvl_5_oupdt  = cur_pcd.lvl_5_oupdt
     AND l5.lvl_5_ou     = cur_pcd.lvl_5_ou
   LEFT OUTER JOIN
-    grali.ons_nspl_may_23 ons
+    grali.ons_nspl_nov_23 ons
     ON  cur_pcd.lvl_5_cur_postcode  = UPPER(REPLACE(ons.pcd, ' ', ''))
 )
 
-SELECT  * FROM  org
+SELECT * FROM  org
 ;
 
-DROP TABLE    mumh_fact_202309  PURGE;
-CREATE TABLE  mumh_fact_202309  COMPRESS FOR  QUERY HIGH  AS
+DROP TABLE mumh_fact_202312  PURGE;
+CREATE TABLE mumh_fact_202312  COMPRESS FOR  QUERY HIGH  AS
 
 WITH  fact  AS  (
   
@@ -170,7 +170,7 @@ WITH  fact  AS  (
     ,fact.patient_identified
     ,fact.eps_part_date
     --	calculate age of patient using PDS_DOB at 30th Sept of given year
-    ,nvl(trunc((to_number(substr(tdim.financial_year,1,4)||'0930') - to_number(to_char(fact.pds_dob,'YYYYMMDD')))/10000),-1)	AS	calc_age
+    ,nvl(trunc((to_number(substr(tdim.financial_year,1,4)||'0930') - to_number(to_char(fact.pds_dob,'YYYYMMDD')))/10000),-1) AS	calc_age
     ,fact.pds_gender
     ,CASE WHEN  fact.pds_gender = 1 THEN  'Male'
           WHEN  fact.pds_gender = 2 THEN  'Female'
@@ -182,14 +182,14 @@ WITH  fact  AS  (
   FROM
     aml.px_form_item_elem_comb_fact_av  fact
   INNER JOIN
-    mumh_tdim_202309  tdim
+    mumh_tdim_202312  tdim
     ON  fact.year_month = tdim.year_month
   INNER JOIN
-    mumh_org_dim_202309 org
+    mumh_org_dim_202312 org
     ON  fact.presc_type_prnt =  org.lvl_5_oupdt
     AND fact.presc_id_prnt   =  org.lvl_5_ou
   INNER JOIN
-    mumh_drug_dim_202309  drug
+    mumh_drug_dim_202312  drug
     ON  fact.calc_prec_drug_record_id = drug.record_id
     AND fact.year_month               = drug.year_month
   WHERE 1 = 1

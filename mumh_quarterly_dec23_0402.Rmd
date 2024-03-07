@@ -55,11 +55,11 @@ Published `r config$publication_date`
 
 ## Summary
 
-Between July and September 2023:
+Between October and December 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>3.4 million antipsychotic items were prescribed to an estimated 650,000 identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>There were 3.4 million antipsychotic items prescribed to an estimated 660,000 identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-6}
 `r infoBox_no_border("", text = "<b>The cost of prescribed antipsychotic items was £39 million.</b>", width = "100%")`
@@ -99,13 +99,13 @@ figure_1_0402
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>3.4 million antipsychotic items prescribed in Q2 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>3.4 million antipsychotic items prescribed in Q3 2023/24. </b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>650,000 identified patients received an antipsychotic item in Q2 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>660,000 identified patients received an antipsychotic item in Q3 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Antipsychotics continue to show an upwards trend for items and identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Antipsychotics items and identified patients both show a continuing upwards trend.</b>", width = "100%")`
 :::
 ::::
 
@@ -121,10 +121,10 @@ figure_2_0402
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed antipsychotic items was £39 million in Q2 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed antipsychotic items in Q3 2023/24 was £39 million.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Since the previous quarter, the cost of antipsychotic prescribing has decreased by 4.3%.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of antipsychotic prescribing has decreased by 0.9% since the previous quarter.</b>", width = "100%")`
 :::
 ::::
 
@@ -138,10 +138,10 @@ figure_3_0402
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>An average of 500,000 patients per month received prescribing for antipsychotic over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Over the 12 months to December, an average of 501,000 patients per month received prescribing for antipsychotic items.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Antipsychotic items increased by 1.4% over the last 12 months, compared to the previous 12 month period.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The total antipsychotic items increased by 1.5% in the 12 months to December, compared to the previous 12 month period.</b>", width = "100%")`
 :::
 ::::
 

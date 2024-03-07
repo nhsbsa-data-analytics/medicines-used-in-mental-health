@@ -54,14 +54,14 @@ Published `r config$publication_date`
 
 ## Summary
 
-Between July and September 2023:
+Between October and December 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items were prescribed to an estimated 1.0 million identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>There were 3.4 million hypnotics and anxiolytics items prescribed to an estimated 1 million identified patients.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £28 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £27 million.</b>", width = "100%")`
 :::
 ::::
 
@@ -70,7 +70,7 @@ Between July and September 2023:
 
 ## 1. Things you should know
 
-`r infobox_border(" ", text = "Hypnotics are used to treat insomnia - a difficulty getting to sleep or staying asleep long enough to feel refreshed. Most hypnotics will sedate if given during the day. Anxiolytics are used in the treatment of anxiety states and if given at night will help to induce sleep. The drugs classified as hypnotics and anxiolytics are described in the BNF 68 section 4.1:
+`r infoBox_border(" ", text = "Hypnotics are used to treat insomnia - a difficulty getting to sleep or staying asleep long enough to feel refreshed. Most hypnotics will sedate if given during the day. Anxiolytics are used in the treatment of anxiety states and if given at night will help to induce sleep. The drugs classified as hypnotics and anxiolytics are described in the BNF 68 section 4.1:
 
 * BNF paragraph 4.1.1 - Hypnotics
 * BNF paragraph 4.1.2 - Anxiolytics
@@ -80,7 +80,7 @@ Between July and September 2023:
 
 Hypnotics and anxiolytics are used to treat insomnia and anxiety respectively.
 
-Insomnia is difficulty getting to sleep or staying asleep for long enough to feel refreshed in the morning, despite there being enough opportunity to sleep. The most common problem with insomnia is difficult falling asleep (sleep-onset insomnia). An insomniac may also experience:
+Insomnia is difficulty getting to sleep or staying asleep for long enough to feel refreshed in the morning, despite there being enough opportunity to sleep. Difficulty falling asleep is the most common problem with insomnia and is also known as sleep-onset insomnia. An insomniac may also experience:
 
 * waking in the night
 * not feeling refreshed after sleep and not being able to function normally during the day
@@ -107,13 +107,13 @@ figure_1_0401
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items prescribed in Q2 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>3.4 million hypnotics and anxiolytics items prescribed in Q3 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>1.0 million identified patients received a hypnotics and anxiolytic item in Q2 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>1 million identified patients received a hypnotics and anxiolytics item in Q3 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Hypnotics and anxiolytics items and identified patients increased compared to the previous quarter, though the long term trend is downwards.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>While hypnotics and anxiolytics items and identified patients show a long-term downwards trend, items increased in Q3 2023/24.</b>", width = "100%")`
 :::
 ::::
 
@@ -125,14 +125,14 @@ figure_1_0401
 figure_2_0401
   
 ```
-`r get_download_button(title = "Download chart data", data = figure_1_data_0401, filename = "figure_1_0401")`
+`r get_download_button(title = "Download chart data", data = figure_2_data_0401, filename = "figure_2_0401")`
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £28 million in Q2 2023/24.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of prescribed hypnotics and anxiolytics items was £27 million in Q3 2023/24.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>The cost of hypnotics and anxiolytics prescribing fell for the second quarter in a row, after a previous upward trend.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of hypnotics and anxiolytics prescribing decreased by 5% compared to the previous quarter.</b>", width = "100%")`
 :::
 ::::
 
@@ -146,10 +146,10 @@ figure_3_0401
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>An average of 670,000 patients per month received prescribing for hypnotics and anxiolytics over the last 12 months.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Over the 12 months to December, an average of 670,000 identified patients per month received a hypnotics and anxiolytics item.</b>", width = "100%")`
 :::
 :::{.col-md-6}
-`r infoBox_no_border("", text = "<b>Hypnotics and anxiolytics items decreased by 2.2% over the last 12 months, compared to the previous 12 month period.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>Hypnotics and anxiolytics items decreased by 1.6% in the 12 months to December, compared to the previous 12 month period.</b>", width = "100%")`
 :::
 ::::
 

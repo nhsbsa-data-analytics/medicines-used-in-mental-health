@@ -52,35 +52,35 @@ knitr::opts_chunk$set(echo = FALSE,
 
 Published `r config$publication_date` 
 
-`r infoBox_border(header = "Changes to these statistics", text = paste0("For this release, we've added new measures to the summary tables for each BNF section. These include the items per identified patient by month and chemical substance and Net Ingredient Cost (NIC) per identified patient by month and chemical substance. The number of identified patients per 1,000 population by age band and gender has also been added.  We're interested in any feedback about the publication or these changes, which you can send by using our ", htmltools::HTML("<a href='https://online1.snapsurveys.com/Official_Statistics_Feedback'>Official Statistics feedback survey</a>"),"."), width = "100%")`
+`r infoBox_border("Changes to these statistics", text = "For this release, we've updated the National Statistics Postcode Lookup (NSPL) we use to a newer edition. You can find more details in Section 4: 'About these statistics'.  We're interested in any feedback about the publication or these changes, which you can send by using our [Official Statistics feedback survey](https://online1.snapsurveys.com/Official_Statistics_Feedback).", width = "100%")`
 
 ## Key findings
 
-Between July and September 2023:
+Between October and December 2023:
 
 ::::{.row style="display: flex; padding-bottom: 15px;"}
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>22 million antidepressant items were prescribed to an estimated 6.8 million identified patients.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>23 million antidepressant items were prescribed to an estimated 6.8 million patients.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>The cost of prescribed antidepressant items fell to £56 million.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of antidepressant items decreased by £1.5 million, from £56 million to £54 million.</b>", width = "100%")`
 :::
 :::{.col-md-4}
-`r infoBox_no_border("", text = "<b>Prescribing of CNS stimulants and drugs for ADHD items remained above the range of expected values based on pre-pandemic trends.</b>", width = "100%")`
+`r infoBox_no_border("", text = "<b>The cost of drugs for dementia items increased by 11%, while the number of items increased by 3.2%.</b>", width = "100%")`
 :::
 ::::
 
-There were 22 million antidepressants prescribed to an estimated 6.8 million identified patients. This was a small increase in items and identified patients compared to the previous quarter, at 1.5% for items and less than one percentage point for patients.
+There were 23 million antidepressant items prescribed to an estimated 6.8 million identified patients. Compared to the previous quarter, this was a small increase of 1.6% for items and a less than one percentage point increase in identified patients.
 
-Over the same period, prescribing of hypnotics and anxiolytics items increased by 1% to 3.4 million and identified patients increased by 1.4% to 1 million.
+Prescribing of hypnotics and anxiolytics items increased by less than one percentage point to 3.4 million. Identified patients decreased by less than one percentage point to 1 million.
 
-Drugs used in psychoses and related disorders also saw 3.4 million items prescribed, a 1.3% increase. There was an increase of less than 1% for identified patients, to 650,000.
+For drugs used in psychoses and related disorders, the number of items prescribed was also 3.4 million, a 1.3% increase. Identified patients increased by 1% to 660,000.
 
-Prescribing of CNS stimulants and drugs for ADHD items also increased by less than one percentage point, to 720,000 items. Identified patients increased by 2.6% to 210,000 patients. 
+The number of CNS stimulants and drugs for ADHD items increased by 1.6% to 730,000. There were 210,000 identified patients, an increase of 1.1%.
 
-The number of drugs for dementia items prescribed increased by 3.1% to 1.1 million. This was the largest percentage increase in items out of the drug groups in this publication. Identified patients increased by 2.3%. 
+Drugs for dementia items increased by 3.2% to 1.1 million, the largest percentage increase in items of the drug groups in this publication. Identified patients increased by 2.5% to 260,000.
 
-Total Net ingredient Cost (NIC) decreased for antidepressants, hypnotics and anxiolytics, and antipsychotics, despite increases in identified patients and items in these drug groups. The total NIC increased for CNS stimulants and drugs for ADHD, and drugs for dementia. Antidepressants had the largest change in total NIC of the drug groups in this publication, with a 6.8% decrease.
+Drugs for dementia had the largest change in costs out of the drug groups in this publication, increasing by 11%. CNS stimulants and drugs for ADHD also saw an increase in cost, though this was smaller at less than one percentage point. Costs continued to decrease for antidepressants, hypnotics and anxiolytics, and antipsychotics. This was in contrast to increases in items and identified patients in these three groups. 
 
 
 ---
@@ -100,17 +100,17 @@ Medicines are not the only way to treat mental health conditions, and this publi
 
 ### 1.2. Definitions {.toc-ignore}
 
-`r infobox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
+`r infoBox_border("Item", text = "A single unit of medication listed separately on a prescription form. In this publication, an example of an item would be Fluoxetine 20mg tables x56.", width = "100%")`
 
 `r infoBox_border("Patient", text = "A unique NHS number verified from a prescription form. Verification of an NHS number for patient identification is done by the NHS Personal Demographics Service (PDS).", width = "100%")`
 
-`r infoBox_border("NIC", text = "The Net Ingredient Cost (NIC) is the basic price of the medication and the quantity prescribed. It does not include other fees incurred by dispensing contractors, such as controlled drug fees or the single activity fee. The basic price is determined by the [Drug Tariff](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/drug-tariff) or by the manufacturer, wholesaler, or supplier of the product.", width = "100%")`
+`r infoBox_border("NIC", text = "The Net Ingredient Cost (NIC) is the basic price of the medication and the quantity prescribed. It does not include other fees incurred by dispensing contractors, such as controlled drug fees or the single activity fee. The basic price is determined by the [Drug Tariff](https://www.nhsbsa.nhs.uk/pharmacies-gp-practices-and-appliance-contractors/drug-tariff) or by the manufacturer, wholesaler, or supplier of the product. Where this publication refers to 'cost' this is the NIC unless otherwise stated.", width = "100%")`
 
 `r infoBox_border("Classification", text = "This publication uses the British National Formulary (BNF), which lists medicines used in the UK and classifies them according to their primary therapeutic use. Medication may also be prescribed for other purposes beyond their intended use. For example, certain antidepressants may be recommended to individuals experiencing chronic pain. The NHSBSA does not capture the clinical indication of a prescription during processing.", width = "100%")`
 
 ### 1.3. Time periods {.toc-ignore}
 
-The data in this publication covers the period from April 2018 to September 2023. Q1, Q2, Q3, and Q4 refer to different periods within a financial year. 
+The data in this publication covers the period from April 2018 to December 2023. Q1, Q2, Q3, and Q4 refer to different periods within a financial year. 
 
 These statistics cover the period of the coronavirus (COVID-19) pandemic. A detailed [timeline](https://commonslibrary.parliament.uk/research-briefings/cbp-9068/) of events and restrictions in the UK during this time can be found on the UK parliament website. The impact of COVID-19 should be considered when comparing across time periods 
 
@@ -134,7 +134,7 @@ table_1
 
 ## 2. Results
 
-A summary exploring the volumes and costs for each BNF section in this publication is available, along with a summary exploring the impacts of the COVID-19 pandemic on the use of these medicines.:
+A summary exploring the volumes and costs for each BNF section in this publication is available, along with a summary exploring the impacts of the COVID-19 pandemic on the use of these medicines:
 
 * BNF Section 4.3 - [Antidepressant drugs](`r config$html_0403_link`)
 * BNF Section 4.1 - [Hypnotics and anxiolytics](`r config$html_0401_link`)
@@ -163,7 +163,7 @@ You can find more information about [depression](https://www.nhs.uk/conditions/c
 
 Hypnotics and anxiolytics are used to treat insomnia and anxiety respectively.
 
-Insomnia is difficulty getting to sleep or staying asleep for long enough to feel refreshed in the morning, despite there being enough opportunity to sleep. The most common problem with insomnia is difficult falling asleep (sleep-onset insomnia). An insomniac may also experience:
+Insomnia is difficulty getting to sleep or staying asleep for long enough to feel refreshed in the morning, despite there being enough opportunity to sleep. Difficulty falling asleep is the most common problem with insomnia and is also known as sleep-onset insomnia. An insomniac may also experience:
 
 * waking in the night
 * not feeling refreshed after sleep and not being able to function normally during the day
@@ -199,13 +199,13 @@ Dementia is a disease that leads to progressive loss of brain function typified 
 * Alcohol-related dementia
 * HIV/AIDS related dementia
 
-Dementia mainly affects older people but can also occur in people as young as thirty due to either alcohol abuse or HIV/AIDS. No cure for dementia currently exists. However, drugs may slow the rate of decline or in some patients make a small improvement in symptoms. Despite this, disease progression is inevitable.
+Dementia mainly affects older people but can also occur in people as young as 30 due to either alcohol abuse or HIV/AIDS. No cure for dementia currently exists. However, drugs may slow the rate of decline or in some patients make a small improvement in symptoms. Despite this, disease progression is inevitable.
 
 You can find more information about the [various types of dementia](https://www.nhs.uk/conditions/dementia/) on the NHS website.
 
 ### 3.6. Related statistics and resources {.toc-ignore}
 
-Prescribing of medications in primary care is only part of the big picture for mental health care in England. The [NHS England mental health data hub](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/mental-health-data-hub) has links to statistics on a range of related topics which may provide further context. These include a mental health bulletin, reports on children and young people's mental health surveys, dementia assessment and referral statistics, and more.
+Prescribing of medicines in primary care is only part of the bigger picture for mental health care in England. The [NHS England mental health data hub](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/mental-health-data-hub) has links to statistics on a range of related topics which may provide further context. These include a mental health bulletin, reports on children and young people's mental health surveys, dementia assessment and referral statistics, and more.
 
 ---
 
@@ -215,11 +215,9 @@ This publication is part of a series by the NHSBSA, which can be found on our [M
 
 ### 4.1. Changes to this publication {.toc-ignore}
 
-For this release, we have added the following measures to the summary tables for each BNF section:
+For this release we have changed which edition of the National Statistics Postcode Lookup (NSPL) we use, from the May 2023 NSPL to the November 2023 NSPL. We use the NSPL to assign identified patients to an Index of Multiple Deprivation (IMD) quintile based on their postcode, or the prescribing practice's postcode if the patient postcode is unknown. As postcodes may be recorded against different areas between NSPL editions, identified patients may move between IMD quintiles if they live in an affected postcode. 
 
-* the number of identified patients per 1,000 population, by age band and gender
-* the average (mean) number of items per identified patient, by month and chemical substance
-* the average (mean) Net Ingredient Cost (NIC) per identified patient, by month and chemical substance
+These changes are in addition to the changes that can result if a patient or practice moves to a new postcode between releases. You can find more information on how we use postcodes to assign identified patients to an IMD quintile in the [background and methodology document](`r config$background_link`). The movement between quintiles in this release due to using the November 2023 NSPL has been proportionally small and does not affect the conclusions from the previous release. You should always use the data from the most recent release in our publication series. 
 
 ### 4.2 Statistical Disclosure Control (SDC) {.toc-ignore}
 
@@ -231,7 +229,7 @@ The high-level figures in this statistical summary have been rounded where appro
 
 ### 4.4. Trends during COVID-19 {.toc-ignore}
 
-The number of items for each BNF section in the 43-month period March 2020 to September 2023 were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to September 2023. These figures were extrapolated according to:
+The number of items for each BNF section in the 46-month period March 2020 to December 2023 were compared to the number of items expected to be prescribed based on trends from the 'pre-COVID-19' period. The monthly data for April 2015 to February 2020 was used to extrapolate expected figures for March 2020 to December 2023. These figures were extrapolated according to:
 
 * the trends between April 2015 and February 2020
 * the number of dispensing days that occur in each month
@@ -244,11 +242,6 @@ This model states expected figures if trends had continued as before but doesn't
 *	external environmental factors that could drive prescribing
 *	any (and all) policy initiatives and guidance
 *	other local priorities and resources
-
-
-### 4.5. Planned changes to this publication {.toc-ignore}
-
-This is an experimental official statistic release. Experimental statistics are newly developed or innovative statistics. These are published so that users and stakeholders can be involved in the assessment of their suitability and quality at an early stage. We will regularly be reviewing the methodology used within the statistics.
 
 ---
 
